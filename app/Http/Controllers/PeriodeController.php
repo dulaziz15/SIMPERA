@@ -54,7 +54,7 @@ class PeriodeController extends Controller
     }
 
     public function update($id_periode, PeriodeRequest $request) {
-        
+
         if ($request->ajax() || $request->wantsJson()) {
             $periode = $this->periodeServiceInterface->update($id_periode,$request);
             if($periode) {
@@ -67,6 +67,32 @@ class PeriodeController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Data Gagal Diupdate.',
+                    'redirect' => url('/periode')
+                ]);
+            }
+        }
+
+        return redirect('/periode');
+    }
+
+    public function confirm($id_periode) {
+        $periode = $this->periodeServiceInterface->show($id_periode);
+        return view('periode.confirm', compact('periode'));
+    }
+
+    public function delete($id_periode, Request $request) {
+        if ($request->ajax() || $request->wantsJson()) {
+            $periode = $this->periodeServiceInterface->delete($id_periode);
+            if($periode) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil Dihapus.',
+                    'redirect' => url('/periode')
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data Gagal Dihapus.',
                     'redirect' => url('/periode')
                 ]);
             }

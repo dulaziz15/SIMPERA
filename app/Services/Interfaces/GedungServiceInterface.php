@@ -2,14 +2,13 @@
 
 namespace App\Services\Interfaces;
 
+use App\Http\Requests\GedungRequest;
 use App\Http\Requests\PeriodeRequest;
 use Illuminate\Support\Facades\Request;
 
-interface PeriodeServiceInterface {
+interface GedungServiceInterface {
     public function show($id);
-    public function storePeriode(PeriodeRequest $request);
-    public function edit($id);
-
-    public function update($id, PeriodeRequest $request);
+    public function storeGedung(GedungRequest $requeat);
+    public function edit($id, GedungRequest $request);
     public function delete($id);
 }
