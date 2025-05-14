@@ -122,4 +122,39 @@ class PeriodeControllerTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['nama', 'tanggal_mulai', 'tanggal_selesai']);
     }
+
+    /** @test */
+    public function user_dapat_melihat_halaman_confirm()
+    {
+        $user = User::factory()->create();
+        $periode = PeriodeModel::factory()->create();
+
+        $response = $this->actingAs($user)->get("/periode/{$periode->id_periode}/confirm");
+
+        $response->assertStatus(200)
+            ->assertViewIs('periode.confirm')
+            ->assertViewHas('periode');
+    }
+
+    /** @test */
+    public function user_dapat_delete_periode()
+    {
+        $user = User::factory()->create();
+        $periode = PeriodeModel::factory()->create([
+            'nama' => 'Periode Genap 2025'
+        ]);
+
+        $response = $this->actingAs($user)->deleteJson("/periode/{$periode->id_periode}/delete");
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'status' => true,
+                'message' => 'Data berhasil Dihapus.',
+                'redirect' => url('/periode')
+            ]);
+
+        $this->assertDatabaseMissing('periode', [
+            'id_periode' => $periode->id_periode
+        ]);
+    }
 }
