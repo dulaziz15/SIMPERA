@@ -22,4 +22,7 @@ Route::prefix('periode')->group(function () {
     Route::get('/', [PeriodeController::class, 'index']);
     Route::get('/create', [PeriodeController::class, 'create']);
     Route::post('/store', [PeriodeController::class, 'storePeriode']);
+    Route::get('/{id}/show', [PeriodeController::class, 'show']);
+    Route::get('/{id}/edit', [PeriodeController::class, 'edit']);
+    Route::put('/{id}/update', [PeriodeController::class, 'update']);
 });
