@@ -3,8 +3,6 @@
 namespace App\Services\Interfaces;
 
 use App\Http\Requests\GedungRequest;
-use App\Http\Requests\PeriodeRequest;
-use Illuminate\Support\Facades\Request;
 
 interface GedungServiceInterface {
     public function show($id);

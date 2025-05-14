@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GedungController;
+use App\Http\Controllers\KategoriFasilitasController;
 use App\Http\Controllers\PeriodeController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,4 +40,15 @@ Route::prefix('gedung')->group(function () {
     Route::put('/{id}/update', [GedungController::class, 'update']);
     Route::get('/{id}/confirm', [GedungController::class, 'confirm']);
     Route::delete('/{id}/delete', [GedungController::class, 'delete']);
+});
+
+Route::prefix('kategori')->group(function () {
+    Route::get('/', [KategoriFasilitasController::class, 'index']);
+    Route::get('/create', [KategoriFasilitasController::class, 'create']);
+    Route::post('/store', [KategoriFasilitasController::class, 'storeKategori']);
+    Route::get('/{id}/show', [KategoriFasilitasController::class, 'show']);
+    Route::get('/{id}/edit', [KategoriFasilitasController::class, 'edit']);
+    Route::put('/{id}/update', [KategoriFasilitasController::class, 'update']);
+    Route::get('/{id}/confirm', [KategoriFasilitasController::class, 'confirm']);
+    Route::delete('/{id}/delete', [KategoriFasilitasController::class, 'delete']);
 });
