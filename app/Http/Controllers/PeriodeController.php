@@ -29,13 +29,44 @@ class PeriodeController extends Controller
             if($periode) {
                 return response()->json([
                     'status' => true,
-                    'message' => 'Gambar berhasil diupdate.',
+                    'message' => 'Data berhasil disimpan.',
                     'redirect' => url('/periode')
                 ]);
             } else {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Data tidak ditemukan.',
+                    'message' => 'Data Gagal Disimpan.',
+                    'redirect' => url('/periode')
+                ]);
+            }
+        }
+
+        return redirect('/periode');
+    }
+
+    public function show($id_periode) {
+        return $this->periodeServiceInterface->show($id_periode);
+    }
+
+    public function edit($id_periode) {
+        $periode = $this->periodeServiceInterface->edit($id_periode);
+        return view('periode.edit', compact('periode'));
+    }
+
+    public function update($id_periode, PeriodeRequest $request) {
+        
+        if ($request->ajax() || $request->wantsJson()) {
+            $periode = $this->periodeServiceInterface->update($id_periode,$request);
+            if($periode) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil Diupdate.',
+                    'redirect' => url('/periode')
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data Gagal Diupdate.',
                     'redirect' => url('/periode')
                 ]);
             }

@@ -11,6 +11,19 @@ class PeriodeRepository implements PeriodeRepositoryInterface {
     public function create(array $data){
         return PeriodeModel::create($data) ? true : false;
     }
-    public function show($id){}
-    public function storePeriode(PeriodeRequest $request){}
+    public function show($id){
+        return PeriodeModel::find($id);
+    }
+    public function storePeriode(PeriodeRequest $request){
+
+    }
+
+    public function edit($id) {
+        return PeriodeModel::find($id);
+    }
+
+    public function update($id, $data) {
+        $periode = PeriodeModel::findOrFail($id);
+        return $periode->update($data) ? true : false;
+    }
 }

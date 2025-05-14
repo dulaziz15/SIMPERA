@@ -9,4 +9,6 @@ interface PeriodeRepositoryInterface {
     public function create(array $data);
     public function show($id);
     public function storePeriode(PeriodeRequest $request);
+    public function edit($id);
+    public function update($id, array $data);
 }
