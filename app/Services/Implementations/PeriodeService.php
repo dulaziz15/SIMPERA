@@ -5,6 +5,7 @@ namespace App\Services\Implementations;
 use App\Http\Requests\PeriodeRequest;
 use App\Repositories\Interfaces\PeriodeRepositoryInterface;
 use App\Services\Interfaces\PeriodeServiceInterface;
+use Illuminate\Support\Facades\Request;
 
 class PeriodeService implements PeriodeServiceInterface {
 
@@ -12,10 +13,6 @@ class PeriodeService implements PeriodeServiceInterface {
 
     public function __construct(PeriodeRepositoryInterface $periodeRepository) {
         $this->periodeRepository = $periodeRepository;
-    }
-
-    public function create(PeriodeRequest $request){
-
     }
     public function show($id){
         return $this->periodeRepository->show($id);
@@ -31,12 +28,16 @@ class PeriodeService implements PeriodeServiceInterface {
     public function edit($id) {
         return $this->periodeRepository->edit($id);
     }
-    
+
     public function update($id, PeriodeRequest $request) {
         return $this->periodeRepository->update($id, [
             'nama' => $request->nama,
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_selesai' => $request->tanggal_selesai
         ]);
+    }
+
+    public function delete($id){
+        return $this->periodeRepository->delete($id);
     }
 }

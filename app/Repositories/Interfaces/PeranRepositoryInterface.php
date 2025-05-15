@@ -2,12 +2,9 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\Http\Requests\PeriodeRequest;
-
-interface PeriodeRepositoryInterface {
+interface PeranRepositoryInterface {
+    public function getById($id);
     public function create(array $data);
-    public function show($id);
-    public function edit($id);
     public function update($id, array $data);
     public function delete($id);
 }
