@@ -18,6 +18,7 @@ class PeranControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_index()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/peran');
 
@@ -28,6 +29,7 @@ class PeranControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_create()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/peran/create');
 
@@ -38,10 +40,11 @@ class PeranControllerTest extends TestCase
     /** @test */
     public function user_dapat_menyimpan_peran_baru()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
 
         $data = [
-            'kode' => 'ADM',
+            'kode_peran' => 'ADM',
             'nama' => 'Admin'
         ];
 
@@ -54,23 +57,25 @@ class PeranControllerTest extends TestCase
                 'redirect' => url('/peran')
             ]);
 
-        $this->assertDatabaseHas('peran', $data);
+        $this->assertDatabaseHas('m_peran', $data);
     }
 
     /** @test */
     public function validasi_store_gagal_jika_field_kosong()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->postJson('/peran/store', []);
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['kode', 'nama']);
+            ->assertJsonValidationErrors(['kode_peran', 'nama']);
     }
 
     /** @test */
     public function user_dapat_melihat_detail_peran()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $peran = PeranModel::factory()->create();
 
@@ -82,6 +87,7 @@ class PeranControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_edit()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $peran = PeranModel::factory()->create();
 
@@ -95,11 +101,12 @@ class PeranControllerTest extends TestCase
     /** @test */
     public function user_dapat_update_peran()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $peran = PeranModel::factory()->create();
 
         $data = [
-            'kode' => 'ADM',
+            'kode_peran' => 'ADM',
             'nama' => 'Admin'
         ];
 
@@ -107,7 +114,7 @@ class PeranControllerTest extends TestCase
 
         $response->assertStatus(200);
 
-        $this->assertDatabaseHas('peran', [
+        $this->assertDatabaseHas('m_peran', [
             'id_peran' => $peran->id_peran,
             'nama' => 'Admin'
         ]);
@@ -116,18 +123,20 @@ class PeranControllerTest extends TestCase
     /** @test */
     public function validasi_update_gagal_jika_field_kosong()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $peran = PeranModel::factory()->create();
 
         $response = $this->actingAs(user: $user)->putJson("/peran/{$peran->id_peran}/update", []);
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['kode', 'nama']);
+            ->assertJsonValidationErrors(['kode_peran', 'nama']);
     }
 
     /** @test */
     public function user_dapat_melihat_halaman_confirm()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $peran = PeranModel::factory()->create();
 
@@ -141,6 +150,7 @@ class PeranControllerTest extends TestCase
     /** @test */
     public function user_dapat_delete_peran()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $peran = PeranModel::factory()->create([
             'nama' => 'Penunjang'

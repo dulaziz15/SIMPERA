@@ -20,14 +20,14 @@ class PeranService implements PeranServiceInterface {
 
     public function storePeran(PeranRequest $request) {
         return $this->peranRepository->create([
-            'kode' => $request->kode,
+            'kode_peran' => $request->kode_peran,
             'nama' => $request->nama
         ]);
     }
 
     public function edit($id, PeranRequest $request) {
         return $this->peranRepository->update($id, [
-            'kode' => $request->kode,
+            'kode_peran' => $request->kode_peran,
             'nama' => $request->nama
         ]);
     }
