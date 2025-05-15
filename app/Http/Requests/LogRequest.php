@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PeranRequest extends FormRequest
+class LogRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,10 @@ class PeranRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kode_peran' => 'required',
-            'nama' => 'required'
+            'id_pengguna' => 'required',
+            'jenis_aktivitas' => 'required',
+            'deskripsi' => 'required',
+            'waktu' => 'required'
         ];
     }
 }

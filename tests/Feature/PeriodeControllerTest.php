@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\PeranModel;
 use App\Models\User;
 use App\Models\PeriodeModel;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -14,6 +15,7 @@ class PeriodeControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_index()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/periode');
 
@@ -24,6 +26,7 @@ class PeriodeControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_create()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/periode/create');
 
@@ -34,6 +37,7 @@ class PeriodeControllerTest extends TestCase
     /** @test */
     public function user_dapat_menyimpan_periode_baru()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
 
         $data = [
@@ -57,6 +61,7 @@ class PeriodeControllerTest extends TestCase
     /** @test */
     public function validasi_store_gagal_jika_field_kosong()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->postJson('/periode/store', []);
@@ -68,6 +73,7 @@ class PeriodeControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_detail_periode()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $periode = PeriodeModel::factory()->create();
 
@@ -79,6 +85,7 @@ class PeriodeControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_edit()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $periode = PeriodeModel::factory()->create();
 
@@ -92,6 +99,7 @@ class PeriodeControllerTest extends TestCase
     /** @test */
     public function user_dapat_update_periode()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $periode = PeriodeModel::factory()->create();
 
@@ -114,6 +122,7 @@ class PeriodeControllerTest extends TestCase
     /** @test */
     public function validasi_update_gagal_jika_field_kosong()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $periode = PeriodeModel::factory()->create();
 
@@ -126,6 +135,7 @@ class PeriodeControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_confirm()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $periode = PeriodeModel::factory()->create();
 
@@ -139,6 +149,7 @@ class PeriodeControllerTest extends TestCase
     /** @test */
     public function user_dapat_delete_periode()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $periode = PeriodeModel::factory()->create([
             'nama' => 'Periode Genap 2025'

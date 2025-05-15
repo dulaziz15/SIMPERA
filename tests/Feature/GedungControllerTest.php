@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\GedungModel;
+use App\Models\PeranModel;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -18,6 +19,7 @@ class GedungControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_index()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/gedung');
 
@@ -28,6 +30,7 @@ class GedungControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_create()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/gedung/create');
 
@@ -38,6 +41,7 @@ class GedungControllerTest extends TestCase
     /** @test */
     public function user_dapat_menyimpan_gedung_baru()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
 
         $data = [
@@ -55,12 +59,13 @@ class GedungControllerTest extends TestCase
                 'redirect' => url('/gedung')
             ]);
 
-        $this->assertDatabaseHas('gedung', $data);
+        $this->assertDatabaseHas('m_gedung', $data);
     }
 
     /** @test */
     public function validasi_store_gagal_jika_field_kosong()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->postJson('/gedung/store', []);
@@ -72,6 +77,7 @@ class GedungControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_detail_gedung()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $gedung = GedungModel::factory()->create();
 
@@ -83,6 +89,7 @@ class GedungControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_edit()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $gedung = GedungModel::factory()->create();
 
@@ -96,6 +103,7 @@ class GedungControllerTest extends TestCase
     /** @test */
     public function user_dapat_update_gedung()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $gedung = GedungModel::factory()->create();
 
@@ -109,7 +117,7 @@ class GedungControllerTest extends TestCase
 
         $response->assertStatus(200);
 
-        $this->assertDatabaseHas('gedung', [
+        $this->assertDatabaseHas('m_gedung', [
             'id_gedung' => $gedung->id_gedung,
             'nama' => 'gedung AX'
         ]);
@@ -118,6 +126,7 @@ class GedungControllerTest extends TestCase
     /** @test */
     public function validasi_update_gagal_jika_field_kosong()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $gedung = GedungModel::factory()->create();
 
@@ -130,6 +139,7 @@ class GedungControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_confirm()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $gedung = GedungModel::factory()->create();
 
@@ -143,6 +153,7 @@ class GedungControllerTest extends TestCase
     /** @test */
     public function user_dapat_delete_gedung()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $gedung = GedungModel::factory()->create([
             'nama' => 'gedung Genap 2025'

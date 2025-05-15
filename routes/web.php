@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\KategoriFasilitasController;
+use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\PeranController;
 use App\Http\Controllers\PeriodeController;
 use Illuminate\Support\Facades\Route;
@@ -63,4 +64,10 @@ Route::prefix('peran')->group(function () {
     Route::put('/{id}/update', [PeranController::class, 'update']);
     Route::get('/{id}/confirm', [PeranController::class, 'confirm']);
     Route::delete('/{id}/delete', [PeranController::class, 'delete']);
+});
+
+Route::prefix('log')->group(function () {
+    Route::get('/', [LogActivityController::class, 'index']);
+    Route::post('/store', [LogActivityController::class, 'storeLog']);
+    Route::get('/{id}/show', [LogActivityController::class, 'show']);
 });

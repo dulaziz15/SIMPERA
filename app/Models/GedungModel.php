@@ -9,7 +9,7 @@ class GedungModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'gedung';
+    protected $table = 'm_gedung';
 
     protected $primaryKey = 'id_gedung';
 

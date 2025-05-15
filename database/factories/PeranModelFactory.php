@@ -19,7 +19,7 @@ class PeranModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'kode' =>  $this->faker->word(),
+            'kode_peran' =>  strtoupper($this->faker->lexify('???')),
             'nama' => $this->faker->word()
         ];
     }

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\KategoriFasilitasModel;
+use App\Models\PeranModel;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -18,6 +19,7 @@ class KategoriControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_index()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/kategori');
 
@@ -28,6 +30,7 @@ class KategoriControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_create()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/kategori/create');
 
@@ -38,6 +41,7 @@ class KategoriControllerTest extends TestCase
     /** @test */
     public function user_dapat_menyimpan_kategori_baru()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
 
         $data = [
@@ -54,12 +58,13 @@ class KategoriControllerTest extends TestCase
                 'redirect' => url('/kategori')
             ]);
 
-        $this->assertDatabaseHas('kategori_fasilitas', $data);
+        $this->assertDatabaseHas('m_kategori_fasilitas', $data);
     }
 
     /** @test */
     public function validasi_store_gagal_jika_field_kosong()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->postJson('/kategori/store', []);
@@ -71,6 +76,7 @@ class KategoriControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_detail_kategori()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $kategori = KategoriFasilitasModel::factory()->create();
 
@@ -82,6 +88,7 @@ class KategoriControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_edit()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $kategori = KategoriFasilitasModel::factory()->create();
 
@@ -95,6 +102,7 @@ class KategoriControllerTest extends TestCase
     /** @test */
     public function user_dapat_update_kategori()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $kategori = KategoriFasilitasModel::factory()->create();
 
@@ -107,7 +115,7 @@ class KategoriControllerTest extends TestCase
 
         $response->assertStatus(200);
 
-        $this->assertDatabaseHas('kategori_fasilitas', [
+        $this->assertDatabaseHas('m_kategori_fasilitas', [
             'id_kategori' => $kategori->id_kategori,
             'nama' => 'Papan tulis'
         ]);
@@ -116,6 +124,7 @@ class KategoriControllerTest extends TestCase
     /** @test */
     public function validasi_update_gagal_jika_field_kosong()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $kategori = KategoriFasilitasModel::factory()->create();
 
@@ -128,6 +137,7 @@ class KategoriControllerTest extends TestCase
     /** @test */
     public function user_dapat_melihat_halaman_confirm()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $kategori = KategoriFasilitasModel::factory()->create();
 
@@ -141,6 +151,7 @@ class KategoriControllerTest extends TestCase
     /** @test */
     public function user_dapat_delete_kategori()
     {
+        PeranModel::factory()->create(['id_peran' => 1]);
         $user = User::factory()->create();
         $kategori = KategoriFasilitasModel::factory()->create([
             'nama' => 'Penunjang'
