@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\KategoriFasilitasController;
+use App\Http\Controllers\PeranController;
 use App\Http\Controllers\PeriodeController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,4 +52,15 @@ Route::prefix('kategori')->group(function () {
     Route::put('/{id}/update', [KategoriFasilitasController::class, 'update']);
     Route::get('/{id}/confirm', [KategoriFasilitasController::class, 'confirm']);
     Route::delete('/{id}/delete', [KategoriFasilitasController::class, 'delete']);
+});
+
+Route::prefix('peran')->group(function () {
+    Route::get('/', [PeranController::class, 'index']);
+    Route::get('/create', [PeranController::class, 'create']);
+    Route::post('/store', [PeranController::class, 'storePeran']);
+    Route::get('/{id}/show', [PeranController::class, 'show']);
+    Route::get('/{id}/edit', [PeranController::class, 'edit']);
+    Route::put('/{id}/update', [PeranController::class, 'update']);
+    Route::get('/{id}/confirm', [PeranController::class, 'confirm']);
+    Route::delete('/{id}/delete', [PeranController::class, 'delete']);
 });
