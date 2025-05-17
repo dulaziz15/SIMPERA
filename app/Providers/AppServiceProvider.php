@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Repositories\Implementations\FasilitasRepository;
+use App\Repositories\Implementations\FeedbackRepository;
 use App\Repositories\Implementations\GedungRepository;
 use App\Repositories\Implementations\KategoriFasilitasRepository;
 use App\Repositories\Implementations\LogActivityRepository;
@@ -10,6 +11,7 @@ use App\Repositories\Implementations\PelaporanRepository;
 use App\Repositories\Implementations\PeranRepository;
 use App\Repositories\Implementations\PeriodeRepository;
 use App\Repositories\Interfaces\FasilitasRepositoryInterface;
+use App\Repositories\Interfaces\FeedbackRepositoryInterface;
 use App\Repositories\Interfaces\GedungRepositoryInterface;
 use App\Repositories\Interfaces\KategoriFasilitasRepositoryInterface;
 use App\Repositories\Interfaces\LogActivityRepositoryInterface;
@@ -17,6 +19,7 @@ use App\Repositories\Interfaces\PelaporanRepositoryInterface;
 use App\Repositories\Interfaces\PeranRepositoryInterface;
 use App\Repositories\Interfaces\PeriodeRepositoryInterface;
 use App\Services\Implementations\FasilitasService;
+use App\Services\Implementations\FeedbackService;
 use App\Services\Implementations\GedungService;
 use App\Services\Implementations\KategoriFasilitasService;
 use App\Services\Implementations\LogActivityService;
@@ -24,6 +27,7 @@ use App\Services\Implementations\PelaporanService;
 use App\Services\Implementations\PeranService;
 use App\Services\Implementations\PeriodeService;
 use App\Services\Interfaces\FasilitasServiceInterface;
+use App\Services\Interfaces\FeedbackServiceInterface;
 use App\Services\Interfaces\GedungServiceInterface;
 use App\Services\Interfaces\KategoriFasilitasServiceInterface;
 use App\Services\Interfaces\LogActivityServiceInterface;
@@ -48,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LogActivityServiceInterface::class, LogActivityService::class);
         $this->app->bind(FasilitasServiceInterface::class, FasilitasService::class);
         $this->app->bind(PelaporanServiceInterface::class, PelaporanService::class);
+        $this->app->bind(FeedbackServiceInterface::class, FeedbackService::class);
 
         // Repository
         $this->app->bind(PeriodeRepositoryInterface::class, PeriodeRepository::class);
@@ -57,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LogActivityRepositoryInterface::class, LogActivityRepository::class);
         $this->app->bind(FasilitasRepositoryInterface::class, FasilitasRepository::class);
         $this->app->bind(PelaporanRepositoryInterface::class, PelaporanRepository::class);
+        $this->app->bind(FeedbackRepositoryInterface::class, FeedbackRepository::class);
     }
 
     /**
