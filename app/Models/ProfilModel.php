@@ -18,8 +18,6 @@ class ProfilModel extends Model
         'nama_lengkap',
         'aktif',
         'foto_profil',
-        'created_at',
-        'update_at'
     ];
 
     public function pengguna()
