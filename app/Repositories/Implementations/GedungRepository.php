@@ -6,6 +6,9 @@ use App\Models\GedungModel;
 use App\Repositories\Interfaces\GedungRepositoryInterface;
 
 class GedungRepository implements GedungRepositoryInterface {
+    public function getAll() {
+        return GedungModel::all() ? true : false;
+    }
     public function create(array $data) {
         return GedungModel::create($data) ? true : false;
     }

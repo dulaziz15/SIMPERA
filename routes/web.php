@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\KategoriFasilitasController;
 use App\Http\Controllers\LogActivityController;
+use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PeranController;
 use App\Http\Controllers\PeriodeController;
 use Illuminate\Support\Facades\Route;
@@ -70,4 +72,26 @@ Route::prefix('log')->group(function () {
     Route::get('/', [LogActivityController::class, 'index']);
     Route::post('/store', [LogActivityController::class, 'storeLog']);
     Route::get('/{id}/show', [LogActivityController::class, 'show']);
+});
+
+Route::prefix('pelaporan')->group(function () {
+    Route::get('/', [PelaporanController::class, 'index']);
+    Route::get('/create', [PelaporanController::class, 'create']);
+    Route::post('/store', [PelaporanController::class, 'storePelaporan']);
+    Route::get('/{id}/show', [PelaporanController::class, 'show']);
+    Route::get('/{id}/edit', [PelaporanController::class, 'edit']);
+    Route::put('/{id}/update', [PelaporanController::class, 'update']);
+    Route::get('/{id}/confirm', [PelaporanController::class, 'confirm']);
+    Route::delete('/{id}/delete', [PelaporanController::class, 'delete']);
+});
+
+Route::prefix('fasilitas')->group(function () {
+    Route::get('/', [FasilitasController::class, 'index']);
+    Route::get('/create', [FasilitasController::class, 'create']);
+    Route::post('/store', [FasilitasController::class, 'storeFasilitas']);
+    Route::get('/{id}/show', [FasilitasController::class, 'show']);
+    Route::get('/{id}/edit', [FasilitasController::class, 'edit']);
+    Route::put('/{id}/update', [FasilitasController::class, 'update']);
+    Route::get('/{id}/confirm', [FasilitasController::class, 'confirm']);
+    Route::delete('/{id}/delete', [FasilitasController::class, 'delete']);
 });

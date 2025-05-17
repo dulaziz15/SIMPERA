@@ -6,6 +6,11 @@ use App\Models\KategoriFasilitasModel;
 use App\Repositories\Interfaces\KategoriFasilitasRepositoryInterface;
 
 class KategoriFasilitasRepository implements KategoriFasilitasRepositoryInterface {
+
+    public function getAll(){
+        return KategoriFasilitasModel::all() ? true : false;
+    }
+
     public function create(array $data) {
         return KategoriFasilitasModel::create($data) ? true : false;
     }

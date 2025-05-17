@@ -19,7 +19,7 @@ class KategoriFasilitasModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'kode' => $this->faker->word,
+            'kode' => strtoupper($this->faker->lexify('???')),
             'nama' => $this->faker->word,
         ];
     }
