@@ -18,7 +18,6 @@ class NotifikasiModel extends Model
         'judul',
         'pesan',
         'sudah_dibaca',
-        'created_at'
     ];
 
     public function pengguna()

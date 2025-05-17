@@ -17,7 +17,7 @@ class FeedbackModel extends Model
         'id_pengguna',
         'id_laporan',
         'penilaian',
-        'komentar'
+        'komentar',
     ];
 
     public function pengguna()
