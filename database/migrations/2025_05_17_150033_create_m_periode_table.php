@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('m_ringkasan_laporan_periodetable', function (Blueprint $table) {
-            $table->id();
+         Schema::create('periode', function (Blueprint $table) {
+            $table->id('id_periode');
+            $table->string('nama');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_ringkasan_laporan_periodetable');
+        Schema::dropIfExists('m_periode');
     }
 };
