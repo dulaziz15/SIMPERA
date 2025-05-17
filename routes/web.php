@@ -95,3 +95,14 @@ Route::prefix('fasilitas')->group(function () {
     Route::get('/{id}/confirm', [FasilitasController::class, 'confirm']);
     Route::delete('/{id}/delete', [FasilitasController::class, 'delete']);
 });
+
+Route::prefix('feedback')->group(function () {
+    Route::get('/', [FasilitasController::class, 'index']);
+    Route::get('/create', [FasilitasController::class, 'create']);
+    Route::post('/store', [FasilitasController::class, 'storeFeedback']);
+    Route::get('/{id}/show', [FasilitasController::class, 'show']);
+    Route::get('/{id}/edit', [FasilitasController::class, 'edit']);
+    Route::put('/{id}/update', [FasilitasController::class, 'update']);
+    Route::get('/{id}/confirm', [FasilitasController::class, 'confirm']);
+    Route::delete('/{id}/delete', [FasilitasController::class, 'delete']);
+});
