@@ -19,8 +19,6 @@ class LaporanPerbaikanModel extends Model
         'deskripsi',
         'url_foto',
         'status',
-        'waktu_pelaporan',
-        'waktu_perubahan'
     ];
 
     public function pengguna()

@@ -18,7 +18,6 @@ class FeedbackModel extends Model
         'id_laporan',
         'penilaian',
         'komentar',
-        'created_at'
     ];
 
     public function pengguna()
