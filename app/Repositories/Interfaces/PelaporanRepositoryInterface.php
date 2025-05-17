@@ -1,14 +1,11 @@
-<?php
+<?php  
 
 namespace App\Repositories\Interfaces;
 
-
-interface KategoriFasilitasRepositoryInterface {
-    public function getAll();
+interface PelaporanRepositoryInterface {
     public function create(array $data);
-
     public function getById($id);
-
     public function update($id, array $data);
     public function delete($id);
+    public function getAll();
 }
