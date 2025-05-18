@@ -7,6 +7,7 @@ use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PeranController;
 use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -105,4 +106,15 @@ Route::prefix('feedback')->group(function () {
     Route::put('/{id}/update', [FasilitasController::class, 'update']);
     Route::get('/{id}/confirm', [FasilitasController::class, 'confirm']);
     Route::delete('/{id}/delete', [FasilitasController::class, 'delete']);
+});
+
+Route::prefix('user')->group(function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::get('/create', [UserController::class, 'create']);
+    Route::post('/store', [UserController::class, 'storeUser']);
+    Route::get('/{id}/show', [UserController::class, 'show']);
+    Route::get('/{id}/edit', [UserController::class, 'edit']);
+    Route::put('/{id}/update', [UserController::class, 'updateProfile']);
+    Route::get('/{id}/confirm', [UserController::class, 'confirmDelete']);
+    Route::delete('/{id}/delete', [UserController::class, 'delete']);
 });
