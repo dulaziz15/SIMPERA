@@ -38,7 +38,7 @@ class GedungController extends Controller
             }
         }
 
-        return redirect('/fasilitas');
+        return redirect('/gedung');
     }
 
     public function show($id) {

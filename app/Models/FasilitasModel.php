@@ -11,16 +11,13 @@ class FasilitasModel extends Model
 
     protected $table = 'm_fasilitas';
     protected $primaryKey = 'id_fasilitas';
-    public $timestamps = false;
 
     protected $fillable = [
         'nama',
         'id_kategori',
         'lokasi',
         'id_gedung',
-        'status',
-        'created_at',
-        'update_at'
+        'status'
     ];
 
     public function kategori()

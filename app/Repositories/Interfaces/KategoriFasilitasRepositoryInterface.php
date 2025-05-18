@@ -4,6 +4,7 @@ namespace App\Repositories\Interfaces;
 
 
 interface KategoriFasilitasRepositoryInterface {
+    public function getAll();
     public function create(array $data);
 
     public function getById($id);

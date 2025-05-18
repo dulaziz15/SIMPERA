@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Profil extends Model
+class ProfilModel extends Model
 {
     use HasFactory;
 
@@ -18,8 +18,6 @@ class Profil extends Model
         'nama_lengkap',
         'aktif',
         'foto_profil',
-        'created_at',
-        'update_at'
     ];
 
     public function pengguna()

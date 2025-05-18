@@ -17,6 +17,9 @@ class GedungService implements GedungServiceInterface {
     public function __construct(GedungRepositoryInterface $geddungRepository){
         $this->gedungRepository = $geddungRepository;
     }
+    public function getAll(){
+        return $this->gedungRepository->getAll();
+    }
     public function show($id) {
         return $this->gedungRepository->getById($id);
     }

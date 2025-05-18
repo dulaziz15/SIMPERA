@@ -13,6 +13,10 @@ class KategoriFasilitasService implements KategoriFasilitasServiceInterface {
         $this->kategoriFasilitasRepository = $kategoriFasilitasRepository;
     }
 
+    public function getAll() {
+        return $this->kategoriFasilitasRepository->getAll();
+    }
+
     public function storeKategori(KategoriRequest $request) {
         return $this->kategoriFasilitasRepository->create([
             'kode' => $request->kode,
