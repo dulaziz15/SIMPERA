@@ -10,7 +10,7 @@ class UserRequest extends FormRequest{
             'nama_pengguna' => 'required|string',
             'hash_kata_sandi' => 'required|string',
             'id_peran' => 'required|int',
-            'surel' => 'required|email|unique:users,email',
+            'surel' => 'required|email|unique:m_user,surel',
             'nama_lengkap' => 'required|string',
         ];
     }

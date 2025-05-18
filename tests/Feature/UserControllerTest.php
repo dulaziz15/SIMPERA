@@ -83,7 +83,7 @@ class UserControllerTest extends TestCase
         $pengguna = User::factory()->create();
         $target = User::factory()->create();
 
-        $response = $this->actingAs($pengguna)->get("/user/{$target->id_pengguna}");
+        $response = $this->actingAs($pengguna)->get("/user/{$target->id_pengguna}/show");
 
         $response->assertStatus(200);
     }
