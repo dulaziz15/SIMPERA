@@ -35,4 +35,9 @@ class User extends Authenticatable
     {
         return 'id_pengguna';
     }
+
+    public function peran()
+    {
+        return $this->belongsTo(PeranModel::class, 'id_peran');
+    }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\KategoriFasilitasController;
 use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\PeranController;
 use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,4 +71,15 @@ Route::prefix('log')->group(function () {
     Route::get('/', [LogActivityController::class, 'index']);
     Route::post('/store', [LogActivityController::class, 'storeLog']);
     Route::get('/{id}/show', [LogActivityController::class, 'show']);
+});
+
+Route::prefix('user')->group(function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::get('/create', [UserController::class, 'create']);
+    Route::post('/store', [UserController::class, 'storeUser']);
+    Route::get('/{id}/show', [UserController::class, 'show']);
+    Route::get('/{id}/edit', [UserController::class, 'edit']);
+    Route::put('/{id}/update', [UserController::class, 'updateProfile']);
+    Route::get('/{id}/confirm', [UserController::class, 'confirmDelete']);
+    Route::delete('/{id}/delete', [UserController::class, 'delete']);
 });
