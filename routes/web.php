@@ -25,6 +25,10 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
 Route::prefix('periode')->group(function () {
     Route::get('/', [PeriodeController::class, 'index']);
     Route::get('/create', [PeriodeController::class, 'create']);

@@ -5,15 +5,15 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Dashboard | Minia - Minimal Admin & Dashboard Template</title>
+    <title>SIMPERA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{  asset('template/assets/images/favicon.ico')}}">
 
     <!-- plugin css -->
-    <link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+    <link href="{{  asset('template/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css')}}" rel="stylesheet"
         type="text/css" />
 
     <!-- preloader css -->
