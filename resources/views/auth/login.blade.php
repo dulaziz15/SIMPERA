@@ -11,7 +11,7 @@
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{ asset('template/assets/images/favicon.ico')}}">
+        <link rel="shortcut icon" href="{{ asset('template/assets/images/logo.png')}}">
 
         <!-- preloader css -->
         <link rel="stylesheet" href="{{ asset('template/assets/css/preloader.min.css')}}" type="text/css" />
@@ -37,13 +37,13 @@
                                 <div class="d-flex flex-column h-100">
                                     <div class="mb-4 mb-md-5 text-center">
                                         <a href="index.html" class="d-block auth-logo">
-                                            <img src="{{ asset('template/assets/images/logo-sm.svg')}}" alt="" height="28"> <span class="logo-txt">Minia</span>
+                                            <img src="{{ asset('template/assets/images/logo.png')}}" alt="" height="28"> <span class="logo-txt">SIMPERA</span>
                                         </a>
                                     </div>
                                     <div class="auth-content my-auto">
                                         <div class="text-center">
                                             <h5 class="mb-0">Welcome Back !</h5>
-                                            <p class="text-muted mt-2">Sign in to continue to Minia.</p>
+                                            <p class="text-muted mt-2">Sign in to continue to SIMPERA.</p>
                                         </div>
                                         <form class="mt-4 pt-2" action="https://themesbrand.com/minia/layouts-lts/index.html">
                                             <div class="mb-3">
