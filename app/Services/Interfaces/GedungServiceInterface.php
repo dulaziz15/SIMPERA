@@ -3,6 +3,7 @@
 namespace App\Services\Interfaces;
 
 use App\Http\Requests\GedungRequest;
+use Illuminate\Support\Facades\Request;
 
 interface GedungServiceInterface {
     public function getAll();

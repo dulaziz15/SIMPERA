@@ -42,6 +42,7 @@ Route::prefix('periode')->group(function () {
 
 Route::prefix('gedung')->group(function () {
     Route::get('/', [GedungController::class, 'index']);
+    Route::get('/data', [GedungController::class, 'getAll']);
     Route::get('/create', [GedungController::class, 'create']);
     Route::post('/store', [GedungController::class, 'storeGedung']);
     Route::get('/{id}/show', [GedungController::class, 'show']);

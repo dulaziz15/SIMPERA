@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -27,4 +28,15 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e)
+{
+    if ($e instanceof HttpExceptionInterface && $e->getStatusCode() === 404) {
+        return response()->view('error.404', [
+            'message' => 'Halaman tidak ditemukan',
+        ], 404);
+    }
+
+    return parent::render($request, $e);
+}
 }

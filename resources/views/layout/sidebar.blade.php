@@ -66,7 +66,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="#">
+                            <a href="{{ url('gedung/') }}" class="{{ $activeMenu == 'dashboard' ? 'active' : '' }}">
                                 <span data-key="t-calendar">Gedung</span>
                             </a>
                         </li>
