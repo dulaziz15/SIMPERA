@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="en" >
+<html lang="en">
 
     
-<!-- Mirrored from themesbrand.com/minia/layouts-lts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 May 2025 10:15:48 GMT -->
+<!-- Mirrored from themesbrand.com/minia/layouts-lts/layouts-horizontal.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 May 2025 10:17:59 GMT -->
 <head>
-
+        
         <meta charset="utf-8" />
-        <title>Dashboard | Minia - Minimal Admin & Dashboard Template</title>
+        <title>Horizontal Layout | Minia - Minimal Admin & Dashboard Template</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="assets/images/favicon.ico">
-
+        
         <!-- plugin css -->
         <link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
 
@@ -28,14 +28,11 @@
 
     </head>
 
-    <body>
-
-    <!-- <body data-layout="horizontal"> -->
+    <body data-layout="horizontal">
 
         <!-- Begin page -->
         <div id="layout-wrapper">
 
-            
             <header id="page-topbar">
                 <div class="navbar-header">
                     <div class="d-flex">
@@ -60,7 +57,7 @@
                             </a>
                         </div>
 
-                        <button type="button" class="btn btn-sm px-3 font-size-16 header-item" id="vertical-menu-btn">
+                        <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
                             <i class="fa fa-fw fa-bars"></i>
                         </button>
 
@@ -208,9 +205,8 @@
                                 <div data-simplebar style="max-height: 230px;">
                                     <a href="#!" class="text-reset notification-item">
                                         <div class="d-flex">
-                                            <div class="flex-shrink-0 me-3">
-                                                <img src="assets/images/users/avatar-3.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                            </div>
+                                            <img src="assets/images/users/avatar-3.jpg"
+                                                class="me-3 rounded-circle avatar-sm" alt="user-pic">
                                             <div class="flex-grow-1">
                                                 <h6 class="mb-1">James Lemire</h6>
                                                 <div class="font-size-13 text-muted">
@@ -222,7 +218,7 @@
                                     </a>
                                     <a href="#!" class="text-reset notification-item">
                                         <div class="d-flex">
-                                            <div class="flex-shrink-0 avatar-sm me-3">
+                                            <div class="avatar-sm me-3">
                                                 <span class="avatar-title bg-primary rounded-circle font-size-16">
                                                     <i class="bx bx-cart"></i>
                                                 </span>
@@ -238,7 +234,7 @@
                                     </a>
                                     <a href="#!" class="text-reset notification-item">
                                         <div class="d-flex">
-                                            <div class="flex-shrink-0 avatar-sm me-3">
+                                            <div class="avatar-sm me-3">
                                                 <span class="avatar-title bg-success rounded-circle font-size-16">
                                                     <i class="bx bx-badge-check"></i>
                                                 </span>
@@ -255,14 +251,13 @@
 
                                     <a href="#!" class="text-reset notification-item">
                                         <div class="d-flex">
-                                            <div class="flex-shrink-0 me-3">
-                                                <img src="assets/images/users/avatar-6.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                            </div>
+                                            <img src="assets/images/users/avatar-6.jpg"
+                                                class="me-3 rounded-circle avatar-sm" alt="user-pic">
                                             <div class="flex-grow-1">
                                                 <h6 class="mb-1">Salena Layfield</h6>
                                                 <div class="font-size-13 text-muted">
                                                     <p class="mb-1">As a skeptical Cambridge friend of mine occidental.</p>
-                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hours ago</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -293,284 +288,266 @@
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
                                 <a class="dropdown-item" href="apps-contacts-profile.html"><i class="mdi mdi mdi-face-man font-size-16 align-middle me-1"></i> Profile</a>
-                                <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a>
+                                <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock screen</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="auth-logout.html"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
                             </div>
                         </div>
-
+            
                     </div>
                 </div>
             </header>
+    
+            <div class="topnav">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
 
-            <!-- ========== Left Sidebar Start ========== -->
-            <div class="vertical-menu">
+                        <div class="collapse navbar-collapse" id="topnav-menu-content">
+                            <ul class="navbar-nav">
 
-                <div data-simplebar class="h-100">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle arrow-none" href="index.html" id="topnav-dashboard" role="button">
+                                        <i data-feather="home"></i><span data-key="t-dashboards">Dashboard</span>
+                                    </a>
+                                </li>
 
-                    <!--- Sidemenu -->
-                    <div id="sidebar-menu">
-                        <!-- Left Menu Start -->
-                        <ul class="metismenu list-unstyled" id="side-menu">
-                            <li class="menu-title" data-key="t-menu">Menu</li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-uielement" role="button">
+                                        <i data-feather="briefcase"></i>
+                                        <span data-key="t-elements">Elements</span> 
+                                        <div class="arrow-down"></div>
+                                    </a>
 
-                            <li>
-                                <a href="index.html">
-                                    <i data-feather="home"></i>
-                                    <span data-key="t-dashboard">Dashboard</span>
-                                </a>
-                            </li>
+                                    <div class="dropdown-menu mega-dropdown-menu px-2 dropdown-mega-menu-xl" aria-labelledby="topnav-uielement">
+                                        <div class="ps-2 p-lg-0">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <div>
+                                                        <div class="menu-title">Elements</div>
+                                                        <div class="row g-0">
+                                                            <div class="col-lg-5">
+                                                                <div>
+                                                                    <a href="ui-alerts.html" class="dropdown-item" data-key="t-alerts">Alerts</a>
+                                                                    <a href="ui-buttons.html" class="dropdown-item" data-key="t-buttons">Buttons</a>
+                                                                    <a href="ui-cards.html" class="dropdown-item" data-key="t-cards">Cards</a>
+                                                                    <a href="ui-carousel.html" class="dropdown-item" data-key="t-carousel">Carousel</a>
+                                                                    <a href="ui-dropdowns.html" class="dropdown-item" data-key="t-dropdowns">Dropdowns</a>
+                                                                    <a href="ui-grid.html" class="dropdown-item" data-key="t-grid">Grid</a>
+                                                                    <a href="ui-images.html" class="dropdown-item" data-key="t-images">Images</a>
+                                                                    <a href="ui-modals.html" class="dropdown-item" data-key="t-modals">Modals</a>
+                                                                    <a href="ui-offcanvas.html" class="dropdown-item" data-key="t-offcanvas">Offcanvas</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-5">
+                                                                <div>
+                                                                    <a href="ui-progressbars.html" class="dropdown-item" data-key="t-progress-bars">Progress Bars</a>
+                                                                    <a href="ui-placeholders.html" class="dropdown-item" data-key="t-progress-bars">Placeholders</a>
+                                                                    <a href="ui-tabs-accordions.html" class="dropdown-item" data-key="t-tabs-accordions">Tabs & Accordions</a>
+                                                                    <a href="ui-typography.html" class="dropdown-item" data-key="t-typography">Typography</a>
+                                                                    <a href="ui-toasts.html" class="dropdown-item" data-key="t-toasts">Toasts</a>
+                                                                    <a href="ui-video.html" class="dropdown-item" data-key="t-video">Video</a>
+                                                                    <a href="ui-general.html" class="dropdown-item" data-key="t-general">General</a>
+                                                                    <a href="ui-colors.html" class="dropdown-item" data-key="t-colors">Colors</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                    
+                                                <div class="col-lg-4">
+                                                    <div>
+                                                        <div class="menu-title">Extended</div>
+                                                        <div>
+                                                            <a href="extended-lightbox.html" class="dropdown-item" data-key="t-lightbox">Lightbox</a>
+                                                            <a href="extended-rangeslider.html" class="dropdown-item" data-key="t-range-slider">Range Slider</a>
+                                                            <a href="extended-sweet-alert.html" class="dropdown-item" data-key="t-sweet-alert">SweetAlert 2</a>
+                                                            <a href="extended-session-timeout.html" class="dropdown-item" data-key="t-session-timeout">Session Timeout</a>
+                                                            <a href="extended-rating.html" class="dropdown-item" data-key="t-rating">Rating</a>
+                                                            <a href="extended-notifications.html" class="dropdown-item" data-key="t-notifications">Notifications</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
 
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="grid"></i>
-                                    <span data-key="t-apps">Apps</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li>
-                                        <a href="apps-calendar.html">
-                                            <span data-key="t-calendar">Calendar</span>
-                                        </a>
-                                    </li>
-        
-                                    <li>
-                                        <a href="apps-chat.html">
-                                            <span data-key="t-chat">Chat</span>
-                                        </a>
-                                    </li>
-        
-                                    <li>
-                                        <a href="javascript: void(0);" class="has-arrow">
-                                            <span data-key="t-email">Email</span>
-                                        </a>
-                                        <ul class="sub-menu" aria-expanded="false">
-                                            <li><a href="apps-email-inbox.html" data-key="t-inbox">Inbox</a></li>
-                                            <li><a href="apps-email-read.html" data-key="t-read-email">Read Email</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="javascript: void(0);" class="has-arrow">
-                                            <span data-key="t-invoices">Invoices</span>
-                                        </a>
-                                        <ul class="sub-menu" aria-expanded="false">
-                                            <li><a href="apps-invoices-list.html" data-key="t-invoice-list">Invoice List</a></li>
-                                            <li><a href="apps-invoices-detail.html" data-key="t-invoice-detail">Invoice Detail</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="javascript: void(0);" class="has-arrow">
-                                            <span data-key="t-contacts">Contacts</span>
-                                        </a>
-                                        <ul class="sub-menu" aria-expanded="false">
-                                            <li><a href="apps-contacts-grid.html" data-key="t-user-grid">User Grid</a></li>
-                                            <li><a href="apps-contacts-list.html" data-key="t-user-list">User List</a></li>
-                                            <li><a href="apps-contacts-profile.html" data-key="t-profile">Profile</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="javascript: void(0);" class="">
-                                            <span data-key="t-blog">Blog</span>
-                                            <span class="badge rounded-pill badge-soft-danger float-end" key="t-new">New</span>
-                                        </a>
-                                        <ul class="sub-menu" aria-expanded="false">
-                                            <li><a href="apps-blog-grid.html" data-key="t-blog-grid">Blog Grid</a></li>
-                                            <li><a href="apps-blog-list.html" data-key="t-blog-list">Blog List</a></li>
-                                            <li><a href="apps-blog-detail.html" data-key="t-blog-details">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button">
+                                        <i data-feather="grid"></i><span data-key="t-apps">Apps</span> <div class="arrow-down"></div>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="topnav-pages">
 
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="users"></i>
-                                    <span data-key="t-authentication">Authentication</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="auth-login.html" data-key="t-login">Login</a></li>
-                                    <li><a href="auth-register.html" data-key="t-register">Register</a></li>
-                                    <li><a href="auth-recoverpw.html" data-key="t-recover-password">Recover Password</a></li>
-                                    <li><a href="auth-lock-screen.html" data-key="t-lock-screen">Lock Screen</a></li>
-                                    <li><a href="auth-logout.html" data-key="t-logout">Log Out</a></li>
-                                    <li><a href="auth-confirm-mail.html" data-key="t-confirm-mail">Confirm Mail</a></li>
-                                    <li><a href="auth-email-verification.html" data-key="t-email-verification">Email Verification</a></li>
-                                    <li><a href="auth-two-step-verification.html" data-key="t-two-step-verification">Two Step Verification</a></li>
-                                </ul>
-                            </li>
+                                        <a href="apps-calendar.html" class="dropdown-item" data-key="t-calendar">Calendar</a>
+                                        <a href="apps-chat.html" class="dropdown-item" data-key="t-chat">Chat</a>
+                            
+                                        <div class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
+                                                role="button">
+                                                <span data-key="t-email">Email</span> <div class="arrow-down"></div>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="topnav-email">
+                                                <a href="apps-email-inbox.html" class="dropdown-item" data-key="t-inbox">Inbox</a>
+                                                <a href="apps-email-read.html" class="dropdown-item" data-key="t-read-email">Read Email</a>
+                                            </div>
+                                        </div>
+                            
+                                        <div class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-invoice"
+                                                role="button">
+                                                <span data-key="t-invoices">Invoices</span> <div class="arrow-down"></div>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="topnav-invoice">
+                                                <a href="apps-invoices-list.html" class="dropdown-item" data-key="t-invoice-list">Invoice List</a>
+                                                <a href="apps-invoices-detail.html" class="dropdown-item" data-key="t-invoice-detail">Invoice Detail</a>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-contact"
+                                                role="button">
+                                                <span data-key="t-contacts">Contacts</span> <div class="arrow-down"></div>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="topnav-contact">
+                                                <a href="apps-contacts-grid.html" class="dropdown-item" data-key="t-user-grid">User Grid</a>
+                                                <a href="apps-contacts-list.html" class="dropdown-item" data-key="t-user-list">User List</a>
+                                                <a href="apps-contacts-profile.html" class="dropdown-item" data-key="t-profile">Profile</a>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle d-flex justify-content-between align-items-center" href="#" id="topnav-contact"
+                                                role="button">
+                                                <span data-key="t-contacts" class="">Blog</span> 
+                                                <span class="badge bg-danger-subtle text-danger">New</span>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="topnav-contact">
+                                                <a href="apps-blog-grid.html" class="dropdown-item" data-key="t-blog-grid">Blog Grid</a>
+                                                <a href="apps-blog-list.html" class="dropdown-item" data-key="t-blog-list">Blog List</a>
+                                                <a href="apps-blog-detail.html" class="dropdown-item" data-key="t-blog-details">Blog Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
 
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="file-text"></i>
-                                    <span data-key="t-pages">Pages</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="pages-starter.html" data-key="t-starter-page">Starter Page</a></li>
-                                    <li><a href="pages-maintenance.html" data-key="t-maintenance">Maintenance</a></li>
-                                    <li><a href="pages-comingsoon.html" data-key="t-coming-soon">Coming Soon</a></li>
-                                    <li><a href="pages-timeline.html" data-key="t-timeline">Timeline</a></li>
-                                    <li><a href="pages-faqs.html" data-key="t-faqs">FAQs</a></li>
-                                    <li><a href="pages-pricing.html" data-key="t-pricing">Pricing</a></li>
-                                    <li><a href="pages-404.html" data-key="t-error-404">Error 404</a></li>
-                                    <li><a href="pages-500.html" data-key="t-error-500">Error 500</a></li>
-                                </ul>
-                            </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-components" role="button">
+                                        <i data-feather="box"></i><span data-key="t-components">Components</span> <div class="arrow-down"></div>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="topnav-components">
+                                        <div class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-form"
+                                                role="button">
+                                                <span data-key="t-forms">Forms</span> <div class="arrow-down"></div>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="topnav-form">
+                                                <a href="form-elements.html" class="dropdown-item" data-key="t-form-elements">Basic Elements</a>
+                                                <a href="form-validation.html" class="dropdown-item" data-key="t-form-validation">Validation</a>
+                                                <a href="form-advanced.html" class="dropdown-item" data-key="t-form-advanced">Advanced Plugins</a>
+                                                <a href="form-editors.html" class="dropdown-item" data-key="t-form-editors">Editors</a>
+                                                <a href="form-uploads.html" class="dropdown-item" data-key="t-form-upload">File Upload</a>
+                                                <a href="form-wizard.html" class="dropdown-item" data-key="t-form-wizard">Wizard</a>
+                                                <a href="form-mask.html" class="dropdown-item" data-key="t-form-mask">Mask</a>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-table"
+                                                role="button">
+                                                <span data-key="t-tables">Tables</span> <div class="arrow-down"></div>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="topnav-table">
+                                                <a href="tables-basic.html" class="dropdown-item" data-key="t-basic-tables">Bootstrap Basic</a>
+                                                <a href="tables-datatable.html" class="dropdown-item" data-key="t-data-tables">Data Tables</a>
+                                                <a href="tables-responsive.html" class="dropdown-item" data-key="t-responsive-table">Responsive</a>
+                                                <a href="tables-editable.html" class="dropdown-item" data-key="t-editable-table">Editable</a>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-charts"
+                                                role="button">
+                                                <span data-key="t-charts">Charts</span> <div class="arrow-down"></div>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="topnav-charts">
+                                                <a href="charts-apex.html" class="dropdown-item" data-key="t-apex-charts">Apex charts</a>
+                                                <a href="charts-echart.html" class="dropdown-item" data-key="t-e-charts">E charts</a>
+                                                <a href="charts-chartjs.html" class="dropdown-item" data-key="t-chartjs-charts">Chartjs</a>
+                                                <a href="charts-knob.html" class="dropdown-item" data-key="t-knob-charts">Jquery Knob</a>
+                                                <a href="charts-sparkline.html" class="dropdown-item" data-key="t-sparkline-charts">Sparkline</a>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-icons"
+                                                role="button">
+                                                <span data-key="t-icons">Icons</span> <div class="arrow-down"></div>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="topnav-icons">
+                                                <a href="icons-boxicons.html" class="dropdown-item" data-key="t-boxicons">Boxicons</a>
+                                                <a href="icons-materialdesign.html" class="dropdown-item" data-key="t-material-design">Material Design</a>
+                                                <a href="icons-dripicons.html" class="dropdown-item" data-key="t-dripicons">Dripicons</a>
+                                                <a href="icons-fontawesome.html" class="dropdown-item" data-key="t-font-awesome">Font Awesome 5</a>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-map" role="button">
+                                                <span data-key="t-maps">Maps</span> <div class="arrow-down"></div>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="topnav-map">
+                                                <a href="maps-google.html" class="dropdown-item" data-key="t-g-maps">Google</a>
+                                                <a href="maps-vector.html" class="dropdown-item" data-key="t-v-maps">Vector</a>
+                                                <a href="maps-leaflet.html" class="dropdown-item" data-key="t-l-maps">Leaflet</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
 
-                            <li>
-                                <a href="layouts-horizontal.html">
-                                    <i data-feather="layout"></i>
-                                    <span data-key="t-horizontal">Horizontal</span>
-                                </a>
-                            </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-more" role="button">
+                                        <i data-feather="file-text"></i><span data-key="t-extra-pages">Extra Pages</span> <div class="arrow-down"></div>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="topnav-more">
 
-                            <li class="menu-title mt-2" data-key="t-components">Elements</li>
+                                        <div class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-auth" role="button">
+                                                <span data-key="t-authentication">Authentication</span> <div class="arrow-down"></div>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="topnav-auth">
+                                                <a href="auth-login.html" class="dropdown-item" data-key="t-login">Login</a>
+                                                <a href="auth-register.html" class="dropdown-item" data-key="t-register">Register</a>
+                                                <a href="auth-recoverpw.html" class="dropdown-item" data-key="t-recover-password">Recover Password</a>
+                                                <a href="auth-lock-screen.html" class="dropdown-item" data-key="t-lock-screen">Lock Screen</a>
+                                                <a href="auth-logout.html" class="dropdown-item" data-key="t-logout">Log Out</a>
+                                                <a href="auth-confirm-mail.html" class="dropdown-item" data-key="t-confirm-mail">Confirm Mail</a>
+                                                <a href="auth-email-verification.html" class="dropdown-item" data-key="t-email-verification">Email verification</a>
+                                                <a href="auth-two-step-verification.html" class="dropdown-item" data-key="t-two-step-verification">Two step verification</a>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-utility" role="button">
+                                                <span data-key="t-utility">Utility</span> <div class="arrow-down"></div>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="topnav-utility">
+                                                <a href="pages-starter.html" class="dropdown-item" data-key="t-starter-page">Starter Page</a>
+                                                <a href="pages-maintenance.html" class="dropdown-item" data-key="t-maintenance">Maintenance</a>
+                                                <a href="pages-comingsoon.html" class="dropdown-item" data-key="t-coming-soon">Coming Soon</a>
+                                                <a href="pages-timeline.html" class="dropdown-item" data-key="t-timeline">Timeline</a>
+                                                <a href="pages-faqs.html" class="dropdown-item" data-key="t-faqs">FAQs</a>
+                                                <a href="pages-pricing.html" class="dropdown-item" data-key="t-pricing">Pricing</a>
+                                                <a href="pages-404.html" class="dropdown-item" data-key="t-error-404">Error 404</a>
+                                                <a href="pages-500.html" class="dropdown-item" data-key="t-error-500">Error 500</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
 
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="briefcase"></i>
-                                    <span data-key="t-components">Components</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="ui-alerts.html" data-key="t-alerts">Alerts</a></li>
-                                    <li><a href="ui-buttons.html" data-key="t-buttons">Buttons</a></li>
-                                    <li><a href="ui-cards.html" data-key="t-cards">Cards</a></li>
-                                    <li><a href="ui-carousel.html" data-key="t-carousel">Carousel</a></li>
-                                    <li><a href="ui-dropdowns.html" data-key="t-dropdowns">Dropdowns</a></li>
-                                    <li><a href="ui-grid.html" data-key="t-grid">Grid</a></li>
-                                    <li><a href="ui-images.html" data-key="t-images">Images</a></li>
-                                    <li><a href="ui-modals.html" data-key="t-modals">Modals</a></li>
-                                    <li><a href="ui-offcanvas.html" data-key="t-offcanvas">Offcanvas</a></li>
-                                    <li><a href="ui-progressbars.html" data-key="t-progress-bars">Progress Bars</a></li>
-                                    <li><a href="ui-placeholders.html" data-key="t-progress-bars">Placeholders</a></li>
-                                    <li><a href="ui-tabs-accordions.html" data-key="t-tabs-accordions">Tabs & Accordions</a></li>
-                                    <li><a href="ui-typography.html" data-key="t-typography">Typography</a></li>
-                                    <li><a href="ui-toasts.html" data-key="t-typography">Toasts</a></li>
-                                    <li><a href="ui-video.html" data-key="t-video">Video</a></li>
-                                    <li><a href="ui-general.html" data-key="t-general">General</a></li>
-                                    <li><a href="ui-colors.html" data-key="t-colors">Colors</a></li>
-                                    <li><a href="ui-utilities.html" data-key="t-colors">Utilities</a></li>
-                                </ul>
-                            </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle arrow-none" href="layouts-horizontal.html" role="button">
+                                        <i data-feather="layout"></i><span data-key="t-horizontal">Horizontal</span>
+                                    </a>
+                                </li>
 
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="gift"></i>
-                                    <span data-key="t-ui-elements">Extended</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="extended-lightbox.html" data-key="t-lightbox">Lightbox</a></li>
-                                    <li><a href="extended-rangeslider.html" data-key="t-range-slider">Range Slider</a></li>
-                                    <li><a href="extended-sweet-alert.html" data-key="t-sweet-alert">SweetAlert 2</a></li>
-                                    <li><a href="extended-session-timeout.html" data-key="t-session-timeout">Session Timeout</a></li>
-                                    <li><a href="extended-rating.html" data-key="t-rating">Rating</a></li>
-                                    <li><a href="extended-notifications.html" data-key="t-notifications">Notifications</a></li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="javascript: void(0);">
-                                    <i data-feather="box"></i>
-                                    <span class="badge rounded-pill badge-soft-danger  text-danger float-end">7</span>
-                                    <span data-key="t-forms">Forms</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="form-elements.html" data-key="t-form-elements">Basic Elements</a></li>
-                                    <li><a href="form-validation.html" data-key="t-form-validation">Validation</a></li>
-                                    <li><a href="form-advanced.html" data-key="t-form-advanced">Advanced Plugins</a></li>
-                                    <li><a href="form-editors.html" data-key="t-form-editors">Editors</a></li>
-                                    <li><a href="form-uploads.html" data-key="t-form-upload">File Upload</a></li>
-                                    <li><a href="form-wizard.html" data-key="t-form-wizard">Wizard</a></li>
-                                    <li><a href="form-mask.html" data-key="t-form-mask">Mask</a></li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="sliders"></i>
-                                    <span data-key="t-tables">Tables</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="tables-basic.html" data-key="t-basic-tables">Bootstrap Basic</a></li>
-                                    <li><a href="tables-datatable.html" data-key="t-data-tables">DataTables</a></li>
-                                    <li><a href="tables-responsive.html" data-key="t-responsive-table">Responsive</a></li>
-                                    <li><a href="tables-editable.html" data-key="t-editable-table">Editable</a></li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="pie-chart"></i>
-                                    <span data-key="t-charts">Charts</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="charts-apex.html" data-key="t-apex-charts">Apexcharts</a></li>
-                                    <li><a href="charts-echart.html" data-key="t-e-charts">Echarts</a></li>
-                                    <li><a href="charts-chartjs.html" data-key="t-chartjs-charts">Chartjs</a></li>
-                                    <li><a href="charts-knob.html" data-key="t-knob-charts">Jquery Knob</a></li>
-                                    <li><a href="charts-sparkline.html" data-key="t-sparkline-charts">Sparkline</a></li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="cpu"></i>
-                                    <span data-key="t-icons">Icons</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="icons-boxicons.html" data-key="t-boxicons">Boxicons</a></li>
-                                    <li><a href="icons-materialdesign.html" data-key="t-material-design">Material Design</a></li>
-                                    <li><a href="icons-dripicons.html" data-key="t-dripicons">Dripicons</a></li>
-                                    <li><a href="icons-fontawesome.html" data-key="t-font-awesome">Font Awesome 5</a></li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="map"></i>
-                                    <span data-key="t-maps">Maps</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="maps-google.html" data-key="t-g-maps">Google</a></li>
-                                    <li><a href="maps-vector.html" data-key="t-v-maps">Vector</a></li>
-                                    <li><a href="maps-leaflet.html" data-key="t-l-maps">Leaflet</a></li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="share-2"></i>
-                                    <span data-key="t-multi-level">Multi Level</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="true">
-                                    <li><a href="javascript: void(0);" data-key="t-level-1-1">Level 1.1</a></li>
-                                    <li>
-                                        <a href="javascript: void(0);" class="has-arrow" data-key="t-level-1-2">Level 1.2</a>
-                                        <ul class="sub-menu" aria-expanded="true">
-                                            <li><a href="javascript: void(0);" data-key="t-level-2-1">Level 2.1</a></li>
-                                            <li><a href="javascript: void(0);" data-key="t-level-2-2">Level 2.2</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
-
-                        <div class="card sidebar-alert border-0 text-center mx-4 mb-0 mt-5">
-                            <div class="card-body">
-                                <img src="assets/images/giftbox.png" alt="">
-                                <div class="mt-4">
-                                    <h5 class="alertcard-title font-size-16">Unlimited Access</h5>
-                                    <p class="font-size-13">Upgrade your plan from a Free trial, to select ‘Business Plan’.</p>
-                                    <a href="#!" class="btn btn-primary mt-2">Upgrade Now</a>
-                                </div>
-                            </div>
+                            </ul>
                         </div>
-                    </div>
-                    <!-- Sidebar -->
+                    </nav>
                 </div>
             </div>
-            <!-- Left Sidebar End -->
-
-            
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -584,12 +561,12 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-sm-0 font-size-18">Dashboard</h4>
+                                    <h4 class="mb-sm-0 font-size-18">Horizontal</h4>
 
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                            <li class="breadcrumb-item active">Dashboard</li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Layouts</a></li>
+                                            <li class="breadcrumb-item active">Horizontal</li>
                                         </ol>
                                     </div>
 
@@ -597,7 +574,7 @@
                             </div>
                         </div>
                         <!-- end page title -->
-
+                        
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <!-- card -->
@@ -611,13 +588,13 @@
                                                     $<span class="counter-value" data-target="865.2">0</span>k
                                                 </h4>
                                             </div>
-
+        
                                             <div class="col-6">
                                                 <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
                                             </div>
                                         </div>
                                         <div class="text-nowrap">
-                                            <span class="badge bg-success-subtle text-success">+$20.9k</span>
+                                            <span class="badge  bg-success-subtle text-success">+$20.9k</span>
                                             <span class="ms-1 text-muted font-size-13">Since last week</span>
                                         </div>
                                     </div><!-- end card body -->
@@ -665,7 +642,7 @@
                                             </div>
                                         </div>
                                         <div class="text-nowrap">
-                                            <span class="badge bg-success-subtle text-success">+ $2.8k</span>
+                                            <span class="badge  bg-success-subtle text-success">+ $2.8k</span>
                                             <span class="ms-1 text-muted font-size-13">Since last week</span>
                                         </div>
                                     </div><!-- end card body -->
@@ -689,7 +666,7 @@
                                             </div>
                                         </div>
                                         <div class="text-nowrap">
-                                            <span class="badge bg-success-subtle text-success">+2.95%</span>
+                                            <span class="badge  bg-success-subtle text-success">+2.95%</span>
                                             <span class="ms-1 text-muted font-size-13">Since last week</span>
                                         </div>
                                     </div><!-- end card body -->
@@ -808,7 +785,7 @@
                                         </div>
                                     </div>
                                     <!-- end col -->
-
+        
                                     <div class="col-xl-4">
                                         <!-- card -->
                                         <div class="card bg-primary text-white shadow-primary card-h-100">
@@ -922,10 +899,10 @@
                                             </div>
                                             <div class="col-xl-4">
                                                 <div class="p-4">
-                                                    <div class="mt-0">
+                                                    <div>
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar-sm m-auto">
-                                                                <span class="avatar-title rounded-circle bg-light-subtle text-dark font-size-16">
+                                                                <span class="avatar-title rounded-circle bg-light-subtle text-body font-size-16">
                                                                     1
                                                                 </span>
                                                             </div>
@@ -934,7 +911,7 @@
                                                             </div>
         
                                                             <div class="flex-shrink-0">
-                                                                <span class="badge rounded-pill bg-success-subtle text-success font-size-12 fw-medium">+2.5%</span>
+                                                                <span class="badge rounded-pill  bg-success-subtle  text-success fw-medium">+2.5%</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -942,7 +919,7 @@
                                                     <div class="mt-3">
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar-sm m-auto">
-                                                                <span class="avatar-title rounded-circle bg-light-subtle text-dark font-size-16">
+                                                                <span class="avatar-title rounded-circle bg-light-subtle text-body font-size-16">
                                                                     2
                                                                 </span>
                                                             </div>
@@ -951,15 +928,15 @@
                                                             </div>
         
                                                             <div class="flex-shrink-0">
-                                                                <span class="badge rounded-pill bg-success-subtle text-success font-size-12 fw-medium">+8.3%</span>
+                                                                <span class="badge rounded-pill  bg-success-subtle text-success font-size-12 fw-medium">+8.3%</span>
                                                             </div>
                                                         </div>
                                                     </div>
-
+        
                                                     <div class="mt-3">
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar-sm m-auto">
-                                                                <span class="avatar-title rounded-circle bg-light-subtle text-dark font-size-16">
+                                                                <span class="avatar-title rounded-circle bg-light-subtle text-body font-size-16">
                                                                     3
                                                                 </span>
                                                             </div>
@@ -976,7 +953,7 @@
                                                     <div class="mt-3">
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar-sm m-auto">
-                                                                <span class="avatar-title rounded-circle bg-light-subtle text-dark font-size-16">
+                                                                <span class="avatar-title rounded-circle bg-light-subtle text-body font-size-16">
                                                                     4
                                                                 </span>
                                                             </div>
@@ -985,7 +962,7 @@
                                                             </div>
         
                                                             <div class="flex-shrink-0">
-                                                                <span class="badge rounded-pill bg-success-subtle text-success font-size-12 fw-medium">+7.1%</span>
+                                                                <span class="badge rounded-pill  bg-success-subtle text-success font-size-12 fw-medium">+7.1%</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -993,7 +970,7 @@
                                                     <div class="mt-3">
                                                         <div class="d-flex align-items-center">
                                                             <div class="avatar-sm m-auto">
-                                                                <span class="avatar-title rounded-circle bg-light-subtle text-dark font-size-16">
+                                                                <span class="avatar-title rounded-circle bg-light-subtle text-body font-size-16">
                                                                     5
                                                                 </span>
                                                             </div>
@@ -2115,12 +2092,12 @@
                             </div>
                             <!-- end col -->
                         </div><!-- end row -->
-                    </div>
-                    <!-- container-fluid -->
+
+                    </div> <!-- container-fluid -->
                 </div>
                 <!-- End Page-content -->
 
-
+                
                 <footer class="footer">
                     <div class="container-fluid">
                         <div class="row">
@@ -2303,6 +2280,5 @@
 
     </body>
 
-
-<!-- Mirrored from themesbrand.com/minia/layouts-lts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 May 2025 10:16:15 GMT -->
+<!-- Mirrored from themesbrand.com/minia/layouts-lts/layouts-horizontal.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 May 2025 10:17:59 GMT -->
 </html>
