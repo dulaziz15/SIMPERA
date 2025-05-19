@@ -7,7 +7,6 @@ use App\Http\Requests\PeriodeRequest;
 use App\Repositories\Interfaces\GedungRepositoryInterface;
 use App\Repositories\Interfaces\PeriodeRepositoryInterface;
 use App\Services\Interfaces\GedungServiceInterface;
-use App\Services\Interfaces\PeriodeServiceInterface;
 use Illuminate\Support\Facades\Request;
 
 class GedungService implements GedungServiceInterface {
