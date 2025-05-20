@@ -35,7 +35,7 @@ return new class extends Migration
                   ->onUpdate('cascade');
             $table->foreign('id_periode')
                   ->references('id_periode')
-                  ->on('m_periode')
+                  ->on('periode')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
         });
