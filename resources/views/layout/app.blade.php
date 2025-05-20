@@ -1,226 +1,77 @@
-<!--
-=========================================================
-* Soft UI Dashboard 3 - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 @include('layout.header')
 
-<body class="g-sidenav-show  bg-gray-100">
-    @include('layout.sidebar')
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <!-- Navbar -->
+<body>
+    <div id="layout-wrapper">
         @include('layout.navbar')
-        <!-- End Navbar -->
-        <div class="container-fluid py-4">
 
-            @yield('content')
+        @include('layout.sidebar')
+
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+                    @include('layout.breadcrumb')
+                    @yield('content')
+                </div>
+            </div>
 
             @include('layout.footer')
-
         </div>
-    </main>
-    @include('layout.config')
-    <!--   Core JS Files   -->
-    <script src={{ asset('template/assets/js/core/popper.min.js') }}></script>
-    <script src={{ asset('template/assets/js/core/bootstrap.min.js') }}></script>
-    <script src={{ asset('template/assets/js/plugins/perfect-scrollbar.min.js') }}></script>
-    <script src={{ asset('template/assets/js/plugins/smooth-scrollbar.min.js') }}></script>
-    <script src={{ asset('template/assets/js/plugins/chartjs.min.js') }}></script>
-    <script>
-        var ctx = document.getElementById("chart-bars").getContext("2d");
+        <!-- end main content-->
 
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Sales",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    borderRadius: 4,
-                    borderSkipped: false,
-                    backgroundColor: "#fff",
-                    data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
-                    maxBarThickness: 6
-                }, ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                        },
-                        ticks: {
-                            suggestedMin: 0,
-                            suggestedMax: 500,
-                            beginAtZero: true,
-                            padding: 15,
-                            font: {
-                                size: 14,
-                                family: "Inter",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                            color: "#fff"
-                        },
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false
-                        },
-                        ticks: {
-                            display: false
-                        },
-                    },
-                },
-            },
-        });
+    </div>
+    <!-- END layout-wrapper -->
 
 
-        var ctx2 = document.getElementById("chart-line").getContext("2d");
+    @include('layout.right_sidebar')
 
-        var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
 
-        gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
-        gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-        gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
+    <!-- JAVASCRIPT -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('template/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('template/assets/libs/metismenu/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('template/assets/libs/simplebar/simplebar.min.js') }}"></script>
+    <script src="{{ asset('template/assets/libs/node-waves/waves.min.js') }}"></script>
+    <script src="{{ asset('template/assets/libs/feather-icons/feather.min.js') }}"></script>
+    <!-- pace js -->
+    <script src="{{ asset('template/assets/libs/pace-js/pace.min.js') }}"></script>
 
-        var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
+    <!-- apexcharts -->
+    <script src="{{ asset('template/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
-        gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
-        gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-        gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
-
-        new Chart(ctx2, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                        label: "Mobile apps",
-                        tension: 0.4,
-                        borderWidth: 0,
-                        pointRadius: 0,
-                        borderColor: "#cb0c9f",
-                        borderWidth: 3,
-                        backgroundColor: gradientStroke1,
-                        fill: true,
-                        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                        maxBarThickness: 6
-
-                    },
-                    {
-                        label: "Websites",
-                        tension: 0.4,
-                        borderWidth: 0,
-                        pointRadius: 0,
-                        borderColor: "#3A416F",
-                        borderWidth: 3,
-                        backgroundColor: gradientStroke2,
-                        fill: true,
-                        data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-                        maxBarThickness: 6
-                    },
-                ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#b2b9bf',
-                            font: {
-                                size: 11,
-                                family: "Inter",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#b2b9bf',
-                            padding: 20,
-                            font: {
-                                size: 11,
-                                family: "Inter",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
+    <!-- Plugins js-->
+    <script src="{{ asset('template/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js') }}">
     </script>
-    <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-                damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-        }
+    <script
+        src="{{ asset('template/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js') }}">
     </script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src={{ asset('template/assets/js/soft-ui-dashboard.min.js?v=1.1.0') }}></script>
+    <!-- dashboard init -->
+    <script src="{{ asset('template/assets/js/pages/dashboard.init.js') }}"></script>
+
+    <script src="{{ asset('template/assets/js/app.js') }}"></script>
+    <!-- Required datatable js -->
+    <script src="{{ asset('template/assets/libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('template/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <!-- Buttons examples -->
+    <script src="{{ asset('template/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{ asset('template/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('template/assets/libs/jszip/jszip.min.js')}}"></script>
+    <script src="{{ asset('template/assets/libs/pdfmake/build/pdfmake.min.js')}}"></script>
+    <script src="{{ asset('template/assets/libs/pdfmake/build/vfs_fonts.js')}}"></script>
+    <script src="{{ asset('template/assets/libs/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{ asset('template/assets/libs/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{ asset('template/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js')}}"></script>
+
+    <!-- Responsive examples -->
+    <script src="{{ asset('template/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ asset('template/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
+
+    @stack('scripts')
+
 </body>
 
 </html>

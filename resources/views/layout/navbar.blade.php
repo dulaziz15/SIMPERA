@@ -1,125 +1,296 @@
-<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-    navbar-scroll="true">
-    <div class="container-fluid py-1 px-3">
-        @include('layout.breadcrumb')
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                <div class="input-group">
-                    <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" placeholder="Type here...">
+<header id="page-topbar">
+    <div class="navbar-header">
+        <div class="d-flex">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <a href="" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="50">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="50">
+                        <span class="logo-txt">SIMPERA</span>
+                    </span>
+                </a>
+
+                <a href="" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="50">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="50">
+                        <span class="logo-txt">SIMPERA</span>
+                    </span>
+                </a>
+            </div>
+
+            <button type="button" class="btn btn-sm px-3 font-size-16 header-item" id="vertical-menu-btn">
+                <i class="fa fa-fw fa-bars"></i>
+            </button>
+
+            <!-- App Search-->
+            <form class="app-search d-none d-lg-block">
+                <div class="position-relative">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <button class="btn btn-primary" type="button"><i
+                            class="bx bx-search-alt align-middle"></i></button>
+                </div>
+            </form>
+        </div>
+
+        <div class="d-flex">
+
+            <div class="dropdown d-inline-block d-lg-none ms-2">
+                <button type="button" class="btn header-item" id="page-header-search-dropdown"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i data-feather="search" class="icon-lg"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                    aria-labelledby="page-header-search-dropdown">
+
+                    <form class="p-3">
+                        <div class="form-group m-0">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search ..."
+                                    aria-label="Search Result">
+
+                                <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <ul class="navbar-nav  justify-content-end">
-                <li class="nav-item d-flex align-items-center">
-                    <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank"
-                        href="https://www.creative-tim.com/builder?ref=navbar-soft-ui-dashboard">Online
-                        Builder</a>
-                </li>
-                <li class="nav-item d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                        <i class="fa fa-user me-sm-1"></i>
-                        <span class="d-sm-inline d-none">Sign In</span>
+
+            <div class="dropdown d-none d-sm-inline-block">
+                <button type="button" class="btn header-item" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <img id="header-lang-img" src="{{ asset('template/assets/images/flags/us.jpg') }}"
+                        alt="Header Language" height="16">
+                </button>
+                <div class="dropdown-menu dropdown-menu-end">
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="en">
+                        <img src="{{ asset('template/assets/images/flags/us.jpg') }}" alt="user-image" class="me-1"
+                            height="12">
+                        <span class="align-middle">English</span>
                     </a>
-                </li>
-                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                        <div class="sidenav-toggler-inner">
-                            <i class="sidenav-toggler-line"></i>
-                            <i class="sidenav-toggler-line"></i>
-                            <i class="sidenav-toggler-line"></i>
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp">
+                        <img src="{{ asset('template/assets/images/flags/spain.jpg') }}" alt="user-image" class="me-1"
+                            height="12">
+                        <span class="align-middle">Spanish</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr">
+                        <img src="{{ asset('template/assets/images/flags/germany.jpg') }}" alt="user-image"
+                            class="me-1" height="12"> <span class="align-middle">German</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it">
+                        <img src="{{ asset('template/assets/images/flags/italy.jpg') }}" alt="user-image"
+                            class="me-1" height="12"> <span class="align-middle">Italian</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru">
+                        <img src="{{ asset('template/assets/images/flags/russia.jpg') }}" alt="user-image"
+                            class="me-1" height="12"> <span class="align-middle">Russian</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dropdown d-none d-sm-inline-block">
+                <button type="button" class="btn header-item" id="mode-setting-btn">
+                    <i data-feather="moon" class="icon-lg layout-mode-dark"></i>
+                    <i data-feather="sun" class="icon-lg layout-mode-light"></i>
+                </button>
+            </div>
+
+            <div class="dropdown d-none d-lg-inline-block ms-1">
+                <button type="button" class="btn header-item" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i data-feather="grid" class="icon-lg"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                    <div class="p-2">
+                        <div class="row g-0">
+                            <div class="col">
+                                <a class="dropdown-icon-item" href="#">
+                                    <img src="{{ asset('template/assets/images/brands/github.png') }}"
+                                        alt="Github">
+                                    <span>GitHub</span>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="dropdown-icon-item" href="#">
+                                    <img src="{{ asset('template/assets/images/brands/bitbucket.png') }}"
+                                        alt="bitbucket">
+                                    <span>Bitbucket</span>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="dropdown-icon-item" href="#">
+                                    <img src="{{ asset('template/assets/images/brands/dribbble.png') }}"
+                                        alt="dribbble">
+                                    <span>Dribbble</span>
+                                </a>
+                            </div>
                         </div>
-                    </a>
-                </li>
-                <li class="nav-item px-3 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-body p-0">
-                        <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-                    </a>
-                </li>
-                <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-bell cursor-pointer"></i>
-                    </a>
-                    <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
-                        aria-labelledby="dropdownMenuButton">
-                        <li class="mb-2">
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
-                                <div class="d-flex py-1">
-                                    <div class="my-auto">
-                                        <img src={{ asset('template/assets/img/team-2.jpg') }}
-                                            class="avatar avatar-sm  me-3 ">
-                                    </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
-                                            <span class="font-weight-bold">New message</span> from Laur
-                                        </h6>
-                                        <p class="text-xs text-secondary mb-0 ">
-                                            <i class="fa fa-clock me-1"></i>
-                                            13 minutes ago
-                                        </p>
+
+                        <div class="row g-0">
+                            <div class="col">
+                                <a class="dropdown-icon-item" href="#">
+                                    <img src="{{ asset('template/assets/images/brands/dropbox.png') }}"
+                                        alt="dropbox">
+                                    <span>Dropbox</span>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="dropdown-icon-item" href="#">
+                                    <img src="{{ asset('template/assets/images/brands/mail_chimp.png') }}"
+                                        alt="mail_chimp">
+                                    <span>Mail Chimp</span>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="dropdown-icon-item" href="#">
+                                    <img src="{{ asset('template/assets/images/brands/slack.png') }}" alt="slack">
+                                    <span>Slack</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item noti-icon position-relative"
+                    id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i data-feather="bell" class="icon-lg"></i>
+                    <span class="badge bg-danger rounded-pill">5</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                    aria-labelledby="page-header-notifications-dropdown">
+                    <div class="p-3">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h6 class="m-0"> Notifications </h6>
+                            </div>
+                            <div class="col-auto">
+                                <a href="#!" class="small text-reset text-decoration-underline"> Unread
+                                    (3)</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-simplebar style="max-height: 230px;">
+                        <a href="#!" class="text-reset notification-item">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <img src="{{ asset('template/assets/images/users/avatar-3.jpg') }}"
+                                        class="rounded-circle avatar-sm" alt="user-pic">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">James Lemire</h6>
+                                    <div class="font-size-13 text-muted">
+                                        <p class="mb-1">It will seem like simplified English.</p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour
+                                                ago</span></p>
                                     </div>
                                 </div>
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
-                                <div class="d-flex py-1">
-                                    <div class="my-auto">
-                                        <img src="{{ asset('template/assets/img/small-logos/logo-spotify.svg') }}"
-                                            class="avatar avatar-sm bg-gradient-dark  me-3 ">
-                                    </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
-                                            <span class="font-weight-bold">New album</span> by Travis Scott
-                                        </h6>
-                                        <p class="text-xs text-secondary mb-0 ">
-                                            <i class="fa fa-clock me-1"></i>
-                                            1 day
-                                        </p>
+                            </div>
+                        </a>
+                        <a href="#!" class="text-reset notification-item">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 avatar-sm me-3">
+                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
+                                        <i class="bx bx-cart"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Your order is placed</h6>
+                                    <div class="font-size-13 text-muted">
+                                        <p class="mb-1">If several languages coalesce the grammar</p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>3 min
+                                                ago</span></p>
                                     </div>
                                 </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
-                                <div class="d-flex py-1">
-                                    <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
-                                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink">
-                                            <title>credit-card</title>
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
-                                                    fill-rule="nonzero">
-                                                    <g transform="translate(1716.000000, 291.000000)">
-                                                        <g transform="translate(453.000000, 454.000000)">
-                                                            <path class="color-background"
-                                                                d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"
-                                                                opacity="0.593633743"></path>
-                                                            <path class="color-background"
-                                                                d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
-                                                            </path>
-                                                        </g>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
-                                            Payment successfully completed
-                                        </h6>
-                                        <p class="text-xs text-secondary mb-0 ">
-                                            <i class="fa fa-clock me-1"></i>
-                                            2 days
-                                        </p>
+                            </div>
+                        </a>
+                        <a href="#!" class="text-reset notification-item">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 avatar-sm me-3">
+                                    <span class="avatar-title bg-success rounded-circle font-size-16">
+                                        <i class="bx bx-badge-check"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Your item is shipped</h6>
+                                    <div class="font-size-13 text-muted">
+                                        <p class="mb-1">If several languages coalesce the grammar</p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>3 min
+                                                ago</span></p>
                                     </div>
                                 </div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                            </div>
+                        </a>
+
+                        <a href="#!" class="text-reset notification-item">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <img src="{{ asset('template/assets/images/users/avatar-6.jpg') }}"
+                                        class="rounded-circle avatar-sm" alt="user-pic">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Salena Layfield</h6>
+                                    <div class="font-size-13 text-muted">
+                                        <p class="mb-1">As a skeptical Cambridge friend of mine occidental.
+                                        </p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour
+                                                ago</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="p-2 border-top d-grid">
+                        <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                            <i class="mdi mdi-arrow-right-circle me-1"></i> <span>View More..</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item right-bar-toggle me-2">
+                    <i data-feather="settings" class="icon-lg"></i>
+                </button>
+            </div>
+
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item bg-light-subtle border-start border-end"
+                    id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <img class="rounded-circle header-profile-user"
+                        src="{{ asset('template/assets/images/users/avatar-1.jpg') }}" alt="Header Avatar">
+                    <span class="d-none d-xl-inline-block ms-1 fw-medium">Shawn L.</span>
+                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <!-- item-->
+                    <a class="dropdown-item" href="apps-contacts-profile.html"><i
+                            class="mdi mdi mdi-face-man font-size-16 align-middle me-1"></i> Profile</a>
+                    <a class="dropdown-item" href="auth-lock-screen.html"><i
+                            class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="auth-logout.html"><i
+                            class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
+                </div>
+            </div>
+
         </div>
     </div>
-</nav>
+</header>
