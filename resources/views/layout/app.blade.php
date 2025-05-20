@@ -19,10 +19,7 @@
 
             @include('layout.footer')
         </div>
-        <!-- end main content-->
-
     </div>
-    <!-- END layout-wrapper -->
 
 
     @include('layout.right_sidebar')
