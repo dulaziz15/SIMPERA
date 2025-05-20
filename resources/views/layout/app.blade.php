@@ -69,7 +69,10 @@
     <!-- Responsive examples -->
     <script src="{{ asset('template/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{ asset('template/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
-
+    <!-- init js -->
+        <script src="{{ asset('template/assets/js/pages/form-advanced.init.js') }}"></script><!-- datepicker js -->
+        <script src="{{ asset('template/assets/libs/flatpickr/flatpickr.min.js') }}"></script><!-- choices js -->
+        <script src="{{ asset('template/assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
     @stack('scripts')
 
 </body>

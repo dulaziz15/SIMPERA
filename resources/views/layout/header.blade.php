@@ -10,6 +10,9 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('template/assets/images/logo.png') }}">
 
+
+        <!-- choices css -->
+        <link href="{{ asset('template/assets/libs/choices.js/public/assets/styles/choices.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- plugin css -->
     <link href="{{ asset('template/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }}"
         rel="stylesheet" type="text/css" />
@@ -28,4 +31,7 @@
     <!-- Responsive datatable examples -->
     <link href="{{ asset('template/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
         rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="{{ asset('template/assets/libs/flatpickr/flatpickr.min.css') }}">
+
 </head>

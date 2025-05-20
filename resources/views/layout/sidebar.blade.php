@@ -10,14 +10,14 @@
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
 
                 <li>
-                    <a href="index.html">
+                    <a href="{{ url('/') }}">
                         <i data-feather="home"></i>
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="index.html">
+                    <a href="{{ url('user/') }}">
                         <i class="bx bxs-user"></i>
                         <span data-key="t-dashboard">Profil</span>
                     </a>
@@ -32,7 +32,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="#">
+                            <a href="{{ url('user/') }}">
                                 <span data-key="t-calendar">Role</span>
                             </a>
                         </li>
@@ -72,13 +72,13 @@
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="{{ url('kategori/') }}">
                                 <span data-key="t-chat">Kategori Fasilitas</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="{{ url('fasilitas/') }}">
                                 <span data-key="t-chat">Fasilitas</span>
                             </a>
                         </li>
