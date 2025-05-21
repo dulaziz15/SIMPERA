@@ -7,43 +7,52 @@
                 <h5 class="modal-title">Edit User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body row g-3">
-                <div class="col-md-6">
-                    <!-- CONTOH -->
-                    <div class="form-group">
-                        <label class="form-label">Peran Pengguna</label>
-                        <select name="id_peran" id="id_peran" class="form-select" required>
-                            <option value="">- Pilih Peran -</option>
-                            @foreach ($peran as $l)
-                                <option {{ $l->id_peran == $user->id_peran ? 'selected' : '' }} value="{{ $l->id_peran }}">
-                                    {{ $l->nama }}</option>
-                            @endforeach
-                        </select>
-                        <div class="invalid-feedback" id="error-id_peran"></div>
-                    </div>
+            <div class="modal-body row g-3 p-4">
+                <div class="card ">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Peran Pengguna</label>
+                                    <select name="id_peran" id="id_peran" class="form-select" required>
+                                        <option value="">- Pilih Peran -</option>
+                                        @foreach ($peran as $l)
+                                            <option {{ $l->id_peran == $user->id_peran ? 'selected' : '' }}
+                                                value="{{ $l->id_peran }}">
+                                                {{ $l->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback" id="error-id_peran"></div>
+                                </div>
 
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Nama Pengguna</label>
-                        <input type="text" name="nama_pengguna" id="nama_pengguna" value="{{ $user->nama_pengguna }}" class="form-control">
-                        <div id="error-nama_pengguna" class="error-text"></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="surel" id="surel" class="form-control" value="{{ $user->surel }}" required>
-                        <div id="error-surel" class="error-text"></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <input type="password" name="hash_kata_sandi" id="hash_kata_sandi" value="" class="form-control"
-                            required>
-                        <div id="error-hash_kata_sandi" class="error-text"></div>
-                        <div id="hash_kata_sandi-error" class="error invalid-feedback" style="display: block">Abaikan Jika Tidak Ingin Mengubah</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Nama Pengguna</label>
+                                    <input type="text" name="nama_pengguna" id="nama_pengguna"
+                                        value="{{ $user->nama_pengguna }}" class="form-control">
+                                    <div id="error-nama_pengguna" class="error-text"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="surel" id="surel" class="form-control"
+                                        value="{{ $user->surel }}" required>
+                                    <div id="error-surel" class="error-text"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="hash_kata_sandi" id="hash_kata_sandi" value=""
+                                        class="form-control" required>
+                                    <div id="error-hash_kata_sandi" class="error-text"></div>
+                                    <div id="hash_kata_sandi-error" class="error invalid-feedback"
+                                        style="display: block">Abaikan Jika Tidak Ingin Mengubah</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

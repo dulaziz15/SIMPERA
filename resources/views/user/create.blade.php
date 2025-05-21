@@ -6,46 +6,63 @@
                 <h5 class="modal-title">Tambah Data User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body row g-3">
-                <div class="col-md-6">
-                    <!-- CONTOH -->
-                    <div class="form-group">
-                        <label class="form-label">Peran Pengguna</label>
-                        <select name="id_peran" id="id_peran" class="form-select" required>
-                            <option value="">- Pilih Peran -</option>
-                            @foreach ($peran as $l)
-                                <option value="{{ $l->id_peran }}">{{ $l->nama }}</option>
-                            @endforeach
-                        </select>
-                        <div class="invalid-feedback" id="error-id_peran"></div>
+            <div class="modal-body row g-3 p-4">
+                <div class="card">
+                    <div class="mt-2">
+                        <div class="alert alert-warning">
+                            <h5><i class="fas fa-exclamation-triangle"></i> Perthatikan!!!</h5>
+                            <ul>
+                                <li>Pastikan Email belum digunakan</li>
+                                <li>Password minimal 5 karakter</li>
+                                <li>Pastikan Nama Pengguna sudah benar</li>
+                            </ul>
+                        </div>
                     </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Peran Pengguna</label>
+                                    <select name="id_peran" id="id_peran" class="form-select" required>
+                                        <option value="">- Pilih Peran -</option>
+                                        @foreach ($peran as $l)
+                                            <option value="{{ $l->id_peran }}">{{ $l->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback" id="error-id_peran"></div>
+                                </div>
 
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Nama Pengguna</label>
-                        <input type="text" name="nama_pengguna" id="nama_pengguna" class="form-control">
-                        <div id="error-nama_pengguna" class="error-text"></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="surel" id="surel" class="form-control" required>
-                        <div id="error-surel" class="error-text"></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <input type="password" name="hash_kata_sandi" id="hash_kata_sandi" class="form-control"
-                            required>
-                        <div id="error-hash_kata_sandi" class="error-text"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Nama Pengguna</label>
+                                    <input type="text" name="nama_pengguna" id="nama_pengguna" value=""
+                                        class="form-control">
+                                    <div id="error-nama_pengguna" class="error-text"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="surel" id="surel" class="form-control"
+                                        value="" required>
+                                    <div id="error-surel" class="error-text"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="hash_kata_sandi" id="hash_kata_sandi" value=""
+                                        class="form-control" required>
+                                    <div id="error-hash_kata_sandi" class="error-text"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                
+
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
