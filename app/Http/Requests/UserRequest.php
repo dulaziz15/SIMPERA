@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
 
     public function rules(): array
     {
-        $isUpdate = $this->isMethod('PUT') || $this->isMethod('POST');
+        $isUpdate = $this->isMethod('PUT') || $this->isMethod('PATCH');
 
         return [
             'nama_pengguna' => 'required|string|min:3|max:20',

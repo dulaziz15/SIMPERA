@@ -5,6 +5,7 @@ namespace App\Services\Interfaces;
 use App\Http\Requests\UserRequest;
 
 interface UserServiceInterface {
+    public function countUserByPeran();
     public function getAll();
     public function createUser(UserRequest $request);
     public function updateProfile($id, UserRequest $request);

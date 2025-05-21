@@ -35,6 +35,9 @@ class UserController extends Controller
         $activeMenu = 'user';
         $peran = $this->peranService->getAll();
         $user = $this->userServiceInterface->getAll();
+        // $jumlahPeran = $this->userServiceInterface->countUserByPeran();
+
+        // dd($jumlahPeran);
         return view('user.index', compact('peran', 'breadcrumb', 'page', 'activeMenu', 'user'));
     }
 
