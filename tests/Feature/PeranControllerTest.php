@@ -165,7 +165,7 @@ class PeranControllerTest extends TestCase
                 'redirect' => url('/peran')
             ]);
 
-        $this->assertDatabaseMissing('peran', [
+        $this->assertDatabaseMissing('m_peran', [
             'id_peran' => $peran->id_peran
         ]);
     }

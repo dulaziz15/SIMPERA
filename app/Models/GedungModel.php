@@ -16,6 +16,7 @@ class GedungModel extends Model
     protected $fillable = [
         'kode',
         'nama',
-        'deskripsi'
+        'deskripsi',
+        'id_kategori_gedung'
     ];
 }

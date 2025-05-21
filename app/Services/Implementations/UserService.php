@@ -13,13 +13,16 @@ class UserService implements UserServiceInterface {
         $this->userRepository = $userRepository;
     }
 
+    public function getAll() {
+        return $this->userRepository->getAll();
+    }
+
     public function createUser(UserRequest $request) {
         return $this->userRepository->storeUser([
             'nama_pengguna' => $request->nama_pengguna,
             'hash_kata_sandi' => $request->hash_kata_sandi,
             'id_peran' => $request->id_peran,
-            'surel' => $request->surel,
-            'nama_lengkap' => $request->nama_lengkap
+            'surel' => $request->surel
         ]);
     }
 
@@ -28,8 +31,7 @@ class UserService implements UserServiceInterface {
             'nama_pengguna' => $request->nama_pengguna,
             'hash_kata_sandi' => $request->hash_kata_sandi,
             'id_peran' => $request->id_peran,
-            'surel' => $request->surel,
-            'nama_lengkap' => $request->nama_lengkap
+            'surel' => $request->surel
         ]);
     }
 
@@ -41,9 +43,9 @@ class UserService implements UserServiceInterface {
         return $this->userRepository->getUserById($id);
     }
 
-    // public function getUserByPeran($peran) {
-    //     $this->userRepository->
-    // }
+    public function getUserByPeran($peran) {
+        return $this->userRepository->getUserByPeran($peran);
+    }
 
     // public function getUserByNama($nama) {
 

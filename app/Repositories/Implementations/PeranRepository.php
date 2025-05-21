@@ -6,8 +6,11 @@ use App\Models\PeranModel;
 use App\Repositories\Interfaces\PeranRepositoryInterface;
 
 class PeranRepository implements PeranRepositoryInterface {
+    public function getAll() {
+        return PeranModel::all();
+    }
     public function getById($id) {
-        return PeranModel::find($id) ? true : false;
+        return PeranModel::find($id);
     }
 
     public function create(array $data) {
