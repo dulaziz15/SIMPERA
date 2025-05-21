@@ -5,7 +5,7 @@
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
 
                 <li>
-                    <a href="index.html">
+                    <a href="{{ url('/') }}">
                         <i data-feather="home"></i>
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
@@ -32,23 +32,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Sarana Prasarana</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Mahasiswa</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Tendik</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Admin</span>
+                            <a href="{{ url('user') }}">
+                                <span data-key="t-calendar">User</span>
                             </a>
                         </li>
                     </ul>

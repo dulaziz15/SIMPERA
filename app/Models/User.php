@@ -21,8 +21,7 @@ class User extends Authenticatable
         'nama_pengguna',
         'hash_kata_sandi',
         'id_peran',
-        'surel',
-        'nama_lengkap'
+        'surel'
     ];
 
     public function getAuthPassword()

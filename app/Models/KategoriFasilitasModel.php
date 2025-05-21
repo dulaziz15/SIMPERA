@@ -17,4 +17,9 @@ class KategoriFasilitasModel extends Model
         'kode',
         'nama'
     ];
+
+    public function fasilitas()
+    {
+        return $this->belongsTo(FasilitasModel::class, 'id_kategori_fasilitas');
+    }
 }

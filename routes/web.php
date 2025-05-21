@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\KategoriFasilitasController;
@@ -22,12 +23,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [DashboardController::class, 'index']);
 
 Route::get('/login', [AuthController::class, 'index']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/proses_login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::prefix('periode')->group(function () {
@@ -116,6 +115,7 @@ Route::prefix('feedback')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index']);
+    Route::post('/data', [UserController::class, 'getAll']);
     Route::get('/create', [UserController::class, 'create']);
     Route::post('/store', [UserController::class, 'storeUser']);
     Route::get('/{id}/show', [UserController::class, 'show']);

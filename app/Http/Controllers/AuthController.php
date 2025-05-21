@@ -18,23 +18,15 @@ class AuthController extends Controller
 
     public function login(AuthRequest $request)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            $credentials = $request->only('surel', 'hash_kata_sandi');
-            if (Auth::attempt($credentials)) {
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Login Berhasil',
-                    'redirect' => url('/')
-                ]);
-            } else {
-                return response()->json([
-                'status' => false,
-                'message' => 'Login Gagal',
-                'redirect' => url('/login')
-            ]);
-            }
+        $credentials = [
+            'surel' => $request->surel,
+            'password' => $request->hash_kata_sandi
+        ];
+        if (Auth::attempt($credentials)) {
+            return redirect('');
+        } else {
+            return redirect('login');
         }
-        return redirect('login');
     }
 
     public function logout(Request $request)
