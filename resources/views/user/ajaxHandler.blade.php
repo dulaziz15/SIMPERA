@@ -45,7 +45,7 @@
                     className: 'text-center p-2',
                     render: function(data, type, row) {
                         return `
-                            <button type="button" class="btn btn-soft-primary waves-effect waves-light btn-sm" onclick="modalAction('{{ url('user/${row.id_pengguna}/show') }}')"><i class="bx bx-show-alt font-size-16 align-middle"></i> Edit</button>
+                            <button type="button" class="btn btn-soft-info waves-effect waves-light btn-sm" onclick="modalAction('{{ url('user/${row.id_pengguna}/profil') }}')" ><i class="bx bx-show-alt font-size-16 align-middle"></i> Profil</button>
                             <button type="button" class="btn btn-soft-warning waves-effect waves-light btn-sm" onclick="modalAction('{{ url('user/${row.id_pengguna}/edit') }}')"><i class="bx bx-edit font-size-16 align-middle"></i> Edit</button>
                             <button type="button" class="btn btn-soft-danger waves-effect waves-light btn-sm" onclick="modalAction('{{ url('user/${row.id_pengguna}/confirm') }}')"><i class="bx bx-trash font-size-16 align-middle"></i> hapus</button>
                         `;
@@ -56,11 +56,11 @@
 
         const state = dataUser.state.loaded();
         if (state) {
-            const savedFilter = state.ajax?.id_peran || '';
-            $('#id_peran').val(savedFilter);
+            const savedFilter = state.ajax?.id_peran_filter || '';
+            $('#id_peran_filter').val(savedFilter);
         }
 
-        $('#id_peran').on('change', function() {
+        $('#id_peran_filter').on('change', function() {
             dataUser.ajax.reload();
         });
     });

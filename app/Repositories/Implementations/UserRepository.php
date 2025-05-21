@@ -4,6 +4,7 @@ namespace App\Repositories\Implementations;
 
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class UserRepository implements UserRepositoryInterface {
     public function storeUser($data) {
@@ -12,6 +13,13 @@ class UserRepository implements UserRepositoryInterface {
 
     public function getAll() {
         return User::with('peran')->get();
+    }
+
+    public function countUserByPeran($id) {
+        return User::select('id_peran', DB::raw('count(*) as total'))
+        ->groupBy('id_peran')
+        ->pluck('total', 'id_peran')
+        ->toArray();
     }
 
     public function getUserById($id) {
