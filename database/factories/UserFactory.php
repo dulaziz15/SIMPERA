@@ -16,8 +16,7 @@ class UserFactory extends Factory
             'nama_pengguna' => $this->faker->unique()->userName,
             'hash_kata_sandi' => bcrypt('password'),
             'id_peran' => 1, // Pastikan ini sesuai dengan ID yang ada di tabel m_peran
-            'surel' => $this->faker->unique()->safeEmail,
-            'nama_lengkap' => $this->faker->name,
+            'surel' => $this->faker->unique()->safeEmail
         ];
     }
 }
