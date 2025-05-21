@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-         Schema::create('periode', function (Blueprint $table) {
-            $table->id('id_periode');
-            $table->string('nama');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
-            $table->timestamps();
+        Schema::create('m_kategori_gedung', function (Blueprint $table) {
+            $table->id('id_kategori_gedung');
+            $table->string('kategori_gedung', 100)->unique()->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_periode');
+        Schema::dropIfExists('m_kategori_gedung');
     }
 };
