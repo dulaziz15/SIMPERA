@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Services\Interfaces\PeranServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -125,6 +126,15 @@ class UserController extends Controller
     public function delete($id, Request $request)
     {
         if ($request->ajax() || $request->wantsJson()) {
+            $user = Auth::user();
+
+                if ($user->id_pengguna == $id) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Tidak bisa menghapus user yang sedang aktif.',
+                    ]);
+                }
+
             $user = $this->userServiceInterface->deleteUser($id);
             if ($user) {
                 return response()->json([
