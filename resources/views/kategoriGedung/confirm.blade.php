@@ -1,4 +1,4 @@
-@empty($gedung)
+@empty($kategori)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -18,13 +18,13 @@
         </div>
     </div>
 @else
-    <form action="{{ url('/gedung/' . $gedung->id_gedung . '/delete') }}" method="POST" id="form-delete">
+    <form action="{{ url('/kategori_gedung/' . $kategori->id_kategori_gedung . '/delete') }}" method="POST" id="form-delete">
         @csrf
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Confirm Delete Data gedung</h5>
+                    <h5 class="modal-title">Confirm Delete Data kategori</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body row g-3">
@@ -35,20 +35,8 @@
                         </div>
                         <table class="table table-sm table-bordered table-striped">
                             <tr>
-                                <th class="text-right col-3">Nama Gedung :</th>
-                                <td class="col-9">{{ $gedung->nama }}</td>
-                            </tr>
-                            <tr>
-                                <th class="text-right col-3">Kode Gedung :</th>
-                                <td class="col-9">{{ $gedung->kode }}</td>
-                            </tr>
-                            <tr>
-                                <th class="text-right col-3">Deskripsi Gedung :</th>
-                                <td class="col-9">{{ $gedung->deskripsi }}</td>
-                            </tr>
-                            <tr>
                                 <th class="text-right col-3">Kategori Gedung :</th>
-                                <td class="col-9">{{ $gedung->kategori_gedung->kategori_gedung }}</td>
+                                <td class="col-9">{{ $kategori->kategori_gedung }}</td>
                             </tr>
                         </table>
                     </div>
@@ -79,7 +67,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                gedungData.ajax.reload();
+                                kategoriGedungData.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

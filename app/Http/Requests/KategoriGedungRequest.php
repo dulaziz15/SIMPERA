@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class GedungRequest extends FormRequest
+class KategoriGedungRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,10 +33,7 @@ class GedungRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_kategori_gedung' => 'required',
-            'kode' => 'required',
-            'nama' => 'required',
-            'deskripsi' => 'required'
+            'kategori_gedung' => 'required|min:3|max:50'
         ];
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\KategoriFasilitasController;
+use App\Http\Controllers\KategoriGedungController;
 use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PeranController;
@@ -42,7 +43,7 @@ Route::prefix('periode')->group(function () {
 
 Route::prefix('gedung')->group(function () {
     Route::get('/', [GedungController::class, 'index']);
-    Route::get('/data', [GedungController::class, 'getAll']);
+    Route::post('/data', [GedungController::class, 'getAll']);
     Route::get('/create', [GedungController::class, 'create']);
     Route::post('/store', [GedungController::class, 'storeGedung']);
     Route::get('/{id}/show', [GedungController::class, 'show']);
@@ -61,6 +62,17 @@ Route::prefix('kategori')->group(function () {
     Route::put('/{id}/update', [KategoriFasilitasController::class, 'update']);
     Route::get('/{id}/confirm', [KategoriFasilitasController::class, 'confirm']);
     Route::delete('/{id}/delete', [KategoriFasilitasController::class, 'delete']);
+});
+
+Route::prefix('kategori_gedung')->group(function () {
+    Route::get('/data', [KategoriGedungController::class, 'getAll']);
+    Route::get('/create', [KategoriGedungController::class, 'create']);
+    Route::post('/store', [KategoriGedungController::class, 'storeKategoriGedung']);
+    Route::get('/{id}/show', [KategoriGedungController::class, 'show']);
+    Route::get('/{id}/edit', [KategoriGedungController::class, 'edit']);
+    Route::put('/{id}/update', [KategoriGedungController::class, 'update']);
+    Route::get('/{id}/confirm', [KategoriGedungController::class, 'confirm']);
+    Route::delete('/{id}/delete', [KategoriGedungController::class, 'delete']);
 });
 
 Route::prefix('peran')->group(function () {
