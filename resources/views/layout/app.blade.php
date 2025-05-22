@@ -44,6 +44,13 @@
     <!-- pace js -->
     <script src="{{ asset('template/assets/libs/pace-js/pace.min.js') }}"></script>
 
+    <!-- choices js -->
+    <script src="{{ asset('template/assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
+
+    <script src="{{ asset('template/assets/js/pages/form-advanced.init.js') }}"></script>
+
+    <!-- datepicker js -->
+    <script src="{{ asset('template/assets/libs/flatpickr/flatpickr.min.js') }}"></script>
     <!-- apexcharts -->
     <script src="{{ asset('template/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
@@ -56,7 +63,6 @@
     <!-- dashboard init -->
     <script src="{{ asset('template/assets/js/pages/dashboard.init.js') }}"></script>
 
-    <script src="{{ asset('template/assets/js/app.js') }}"></script>
     <!-- Required datatable js -->
     <script src="{{ asset('template/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('template/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -78,6 +84,7 @@
     <script src="{{ asset('template/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('template/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}">
     </script>
+    <script src="{{ asset('template/assets/js/app.js') }}"></script>
     <script>
         $.ajaxSetup({
             headers: {

@@ -15,7 +15,6 @@ class UserRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        // Kembalikan JSON error
         throw new HttpResponseException(response()->json([
             'status' => false,
             'message' => 'Validasi Gagal. Harap periksa kembali data Anda.',

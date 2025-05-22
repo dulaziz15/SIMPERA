@@ -27,7 +27,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="#">
+                            <a href="{{url('peran')}}">
                                 <span data-key="t-calendar">Role</span>
                             </a>
                         </li>
@@ -46,14 +46,8 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('gedung/') }}" class="">
-                                <span data-key="t-calendar">Gedung</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <span data-key="t-chat">Kategori Fasilitas</span>
+                            <a href="{{ url('gedung') }}" class="">
+                                <span data-key="t-calendar">Gedung dan Kategori</span>
                             </a>
                         </li>
 
