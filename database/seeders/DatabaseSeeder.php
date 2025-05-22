@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             PeranSeeder::class,
             UserSeeder::class,
             GedungSeeder::class,
-            FasilitasSeeder::class
+            FasilitasSeeder::class,
+            ProfilSeeder::class
         ]);
     }
 }
