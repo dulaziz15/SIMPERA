@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PeriodeSeeder extends Seeder
 {
@@ -25,10 +25,12 @@ class PeriodeSeeder extends Seeder
         ];
 
         foreach ($periode as $item) {
+            [$startYear, $endYear] = explode('/', $item);
+
             DB::table('periode')->insert([
                 'nama' => $item,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'tanggal_mulai' => Carbon::create($startYear, 7, 1), // mulai 1 Juli
+                'tanggal_selesai' => Carbon::create($endYear, 6, 30), // selesai 30 Juni
             ]);
         }
     }

@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $peran = DB::table('m_peran')->pluck('id_peran', 'nama_peran');
+        $peran = DB::table('m_peran')->pluck('id_peran', 'nama');
 
         $users = [
             [

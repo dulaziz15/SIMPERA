@@ -13,18 +13,19 @@ class PeranSeeder extends Seeder
      */
     public function run(): void
     {
-        $peran = [
-            'Admin',
-            'Sarana Prasarana',
-            'Teknisi',
-            'Dosen',
-            'Tenaga Kependidikan',
-            'Mahasiswa',
+        $peranList = [
+            ['kode' => 'ADM', 'nama' => 'Admin'],
+            ['kode' => 'SPS', 'nama' => 'Sarana Prasarana'],
+            ['kode' => 'TKNS', 'nama' => 'Teknisi'],
+            ['kode' => 'DSN', 'nama' => 'Dosen'],
+            ['kode' => 'TDK', 'nama' => 'Tenaga Kependidikan'],
+            ['kode' => 'MHS', 'nama' => 'Mahasiswa'],
         ];
 
-        foreach ($peran as $item) {
+        foreach ($peranList as $item) {
             DB::table('m_peran')->insert([
-                'peran' => $item,
+                'kode_peran' => $item['kode'],
+                'nama' => $item['nama'],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
