@@ -15,8 +15,7 @@ return new class extends Migration
            $table->id('id_fasilitas');
             $table->string('nama', 100);
             $table->unsignedBigInteger('id_kategori');
-            $table->string('lokasi', 50)->nullable();
-            $table->unsignedBigInteger('id_gedung');
+            $table->unsignedBigInteger('id_ruangan');
             $table->string('status')->default('berfungsi');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
@@ -25,9 +24,9 @@ return new class extends Migration
                   ->on('m_kategori_fasilitas')
                   ->onDelete('restrict')
                   ->onUpdate('cascade');
-            $table->foreign('id_gedung')
-                  ->references('id_gedung')
-                  ->on('m_gedung')
+            $table->foreign('id_ruangan')
+                  ->references('id_ruangan')
+                  ->on('m_ruangan')
                   ->onDelete('restrict')
                   ->onUpdate('cascade');
         });
