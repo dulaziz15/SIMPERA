@@ -25,10 +25,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index']);
 
-Route::get('/login', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/proses_login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
+Route::middleware(['auth'])->group(function () {
 Route::prefix('periode')->group(function () {
     Route::get('/', [PeriodeController::class, 'index']);
     Route::get('/create', [PeriodeController::class, 'create']);
@@ -124,4 +125,5 @@ Route::prefix('user')->group(function () {
     Route::put('/{id}/update', [UserController::class, 'updateProfile']);
     Route::get('/{id}/confirm', [UserController::class, 'confirmDelete']);
     Route::delete('/{id}/delete', [UserController::class, 'delete']);
+});
 });
