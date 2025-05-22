@@ -26,7 +26,7 @@ class PeriodeSeeder extends Seeder
 
         foreach ($periode as $item) {
             DB::table('periode')->insert([
-                'periode' => $item,
+                'nama' => $item,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
