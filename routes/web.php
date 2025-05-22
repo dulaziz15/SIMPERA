@@ -67,6 +67,7 @@ Route::prefix('peran')->group(function () {
     Route::get('/', [PeranController::class, 'index']);
     Route::get('/create', [PeranController::class, 'create']);
     Route::post('/store', [PeranController::class, 'storePeran']);
+    Route::post('/data', [PeranController::class, 'getAll']);
     Route::get('/{id}/show', [PeranController::class, 'show']);
     Route::get('/{id}/edit', [PeranController::class, 'edit']);
     Route::put('/{id}/update', [PeranController::class, 'update']);
