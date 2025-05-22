@@ -110,7 +110,7 @@ class PeranController extends Controller
         if ($user && $user->id_peran == $id) {
             return response()->json([
                 'status' => false,
-                'message' => 'Tidak dapat menghapus peran yang sedang digunakan oleh user yang sedang login.',
+                'message' => 'Tidak dapat menghapus peran yang sedang digunakan oleh user yang sedang aktif.',
             ]);
         }
 
