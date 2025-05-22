@@ -19,4 +19,9 @@ class GedungModel extends Model
         'deskripsi',
         'id_kategori_gedung'
     ];
+
+    public function kategori_gedung()
+    {
+        return $this->belongsTo(KategoriGedungModel::class, 'id_kategori_gedung');
+    }
 }
