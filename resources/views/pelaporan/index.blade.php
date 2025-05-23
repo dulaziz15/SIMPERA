@@ -1,11 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Pelaporan</h1>
-</body>
-</html>
+@extends('layout.app')
+
+@section('content')
+    <div class="card">
+        <div class="card-header">
+            <span>{{ $page->title }}</span>
+        </div>
+        <div class="card-body">
+            <table id="table_gedung" class="table table-bordered dt-responsive w-100">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>ID Pengguna</th>
+                        <th>Nama Fasilitas</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+@endsection
+
+@push('scripts')
+   
+@endpush
