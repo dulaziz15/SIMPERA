@@ -24,4 +24,8 @@ class GedungModel extends Model
     {
         return $this->belongsTo(KategoriGedungModel::class, 'id_kategori_gedung');
     }
+
+    public function ruangan() {
+        return $this->belongsTo(RuanganModel::class, 'id_gedung');
+    }
 }

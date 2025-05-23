@@ -119,7 +119,7 @@
                             <label class="control-label col-form-label">Filter :</label>
                         </div>
                         <div class="col-lg-4">
-                            <select class="form-control" id="id_peran_filter" name="id_peran">
+                            <select class="form-control" id="id_peran_filter" data-trigger name="id_peran">
                                 <option value="">- Semua -</option>
                                 @foreach ($peran as $item)
                                     <option value="{{ $item->id_peran }}">{{ $item->nama }}</option>

@@ -10,6 +10,7 @@ use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PeranController;
 use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -63,6 +64,18 @@ Route::prefix('kategori')->group(function () {
     Route::put('/{id}/update', [KategoriFasilitasController::class, 'update']);
     Route::get('/{id}/confirm', [KategoriFasilitasController::class, 'confirm']);
     Route::delete('/{id}/delete', [KategoriFasilitasController::class, 'delete']);
+});
+
+Route::prefix('ruangan')->group(function () {
+    Route::get('/', [RuanganController::class, 'index']);
+    Route::post('/data', [RuanganController::class, 'getAll']);
+    Route::get('/create', [RuanganController::class, 'create']);
+    Route::post('/store', [RuanganController::class, 'storeKategori']);
+    Route::get('/{id}/show', [RuanganController::class, 'show']);
+    Route::get('/{id}/edit', [RuanganController::class, 'edit']);
+    Route::put('/{id}/update', [RuanganController::class, 'update']);
+    Route::get('/{id}/confirm', [RuanganController::class, 'confirm']);
+    Route::delete('/{id}/delete', [RuanganController::class, 'delete']);
 });
 
 Route::prefix('kategori_gedung')->group(function () {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GedungRequest;
 use App\Services\Interfaces\GedungServiceInterface;
 use App\Services\Interfaces\KategoriGedungServiceInterface;
+use App\Services\Interfaces\RuanganServiceInterface;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -12,12 +13,15 @@ class GedungController extends Controller
 {
     protected $gedungService;
     protected $kategoriGedungService;
+    protected $ruanganService;
     public function __construct(
         GedungServiceInterface $gedungService,
-        KategoriGedungServiceInterface $kategoriGedungService
+        KategoriGedungServiceInterface $kategoriGedungService,
+        RuanganServiceInterface $ruanganService
     ) {
         $this->gedungService = $gedungService;
         $this->kategoriGedungService = $kategoriGedungService;
+        $this->ruanganService = $ruanganService;
     }
     public function index()
     {
@@ -33,12 +37,13 @@ class GedungController extends Controller
         $activeMenu = 'gedung';
         $kategori = $this->kategoriGedungService->getAll();
         $gedung = $this->gedungService->getAll();
+        $ruangan = $this->ruanganService->getAll();
 
         $content = [
             'jumlah_kategori' => $kategori->count(),
             'jumlah_gedung' => $gedung->count()
         ];
-        return view('gedung.index', compact('breadcrumb', 'page', 'activeMenu', 'kategori', 'content'));
+        return view('gedung.index', compact('breadcrumb', 'page', 'activeMenu', 'kategori', 'content', 'ruangan', 'gedung'));
     }
 
     public function getAll(Request $request)

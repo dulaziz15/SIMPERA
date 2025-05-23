@@ -53,34 +53,5 @@
                 }
             ]
         });
-
-        const state = dataPeran.state.loaded();
-        if (state) {
-            const savedFilter = state.ajax?.id_peran_filter || '';
-            $('#id_peran_filter').val(savedFilter);
-        }
-
-        $('#id_peran_filter').on('change', function() {
-            dataPeran.ajax.reload();
-        });
     });
-
-    function hapusData(id) {
-        if (confirm('Yakin ingin menghapus peran ini?')) {
-            $.ajax({
-                url: `/peran/delete/${id}`,
-                type: 'DELETE',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    $('#table_peran').DataTable().ajax.reload();
-                    alert('Data berhasil dihapus!');
-                },
-                error: function() {
-                    alert('Terjadi kesalahan saat menghapus data.');
-                }
-            });
-        }
-    }
 </script>
