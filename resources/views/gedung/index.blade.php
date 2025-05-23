@@ -114,6 +114,8 @@
                             aria-controls="kategori-gedung" aria-selected="true">Kategori Gedung</a>
                         <a class="nav-link mb-2" id="gedung-tab" data-bs-toggle="pill" href="#gedung" role="tab"
                             onclick="gedungData.ajax.reload()" aria-controls="gedung" aria-selected="false">Gedung</a>
+                        <a class="nav-link mb-2" id="ruangan-tab" data-bs-toggle="pill" href="#ruangan" role="tab"
+                            onclick="ruanganData.ajax.reload()" aria-controls="ruangan" aria-selected="false">Ruangan</a>
                     </div>
                 </div><!-- end col -->
                 <div class="col-md-10">
@@ -156,10 +158,14 @@
                                                 <label class="control-label col-form-label">Filter :</label>
                                             </div>
                                             <div class="col-lg-4">
-                                                <select class="form-control" id="id_kategori_gedung_filter" name="id_kategori_gedung">
-                                                    <option value="">- Semua -</option>
+                                                <select class="form-control" name="id_kategori_gedung"
+                                                    data-trigger  
+                                                    id="id_kategori_gedung_filter"
+                                                    placeholder="This is a search placeholder" required>
+                                                    <option value="">- Pilih kategori -</option>
                                                     @foreach ($kategori as $item)
-                                                        <option value="{{ $item->id_kategori_gedung }}">{{ $item->kategori_gedung }}</option>
+                                                        <option value="{{ $item->id_kategori_gedung}}|{{ $item->kategori_gedung  }}">
+                                                            {{ $item->kategori_gedung }}</option>
                                                     @endforeach
                                                 </select>
                                                 <small class="form-text text-muted">Kategori Gedung</small>
@@ -176,6 +182,49 @@
                                                 <th>Deskripsi</th>
                                                 <th>Kategori Gedung</th>
                                                 <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="ruangan" role="tabpanel" aria-labelledby="ruangan-tab">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-tools">
+                                        <button onclick="modalAction('{{ url('ruangan/create') }}')"
+                                            class="btn btn-sm btn-success mt-1">Tambah</button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <div class="col-lg-4">
+                                                <label class="control-label col-form-label">Filter :</label>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <select class="form-control" id="id_gedung_filter" data-trigger name="id_gedung">
+                                                    <option value="">- Semua -</option>
+                                                    @foreach ($gedung as $item)
+                                                        <option value="{{ $item->id_gedung }}|{{ $item->nama }}">
+                                                            {{ $item->nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <small class="form-text text-muted">Gedung</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="table_ruangan"
+                                        class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Kode Ruangan</th>
+                                                <th>Nama Ruangan</th>
+                                                <th>Lokasi</th>
+                                                <th>Gedung</th>
+                                                <th>Deskripsi</th>
+                                                <th>aksi</th>
                                             </tr>
                                         </thead>
                                     </table>

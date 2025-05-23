@@ -47,7 +47,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
                             <a href="{{ url('gedung') }}" class="">
-                                <span data-key="t-calendar">Gedung dan Kategori</span>
+                                <span data-key="t-calendar">Gedung dan Ruangan</span>
                             </a>
                         </li>
 
