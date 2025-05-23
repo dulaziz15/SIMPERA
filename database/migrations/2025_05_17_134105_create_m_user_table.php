@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('hash_kata_sandi', 255);
             $table->unsignedBigInteger('id_peran');
             $table->string('surel', 100)->unique();
-            $table->string('nama_lengkap', 100);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

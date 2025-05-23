@@ -45,8 +45,7 @@ class UserControllerTest extends TestCase
             'nama_pengguna' => 'andi123',
             'hash_kata_sandi' => 'password',
             'id_peran' => 1,
-            'surel' => 'andi@example.com',
-            'nama_lengkap' => 'Andi Setiawan'
+            'surel' => 'andi@example.com'
         ];
 
         $response = $this->actingAs($pengguna)->postJson('/user/store', $data);
@@ -73,7 +72,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($pengguna)->postJson('/user/store', []);
 
         $response->assertStatus(422)
-                 ->assertJsonValidationErrors(['nama_pengguna', 'hash_kata_sandi', 'id_peran', 'surel', 'nama_lengkap']);
+                 ->assertJsonValidationErrors(['nama_pengguna', 'hash_kata_sandi', 'id_peran', 'surel']);
     }
 
     /** @test */
@@ -113,8 +112,7 @@ class UserControllerTest extends TestCase
             'nama_pengguna' => 'budi456',
             'hash_kata_sandi' => bcrypt('newpass'),
             'id_peran' => 1,
-            'surel' => 'budi@example.com',
-            'nama_lengkap' => 'Budi Santoso'
+            'surel' => 'budi@example.com'
         ];
 
         $response = $this->actingAs($pengguna)->putJson("/user/{$target->id_pengguna}/update", $data);
@@ -142,7 +140,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($pengguna)->putJson("/user/{$target->id_pengguna}/update", []);
 
         $response->assertStatus(422)
-                 ->assertJsonValidationErrors(['nama_pengguna', 'hash_kata_sandi', 'id_peran', 'surel', 'nama_lengkap']);
+                 ->assertJsonValidationErrors(['nama_pengguna', 'hash_kata_sandi', 'id_peran', 'surel']);
     }
 
     /** @test */

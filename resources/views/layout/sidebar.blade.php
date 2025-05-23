@@ -1,11 +1,6 @@
-<!-- ========== Left Sidebar Start ========== -->
 <div class="vertical-menu">
-
     <div data-simplebar class="h-100">
-
-        <!--- Sidemenu -->
         <div id="sidebar-menu">
-            <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
 
@@ -37,23 +32,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Sarana Prasarana</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Mahasiswa</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Tendik</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Admin</span>
+                            <a href="{{ url('user') }}">
+                                <span data-key="t-calendar">User</span>
                             </a>
                         </li>
                     </ul>
@@ -159,7 +139,5 @@
 
             </ul>
         </div>
-        <!-- Sidebar -->
     </div>
 </div>
-<!-- Left Sidebar End -->
