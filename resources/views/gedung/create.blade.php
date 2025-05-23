@@ -21,7 +21,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="id_kategori_gedung" class="form-label">Kategori Gedung</label>
-                                    <select class="form-control" name="id_kategori_gedung" {{-- data-trigger --}}
+                                    <select class="form-control" name="id_kategori_gedung" data-trigger
                                         id="id_kategori_gedung" placeholder="This is a search placeholder" required>
                                         <option value="">- Pilih kategori -</option>
                                         @foreach ($kategori as $l)

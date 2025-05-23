@@ -7,13 +7,14 @@
 
     var gedungData;
     var kategoriGedungData;
+    var ruanganData;
     $(document).ready(function() {
         gedungData = $('#table_gedung').DataTable({
             processing: true,
             serverSide: true,
             stateSave: true,
             ajax: {
-                url: '{{ url("gedung/data") }}',
+                url: '{{ url('gedung/data') }}',
                 type: 'POST',
                 dataSrc: 'data',
                 data: function(d) {
@@ -93,6 +94,57 @@
             ]
         });
 
+        ruanganData = $('#table_ruangan').DataTable({
+            processing: true,
+            serverSide: true,
+            stateSave: true,
+            ajax: {
+                url: '{{ url('ruangan/data') }}',
+                type: 'POST',
+                dataSrc: 'data',
+                data: function(d) {
+                    d.id_gedung = $('#id_gedung_filter').val();
+                }
+            },
+            columns: [{
+                    data: null,
+                    className: 'text-center',
+                    orderable: false,
+                    searchable: false,
+                    render: (data, type, row, meta) => meta.row + 1
+                },
+                {
+                    data: 'kode'
+                },
+                {
+                    data: 'nama'
+                },
+                {
+                    data: 'lantai'
+                },
+                {
+                    data: 'gedung.nama'
+                },
+                {
+                    data: 'deskripsi'
+                },
+                {
+                    data: null,
+                    className: 'text-center',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, row) {
+                        return `
+                            <button type="button" class="btn btn-soft-info waves-effect waves-light btn-sm" onclick="modalAction('{{ url('ruangan/${row.id_ruangan}/show') }}')" ><i class="bx bx-show-alt font-size-16 align-middle"></i> Show</button>
+                            <button type="button" class="btn btn-soft-warning waves-effect waves-light btn-sm" onclick="modalAction('{{ url('ruangan/${row.id_ruangan}/edit') }}')"><i class="bx bx-edit font-size-16 align-middle"></i> Edit</button>
+                            <button type="button" class="btn btn-soft-danger waves-effect waves-light btn-sm" onclick="modalAction('{{ url('ruangan/${row.id_ruangan}/confirm') }}')"><i class="bx bx-trash font-size-16 align-middle"></i> hapus</button>
+                        `;
+                    }
+
+                }
+            ]
+        });
+
         // filter gedung by kategori
         const state = gedungData.state.loaded();
         if (state) {
@@ -102,6 +154,17 @@
 
         $('#id_kategori_gedung_filter').on('change', function() {
             gedungData.ajax.reload();
+        });
+
+        // filter ruangan by gedung
+        const stateRuangan = ruanganData.state.loaded();
+        if (stateRuangan) {
+            const savedFilter = stateRuangan.ajax?.id_gedung_filter || '';
+            $('#id_gedung_filter').val(savedFilter);
+        }
+
+        $('#id_gedung_filter').on('change', function() {
+            ruanganData.ajax.reload();
         });
     });
 </script>
