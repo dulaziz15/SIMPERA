@@ -52,7 +52,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ url('kategori/') }}">
+                            <a href="#">
                                 <span data-key="t-chat">Kategori Fasilitas</span>
                             </a>
                         </li>

@@ -19,6 +19,11 @@ class GedungService implements GedungServiceInterface {
     public function getAll(){
         return $this->gedungRepository->getAll();
     }
+
+    public function getGedungByKategori($kategori) {
+        return $this->gedungRepository->getGedungByKategori($kategori);
+    }
+
     public function show($id) {
         return $this->gedungRepository->getById($id);
     }
@@ -26,7 +31,8 @@ class GedungService implements GedungServiceInterface {
         return $this->gedungRepository->create([
             'kode' => $request->kode,
             'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi
+            'deskripsi' => $request->deskripsi,
+            'id_kategori_gedung' => $request->id_kategori_gedung
         ]);
     }
 
@@ -34,7 +40,8 @@ class GedungService implements GedungServiceInterface {
         return $this->gedungRepository->update($id, [
             'kode' => $request->kode,
             'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi
+            'deskripsi' => $request->deskripsi,
+            'id_kategori_gedung' => $request->id_kategori_gedung
         ]);
     }
 

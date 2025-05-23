@@ -10,6 +10,9 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('template/assets/images/logo.png') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- choices css -->
+    <link href="{{ asset('template/assets/libs/choices.js/public/assets/styles/choices.min.css') }}" rel="stylesheet"
+        type="text/css" />
 
 
         <!-- choices css -->
@@ -40,4 +43,5 @@
 
     <link rel="stylesheet" href="{{ asset('template/assets/libs/flatpickr/flatpickr.min.css') }}">
 
+    
 </head>

@@ -4,14 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GedungRequest;
 use App\Services\Interfaces\GedungServiceInterface;
+use App\Services\Interfaces\KategoriGedungServiceInterface;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class GedungController extends Controller
 {
     protected $gedungService;
-    public function __construct(GedungServiceInterface $gedungService)
-    {
+    protected $kategoriGedungService;
+    public function __construct(
+        GedungServiceInterface $gedungService,
+        KategoriGedungServiceInterface $kategoriGedungService
+    ) {
         $this->gedungService = $gedungService;
+        $this->kategoriGedungService = $kategoriGedungService;
     }
     public function index()
     {
@@ -25,31 +31,33 @@ class GedungController extends Controller
         ];
 
         $activeMenu = 'gedung';
-        return view('gedung.index', compact('breadcrumb', 'page', 'activeMenu'));
+        $kategori = $this->kategoriGedungService->getAll();
+        $gedung = $this->gedungService->getAll();
+
+        $content = [
+            'jumlah_kategori' => $kategori->count(),
+            'jumlah_gedung' => $gedung->count()
+        ];
+        return view('gedung.index', compact('breadcrumb', 'page', 'activeMenu', 'kategori', 'content'));
     }
 
-    public function getAll()
+    public function getAll(Request $request)
     {
-        $gedung = $this->gedungService->getAll();
-        if ($gedung && $gedung->count() > 0) {
-            return response()->json([
-                'status' => true,
-                'message' => 'Data berhasil diambil.',
-                'data' => $gedung
-            ]);
+        $gedungService = $this->gedungService;
+
+        if ($request->id_kategori_gedung) {
+            $gedungData = $gedungService->getgedungByKategori($request->id_kategori_gedung);
         } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data tidak ditemukan.',
-                'data' => []
-            ]);
+            $gedungData = $gedungService->getAll();
         }
+        return DataTables::of($gedungData)->make(true);
     }
 
 
     public function create()
     {
-        return view('gedung.create');
+        $kategori = $this->kategoriGedungService->getAll();
+        return view('gedung.create', compact('kategori'));
     }
 
     public function storeGedung(GedungRequest $request)
@@ -83,7 +91,8 @@ class GedungController extends Controller
     public function edit($id)
     {
         $gedung = $this->gedungService->show($id);
-        return view('gedung.edit', compact('gedung'));
+        $kategori = $this->kategoriGedungService->getAll();
+        return view('gedung.edit', compact('gedung', 'kategori'));
     }
 
     public function update($id, GedungRequest $request)

@@ -5,8 +5,6 @@
         });
     }
 
-
-
     var dataUser;
     $(document).ready(function() {
         dataUser = $('#table_user').DataTable({
@@ -64,23 +62,4 @@
             dataUser.ajax.reload();
         });
     });
-
-    function hapusData(id) {
-        if (confirm('Yakin ingin menghapus user ini?')) {
-            $.ajax({
-                url: `/user/delete/${id}`,
-                type: 'DELETE',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    $('#table_user').DataTable().ajax.reload();
-                    alert('Data berhasil dihapus!');
-                },
-                error: function() {
-                    alert('Terjadi kesalahan saat menghapus data.');
-                }
-            });
-        }
-    }
 </script>
