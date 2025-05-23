@@ -13,6 +13,10 @@ class PeranService implements PeranServiceInterface {
     public function __construct(PeranRepositoryInterface $peranRepository){
         $this->peranRepository = $peranRepository;
     }
+
+    public function getAll() {
+        return $this->peranRepository->getAll();
+    }
     
     public function show($id) {
         return $this->peranRepository->getById($id);

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('deskripsi')->nullable();
             $table->string('url_foto', 255)->nullable();
             $table->string('status')->default('baru');
+            $table->unsignedBigInteger('id_periode');
             $table->timestamp('waktu_pelaporan')->useCurrent();
             $table->timestamp('waktu_perubahan')->nullable();
             $table->timestamp('created_at')->useCurrent();
@@ -30,6 +31,11 @@ return new class extends Migration
             $table->foreign('id_fasilitas')
                   ->references('id_fasilitas')
                   ->on('m_fasilitas')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+            $table->foreign('id_periode')
+                  ->references('id_periode')
+                  ->on('periode')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
         });

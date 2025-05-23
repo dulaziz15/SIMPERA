@@ -1,16 +1,11 @@
-<!-- ========== Left Sidebar Start ========== -->
 <div class="vertical-menu">
-
     <div data-simplebar class="h-100">
-
-        <!--- Sidemenu -->
         <div id="sidebar-menu">
-            <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
 
                 <li>
-                    <a href="index.html">
+                    <a href="{{ url('/') }}">
                         <i data-feather="home"></i>
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
@@ -32,28 +27,13 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="#">
+                            <a href="{{url('peran')}}">
                                 <span data-key="t-calendar">Role</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Sarana Prasarana</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Mahasiswa</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Tendik</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span data-key="t-calendar">Admin</span>
+                            <a href="{{ url('user') }}">
+                                <span data-key="t-calendar">User</span>
                             </a>
                         </li>
                     </ul>
@@ -66,14 +46,8 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ url('gedung/') }}" class="">
-                                <span data-key="t-calendar">Gedung</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <span data-key="t-chat">Kategori Fasilitas</span>
+                            <a href="{{ url('gedung') }}" class="">
+                                <span data-key="t-calendar">Gedung dan Kategori</span>
                             </a>
                         </li>
 
@@ -159,7 +133,5 @@
 
             </ul>
         </div>
-        <!-- Sidebar -->
     </div>
 </div>
-<!-- Left Sidebar End -->

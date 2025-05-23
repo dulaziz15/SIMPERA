@@ -166,7 +166,7 @@ class KategoriControllerTest extends TestCase
                 'redirect' => url('/kategori')
             ]);
 
-        $this->assertDatabaseMissing('kategori_fasilitas', [
+        $this->assertDatabaseMissing('m_kategori_fasilitas', [
             'id_kategori' => $kategori->id_kategori
         ]);
     }

@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\KategoriFasilitasController;
+use App\Http\Controllers\KategoriGedungController;
 use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PeranController;
@@ -21,14 +24,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [DashboardController::class, 'index']);
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::post('/proses_login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
+Route::middleware(['auth'])->group(function () {
 Route::prefix('periode')->group(function () {
     Route::get('/', [PeriodeController::class, 'index']);
     Route::get('/create', [PeriodeController::class, 'create']);
@@ -42,7 +44,7 @@ Route::prefix('periode')->group(function () {
 
 Route::prefix('gedung')->group(function () {
     Route::get('/', [GedungController::class, 'index']);
-    Route::get('/data', [GedungController::class, 'getAll']);
+    Route::post('/data', [GedungController::class, 'getAll']);
     Route::get('/create', [GedungController::class, 'create']);
     Route::post('/store', [GedungController::class, 'storeGedung']);
     Route::get('/{id}/show', [GedungController::class, 'show']);
@@ -63,10 +65,22 @@ Route::prefix('kategori')->group(function () {
     Route::delete('/{id}/delete', [KategoriFasilitasController::class, 'delete']);
 });
 
+Route::prefix('kategori_gedung')->group(function () {
+    Route::get('/data', [KategoriGedungController::class, 'getAll']);
+    Route::get('/create', [KategoriGedungController::class, 'create']);
+    Route::post('/store', [KategoriGedungController::class, 'storeKategoriGedung']);
+    Route::get('/{id}/show', [KategoriGedungController::class, 'show']);
+    Route::get('/{id}/edit', [KategoriGedungController::class, 'edit']);
+    Route::put('/{id}/update', [KategoriGedungController::class, 'update']);
+    Route::get('/{id}/confirm', [KategoriGedungController::class, 'confirm']);
+    Route::delete('/{id}/delete', [KategoriGedungController::class, 'delete']);
+});
+
 Route::prefix('peran')->group(function () {
     Route::get('/', [PeranController::class, 'index']);
     Route::get('/create', [PeranController::class, 'create']);
     Route::post('/store', [PeranController::class, 'storePeran']);
+    Route::post('/data', [PeranController::class, 'getAll']);
     Route::get('/{id}/show', [PeranController::class, 'show']);
     Route::get('/{id}/edit', [PeranController::class, 'edit']);
     Route::put('/{id}/update', [PeranController::class, 'update']);
@@ -115,6 +129,7 @@ Route::prefix('feedback')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index']);
+    Route::post('/data', [UserController::class, 'getAll']);
     Route::get('/create', [UserController::class, 'create']);
     Route::post('/store', [UserController::class, 'storeUser']);
     Route::get('/{id}/show', [UserController::class, 'show']);
@@ -122,4 +137,5 @@ Route::prefix('user')->group(function () {
     Route::put('/{id}/update', [UserController::class, 'updateProfile']);
     Route::get('/{id}/confirm', [UserController::class, 'confirmDelete']);
     Route::delete('/{id}/delete', [UserController::class, 'delete']);
+});
 });

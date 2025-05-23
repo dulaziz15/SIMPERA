@@ -45,8 +45,8 @@ class GedungControllerTest extends TestCase
         $user = User::factory()->create();
 
         $data = [
-            'kode' => 'AX',
-            'nama' => 'Gedung AX',
+            'kode' => 'AB',
+            'nama' => 'Gedung AB',
             'deskripsi' => 'Parkiran dan Kantin',
         ];
 
@@ -108,8 +108,8 @@ class GedungControllerTest extends TestCase
         $gedung = GedungModel::factory()->create();
 
         $data = [
-            'kode' => 'AX',
-            'nama' => 'Gedung AX',
+            'kode' => 'AB',
+            'nama' => 'Gedung AB',
             'deskripsi' => 'Parkiran dan Kantin',
         ];
 
@@ -119,7 +119,7 @@ class GedungControllerTest extends TestCase
 
         $this->assertDatabaseHas('m_gedung', [
             'id_gedung' => $gedung->id_gedung,
-            'nama' => 'gedung AX'
+            'nama' => 'gedung AB'
         ]);
     }
 
@@ -168,7 +168,7 @@ class GedungControllerTest extends TestCase
                 'redirect' => url('/gedung')
             ]);
 
-        $this->assertDatabaseMissing('gedung', [
+        $this->assertDatabaseMissing('m_gedung', [
             'id_gedung' => $gedung->id_gedung
         ]);
     }

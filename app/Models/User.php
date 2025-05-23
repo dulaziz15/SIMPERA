@@ -21,8 +21,7 @@ class User extends Authenticatable
         'nama_pengguna',
         'hash_kata_sandi',
         'id_peran',
-        'surel',
-        'nama_lengkap'
+        'surel'
     ];
 
     public function getAuthPassword()
@@ -39,5 +38,17 @@ class User extends Authenticatable
     public function peran()
     {
         return $this->belongsTo(PeranModel::class, 'id_peran');
+    }
+
+    public function getPeranName() {
+        return $this->peran->nama;
+    }
+
+    public function hasPeran($peran) {
+        return $this->peran->kode_peran == $peran;
+    }
+
+    public function getPeran() {
+        return $this->peran->kode_peran;
     }
 }
