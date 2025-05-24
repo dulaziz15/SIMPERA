@@ -1,6 +1,6 @@
 <script>
     function modalAction(url = '') {
-        $('#myModal').load(url, function() {
+        $('#myModal .modal-content').load(url, function() {
             $('#myModal').modal('show');
         });
     }
@@ -43,9 +43,9 @@
                     className: 'text-center p-2',
                     render: function(data, type, row) {
                         return `
-                            <button type="button" class="btn btn-soft-info waves-effect waves-light btn-sm" onclick="modalAction('{{ url('user/${row.id_pengguna}/profil') }}')" ><i class="bx bx-show-alt font-size-16 align-middle"></i> Profil</button>
-                            <button type="button" class="btn btn-soft-warning waves-effect waves-light btn-sm" onclick="modalAction('{{ url('user/${row.id_pengguna}/edit') }}')"><i class="bx bx-edit font-size-16 align-middle"></i> Edit</button>
-                            <button type="button" class="btn btn-soft-danger waves-effect waves-light btn-sm" onclick="modalAction('{{ url('user/${row.id_pengguna}/confirm') }}')"><i class="bx bx-trash font-size-16 align-middle"></i> hapus</button>
+                        <button type="button" class="btn btn-soft-info btn-sm" onclick="modalAction('/user/${row.id_pengguna}/show')"><i class="bx bx-show-alt"></i> Detail</button>
+                        <button type="button" class="btn btn-soft-warning btn-sm" onclick="modalAction('/user/${row.id_pengguna}/edit')"><i class="bx bx-edit"></i> Edit</button>
+                        <button type="button" class="btn btn-soft-danger btn-sm" onclick="modalAction('/user/${row.id_pengguna}/confirm')"><i class="bx bx-trash"></i> Hapus</button>
                         `;
                     }
                 }

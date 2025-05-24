@@ -1,4 +1,4 @@
-<form action="{{ url('/user/store') }}" method="POST" id="form-tambah" class="needs-validation">
+<form action="{{ url('/user/store-user') }}" method="POST" id="form-tambah" class="needs-validation">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
