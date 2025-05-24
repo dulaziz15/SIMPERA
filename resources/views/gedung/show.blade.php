@@ -10,7 +10,6 @@
                 <thead>
                     <tr>
                         <th>Kategori Gedung</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
