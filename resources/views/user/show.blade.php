@@ -9,7 +9,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Data User</th>
+                        <th>Data Profile</th>
                     </tr>
                 </thead>
                 <tbody>
