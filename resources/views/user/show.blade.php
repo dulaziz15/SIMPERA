@@ -1,4 +1,8 @@
+{{-- @if(empty($profil->pengguna)) 
+    
+@include('user.profilNotFound')
 
+<<<<<<< HEAD
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -22,6 +26,3 @@
             <div class="modal-footer">
                 
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Batal</button>
-            </div>
-        </div>
-    </div>

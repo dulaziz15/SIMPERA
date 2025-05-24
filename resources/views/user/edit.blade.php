@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Password</label>
                                     <input type="password" name="hash_kata_sandi" id="hash_kata_sandi" value=""
-                                        class="form-control" required>
+                                        class="form-control">
                                     <div id="error-hash_kata_sandi" class="error-text"></div>
                                     <div id="hash_kata_sandi-error" class="error invalid-feedback"
                                         style="display: block">Abaikan Jika Tidak Ingin Mengubah</div>
