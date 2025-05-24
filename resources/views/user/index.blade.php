@@ -142,7 +142,13 @@
                     </thead>
                 </table>
             </div>
-            <div id="myModal" class="modal fade" tabindex="-1"></div>
+            <div id="myModal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <!-- AJAX content will be loaded here -->
+                    </div>
+                </div>
+            </div>
         </div>
     @endsection
 

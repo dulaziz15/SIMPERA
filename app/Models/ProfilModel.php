@@ -22,6 +22,6 @@ class ProfilModel extends Model
 
     public function pengguna()
     {
-        return $this->belongsTo(UserModel::class, 'id_pengguna');
+        return $this->belongsTo(User::class, 'id_pengguna');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfilRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Services\Interfaces\PeranServiceInterface;
@@ -82,6 +83,26 @@ class UserController extends Controller
         return redirect('/user');
     }
 
+    public function storeProfil(ProfilRequest $request, $id)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $profil = $this->userServiceInterface->createProfil($request, $id);
+            if ($profil) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil disimpan.'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data Gagal Disimpan.'
+                ]);
+            }
+        }
+
+        // return redirect('/user');
+    }
+
     public function edit($id)
     {
         $user = $this->userServiceInterface->getUserById($id);
@@ -114,6 +135,9 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->userServiceInterface->getUserById($id);
+        if (!$user->profil) {
+            return view('user.profilNotFound', compact('user'));
+        }
         return view('user.show', compact('user'));
     }
 
@@ -128,12 +152,12 @@ class UserController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $user = Auth::user();
 
-                if ($user->id_pengguna == $id) {
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'Tidak bisa menghapus user yang sedang aktif.',
-                    ]);
-                }
+            if ($user->id_pengguna == $id) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Tidak bisa menghapus user yang sedang aktif.',
+                ]);
+            }
 
             $user = $this->userServiceInterface->deleteUser($id);
             if ($user) {

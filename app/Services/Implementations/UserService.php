@@ -2,9 +2,11 @@
 
 namespace App\Services\Implementations;
 
+use App\Http\Requests\ProfilRequest;
 use App\Http\Requests\UserRequest;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\UserServiceInterface;
+use Illuminate\Support\Facades\Storage;
 
 class UserService implements UserServiceInterface
 {
@@ -39,6 +41,37 @@ class UserService implements UserServiceInterface
             'id_peran' => $request->id_peran,
             'surel' => $request->surel
         ]);
+    }
+
+    public function createProfil(ProfilRequest $request, $id)
+    {
+        $fotoPath = $this->fotoHandler($request->file('foto_profil'));
+
+        $profil = $this->userRepository->storeProfil([
+            'id_pengguna' => $id, // or get from $request if needed
+            'nama_lengkap' => $request->nama_lengkap,
+            'aktif' => now()->toDateString(),
+            'foto_profil' => $fotoPath,
+        ]);
+
+        return $profil;
+    }
+
+    public function fotoHandler($foto, $fotoLama = null)
+    {
+        // Jika tidak ada file baru diupload, kembalikan foto lama
+        if (!$foto) {
+            return $fotoLama;
+        }
+
+        // Hapus foto lama jika ada
+        if ($fotoLama && Storage::disk('public')->exists($fotoLama)) {
+            Storage::disk('public')->delete($fotoLama);
+        }
+
+        // Simpan foto baru
+        $path = $foto->store('foto_profil', 'public');
+        return $path;
     }
 
     public function updateProfile($id, UserRequest $request)

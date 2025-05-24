@@ -144,7 +144,8 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/', [UserController::class, 'index']);
 		Route::post('/data', [UserController::class, 'getAll']);
 		Route::get('/create', [UserController::class, 'create']);
-		Route::post('/store', [UserController::class, 'storeUser']);
+		Route::post('/store-user', [UserController::class, 'storeUser']);
+		Route::post('/{id}/store-profil', [UserController::class, 'storeProfil']);
 		Route::get('/{id}/show', [UserController::class, 'show']);
 		Route::get('/{id}/edit', [UserController::class, 'edit']);
 		Route::put('/{id}/update', [UserController::class, 'updateProfile']);
