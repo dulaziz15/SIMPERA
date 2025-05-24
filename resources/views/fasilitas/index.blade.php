@@ -3,18 +3,18 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            {{-- <span>{{ $page->title }}</span> --}}
+            <span>{{ $page->title }}</span>
         </div>
         <div class="card-body">
-            <table id="table_fasilitas" class="table table-bordered dt-responsive w-100">
+            <table id="table_fasilitas" class="table table-bordered table-sm dt-responsive w-100">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Kode Fasilitas</th>
                         <th>Nama Fasilitas</th>
-                        <th>Kode Kategori</th>
-                        <th>Nama Gedung</th>
-                        <th>Lokasi</th>
+                        <th>Kategori fasilitas</th>
+                        <th>Ruangan</th>
+                        <th>Gedung</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>

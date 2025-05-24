@@ -52,8 +52,8 @@
                         </li>
 
                         <li>
-                            <a href="#">
-                                <span data-key="t-chat">Fasilitas</span>
+                            <a href="{{ url('fasilitas') }}">
+                                <span data-key="t-chat">Fasilitas dan Kategori</span>
                             </a>
                         </li>
                     </ul>

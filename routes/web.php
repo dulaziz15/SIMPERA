@@ -120,6 +120,7 @@ Route::prefix('pelaporan')->group(function () {
 
 Route::prefix('fasilitas')->group(function () {
     Route::get('/', [FasilitasController::class, 'index']);
+    Route::get('/data', [FasilitasController::class, 'getAll']);
     Route::get('/create', [FasilitasController::class, 'create']);
     Route::post('/store', [FasilitasController::class, 'storeFasilitas']);
     Route::get('/{id}/show', [FasilitasController::class, 'show']);
