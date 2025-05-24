@@ -40,15 +40,23 @@ class User extends Authenticatable
         return $this->belongsTo(PeranModel::class, 'id_peran');
     }
 
-    public function getPeranName() {
+    public function getPeranName()
+    {
         return $this->peran->nama;
     }
 
-    public function hasPeran($peran) {
+    public function hasPeran($peran)
+    {
         return $this->peran->kode_peran == $peran;
     }
 
-    public function getPeran() {
+    public function getPeran()
+    {
         return $this->peran->kode_peran;
+    }
+
+    public function profil()
+    {
+        return $this->hasOne(ProfilModel::class, 'id_pengguna');
     }
 }
