@@ -1,9 +1,10 @@
-<form action="{{ url('/fasilitas/store') }}" method="POST" id="form-tambah" class="needs-validation">
+<form action="{{ url('/kategori/' . $kategori->id_kategori . '/update') }}" method="POST" id="form-tambah" class="needs-validation">
     @csrf
+    @method('PUT')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Data Fasilitas</h5>
+                <h5 class="modal-title">Edit Data kategori Fasilitas</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body row g-3 p-4">
@@ -12,7 +13,7 @@
                         <div class="alert alert-warning">
                             <h5><i class="fas fa-exclamation-triangle"></i> Perthatikan!!!</h5>
                             <ul>
-                                <li>Pastikan Kategori Gedung Benar</li>
+                                <li>Pastikan Semua data yang diinput sudah benar</li>
                             </ul>
                         </div>
                     </div>
@@ -20,50 +21,18 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_kategori" class="form-label">Kategori Fasilitas</label>
-                                    <select class="form-control" name="id_kategori" 
-                                    {{-- data-trigger --}}
-                                        id="id_kategori" placeholder="This is a search placeholder" required>
-                                        <option value="">- Pilih kategori -</option>
-                                        @foreach ($kategori as $l)
-                                            <option value="{{ $l->id_kategori}}">{{ $l->nama }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback" id="error-id_kategori"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="id_ruangan" class="form-label">Ruangan</label>
-                                    <select class="form-control" name="id_ruangan" 
-                                    {{-- data-trigger --}}
-                                        id="id_ruangan" placeholder="This is a search placeholder" required>
-                                        <option value="">- Pilih Ruangan -</option>
-                                        @foreach ($ruangan as $l)
-                                            <option value="{{ $l->id_ruangan }}">{{ $l->nama }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback" id="error-id_ruangan"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Nama Fasilitas</label>
-                                    <input type="text" name="nama" id="nama" value=""
+                                    <label class="form-label">Kode Kategori</label>
+                                    <input type="text" name="kode" id="kode" value="{{ $kategori->kode }}"
                                         class="form-control">
-                                    <div id="error-nama" class="error-text"></div>
+                                    <div id="error-kode" class="error-text"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">Status Fasilitas</label>
-                                    <input type="text" name="status" id="status" class="form-control"
-                                        value="">
-                                    <div id="error-status" class="error-text"></div>
+                                    <label class="form-label">Nama kategori</label>
+                                    <input type="text" name="nama" id="nama" class="form-control"
+                                        value="{{ $kategori->nama }}">
+                                    <div id="error-nama" class="error-text"></div>
                                 </div>
                             </div>
                         </div>
@@ -91,30 +60,28 @@
 
         $('#form-tambah').validate({
             rules: {
-                id_kategori: {
-                    required: true
-                },
-                id_ruangan: {
-                    required: true
+                kode: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 20
                 },
                 nama: {
                     required: true,
                     minlength: 3,
                     maxlength: 50
                 },
-                status: {
-                    required: true,
-                },
             },
             messages: {
-                id_kategori: "Kategori wajib dipilih.",
-                id_ruangan: "Ruangan wajib dipilih.",
+                kode: {
+                    required: "Kode Gedung wajib diisi.",
+                    minlength: "Minimal 3 karakter.",
+                    maxlength: "Maksimal 20 karakter."
+                },
                 nama: {
                     required: "Nama Gedung wajib diisi.",
                     minlength: "Minimal 3 karakter.",
                     maxlength: "Maksimal 20 karakter."
                 },
-                status: "Status wajib diisi",
             },
             submitHandler: function(form) {
                 const formData = new FormData(form);
@@ -136,7 +103,7 @@
                                 title: 'Data Berhasil Ditambahkan',
                                 text: response.message
                             });
-                            fasilitasData.ajax.reload();
+                            kategoriFasilitasData.ajax.reload();s
                         } else {
                             $('.invalid-feedback').text('');
                             $.each(response.msgField, function(prefix, val) {

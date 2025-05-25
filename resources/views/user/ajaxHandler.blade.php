@@ -1,7 +1,13 @@
 <script>
     function modalAction(url = '') {
-        $('#myModal .modal-content').load(url, function() {
+        $('#myModal').load(url, function() {
             $('#myModal').modal('show');
+        });
+    }
+
+    function modalProfil(url = '') {
+        $('#modalProfil').load(url, function() {
+            $('#modalProfil').modal('show');
         });
     }
 
