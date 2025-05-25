@@ -42,8 +42,8 @@
                                                 <i class="mdi mdi-chevron-down"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <button class="dropdown-item" onclick="modalAction('{{ url('user/' . $user->id_pengguna . '/edit_profil')}}')" data-bs-dismiss="modal"><i class="bx bx-edit"></i> Edit</button>
-                                                <button class="dropdown-item" onclick="modalAction('{{ url('user/' . $user->id_pengguna . '/confirm')}}')" data-bs-dismiss="modal"><i class="bx bx-trash"></i> Hapus</button>
+                                                <button class="dropdown-item" onclick="modalProfil('{{ url('user/' . $user->id_pengguna . '/edit_profil')}}')" data-bs-dismiss="modal"><i class="bx bx-edit"></i> Edit</button>
+                                                <button class="dropdown-item" onclick="modalProfil('{{ url('user/' . $user->id_pengguna . '/confirm')}}')" data-bs-dismiss="modal"><i class="bx bx-trash"></i> Hapus</button>
                                             </div>
                                         </div>
                                     </div>
