@@ -15,7 +15,7 @@ class FasilitasRepository implements FasilitasRepositoryInterface {
     }
 
     public function getById($id) {
-        return FasilitasModel::find($id)->with('gedung')->with('kategori')->get() ? true : false;
+        return FasilitasModel::find($id);
     }
 
     public function update($id, array $data) {

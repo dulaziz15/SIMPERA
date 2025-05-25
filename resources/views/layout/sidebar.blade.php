@@ -12,7 +12,7 @@
                 </li>
 
                 <li>
-                    <a href="index.html">
+                    <a href="{{ url('profil') }}">
                         <i class="bx bxs-user"></i>
                         <span data-key="t-dashboard">Profil</span>
                     </a>
@@ -47,13 +47,19 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
                             <a href="{{ url('gedung') }}" class="">
-                                <span data-key="t-calendar">Gedung dan Ruangan</span>
+                                <span data-key="t-calendar">Gedung & Ruangan</span>
                             </a>
                         </li>
 
+                        {{-- <li>
+                            <a href="{{ url('ruangan') }}" class="">
+                                <span data-key="t-calendar">Ruangan</span>
+                            </a>
+                        </li> --}}
+
                         <li>
                             <a href="{{ url('fasilitas') }}">
-                                <span data-key="t-chat">Fasilitas dan Kategori</span>
+                                <span data-key="t-chat">Fasilitas</span>
                             </a>
                         </li>
                     </ul>

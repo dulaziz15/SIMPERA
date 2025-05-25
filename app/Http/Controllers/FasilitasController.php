@@ -6,6 +6,7 @@ use App\Http\Requests\FasilitasRequest;
 use App\Services\Interfaces\FasilitasServiceInterface;
 use App\Services\Interfaces\GedungServiceInterface;
 use App\Services\Interfaces\KategoriFasilitasServiceInterface;
+use App\Services\Interfaces\RuanganServiceInterface;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -13,15 +14,18 @@ class FasilitasController extends Controller
 {
     protected $fasilitasService;
     protected $gedungService;
+    protected $ruanganService;
     protected $kategoriFasilitasService;
 
     public function __construct(
         FasilitasServiceInterface $fasilitasService,
         GedungServiceInterface $gedungService,
-        KategoriFasilitasServiceInterface $kategoriFasilitasService
+        KategoriFasilitasServiceInterface $kategoriFasilitasService,
+        RuanganServiceInterface $ruanganService
     ) {
         $this->fasilitasService = $fasilitasService;
         $this->gedungService = $gedungService;
+        $this->ruanganService = $ruanganService;
         $this->kategoriFasilitasService = $kategoriFasilitasService;
     }
 
@@ -55,9 +59,9 @@ class FasilitasController extends Controller
 
     public function create()
     {
-        $gedung = $this->gedungService->getAll();
         $kategori = $this->kategoriFasilitasService->getAll();
-        return view('fasilitas.create', compact('gedung', 'kategori'));
+        $ruangan = $this->ruanganService->getAll();
+        return view('fasilitas.create', compact('ruangan', 'kategori'));
     }
 
     public function storeFasilitas(FasilitasRequest $request)
@@ -85,13 +89,16 @@ class FasilitasController extends Controller
     public function show($id)
     {
         $fasilitas = $this->fasilitasService->show($id);
+        // dd($fasilitas);
         return view('fasilitas.show', compact('fasilitas'));
     }
 
     public function edit($id)
     {
         $fasilitas = $this->fasilitasService->show($id);
-        return view('fasilitas.edit', compact('fasilitas'));
+        $kategori = $this->kategoriFasilitasService->getAll();
+        $ruangan = $this->ruanganService->getAll();
+        return view('fasilitas.edit', compact('fasilitas', 'kategori', 'ruangan'));
     }
 
     public function update($id, FasilitasRequest $request)

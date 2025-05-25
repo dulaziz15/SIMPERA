@@ -30,9 +30,6 @@
                     }
                 },
                 {
-                    data: "id_peran"
-                },
-                {
                     data: "nama"
                 },
                 {

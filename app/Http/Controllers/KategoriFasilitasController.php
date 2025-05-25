@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\KategoriRequest;
 use App\Services\Interfaces\KategoriFasilitasServiceInterface;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class KategoriFasilitasController extends Controller
 {
@@ -16,8 +17,25 @@ class KategoriFasilitasController extends Controller
         return view('kategori.index');
     }
 
+    public function getAll() {
+        $kategori = $this->kategoriFasilitasService->getAll();
+        if ($kategori && $kategori->count() > 0) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data berhasil diambil.',
+                'data' => $kategori
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan.',
+                'data' => []
+            ]);
+        }
+    }
+
     public function create() {
-        return view('kategori.create');
+        return view('fasilitas.kategori.create');
     }
 
     public function storeKategori(KategoriRequest $request) {
@@ -43,12 +61,12 @@ class KategoriFasilitasController extends Controller
 
     public function show($id) {
         $kategori = $this->kategoriFasilitasService->show($id);
-        return view('kategori.show', compact('kategori'));
+        return view('fasilitas.kategori.show', compact('kategori'));
     }
 
     public function edit($id) {
         $kategori = $this->kategoriFasilitasService->show($id);
-        return view('kategori.edit', compact('kategori'));
+        return view('fasilitas.kategori.edit', compact('kategori'));
     }
 
     public function update($id, KategoriRequest $request) {
@@ -74,7 +92,7 @@ class KategoriFasilitasController extends Controller
 
     public function confirm($id) {
         $kategori = $this->kategoriFasilitasService->show($id);
-        return view('kategori.confirm', compact('kategori'));
+        return view('fasilitas.kategori.confirm', compact('kategori'));
     }
 
     public function delete($id, Request $request) {

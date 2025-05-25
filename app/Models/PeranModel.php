@@ -17,4 +17,8 @@ class PeranModel extends Model
         'kode_peran',
         'nama'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'id_peran');
+    }
 }

@@ -35,7 +35,6 @@ class FasilitasRequest extends FormRequest
         return [
             'nama' => 'required',
             'id_kategori' => 'required',
-            'id_gedung' => 'required',
             'id_ruangan' => 'required',
             'status' => 'required|string'
         ];
