@@ -128,7 +128,8 @@
                                 title: 'Data Berhasil Ditambahkan',
                                 text: response.message
                             });
-                            dataUser.ajax.reload();
+                            window.location.reload();
+                            // dataUser.ajax.reload();
                         } else {
                             $('.invalid-feedback').text('');
                             $.each(response.msgField, function(prefix, val) {

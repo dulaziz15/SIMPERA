@@ -4,14 +4,14 @@
     <div class="card p-6">
         <div class="card-body">
             <div class="container mt-4">
-                <div class="row">
+                <div class="row justify-content-center">
                     <!-- Single Advisor-->
                     <div class="col-lg-4">
                         <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s"
                             style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                             <!-- Team Thumb-->
                             <div class="advisor_thumb">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                <img src="{{ asset('storage/' . $profil->profil->foto_profil) }}" alt="" style="width: 100%">
 
                                 <!-- Tombol Edit Foto -->
                                 <a href="" class="btn-edit-foto" title="Edit Foto">
