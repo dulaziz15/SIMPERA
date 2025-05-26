@@ -39,7 +39,7 @@ class PeranController extends Controller
     {
         $userService = $this->peranService;
 
-        $data = $userService->getAll();
+            $data = $userService->getAll();
 
         return DataTables::of(collect($data))->make(true);
     }

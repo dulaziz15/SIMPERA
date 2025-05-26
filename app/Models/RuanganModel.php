@@ -24,5 +24,4 @@ class RuanganModel extends Model
     public function gedung() {
         return $this->belongsTo(GedungModel::class, 'id_gedung');
     }
-    
 }

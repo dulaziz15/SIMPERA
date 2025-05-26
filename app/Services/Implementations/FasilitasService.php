@@ -17,8 +17,9 @@ class FasilitasService implements FasilitasServiceInterface {
         return $this->fasilitasRepository->create([
             'nama' => $request->nama,
             'id_kategori' => $request->id_kategori,
-            'id_ruangan' => $request->id_ruangan,
-            'status' => $request->status
+            'lokasi' => $request->lokasi,
+            'id_gedung' => $request->id_gedung,
+            'status' => 'berfungsi'
         ]);
     }
 
@@ -30,8 +31,9 @@ class FasilitasService implements FasilitasServiceInterface {
         return $this->fasilitasRepository->update($id, [
             'nama' => $request->nama,
             'id_kategori' => $request->id_kategori,
-            'id_ruangan' => $request->id_ruangan,
-            'status' => $request->status
+            'lokasi' => $request->lokasi,
+            'id_gedung' => $request->id_gedung,
+            'status' => 'berfungsi'
         ]);
     }
 

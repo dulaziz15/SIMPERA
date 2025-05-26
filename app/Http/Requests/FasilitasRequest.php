@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class FasilitasRequest extends FormRequest
 {
@@ -14,15 +12,6 @@ class FasilitasRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'status' => false,
-            'message' => 'Validasi Gagal. Harap periksa kembali data Anda.',
-            'msgField' => $validator->errors()
-        ], 422));
     }
 
     /**
@@ -35,7 +24,8 @@ class FasilitasRequest extends FormRequest
         return [
             'nama' => 'required',
             'id_kategori' => 'required',
-            'id_ruangan' => 'required',
+            'lokasi' => 'required',
+            'id_gedung' => 'required',
             'status' => 'required|string'
         ];
     }

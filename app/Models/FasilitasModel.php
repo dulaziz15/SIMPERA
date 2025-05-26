@@ -15,7 +15,8 @@ class FasilitasModel extends Model
     protected $fillable = [
         'nama',
         'id_kategori',
-        'id_ruangan',
+        'lokasi',
+        'id_gedung',
         'status'
     ];
 
@@ -24,8 +25,8 @@ class FasilitasModel extends Model
         return $this->belongsTo(KategoriFasilitasModel::class, 'id_kategori');
     }
 
-    public function ruangan()
+    public function gedung()
     {
-        return $this->belongsTo(RuanganModel::class, 'id_ruangan');
+        return $this->belongsTo(GedungModel::class, 'id_gedung');
     }
 }

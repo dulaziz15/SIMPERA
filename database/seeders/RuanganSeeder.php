@@ -18,7 +18,7 @@ class RuanganSeeder extends Seeder
                 'lantai' => 1,
                 'deskripsi' => 'Ruang kelas untuk perkuliahan.',
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'update_at' => Carbon::now(),
             ],
             [
                 'id_gedung' => 2,
@@ -27,7 +27,7 @@ class RuanganSeeder extends Seeder
                 'lantai' => 1,
                 'deskripsi' => 'Ruang kelas untuk praktikum.',
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'update_at' => Carbon::now(),
             ],
             [
                 'id_gedung' => 2,
@@ -36,7 +36,7 @@ class RuanganSeeder extends Seeder
                 'lantai' => 2,
                 'deskripsi' => 'Laboratorium komputer dengan kapasitas 40 orang.',
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'update_at' => Carbon::now(),
             ],
         ]);
     }

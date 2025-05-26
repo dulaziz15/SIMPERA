@@ -40,7 +40,6 @@ class UserController extends Controller
         // $jumlahPeran = $this->userServiceInterface->countUserByPeran();
 
         // dd($jumlahPeran);
-        // dd($user);
         return view('user.index', compact('peran', 'breadcrumb', 'page', 'activeMenu', 'user'));
     }
 
@@ -62,12 +61,6 @@ class UserController extends Controller
     {
         $peran = $this->peranService->getAll();
         return view('user.create', compact('peran'));
-    }
-
-    public function editProfil($id)
-    {
-        $user = $this->userServiceInterface->getUserById($id);
-        return view('user.editProfil', compact('user'));
     }
 
     public function storeUser(UserRequest $request)
