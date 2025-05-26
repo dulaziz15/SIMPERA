@@ -106,48 +106,48 @@
                 // foto_profil: {
                 // 	imageFile: "File harus berupa gambar (jpg, jpeg, png)"
                 //     maxFileSize: "Ukuran file terlalu besar. Maksimal 2MB"
-				// },
-			},
-			submitHandler: function(form) {
-				const formData = new FormData(form);
-				$.ajax({
-					url: form.action,
-					type: form.method,
-					data: formData,
-					processData: false,
-					contentType: false,
-					headers: {
-						'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-						'Accept': 'application/json'
-					},
-					success: function(response) {
-						if (response.status) {
-							$('#myModal').modal('hide');
-							Swal.fire({
-								icon: 'success',
-								title: 'Data Berhasil Ditambahkan',
-								text: response.message
-							});
-							window.location.reload();
+                // },
+            },
+            submitHandler: function(form) {
+                const formData = new FormData(form);
+                $.ajax({
+                    url: form.action,
+                    type: form.method,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                        'Accept': 'application/json'
+                    },
+                    success: function(response) {
+                        if (response.status) {
+                            $('#myModal').modal('hide');
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Data Berhasil Ditambahkan',
+                                text: response.message
+                            });
+                            window.location.reload();
                             // dataUser.ajax.reload();
-						} else {
-							$('.invalid-feedback').text('');
-							$.each(response.msgField, function(prefix, val) {
-								$('#error-' + prefix).text(val[0]);
-								$('#' + prefix).addClass('is-invalid');
-							});
-							Swal.fire({
-								icon: 'error',
-								title: 'Terjadi Kesalahan',
-								text: response.message
-							});
-						}
-					},
-					error: function(xhr) {
-						if (xhr.status === 422) {
-							const res = xhr.responseJSON;
-							$('.invalid-feedback').text('');
-							$('.form-control').removeClass('is-invalid');
+                        } else {
+                            $('.invalid-feedback').text('');
+                            $.each(response.msgField, function(prefix, val) {
+                                $('#error-' + prefix).text(val[0]);
+                                $('#' + prefix).addClass('is-invalid');
+                            });
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            const res = xhr.responseJSON;
+                            $('.invalid-feedback').text('');
+                            $('.form-control').removeClass('is-invalid');
 
                             $.each(res.msgField, function(prefix, val) {
                                 $('#error-' + prefix).text(val[0]);

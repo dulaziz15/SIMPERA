@@ -1,7 +1,7 @@
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="modalShowruanganLabel">Detail ruangan</h5>
+            <h5 class="modal-title" id="modalShowruanganLabel">Detail kategori Fasilitas</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body row g-3 p-4">
@@ -9,16 +9,16 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            <th>Nama ruangan</th>
-                            <td>{{ $ruangan->nama }}</td>
+                            <th>Nama Kategori</th>
+                            <td>{{ $kategori->nama }}</td>
                         </tr>
                         <tr>
-                            <th>Kode ruangan</th>
-                            <td>{{ $ruangan->kode }}</td>
+                            <th>Kode Kategori</th>
+                            <td>{{ $kategori->kode }}</td>
                         </tr>
                         <tr>
                             <th>Dibuat Pada</th>
-                            <td>{{ $ruangan->created_at->format('d-m-Y') }}</td>
+                            <td>{{ $kategori->created_at->format('d-m-Y') }}</td>
                         </tr>
                     </table>
                 </div>

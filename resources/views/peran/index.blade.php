@@ -107,34 +107,11 @@
                 </div>
             </div>
             <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
-                {{-- <div class="row mb-4">
-                    <div class="col-md-12">
-                        <div class="col-lg-4">
-                            <label class="control-label col-form-label">Filter :</label>
-                        </div>
-                        <div class="col-lg-4">
-                            <select class="form-control" id="id_peran_filter" name="id_peran">
-                                <option value="">- Semua -</option>
-                                @foreach ($peran as $item)
-                                    <option value="{{ $item->id_peran }}">{{ $item->nama }}</option>
-                                @endforeach
-                            </select>
-                            <small class="form-text text-muted">peran Pengguna</small>
-                        </div>
-                    </div>
-                </div> --}}
                 <table class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive"
                     id="table_peran">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>ID Peran</th>
                             <th>Nama Peran</th>
                             <th>Kode Peran</th>
                             <th>Aksi</th>
@@ -157,15 +134,3 @@
     @push('scripts')
         @include('peran.ajaxHandler')
     @endpush
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Peran</h1>
-</body>
-</html>

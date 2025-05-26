@@ -7,7 +7,7 @@ use App\Repositories\Interfaces\FasilitasRepositoryInterface;
 
 class FasilitasRepository implements FasilitasRepositoryInterface {
     public function getAll(){
-        return FasilitasModel::all() ? true : false;
+        return FasilitasModel::with('ruangan', 'kategori', 'ruangan.gedung')->get();
     }
 
     public function create(array $data) {
@@ -15,7 +15,7 @@ class FasilitasRepository implements FasilitasRepositoryInterface {
     }
 
     public function getById($id) {
-        return FasilitasModel::find($id)->with('gedung')->with('kategori')->get() ? true : false;
+        return FasilitasModel::find($id);
     }
 
     public function update($id, array $data) {
