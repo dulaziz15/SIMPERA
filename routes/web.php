@@ -35,7 +35,7 @@ Route::post('/proses_login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::middleware(['auth'])->group(function () {
-	Route::get('/', [DashboardController::class, 'index']);
+	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 	Route::prefix('periode')->group(function () {
 		Route::get('/', [PeriodeController::class, 'index']);
