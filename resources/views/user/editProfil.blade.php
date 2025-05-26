@@ -1,4 +1,4 @@
-@empty($fasilitas)
+@empty($user)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,18 +13,18 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/fasilitas') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/user') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/fasilitas/' . $fasilitas->id_fasilitas . '/delete') }}" method="POST" id="form-delete">
+    <form action="{{ url('/user/' . $user->id_pengguna . '/delete') }}" method="POST" id="form-delete">
         @csrf
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Confirm Delete Data fasilitas</h5>
+                    <h5 class="modal-title">Confirm Delete Data User</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body row g-3">
@@ -35,35 +35,25 @@
                         </div>
                         <table class="table table-sm table-bordered table-striped">
                             <tr>
-                                <th>Nama Fasilitas</th>
-                                <td>:</td>
-                                <td>{{ $fasilitas->nama }}</td>
+                                <th class="text-right col-3">Peran Pengguna :</th>
+                                <td class="col-9">{{ $user->peran->nama }}</td>
                             </tr>
+
                             <tr>
-                                <th>Kategori</th>
-                                <td>:</td>
-                                <td>{{ $fasilitas->kategori->nama }}</td>
+                                <th class="text-right col-3">Nama Pengguna :</th>
+                                <td class="col-9">{{ $user->nama_pengguna }}</td>
                             </tr>
+
                             <tr>
-                                <th>Ruangan</th>
-                                <td>:</td>
-                                <td>{{ $fasilitas->ruangan->nama }}</td>
-                            </tr>
-                            <tr>
-                                <th>Gedung</th>
-                                <td>:</td>
-                                <td>{{ $fasilitas->ruangan->gedung->nama }}</td>
-                            </tr>
-                            <tr>
-                                <th>Status</th>
-                                <td>:</td>
-                                <td>{{ $fasilitas->status }}</td>
+                                <th class="text-right col-3">Email :</th>
+                                <td class="col-9">{{ $user->surel }}</td>
                             </tr>
                         </table>
                     </div>
                     <div class="modal-footer">
 
                         <button type="button" data-bs-dismiss="modal" class="btn btn-warning">Batal</button>
+
                         <button type="submit" class="btn btn-primary">Ya, Hapus</button>
                     </div>
                 </div>
@@ -87,7 +77,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                fasilitasData.ajax.reload();
+                                dataUser.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

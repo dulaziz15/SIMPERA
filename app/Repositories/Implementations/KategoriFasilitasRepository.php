@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\KategoriFasilitasRepositoryInterface;
 class KategoriFasilitasRepository implements KategoriFasilitasRepositoryInterface {
 
     public function getAll(){
-        return KategoriFasilitasModel::all() ? true : false;
+        return KategoriFasilitasModel::all();
     }
 
     public function create(array $data) {
@@ -16,7 +16,7 @@ class KategoriFasilitasRepository implements KategoriFasilitasRepositoryInterfac
     }
 
     public function getById($id) {
-        return KategoriFasilitasModel::find($id) ? true : false;
+        return KategoriFasilitasModel::find($id);
     }
 
     public function update($id, array $data) {

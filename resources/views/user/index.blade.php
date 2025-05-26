@@ -105,8 +105,16 @@
                     <button onclick="modalAction('{{ url('user/create') }}')"
                         class="btn btn-sm btn-success mt-1">Tambah</button>
                 </div>
+                <div class="card-tools">
+                    <button onclick="gridLayout()" class="btn btn-sm btn-success mt-1">
+                        Grid
+                    </button>
+                    <button onclick="listLayout()" class="btn btn-sm btn-success mt-1">
+                        List
+                    </button>
+                </div>
             </div>
-            <div class="card-body">
+            <div class="card-body" id="user-list">
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
@@ -142,12 +150,12 @@
                     </thead>
                 </table>
             </div>
+            <div id="user-grid" style="display: none;">
+                @include('user.grid')
+            </div>
             <div id="myModal" class="modal fade" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <!-- AJAX content will be loaded here -->
-                    </div>
-                </div>
+            </div>
+            <div id="modalProfil" class="modal fade" tabindex="-1">
             </div>
         </div>
     @endsection
@@ -155,5 +163,18 @@
     @push('css')
     @endpush
     @push('scripts')
+        <script>
+            // $(document).ready(function() {
+                function gridLayout() {
+                    $('#user-list').css('display', 'none');
+                    $('#user-grid').css('display', 'block');
+                }
+
+                function listLayout() {
+                    $('#user-grid').css('display', 'none');
+                    $('#user-list').css('display', 'block');
+                }
+            // })
+        </script>
         @include('user.ajaxHandler')
     @endpush

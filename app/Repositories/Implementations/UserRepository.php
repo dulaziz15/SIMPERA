@@ -16,7 +16,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function getAll()
     {
-        return User::with('peran')->get();
+        return User::with('peran')->with('profil')->get();
     }
 
     public function countUserByPeran($id)

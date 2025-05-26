@@ -23,8 +23,7 @@ class GedungRepository implements GedungRepositoryInterface {
     }
 
     public function update($id, array $data) {
-        $gedung = GedungModel::findOrFail($id);
-        return $gedung->update($data) ? true : false;
+        return GedungModel::findOrFail($id)->update($data) ? true : false;
     }
 
     public function delete($id) {
