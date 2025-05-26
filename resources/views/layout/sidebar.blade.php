@@ -5,7 +5,7 @@
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
 
                 <li>
-                    <a href="{{ url('/') }}">
+                    <a href="{{ url('/dashboard') }}">
                         <i data-feather="home"></i>
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
@@ -65,7 +65,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="index.html">
+                    <a href="{{ url('periode/') }}">
                         <i class="bx bx-calendar"></i>
                         <span data-key="t-dashboard">Periode</span>
                     </a>

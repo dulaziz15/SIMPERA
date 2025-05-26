@@ -23,7 +23,7 @@ class AuthController extends Controller
             'password' => $request->hash_kata_sandi
         ];
         if (Auth::attempt($credentials)) {
-            return redirect('');
+            return redirect('/dashboard');
         } else {
             return redirect('login');
         }

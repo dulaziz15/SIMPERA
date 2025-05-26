@@ -10,8 +10,11 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>ID Pengguna</th>
+                        <th>Nama Pengguna</th>
+                        <th>Judul Laporan</th>
                         <th>Nama Fasilitas</th>
+                        <th>Deskripsi</th>
+                        <th>Foto</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>

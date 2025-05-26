@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login | Minia - Minimal Admin & Dashboard Template</title>
+    <title>SIMPERA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -40,7 +40,7 @@
                         <div class="w-100">
                             <div class="d-flex flex-column h-100">
                                 <div class="mb-4 mb-md-5 text-center">
-                                    <a href="index.html" class="d-block auth-logo">
+                                    <a href="{{ url('/') }}" class="d-block auth-logo">
                                         <img src="{{ asset('template/assets/images/logo.png') }}" alt=""
                                             height="28"> <span class="logo-txt">SIMPERA</span>
                                     </a>
@@ -134,8 +134,8 @@
                                     <p class="mb-0">©
                                         <script>
                                             document.write(new Date().getFullYear())
-                                        </script> Minia . Crafted with <i
-                                            class="mdi mdi-heart text-danger"></i> by Themesbrand
+                                        </script> SIMPERA . Crafted with <i
+                                            class="mdi mdi-heart text-danger"></i> by Kelompok 1
                                     </p>
                                 </div>
                             </div>

@@ -17,6 +17,6 @@ class DashboardController extends Controller
         ];
 
         $activeMenu = 'user';
-        return view('index', compact('breadcrumb', 'page', 'activeMenu'));
+        return view('welcome', compact('breadcrumb', 'page', 'activeMenu'));
     }
 }
