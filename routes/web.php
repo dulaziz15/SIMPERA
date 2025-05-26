@@ -6,6 +6,7 @@ use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\KategoriFasilitasController;
 use App\Http\Controllers\KategoriGedungController;
+use App\Http\Controllers\LaporanPeriodeController;
 use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PeranController;
@@ -155,6 +156,10 @@ Route::middleware(['auth'])->group(function () {
 		Route::put('/{id}/update', [UserController::class, 'updateProfile']);
 		Route::get('/{id}/confirm', [UserController::class, 'confirmDelete']);
 		Route::delete('/{id}/delete', [UserController::class, 'delete']);
+	});
+
+		Route::prefix('laporan_periode')->group(function () {
+		Route::get('/', [LaporanPeriodeController::class, 'index']);
 	});
 
 	Route::prefix('profil')->group(function () {

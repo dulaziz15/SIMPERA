@@ -93,6 +93,11 @@
         });
     </script>
 
+            <!-- echarts js -->
+        <script src="{{ asset('template/assets/libs/echarts/echarts.min.js')}}"></script>
+        <!-- echarts init -->
+        <script src="{{ asset('template/assets/js/pages/echarts.init.js')}}"></script>
+
     @stack('scripts')
 
 </body>
