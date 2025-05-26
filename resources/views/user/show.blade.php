@@ -13,8 +13,8 @@
 								<div class="flex-shrink-0">
 									<div class="avatar-xl me-3">
 										<img
-											src="{{ auth()->user()->profil && auth()->user()->profil->foto_profil
-											    ? asset('storage/' . auth()->user()->profil->foto_profil)
+											src="{{ $user->profil && $user->profil->foto_profil
+											    ? asset('storage/' . $user->profil->foto_profil)
 											    : asset('storage/foto_profil/default.png') }}"
 											alt="Foto Profil" class="img-fluid rounded-circle d-block">
 									</div>
