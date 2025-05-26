@@ -15,7 +15,9 @@ class CreateMRuanganTable extends Migration
             $table->string('nama', 100);
             $table->integer('lantai')->nullable();
             $table->text('deskripsi')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('update_at')->useCurrent();
+
             $table->foreign('id_gedung')
                     ->references('id_gedung')
                     ->on('m_gedung')

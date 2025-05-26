@@ -6,69 +6,38 @@ use App\Http\Requests\FasilitasRequest;
 use App\Services\Interfaces\FasilitasServiceInterface;
 use App\Services\Interfaces\GedungServiceInterface;
 use App\Services\Interfaces\KategoriFasilitasServiceInterface;
-use App\Services\Interfaces\RuanganServiceInterface;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
 
 class FasilitasController extends Controller
 {
     protected $fasilitasService;
     protected $gedungService;
-    protected $ruanganService;
     protected $kategoriFasilitasService;
 
     public function __construct(
-        FasilitasServiceInterface $fasilitasService,
+        FasilitasServiceInterface $fasilitasService, 
         GedungServiceInterface $gedungService,
-        KategoriFasilitasServiceInterface $kategoriFasilitasService,
-        RuanganServiceInterface $ruanganService
-    ) {
+        KategoriFasilitasServiceInterface $kategoriFasilitasService
+    ){
         $this->fasilitasService = $fasilitasService;
         $this->gedungService = $gedungService;
-        $this->ruanganService = $ruanganService;
         $this->kategoriFasilitasService = $kategoriFasilitasService;
     }
 
-    public function index()
-    {
-        $breadcrumb = (object) [
-            'title' => 'Daftar Fasilitas',
-            'list' => ['Home', 'Fasilitas']
-        ];
-
-        $page = (object) [
-            'title' => 'Daftar Fasilitas yang terdaftar dalam sistem'
-        ];
-
-        $activeMenu = 'fasilitas';
-        return view('fasilitas.index', compact('breadcrumb', 'page', 'activeMenu'));
+    public function index() {
+        return view('fasilitas.index');
     }
 
-    public function getAll(Request $request)
-    {
-        $data = $this->fasilitasService->getAll();
-
-        // if ($request->id_kategori) {
-        //     $fasilitasData = $fasilitasService->getFasilitasByKategori($request->id_kategori_gedung);
-        // } else {
-        //     $fasilitasData = $fasilitasService->getAll();
-        // }
-        return DataTables::of($data)->make(true);
-    }
-
-
-    public function create()
-    {
+    public function create() {
+        $gedung = $this->gedungService->getAll();
         $kategori = $this->kategoriFasilitasService->getAll();
-        $ruangan = $this->ruanganService->getAll();
-        return view('fasilitas.create', compact('ruangan', 'kategori'));
+        return view('fasilitas.create', compact('gedung', 'kategori'));
     }
 
-    public function storeFasilitas(FasilitasRequest $request)
-    {
+    public function storeFasilitas(FasilitasRequest $request) {
         if ($request->ajax() || $request->wantsJson()) {
             $fasilitas = $this->fasilitasService->storeFasilitas($request);
-            if ($fasilitas) {
+            if($fasilitas) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.',
@@ -86,26 +55,20 @@ class FasilitasController extends Controller
         return redirect('/fasilitas');
     }
 
-    public function show($id)
-    {
+    public function show($id) {
         $fasilitas = $this->fasilitasService->show($id);
-        // dd($fasilitas);
         return view('fasilitas.show', compact('fasilitas'));
     }
 
-    public function edit($id)
-    {
+    public function edit($id) {
         $fasilitas = $this->fasilitasService->show($id);
-        $kategori = $this->kategoriFasilitasService->getAll();
-        $ruangan = $this->ruanganService->getAll();
-        return view('fasilitas.edit', compact('fasilitas', 'kategori', 'ruangan'));
+        return view('fasilitas.edit', compact('fasilitas'));
     }
 
-    public function update($id, FasilitasRequest $request)
-    {
+    public function update($id, FasilitasRequest $request) {
         if ($request->ajax() || $request->wantsJson()) {
             $fasilitas = $this->fasilitasService->update($id, $request);
-            if ($fasilitas) {
+            if($fasilitas) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupdate.',
@@ -123,17 +86,15 @@ class FasilitasController extends Controller
         return redirect('/fasilitas');
     }
 
-    public function confirm($id)
-    {
+    public function confirm($id) {
         $fasilitas = $this->fasilitasService->show($id);
         return view('fasilitas.confirm', compact('fasilitas'));
     }
 
-    public function delete($id, Request $request)
-    {
+    public function delete($id, Request $request) {
         if ($request->ajax() || $request->wantsJson()) {
             $fasilitas = $this->fasilitasService->delete($id);
-            if ($fasilitas) {
+            if($fasilitas) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',

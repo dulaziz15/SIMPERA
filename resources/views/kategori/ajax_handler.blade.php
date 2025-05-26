@@ -1,10 +1,10 @@
 <script>
     $(document).ready(function () {
-    const table = $('#table_fasilitas').DataTable({
+    const table = $('#table_kategori').DataTable({
         processing: true,
         serverSide: false,                
         ajax: {
-            url: '{{ url("fasilitas/data") }}',
+            url: '{{ url("kategori/data") }}',
             type: 'GET',
             dataSrc: 'data',               
         },
