@@ -1,11 +1,23 @@
-<?php  
+<?php
 
 namespace App\Enums\Status;
 
-enum statusLaporanPerbaikan {
-    const BARU = 'baru';
-    const VERIFIKASI = 'diverifikasi';
-    const PERBAIKI = 'diperbaiki';
-    const REJECT = 'ditolak';
-    const SELESAI = 'selesai';
+enum StatusLaporanPerbaikan: string
+{
+    case BARU = 'baru';
+    case VERIFIKASI = 'diverifikasi';
+    case PERBAIKAN = 'diperbaiki';
+    case REJECT = 'ditolak';
+    case SELESAI = 'selesai';
+    
+    public static function labels(): array
+    {
+        return [
+            self::BARU->value => 'baru',
+            self::VERIFIKASI->value => 'diverifikasi',
+            self::PERBAIKAN->value => 'esdang diperbaiki',
+            self::REJECT->value => 'ditolak',
+            self::SELESAI->value => 'selesai'
+        ];
+    }
 }

@@ -10,4 +10,5 @@ interface PeriodeRepositoryInterface {
     public function edit($id);
     public function update($id, array $data);
     public function delete($id);
+    public function getPeriodeByCreateLaporan($date);
 }

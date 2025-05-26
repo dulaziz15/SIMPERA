@@ -6,13 +6,16 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class PelaporanRequest extends FormRequest
+class PendukungLaporanRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     */
     public function authorize(): bool
     {
-        return true;   // Atur sesuai kebijakan auth‑mu
+        return true;
     }
-    
+
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
@@ -30,19 +33,11 @@ class PelaporanRequest extends FormRequest
     public function rules(): array
     {
         // Aturan dasar (‐selalu dibutuhkan)
-        $rules = [
-            'id_fasilitas'     => 'required',
-            'deskripsi'        => 'required',
-            'tingkat_kerusakan' => 'required',
+        return [
+            'id_pengguna' => 'required',
+            'id_laporan' => 'required',
+            'deskripsi' => 'required',
+            'tingkat_kerusakan' => 'required'
         ];
-
-        // Deteksi apakah ini create (POST) atau update (PUT/PATCH)
-        $isCreate = $this->isMethod('post');
-
-        // // Tambahkan aturan untuk url_foto sesuai kasus
-        $rules['url_foto'] = ($isCreate ? 'required' : 'nullable')
-            . '|file|mimes:jpeg,png,jpg,gif,svg';
-
-        return $rules;
     }
 }

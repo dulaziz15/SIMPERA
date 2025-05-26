@@ -21,8 +21,6 @@ return new class extends Migration
             $table->unsignedBigInteger('id_periode');
             $table->timestamp('waktu_pelaporan')->useCurrent();
             $table->timestamp('waktu_perubahan')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
             $table->foreign('id_pengguna')
                   ->references('id_pengguna')
                   ->on('m_user')

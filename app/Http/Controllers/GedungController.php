@@ -38,7 +38,6 @@ class GedungController extends Controller
         $kategori = $this->kategoriGedungService->getAll();
         $gedung = $this->gedungService->getAll();
         $ruangan = $this->ruanganService->getAll();
-
         $content = [
             'jumlah_kategori' => $kategori->count(),
             'jumlah_gedung' => $gedung->count()

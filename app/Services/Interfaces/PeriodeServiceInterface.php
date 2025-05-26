@@ -9,7 +9,7 @@ interface PeriodeServiceInterface {
     public function show($id);
     public function storePeriode(PeriodeRequest $request);
     public function edit($id);
-
     public function update($id, PeriodeRequest $request);
     public function delete($id);
+    public function getPeriodeByCreateLaporan($date);
 }
