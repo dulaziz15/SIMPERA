@@ -8,6 +8,7 @@ use App\Http\Controllers\KategoriFasilitasController;
 use App\Http\Controllers\KategoriGedungController;
 use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\PelaporanController;
+use App\Http\Controllers\PendukungLaporanController;
 use App\Http\Controllers\PeranController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfilController;
@@ -71,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::prefix('ruangan')->group(function () {
 		Route::get('/', [RuanganController::class, 'index']);
 		Route::post('/data', [RuanganController::class, 'getAll']);
+		Route::get('/gedung/{gedungId}', [RuanganController::class, 'getByGedung']);
 		Route::get('/create', [RuanganController::class, 'create']);
 		Route::post('/store', [RuanganController::class, 'store']);
 		Route::get('/{id}/show', [RuanganController::class, 'show']);
@@ -111,6 +113,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::prefix('pelaporan')->group(function () {
 		Route::get('/', [PelaporanController::class, 'index']);
+		Route::post('/data', [PelaporanController::class, 'getAll']);
 		Route::get('/create', [PelaporanController::class, 'create']);
 		Route::post('/store', [PelaporanController::class, 'storePelaporan']);
 		Route::get('/{id}/show', [PelaporanController::class, 'show']);
@@ -118,11 +121,18 @@ Route::middleware(['auth'])->group(function () {
 		Route::put('/{id}/update', [PelaporanController::class, 'update']);
 		Route::get('/{id}/confirm', [PelaporanController::class, 'confirm']);
 		Route::delete('/{id}/delete', [PelaporanController::class, 'delete']);
+		Route::get('/coba', [PelaporanController::class, 'coba']);
+
+		Route::prefix('{pelaporanId}/pendukung')->group(function () {
+			Route::get('/', [PendukungLaporanController::class, 'index']);
+			Route::get('/create', [PendukungLaporanController::class, 'create']);
+			Route::post('/store', [PendukungLaporanController::class, 'store']);
+		});
 	});
 
 	Route::prefix('fasilitas')->group(function () {
 		Route::get('/', [FasilitasController::class, 'index']);
-    	Route::get('/data', [FasilitasController::class, 'getAll']);
+		Route::get('/data', [FasilitasController::class, 'getAll']);
 		Route::get('/create', [FasilitasController::class, 'create']);
 		Route::post('/store', [FasilitasController::class, 'storeFasilitas']);
 		Route::get('/{id}/show', [FasilitasController::class, 'show']);
@@ -160,4 +170,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::prefix('profil')->group(function () {
 		Route::get('/', [ProfilController::class, 'index']);
 	});
+
+	Route::get('/pelaporan/ruangan-by-gedung/{id_gedung}', [PelaporanController::class, 'getRuanganByGedung']);
+	Route::get('/pelaporan/fasilitas-by-ruangan/{id_ruangan}', [PelaporanController::class, 'getFasilitasByRuangan']);
 });

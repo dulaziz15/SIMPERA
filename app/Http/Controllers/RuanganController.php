@@ -32,15 +32,9 @@ class RuanganController extends Controller
         return DataTables::of($ruanganData)->make(true);
     }
 
-    public function create()
-    {
-        $gedung = $this->gedungService->getAll();
-        return view('gedung.ruangan.create', compact('gedung'));
-    }
-
-    public function store(RuanganRequest $request) {
+    public function getByGedung(RuanganRequest $request, $id) {
         if ($request->ajax() || $request->wantsJson()) {
-            $ruangan = $this->ruanganService->create($request);
+            $ruangan = $this->ruanganService->getByGedung($request);
             if($ruangan) {
                 return response()->json([
                     'status' => true,
@@ -57,6 +51,35 @@ class RuanganController extends Controller
         }
 
         return redirect('/gedung');
+    }
+    
+
+    public function create()
+    {
+        $gedung = $this->gedungService->getAll();
+        return view('gedung.ruangan.create', compact('gedung'));
+    }
+
+    public function store($id) {
+        // if ($request->ajax() || $request->wantsJson()) {
+            $ruangan = $this->ruanganService->getByGedung($id);
+            return $ruangan;
+            // if($ruangan) {
+            //     return response()->json([
+            //         'status' => true,
+            //         'message' => 'Data berhasil disimpan.',
+            //         'redirect' => url('/gedung')
+            //     ]);
+            // } else {
+            //     return response()->json([
+            //         'status' => false,
+            //         'message' => 'Data Gagal Disimpan.',
+            //         'redirect' => url('/gedung')
+            //     ]);
+            // }
+        // }
+
+        // return redirect('/gedung');
     }
 
     public function show($id) {

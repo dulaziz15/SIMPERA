@@ -40,4 +40,8 @@ class PeriodeService implements PeriodeServiceInterface {
     public function delete($id){
         return $this->periodeRepository->delete($id);
     }
+
+    public function getPeriodeByCreateLaporan($date) {
+        return $this->periodeRepository->getPeriodeByCreateLaporan($date);
+    }
 }

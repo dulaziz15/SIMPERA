@@ -15,7 +15,7 @@ class PeriodeController extends Controller
     }
 
     public function index() {
-        return view('periode.index');
+        return view('periode.in dex');
     }
 
     public function create() {
