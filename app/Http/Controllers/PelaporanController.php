@@ -20,7 +20,17 @@ class PelaporanController extends Controller
     }
 
     public function index() {
-        return view('pelaporan.index');
+        $breadcrumb = (object) [
+            'title' => 'Daftar Laporan Perbaikan',
+            'list' => ['Home', 'Laporan Perbaikan']
+        ];
+
+        $page = (object) [
+            'title' => 'Daftar Laporan Perbaikan yang terdaftar dalam sistem'
+        ];
+
+        $activeMenu = 'pelaporan';
+        return view('pelaporan.index', compact('breadcrumb', 'page', 'activeMenu'));
     }
 
     public function create() {

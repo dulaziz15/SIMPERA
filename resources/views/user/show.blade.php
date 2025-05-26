@@ -12,8 +12,8 @@
                             <div class="d-flex align-items-start mt-3 mt-sm-0">
                                 <div class="flex-shrink-0">
                                     <div class="avatar-xl me-3">
-                                        <img src="{{ asset('storage/app/public/' . $user->profil->foto_profil ) }}" alt="Foto Profil"
-                                            class="img-fluid rounded-circle d-block">
+                                        <img src="{{ asset('storage/' . $user->profil->foto_profil ) }}" alt="Foto Profil"
+                                            class="img-fluid rounded-circle d-block" style="width: 50px; height: 50px;">
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">

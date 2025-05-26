@@ -80,7 +80,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="#">
+                            <a href="{{ url('pelaporan') }}">
                                 <span data-key="t-calendar">Laporan</span>
                             </a>
                         </li>
