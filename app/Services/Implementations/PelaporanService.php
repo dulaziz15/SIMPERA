@@ -76,26 +76,40 @@ class PelaporanService implements PelaporanServiceInterface
 
     public function update($id, PelaporanRequest $request)
     {
-        $imageName = null;
-
+        $laporanData = $this->pelaporanRepository->getById($id);
+        $imageName = $laporanData->url_foto;
+        // dd($imageName);
         if ($request->hasFile('url_foto')) {
             $url_foto = $request->file('url_foto');
             $imageName = time() . '_' . $url_foto->getClientOriginalName();
             $url_foto->storeAs('uploads/fasilitas', $imageName, 'public');
         }
 
-        // Ambil data lama (optional jika ingin cek/fallback)
-        $oldData = $this->pelaporanRepository->getById($id);
+        $periode = $this->periodeService->getPeriodeByCreateLaporan(now());
 
-        return $this->pelaporanRepository->update($id, [
-            'id_pengguna' => $request->id_pengguna,
+        if (empty($periode)) {
+            return false;
+        }
+
+        $laporan =  $this->pelaporanRepository->update($id, [
+            'id_pengguna' => $request->id_pengguna ?? Auth::user()->id_pengguna,
             'id_fasilitas' => $request->id_fasilitas,
+            'id_periode' => $periode->id_periode,
             'deskripsi' => $request->deskripsi,
-            'url_foto' => $imageName ?? $oldData->url_foto,
-            'status' => $request->status ?? $oldData->status,
-            'waktu_pelaporan' => now(),
-            'waktu_perubahan' => now()
+            'url_foto' => $imageName,
+            'waktu_perubahan' => now(),
         ]);
+
+        if ($laporan) {
+            return $this->pendukungService->updateWithLaporan([
+                'id_laporan' => $laporanData->id_laporan,
+                'id_user' => $request->id_pengguna ?? Auth::user()->id_pengguna,
+                'deskripsi' => $request->deskripsi,
+                'tingkat_kerusakan' => $request->tingkat_kerusakan,
+            ]);
+        }
+
+        return false;
     }
 
     public function delete($id)

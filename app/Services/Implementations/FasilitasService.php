@@ -65,4 +65,8 @@ class FasilitasService implements FasilitasServiceInterface
             return in_array($fasilitas->id_fasilitas, $reportedFasilitas);
         });
     }
+
+    public function getAllFasilitasByRuangan($id) {
+        return $this->fasilitasRepository->getAllFasilitasByRuangan($id);
+    }
 }

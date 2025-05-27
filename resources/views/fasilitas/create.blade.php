@@ -22,7 +22,7 @@
                                 <div class="form-group">
                                     <label for="id_kategori" class="form-label">Kategori Fasilitas</label>
                                     <select class="form-control" name="id_kategori" 
-                                    {{-- data-trigger --}}
+                                    
                                         id="id_kategori" placeholder="This is a search placeholder" required>
                                         <option value="">- Pilih kategori -</option>
                                         @foreach ($kategori as $l)
@@ -37,7 +37,7 @@
                                 <div class="form-group">
                                     <label for="id_ruangan" class="form-label">Ruangan</label>
                                     <select class="form-control" name="id_ruangan" 
-                                    {{-- data-trigger --}}
+                                    
                                         id="id_ruangan" placeholder="This is a search placeholder" required>
                                         <option value="">- Pilih Ruangan -</option>
                                         @foreach ($ruangan as $l)
@@ -72,8 +72,12 @@
             </div>
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Batal
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-2"></i>Simpan
+                </button>
             </div>
         </div>
     </div>

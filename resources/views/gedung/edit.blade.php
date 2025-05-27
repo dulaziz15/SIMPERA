@@ -22,7 +22,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="id_kategori_gedung" class="form-label">Kategori Gedung</label>
-                                    <select class="form-control" name="id_kategori_gedung" {{-- data-trigger --}}
+                                    <select class="form-control" name="id_kategori_gedung" 
                                         id="id_kategori_gedung" placeholder="This is a search placeholder" required>
                                         <option value="">- Pilih kategori -</option>
                                         @foreach ($kategori as $l)
@@ -66,8 +66,12 @@
             </div>
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Batal
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-2"></i>Simpan
+                </button>
             </div>
         </div>
     </div>

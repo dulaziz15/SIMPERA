@@ -59,10 +59,7 @@
                                                 <select class="form-control" id="id_gedung_filter" data-trigger
                                                     name="id_gedung">
                                                     <option value="">- Semua -</option>
-                                                    {{-- @foreach ($gedung as $item)
-                                                        <option value="{{ $item->id_gedung }}|{{ $item->nama }}">
-                                                            {{ $item->nama }}</option>
-                                                    @endforeach --}}
+                                                    
                                                 </select>
                                                 <small class="form-text text-muted">Gedung</small>
                                             </div>
@@ -85,8 +82,8 @@
                             </div>
                         </div>
                     </div>
-                </div><!--  end col -->
-            </div><!-- end row -->
+                </div>
+            </div>
         </div>
     </div>
     <div id="myModal" class="modal fade" tabindex="-1"></div>

@@ -9,7 +9,7 @@ enum StatusLaporanPerbaikan: string
     case PERBAIKAN = 'diperbaiki';
     case REJECT = 'ditolak';
     case SELESAI = 'selesai';
-    
+
     public static function labels(): array
     {
         return [
@@ -19,5 +19,15 @@ enum StatusLaporanPerbaikan: string
             self::REJECT->value => 'ditolak',
             self::SELESAI->value => 'selesai'
         ];
+    }
+    public function badge(): string
+    {
+        return match ($this) {
+            self::BARU => '<span class="badge bg-primary">Baru</span>',
+            self::VERIFIKASI => '<span class="badge bg-info">Diverifikasi</span>',
+            self::PERBAIKAN => '<span class="badge bg-warning">Sedang Diperbaiki</span>',
+            self::REJECT => '<span class="badge bg-danger">Ditolak</span>',
+            self::SELESAI => '<span class="badge bg-success">Selesai</span>',
+        };
     }
 }

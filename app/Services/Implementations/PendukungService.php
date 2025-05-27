@@ -16,4 +16,8 @@ class PendukungService implements PendukungServiceInterface {
     public function createWithLaporan(array $request) {
         return $this->pendukungRepository->createWithLaporan($request);
     }
+
+    public function updateWithLaporan($data) {
+        return $this->pendukungRepository->updateWithLaporan($data);
+    }   
 }

@@ -3,9 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-3 col-md-6">
-            <!-- card -->
             <div class="card card-h-100">
-                <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
@@ -15,21 +13,17 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
                         <span class="ms-1 text-muted font-size-13">Since last week</span>
                     </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
+                </div>
+            </div>
+        </div>
         <div class="col-xl-3 col-md-6">
-            <!-- card -->
             <div class="card card-h-100">
-                <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
@@ -39,21 +33,17 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success"></span>
                         <span class="ms-1 text-muted font-size-13">Since last week</span>
                     </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
+                </div>
+            </div>
+        </div>
         <div class="col-xl-3 col-md-6">
-            <!-- card -->
             <div class="card card-h-100">
-                <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
@@ -63,21 +53,17 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
                         <span class="ms-1 text-muted font-size-13">Since last week</span>
                     </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
+                </div>
+            </div>
+        </div>
         <div class="col-xl-3 col-md-6">
-            <!-- card -->
             <div class="card card-h-100">
-                <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
@@ -87,20 +73,18 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
                         <span class="ms-1 text-muted font-size-13">Since last week</span>
                     </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
+                </div>
+            </div>
+        </div>
         <div class="card card-outline card-primary">
             <div class="card-header">
-                {{-- <h3 class="card-title">{{ $page->title }}</h3> --}}
+                
                 <div class="card-tools">
                     <button onclick="modalAction('{{ url('pelaporan/create') }}')"
                         class="btn btn-sm btn-success mt-1">Tambah</button>
@@ -121,9 +105,7 @@
                         <div class="col-lg-4">
                             <select class="form-control" id="id_peran_filter" data-trigger name="id_peran">
                                 <option value="">- Semua -</option>
-                                {{-- @foreach ($peran as $item)
-                                    <option value="{{ $item->id_peran }}">{{ $item->nama }}</option>
-                                @endforeach --}}
+                                
                             </select>
                             <small class="form-text text-muted">peran Pengguna</small>
                         </div>
