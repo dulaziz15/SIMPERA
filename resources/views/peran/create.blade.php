@@ -41,7 +41,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
@@ -91,7 +90,8 @@
                                 title: 'Data Berhasil Ditambahkan',
                                 text: response.message
                             });
-                            dataPeran.ajax.reload();
+                            window.location.reload();
+                            dataUser.ajax.reload();
                         } else {
                             $('.invalid-feedback').text('');
                             $.each(response.msgField, function(prefix, val) {

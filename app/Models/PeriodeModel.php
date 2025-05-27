@@ -18,4 +18,8 @@ class PeriodeModel extends Model
         'tanggal_mulai',
         'tanggal_selesai'
     ];
+
+    public function laporan() {
+        return  $this->belongsTo(LaporanPerbaikanModel::class, 'id_periode');
+    }
 }

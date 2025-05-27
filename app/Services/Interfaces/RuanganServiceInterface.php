@@ -11,4 +11,5 @@ interface RuanganServiceInterface {
     public function show($id);
     public function update($id, RuanganRequest $request);
     public function delete($id);
+    public function getByGedung($gedung);
 }

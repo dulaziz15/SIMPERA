@@ -53,6 +53,13 @@
     <script src="{{ asset('template/assets/libs/flatpickr/flatpickr.min.js') }}"></script>
     <!-- apexcharts -->
     <script src="{{ asset('template/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+    
+    <!-- twitter-bootstrap-wizard js -->
+    <script src="{{ asset('template/assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}"></script>
+    <script src="{{ asset('template/assets/libs/twitter-bootstrap-wizard/prettify.js') }}"></script>
+
+    <!-- form wizard init -->
+    <script src="{{ asset('template/assets/js/pages/form-wizard.init.js') }}"></script>
 
     <!-- Plugins js-->
     <script src="{{ asset('template/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js') }}">
@@ -60,8 +67,6 @@
     <script
         src="{{ asset('template/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js') }}">
     </script>
-    <!-- dashboard init -->
-    <script src="{{ asset('template/assets/js/pages/dashboard.init.js') }}"></script>
 
     <!-- Required datatable js -->
     <script src="{{ asset('template/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
@@ -85,6 +90,7 @@
     <script src="{{ asset('template/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}">
     </script>
     <script src="{{ asset('template/assets/js/app.js') }}"></script>
+
     <script>
         $.ajaxSetup({
             headers: {

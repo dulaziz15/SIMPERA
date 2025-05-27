@@ -27,4 +27,9 @@ class FasilitasRepository implements FasilitasRepositoryInterface {
         $fasilitas =  FasilitasModel::findOrFail($id);
         return $fasilitas->delete() ? true : false;
     }
+
+    public function getByRuangan($ruangan) {
+        return FasilitasModel::where('id_ruangan', $ruangan)->get();
+    }
+
 }

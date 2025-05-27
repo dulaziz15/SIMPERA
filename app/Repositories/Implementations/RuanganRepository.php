@@ -29,4 +29,8 @@ class RuanganRepository implements RuanganRepositoryInterface {
     public function delete($id) {
         return RuanganModel::find($id)->delete() ? true : false;
     }
+
+    public function getByGedung($gedung) {
+        return RuanganModel::where('id_gedung', $gedung)->get();
+    }
 }
