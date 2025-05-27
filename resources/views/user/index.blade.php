@@ -1,19 +1,19 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="row">
-        <div class="col-xl-3 col-md-6">
-            <!-- card -->
-            <div class="card card-h-100">
-                <!-- card body -->
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah User</span>
-                            <h4 class="mb-3">
-                                <span class="counter-value" data-target="{{ $user->count() }}">0</span>
-                            </h4>
-                        </div>
+	<div class="row">
+		<div class="col-xl-3 col-md-6">
+			<!-- card -->
+			<div class="card card-h-100">
+				<!-- card body -->
+				<div class="card-body">
+					<div class="row align-items-center">
+						<div class="col-6">
+							<span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah User</span>
+							<h4 class="mb-3">
+								<span class="counter-value" data-target="{{ $user->count() }}">0</span>
+							</h4>
+						</div>
 
                         
                     </div>
@@ -37,7 +37,9 @@
                             </h4>
                         </div>
 
-                        
+                        {{-- <div class="col-6">
+                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
+                        </div> --}}
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success"></span>
@@ -59,7 +61,9 @@
                             </h4>
                         </div>
 
-                        
+                        {{-- <div class="col-6">
+                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
+                        </div> --}}
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
@@ -81,7 +85,9 @@
                             </h4>
                         </div>
 
-                        
+                        {{-- <div class="col-6">
+                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
+                        </div> --}}
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
@@ -92,7 +98,7 @@
         </div><!-- end col -->
         <div class="card card-outline card-primary">
             <div class="card-header">
-                
+                {{-- <h3 class="card-title">{{ $page->title }}</h3> --}}
                 <div class="card-tools">
                     <button onclick="modalAction('{{ url('user/create') }}')"
                         class="btn btn-sm btn-success mt-1">Tambah</button>
@@ -152,21 +158,21 @@
         </div>
     @endsection
 
-    @push('css')
-    @endpush
-    @push('scripts')
-        <script>
-            // $(document).ready(function() {
-                function gridLayout() {
-                    $('#user-list').css('display', 'none');
-                    $('#user-grid').css('display', 'block');
-                }
+	@push('css')
+	@endpush
+	@push('scripts')
+		<script>
+			// $(document).ready(function() {
+			function gridLayout() {
+				$('#user-list').css('display', 'none');
+				$('#user-grid').css('display', 'block');
+			}
 
-                function listLayout() {
-                    $('#user-grid').css('display', 'none');
-                    $('#user-list').css('display', 'block');
-                }
-            // })
-        </script>
-        @include('user.ajaxHandler')
-    @endpush
+			function listLayout() {
+				$('#user-grid').css('display', 'none');
+				$('#user-list').css('display', 'block');
+			}
+			// })
+		</script>
+		@include('user.ajaxHandler')
+	@endpush
