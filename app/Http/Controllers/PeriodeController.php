@@ -15,7 +15,17 @@ class PeriodeController extends Controller
     }
 
     public function index() {
-        return view('periode.index');
+        $breadcrumb = (object) [
+            'title' => 'Periode Pelaporan',
+            'list' => ['Home', 'Periode']
+        ];
+
+        $page = (object) [
+            'title' => 'Periode Pellaporan'
+        ];
+
+        $activeMenu = 'periode';
+        return view('periode.index', compact('breadcrumb', 'page', 'activeMenu'));
     }
 
     public function create() {
