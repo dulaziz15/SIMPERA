@@ -107,14 +107,17 @@ class PelaporanController extends Controller
 
         $activeMenu = 'pelaporan';
         $laporan = $this->pelaporanService->show($id);
-        // dd($laporan->pengguna->profil);
+        
         return view('pelaporan.show', compact('laporan', 'breadcrumb', 'page', 'activeMenu'));
     }
 
     public function edit($id)
     {
-        $pelaporan = $this->pelaporanService->show($id);
-        return view('pelaporan.edit', compact('pelaporan'));
+        $laporan = $this->pelaporanService->show($id);
+        $fasilitas = $this->fasilitasService->getAll();
+        $gedung = $this->gedungService->getAll();
+        $ruangan = $this->ruanganService->getAll();;
+        return view('pelaporan.edit', compact('laporan', 'gedung', 'fasilitas', 'ruangan'));
     }
 
     public function update($id, PelaporanRequest $request)
@@ -166,8 +169,7 @@ class PelaporanController extends Controller
 
         return redirect('/pelaporan');
     }
-
-    // Tambahkan method ini di PelaporanController
+ 
     public function getRuanganByGedung($id_gedung)
     {
         $ruangan = $this->ruanganService->getByGedung($id_gedung);
@@ -177,6 +179,11 @@ class PelaporanController extends Controller
     public function getFasilitasByRuangan($ruangan)
     {
         $fasilitas = $this->fasilitasService->getByRuangan($ruangan);
+        return response()->json($fasilitas);
+    }
+
+    public function getAllFasilitasByRuangan($id) {
+        $fasilitas = $this->fasilitasService->getAllFasilitasByRuangan($id);
         return response()->json($fasilitas);
     }
 }

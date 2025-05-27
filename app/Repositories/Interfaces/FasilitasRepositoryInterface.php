@@ -9,4 +9,5 @@ interface FasilitasRepositoryInterface {
     public function update($id, array $data);
     public function delete($id);
     public function getByRuangan($ruangan);
+    public function getAllFasilitasByRuangan($id);
 }

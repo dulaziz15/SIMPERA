@@ -3,9 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-xl-3 col-md-6">
-            <!-- card -->
             <div class="card card-h-100">
-                <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
@@ -15,21 +13,17 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
                         <span class="ms-1 text-muted font-size-13">Since last week</span>
                     </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
+                </div>
+            </div>
+        </div>
         <div class="col-xl-3 col-md-6">
-            <!-- card -->
             <div class="card card-h-100">
-                <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
@@ -39,21 +33,17 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success"></span>
                         <span class="ms-1 text-muted font-size-13">Since last week</span>
                     </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
+                </div>
+            </div>
+        </div>
         <div class="col-xl-3 col-md-6">
-            <!-- card -->
             <div class="card card-h-100">
-                <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
@@ -63,21 +53,17 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
                         <span class="ms-1 text-muted font-size-13">Since last week</span>
                     </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
+                </div>
+            </div>
+        </div>
         <div class="col-xl-3 col-md-6">
-            <!-- card -->
             <div class="card card-h-100">
-                <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
@@ -87,17 +73,15 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
                         <span class="ms-1 text-muted font-size-13">Since last week</span>
                     </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -105,7 +89,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">{{ $page->title }}</h4>
-                </div><!-- end card header -->
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-2">
@@ -121,7 +105,7 @@
                                     role="tab" onclick="ruanganData.ajax.reload()" aria-controls="ruangan"
                                     aria-selected="false">Ruangan</a>
                             </div>
-                        </div><!-- end col -->
+                        </div>
                         <div class="col-md-10">
                             <div class="tab-content text-muted mt-4 mt-md-0" id="v-pills-tabContent">
                                 <div class="tab-pane fade show active" id="kategori-gedung" role="tabpanel"
@@ -238,10 +222,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div><!--  end col -->
-                    </div><!-- end row -->
-                </div><!-- end card-body -->
-            </div><!-- end card -->
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="myModal" class="modal fade" tabindex="-1"></div>
         </div>
     </div>

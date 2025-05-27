@@ -19,6 +19,26 @@ class UserRepository implements UserRepositoryInterface
         return User::with('peran')->with('profil')->get();
     }
 
+    public function search($request)
+    {
+        $query = User::query()->with('peran');
+
+        if ($request->keyword) {
+            $query->where(function ($q) use ($request) {
+                $q->where('nama_pengguna', 'like', '%' . $request->keyword . '%')
+                    ->orWhere('surel', 'like', '%' . $request->keyword . '%');
+            });
+        }
+
+        if ($request->role) {
+            $query->whereHas('peran', function ($q) use ($request) {
+                $q->where('nama', $request->role);
+            });
+        }
+
+        return $query->limit(10)->get();
+    }
+
     public function countUserByPeran($id)
     {
         return User::select('id_peran', DB::raw('count(*) as total'))

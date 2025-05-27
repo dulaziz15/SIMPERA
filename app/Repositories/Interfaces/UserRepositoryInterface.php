@@ -7,6 +7,7 @@ interface UserRepositoryInterface
     public function storeUser(array $data);
     public function storeProfil(array $data);
     public function getAll();
+    public function search($request);
     public function countUserByPeran($id);
     public function getUserById($id);
     public function getUserByPeran($peran);

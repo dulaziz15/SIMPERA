@@ -9,6 +9,7 @@ interface UserServiceInterface
 {
     public function countUserByPeran();
     public function getAll();
+    public function search($request);
     public function createUser(UserRequest $request);
     public function createProfil(ProfilRequest $request, $id);
     public function updateProfile($id, UserRequest $request);

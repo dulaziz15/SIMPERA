@@ -32,4 +32,8 @@ class FasilitasRepository implements FasilitasRepositoryInterface {
         return FasilitasModel::where('id_ruangan', $ruangan)->get();
     }
 
+    public function getAllFasilitasByRuangan($id) {
+        return FasilitasModel::where('id_ruangan', $id)->get();
+    }
+
 }
