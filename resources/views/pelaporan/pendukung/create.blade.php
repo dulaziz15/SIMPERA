@@ -51,7 +51,7 @@
                             <div class="card-body">
                                 <div id="selected-users" class="d-flex flex-wrap gap-2">
                                 </div>
-                                <input type="hidden" name="id_user" id="selected-user-id">
+                                <input type="hidden" name="id_pengguna" id="selected-user-id">
                             </div>
                         </div>
 
@@ -148,7 +148,7 @@
                                 <div class="form-group">
                                     <label for="deskripsi" class="form-label">Keterangan Pendukung</label>
                                     <textarea name="deskripsi" id="deskripsi" rows="3" class="form-control"
-                                        placeholder="Deskripsi Pendukung Laporan Mengenai Laporan Fasilitas ini"></textarea>
+                                        placeholder="Deskripsi Pendukung Laporan Mengenai Laporan Fasilitas ini" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -313,7 +313,10 @@
             e.preventDefault();
 
             if (!$('#selected-user-id').val()) {
-                alert('Silakan pilih pengguna terlebih dahulu');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Harap memilih pengguna',
+                });
                 return;
             }
 
@@ -322,15 +325,66 @@
                 method: 'POST',
                 data: $(this).serialize(),
                 success: function(response) {
-                    if (response.success) {
-                        alert('Pendukung berhasil ditambahkan');
-                        $('#tambahPendukungModal').modal('hide');
+                    if (response.status) {
+                        $('#myModal').modal('hide');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Data Berhasil Ditambahkan',
+                            text: response.message
+                        });
+                        window.location.reload();
+                    } else {
+                        handleValidationErrors(response);
                     }
                 },
                 error: function(xhr) {
-                    alert('Terjadi kesalahan: ' + xhr.responseJSON.message);
+                    if (xhr.status === 422) {
+                        // Handle validation errors
+                        const res = xhr.responseJSON;
+                        handleValidationErrors(res);
+                    } else if (xhr.status === 500 && xhr.responseJSON &&
+                        xhr.responseJSON.message.includes('Duplicate entry')) {
+                        // Specific handling for duplicate entry
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Data Ganda',
+                            text: 'Pengguna ini sudah mendukung laporan tersebut',
+                        });
+                    } else {
+                        // Generic server error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Kesalahan Server',
+                            text: xhr.responseJSON?.message ||
+                                'Terjadi kesalahan pada server'
+                        });
+                    }
                 }
             });
+
+            // Helper function for validation errors
+            function handleValidationErrors(response) {
+                $('.invalid-feedback').text('');
+                $('.form-control').removeClass('is-invalid');
+
+                if (response.msgField) {
+                    $.each(response.msgField, function(prefix, val) {
+                        $('#error-' + prefix).text(val[0]);
+                        $('#' + prefix).addClass('is-invalid');
+                    });
+                }
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validasi Gagal',
+                    text: response.message || 'Harap isi data dengan benar.'
+                });
+            }
+
+            // Function to show existing supporters (optional)
+            function showExistingSupporters() {
+                $('#supportersModal').modal('show');
+            }
         });
     });
 </script>

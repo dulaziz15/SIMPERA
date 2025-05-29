@@ -53,6 +53,11 @@ class FasilitasService implements FasilitasServiceInterface
         return $this->fasilitasRepository->getAll();
     }
 
+    public function search($request)
+    {
+        return $this->fasilitasRepository->search($request);
+    }
+
     public function getByRuangan($ruangan)
     {
         

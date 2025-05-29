@@ -131,6 +131,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::prefix('fasilitas')->group(function () {
 		Route::get('/', [FasilitasController::class, 'index']);
+		Route::get('/search', [FasilitasController::class, 'searchFasilitas']);
 		Route::get('/data', [FasilitasController::class, 'getAll']);
 		Route::get('/create', [FasilitasController::class, 'create']);
 		Route::post('/store', [FasilitasController::class, 'storeFasilitas']);
