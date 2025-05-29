@@ -21,7 +21,7 @@ class PeriodeController extends Controller
         ];
 
         $page = (object) [
-            'title' => 'Periode Pellaporan'
+            'title' => 'Periode Pelaporan'
         ];
 
         $activeMenu = 'periode';
