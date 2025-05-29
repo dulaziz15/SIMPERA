@@ -21,7 +21,7 @@
                     <p>Tanggal Cetak: {{ now()->format('d M Y') }}</p>
                 </div>
 
-                <div class="card border-0">
+                <div class="card border-0 shadow-sm">
                     <div class="card-header bg-primary text-white py-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
@@ -63,8 +63,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card border-0 shadow-sm mb-4">
-                                    <div class="card-header bg-light">
-                                        <h5 class="mb-0 fw-bold"><i class="fas fa-info-circle me-2"></i>Detail Fasilitas
+                                    <div class="card-header bg-primary">
+                                        <h5 class="mb-0 fw-bold text-white"><i class="fas fa-info-circle me-2"></i>Detail Fasilitas
                                         </h5>
                                     </div>
                                     <div class="card-body">
@@ -95,8 +95,8 @@
 
                             <div class="col-md-6">
                                 <div class="card border-0 shadow-sm mb-4">
-                                    <div class="card-header bg-light">
-                                        <h5 class="mb-0 fw-bold"><i class="fas fa-file-alt me-2"></i>Deskripsi Laporan</h5>
+                                    <div class="card-header bg-primary">
+                                        <h5 class="mb-0 fw-bold text-white"><i class="fas fa-file-alt me-2"></i>Deskripsi Laporan</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="mb-3">
@@ -142,7 +142,7 @@
                                 </h5>
 
                                 <div class="d-flex gap-2">
-                                    <button type="button" class="btn btn-sm btn-primary"
+                                    <button type="button" class="btn btn-primary"
                                         onclick="modalAction('{{ url('/pelaporan/' . $laporan->id_laporan . '/pendukung/create') }}')">
                                         <i class="fas fa-plus me-1"></i> Tambah Pendukung
                                     </button>

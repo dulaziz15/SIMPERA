@@ -41,7 +41,8 @@ class PelaporanController extends Controller
         ];
 
         $activeMenu = 'pelaporan';
-        return view('pelaporan.index', compact('breadcrumb', 'page', 'activeMenu'));
+        $gedung = $this->gedungService->getAll();
+        return view('pelaporan.index', compact('breadcrumb', 'page', 'activeMenu', 'gedung'));
     }
 
     public function coba()

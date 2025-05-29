@@ -40,7 +40,10 @@
                     data: "periode.nama"
                 },
                 {
-                    data: "waktu_pelaporan"
+                    data: null,
+                    render: function(data, type, row) {
+                        return moment(row.created_at).format('D MMM YYYY');
+                    }
                 },
                 {
                     data: null,
@@ -48,7 +51,7 @@
                     searchable: false,
                     className: 'text-center p-2',
                     render: function(data, type, row) {
-                         return `
+                        return `
                         <a href="{{ url('/pelaporan/${row.id_laporan}/show') }}" class="btn btn-soft-info btn-sm"><i class="bx bx-show-alt"></i> Detail</a>
                         <button type="button" class="btn btn-soft-warning btn-sm" onclick="modalAction('/pelaporan/${row.id_laporan}/edit')"><i class="bx bx-edit"></i> Edit</button>
                         <button type="button" class="btn btn-soft-danger btn-sm" onclick="modalAction('/pelaporan/${row.id_laporan}/confirm')"><i class="bx bx-trash"></i> Hapus</button>

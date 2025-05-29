@@ -17,56 +17,53 @@
                         <span data-key="t-dashboard">Profil</span>
                     </a>
                 </li>
+                @if (Auth::user()->isAdmin())
+                    <li class="menu-title" data-key="t-menu">Data Master</li>
 
-                <li class="menu-title" data-key="t-menu">Data Master</li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="bx bx-group"></i>
+                            <span data-key="t-authentication">Pengguna</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li>
+                                <a href="{{ url('peran') }}">
+                                    <span data-key="t-calendar">Role</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('user') }}">
+                                    <span data-key="t-calendar">User</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="bx bx-group"></i>
-                        <span data-key="t-authentication">Pengguna</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{url('peran')}}">
-                                <span data-key="t-calendar">Role</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('user') }}">
-                                <span data-key="t-calendar">User</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="bx bx-buildings"></i>
-                        <span data-key="t-apps">Fasilitas</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{ url('gedung') }}" class="">
-                                <span data-key="t-calendar">Gedung & Ruangan</span>
-                            </a>
-                        </li>
-
-                        
-
-                        <li>
-                            <a href="{{ url('fasilitas') }}">
-                                <span data-key="t-chat">Fasilitas</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="index.html">
-                        <i class="bx bx-calendar"></i>
-                        <span data-key="t-dashboard">Periode</span>
-                    </a>
-                </li>
-
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="bx bx-buildings"></i>
+                            <span data-key="t-apps">Fasilitas</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li>
+                                <a href="{{ url('gedung') }}" class="">
+                                    <span data-key="t-calendar">Gedung & Ruangan</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('fasilitas') }}">
+                                    <span data-key="t-chat">Fasilitas</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <i class="bx bx-calendar"></i>
+                            <span data-key="t-dashboard">Periode</span>
+                        </a>
+                    </li>
+                @endif
                 <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
 
                 <li>
@@ -80,51 +77,57 @@
                                 <span data-key="t-calendar">Laporan</span>
                             </a>
                         </li>
-
+                        @if (Auth::user()->isAdmin())
+                            <li>
+                                <a href="#">
+                                    <span data-key="t-chat">Penugasan</span>
+                                </a>
+                            </li>
+                        @else
                         <li>
                             <a href="#">
-                                <span data-key="t-chat">Penugasan</span>
+                                <span data-key="t-chat">Tracking Laporan</span>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </li>
+                @if (Auth::user()->isAdmin() || Auth::user()->isSarpras())
+                    <li class="menu-title" data-key="t-menu">Laporan</li>
+                    <li>
+                        <a href="index.html">
+                            <i class="bx bx-trending-up"></i>
+                            <span data-key="t-dashboard">Statistik Laporan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="bx bx-bar-chart-square"></i>
+                            <span data-key="t-">laporan Periode</span>
+                        </a>
+                    </li>
 
-                <li class="menu-title" data-key="t-menu">Laporan</li>
-                <li>
-                    <a href="index.html">
-                        <i class="bx bx-trending-up"></i>
-                        <span data-key="t-dashboard">Statistik Laporan</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bx bx-bar-chart-square"></i>
-                        <span data-key="t-">laporan Periode</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="#">
+                            <i class="bx bx-sync"></i>
+                            <span data-key="t-">Riwayat Perbaikan</span>
+                        </a>
+                    </li>
+                    <li class="menu-title" data-key="t-menu">Rekomendasi Keputusan</li>
+                    <li>
+                        <a href="index.html">
+                            <i class="bx bx-list-ol"></i>
+                            <span data-key="t-dashboard">Kriteria</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="#">
-                        <i class="bx bx-sync"></i>
-                        <span data-key="t-">Riwayat Perbaikan</span>
-                    </a>
-                </li>
-
-                <li class="menu-title" data-key="t-menu">Rekomendasi Keputusan</li>
-                <li>
-                    <a href="index.html">
-                        <i class="bx bx-list-ol"></i>
-                        <span data-key="t-dashboard">Kriteria</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="index.html">
-                        <i class="bx bx-calculator"></i>
-                        <span data-key="t-dashboard">Perhitungan</span>
-                    </a>
-                </li>
-
+                    <li>
+                        <a href="index.html">
+                            <i class="bx bx-calculator"></i>
+                            <span data-key="t-dashboard">Perhitungan</span>
+                        </a>
+                    </li>
+                @endif
                 <li class="menu-title" data-key="t-menu">Log Activity</li>
                 <li>
                     <a href="index.html">
