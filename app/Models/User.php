@@ -59,4 +59,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(ProfilModel::class, 'id_pengguna');
     }
+
+    public function pendukung() {
+        return $this->belongsTo(PendukungLaporanModel::class, 'id_user');
+    }
+
+    public function laporan()
+    {
+        return $this->hasMany(LaporanPerbaikanModel::class, 'id_pengguna');
+    }
 }

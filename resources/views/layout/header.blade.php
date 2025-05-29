@@ -37,6 +37,9 @@
     <!-- Responsive datatable examples -->
     <link href="{{ asset('template/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
         rel="stylesheet" type="text/css" />
+        
+        <!-- twitter-bootstrap-wizard css -->
+        <link rel="stylesheet" href="{{ asset('template/assets/libs/twitter-bootstrap-wizard/prettify.css')}}">
     <style>
         .card {
             -webkit-box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125);
@@ -46,6 +49,11 @@
         .card-h-100 {
             -webkit-box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125);
             box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125);
+        }
+
+        .vertical-menu {
+            -webkit-box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125) !important;
+            box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125) !important;
         }
     </style>
     @stack('css')

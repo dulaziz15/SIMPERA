@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanPerbaikanModel extends Model
 {
@@ -24,7 +25,7 @@ class LaporanPerbaikanModel extends Model
 
     public function pengguna()
     {
-        return $this->belongsTo(UserModel::class, 'id_pengguna');
+        return $this->belongsTo(User::class, 'id_pengguna');
     }
 
     public function fasilitas()
@@ -35,5 +36,16 @@ class LaporanPerbaikanModel extends Model
     public function periode()
     {
         return $this->belongsTo(PeriodeModel::class, 'id_periode');
+    }
+
+    public function pendukung()
+    {
+        return $this->hasMany(PendukungLaporanModel::class, 'id_laporan');
+    }
+
+    public function firstPendukung()
+    {
+        return $this->hasOne(PendukungLaporanModel::class, 'id_user', 'id_pengguna')
+            ->where('id_user', Auth::user()->id_pengguna);
     }
 }

@@ -9,6 +9,7 @@ use App\Repositories\Implementations\KategoriFasilitasRepository;
 use App\Repositories\Implementations\KategoriGedungRepository;
 use App\Repositories\Implementations\LogActivityRepository;
 use App\Repositories\Implementations\PelaporanRepository;
+use App\Repositories\Implementations\PendukungRepository;
 use App\Repositories\Implementations\PeranRepository;
 use App\Repositories\Implementations\PeriodeRepository;
 use App\Repositories\Implementations\ProfilRepository;
@@ -21,6 +22,7 @@ use App\Repositories\Interfaces\KategoriFasilitasRepositoryInterface;
 use App\Repositories\Interfaces\KategoriGedungRepositoryInterface;
 use App\Repositories\Interfaces\LogActivityRepositoryInterface;
 use App\Repositories\Interfaces\PelaporanRepositoryInterface;
+use App\Repositories\Interfaces\PendukungRepositoryInterface;
 use App\Repositories\Interfaces\PeranRepositoryInterface;
 use App\Repositories\Interfaces\PeriodeRepositoryInterface;
 use App\Repositories\Interfaces\ProfilRepositoryInterface;
@@ -33,6 +35,7 @@ use App\Services\Implementations\KategoriFasilitasService;
 use App\Services\Implementations\KategoriGedungService;
 use App\Services\Implementations\LogActivityService;
 use App\Services\Implementations\PelaporanService;
+use App\Services\Implementations\PendukungService;
 use App\Services\Implementations\PeranService;
 use App\Services\Implementations\PeriodeService;
 use App\Services\Implementations\ProfilService;
@@ -45,6 +48,7 @@ use App\Services\Interfaces\KategoriFasilitasServiceInterface;
 use App\Services\Interfaces\KategoriGedungServiceInterface;
 use App\Services\Interfaces\LogActivityServiceInterface;
 use App\Services\Interfaces\PelaporanServiceInterface;
+use App\Services\Interfaces\PendukungServiceInterface;
 use App\Services\Interfaces\Peran;
 use App\Services\Interfaces\PeranServiceInterface;
 use App\Services\Interfaces\PeriodeServiceInterface;
@@ -73,6 +77,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(KategoriGedungServiceInterface::class, KategoriGedungService::class);
         $this->app->bind(RuanganServiceInterface::class, RuanganService::class);
         $this->app->bind(ProfilServiceInterface::class, ProfilService::class);
+        $this->app->bind(PendukungServiceInterface::class, PendukungService::class);
         
 
         // Repository
@@ -88,6 +93,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(KategoriGedungRepositoryInterface::class, KategoriGedungRepository::class);
         $this->app->bind(RuanganRepositoryInterface::class, RuanganRepository::class);
         $this->app->bind(ProfilRepositoryInterface::class, ProfilRepository::class);
+        $this->app->bind(PendukungRepositoryInterface::class, PendukungRepository::class);
     }
 
     /**

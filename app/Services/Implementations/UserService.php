@@ -22,6 +22,10 @@ class UserService implements UserServiceInterface
         return $this->userRepository->getAll();
     }
 
+    public function search($request) {
+        return $this->userRepository->search($request);
+    }
+
     public function countUserByPeran()
     {
         $peran = $this->getAll();

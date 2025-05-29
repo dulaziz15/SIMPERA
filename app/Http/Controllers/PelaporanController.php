@@ -4,22 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PelaporanRequest;
 use App\Services\Interfaces\FasilitasServiceInterface;
+use App\Services\Interfaces\GedungServiceInterface;
 use App\Services\Interfaces\PelaporanServiceInterface;
+use App\Services\Interfaces\RuanganServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Yajra\DataTables\Facades\DataTables;
 
 class PelaporanController extends Controller
 {
     protected $pelaporanService;
     protected $fasilitasService;
+    protected $gedungService;
+    protected $ruanganService;
     public function __construct(
         PelaporanServiceInterface $pelaporanService,
-        FasilitasServiceInterface $fasilitasService
-    ){
+        GedungServiceInterface $gedungService,
+        FasilitasServiceInterface $fasilitasService,
+        RuanganServiceInterface $ruanganService
+    ) {
         $this->pelaporanService = $pelaporanService;
         $this->fasilitasService = $fasilitasService;
+        $this->gedungService = $gedungService;
+        $this->ruanganService = $ruanganService;
     }
 
-    public function index() {
+    public function index()
+    {
         $breadcrumb = (object) [
             'title' => 'Daftar Laporan Perbaikan',
             'list' => ['Home', 'Laporan Perbaikan']
@@ -33,15 +44,41 @@ class PelaporanController extends Controller
         return view('pelaporan.index', compact('breadcrumb', 'page', 'activeMenu'));
     }
 
-    public function create() {
-        $fasilitas = $this->fasilitasService->getAll();
-        return view('pelaporan.create', compact('fasilitas'));
+    public function coba()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar Laporan Perbaikan',
+            'list' => ['Home', 'Laporan Perbaikan']
+        ];
+
+        $page = (object) [
+            'title' => 'Daftar Laporan Perbaikan yang terdaftar dalam sistem'
+        ];
+
+        $activeMenu = 'pelaporan';
+        $gedung = $this->gedungService->getAll();
+        return view('pelaporan.coba', compact('breadcrumb', 'page', 'activeMenu', 'gedung'));
     }
 
-    public function storePelaporan(PelaporanRequest $request) {
+    public function getAll()
+    {
+        $pelaporanData = $this->pelaporanService->getAll();
+        return DataTables::of($pelaporanData)->make(true);
+    }
+
+    public function create()
+    {
+        $fasilitas = $this->fasilitasService->getAll();
+        $gedung = $this->gedungService->getAll();
+        $ruangan = $this->ruanganService->getAll();
+        return view('pelaporan.create', compact('fasilitas', 'gedung', 'ruangan'));
+    }
+
+    public function storePelaporan(PelaporanRequest $request)
+    {
         if ($request->ajax() || $request->wantsJson()) {
             $pelaporan = $this->pelaporanService->storePelaporan($request);
-            if($pelaporan) {
+            if ($pelaporan) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Disimpan.',
@@ -57,20 +94,37 @@ class PelaporanController extends Controller
         }
     }
 
-    public function show($id) {
-        $pelaporan = $this->pelaporanService->show($id);
-        return view('pelaporan.show', compact('pelaporan'));
+    public function show($id)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar Laporan Perbaikan',
+            'list' => ['Home', 'Laporan Perbaikan']
+        ];
+
+        $page = (object) [
+            'title' => 'Daftar Laporan Perbaikan yang terdaftar dalam sistem'
+        ];
+
+        $activeMenu = 'pelaporan';
+        $laporan = $this->pelaporanService->show($id);
+        
+        return view('pelaporan.show', compact('laporan', 'breadcrumb', 'page', 'activeMenu'));
     }
 
-    public function edit($id) {
-        $pelaporan = $this->pelaporanService->show($id);
-        return view('pelaporan.edit', compact('pelaporan'));
+    public function edit($id)
+    {
+        $laporan = $this->pelaporanService->show($id);
+        $fasilitas = $this->fasilitasService->getAll();
+        $gedung = $this->gedungService->getAll();
+        $ruangan = $this->ruanganService->getAll();;
+        return view('pelaporan.edit', compact('laporan', 'gedung', 'fasilitas', 'ruangan'));
     }
 
-    public function update($id, PelaporanRequest $request) {
+    public function update($id, PelaporanRequest $request)
+    {
         if ($request->ajax() || $request->wantsJson()) {
             $pelaporan = $this->pelaporanService->update($id, $request);
-            if($pelaporan) {
+            if ($pelaporan) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupdate.',
@@ -88,15 +142,17 @@ class PelaporanController extends Controller
         return redirect('/pelaporan');
     }
 
-    public function confirm($id) {
+    public function confirm($id)
+    {
         $pelaporan = $this->pelaporanService->show($id);
         return view('pelaporan.confirm', compact('pelaporan'));
     }
 
-    public function delete($id, Request $request) {
+    public function delete($id, Request $request)
+    {
         if ($request->ajax() || $request->wantsJson()) {
             $pelaporan = $this->pelaporanService->delete($id);
-            if($pelaporan) {
+            if ($pelaporan) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',
@@ -112,5 +168,22 @@ class PelaporanController extends Controller
         }
 
         return redirect('/pelaporan');
+    }
+ 
+    public function getRuanganByGedung($id_gedung)
+    {
+        $ruangan = $this->ruanganService->getByGedung($id_gedung);
+        return response()->json($ruangan);
+    }
+
+    public function getFasilitasByRuangan($ruangan)
+    {
+        $fasilitas = $this->fasilitasService->getByRuangan($ruangan);
+        return response()->json($fasilitas);
+    }
+
+    public function getAllFasilitasByRuangan($id) {
+        $fasilitas = $this->fasilitasService->getAllFasilitasByRuangan($id);
+        return response()->json($fasilitas);
     }
 }

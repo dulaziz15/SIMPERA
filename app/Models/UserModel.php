@@ -40,4 +40,8 @@ class UserModel extends Authenticatable
     {
         return $this->belongsTo(PeranModel::class, 'id_peran');
     }
+
+    public function laporan() {
+        return $this->belongsTo(LaporanPerbaikanModel::class, 'id_pengguna');
+    }
 }

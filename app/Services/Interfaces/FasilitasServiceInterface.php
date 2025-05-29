@@ -10,4 +10,6 @@ interface FasilitasServiceInterface {
     public function show($id);
     public function update($id, FasilitasRequest $request);
     public function delete($id);
+    public function getByRuangan($ruangan);
+    public function getAllFasilitasByRuangan($id);
 }

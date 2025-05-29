@@ -15,9 +15,7 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
@@ -39,9 +37,7 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success"></span>
@@ -63,9 +59,7 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
@@ -87,9 +81,7 @@
                             </h4>
                         </div>
 
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
+                        
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
@@ -100,7 +92,7 @@
         </div><!-- end col -->
         <div class="card card-outline card-primary">
             <div class="card-header">
-                {{-- <h3 class="card-title">{{ $page->title }}</h3> --}}
+                
                 <div class="card-tools">
                     <button onclick="modalAction('{{ url('peran/create') }}')"
                         class="btn btn-sm btn-success mt-1">Tambah</button>
@@ -122,7 +114,6 @@
             <div id="myModal" class="modal fade" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <!-- AJAX content will be loaded here -->
                     </div>
                 </div>
             </div>

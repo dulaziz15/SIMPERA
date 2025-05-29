@@ -51,11 +51,7 @@
                             </a>
                         </li>
 
-                        {{-- <li>
-                            <a href="{{ url('ruangan') }}" class="">
-                                <span data-key="t-calendar">Ruangan</span>
-                            </a>
-                        </li> --}}
+                        
 
                         <li>
                             <a href="{{ url('fasilitas') }}">

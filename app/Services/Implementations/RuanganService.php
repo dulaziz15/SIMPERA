@@ -48,4 +48,8 @@ class RuanganService implements RuanganServiceInterface {
     public function delete($id) {
         return $this->ruanganRepository->delete($id);
     }
+
+    public function getByGedung($gedung) {
+        return $this->ruanganRepository->getByGedung($gedung);
+    }
 }
