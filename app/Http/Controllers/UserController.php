@@ -57,6 +57,23 @@ class UserController extends Controller
         return DataTables::of($userData)->make(true);
     }
 
+    public function search(Request $request) {
+        $user = $this->userServiceInterface->search($request);
+        if ($user && $user->count() > 0) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data berhasil diambil.',
+                'data' => $user
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan.',
+                'data' => []
+            ]);
+        }
+    }
+
 
     public function create()
     {
@@ -107,7 +124,7 @@ class UserController extends Controller
             }
         }
 
-        // return redirect('/user');
+        return redirect('/user');
     }
 
     public function edit($id)

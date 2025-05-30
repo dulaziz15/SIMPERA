@@ -53,6 +53,11 @@ class FasilitasService implements FasilitasServiceInterface
         return $this->fasilitasRepository->getAll();
     }
 
+    public function search($request)
+    {
+        return $this->fasilitasRepository->search($request);
+    }
+
     public function getByRuangan($ruangan)
     {
         
@@ -64,5 +69,9 @@ class FasilitasService implements FasilitasServiceInterface
         return $allFasilitas->reject(function ($fasilitas) use ($reportedFasilitas) {
             return in_array($fasilitas->id_fasilitas, $reportedFasilitas);
         });
+    }
+
+    public function getAllFasilitasByRuangan($id) {
+        return $this->fasilitasRepository->getAllFasilitasByRuangan($id);
     }
 }

@@ -21,7 +21,7 @@
                     <p>Tanggal Cetak: {{ now()->format('d M Y') }}</p>
                 </div>
 
-                <div class="card border-0">
+                <div class="card border-0 shadow-sm">
                     <div class="card-header bg-primary text-white py-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
@@ -37,7 +37,6 @@
                     </div>
 
                     <div class="card-body p-4">
-                        <!-- Header Info -->
                         <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
                             <div class="mb-3 mb-md-0">
                                 <h5 class="fw-bold mb-2">{{ $laporan->pengguna->profil->nama_lengkap }}</h5>
@@ -61,50 +60,47 @@
 
                         <hr class="my-4">
 
-                        <!-- Main Content -->
                         <div class="row">
-                            <!-- Left Column -->
                             <div class="col-md-6">
                                 <div class="card border-0 shadow-sm mb-4">
-                                    <div class="card-header bg-light">
-                                        <h5 class="mb-0 fw-bold"><i class="fas fa-info-circle me-2"></i>Detail Fasilitas
+                                    <div class="card-header bg-primary">
+                                        <h5 class="mb-0 fw-bold text-white"><i class="fas fa-info-circle me-2"></i>Detail Fasilitas
                                         </h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="mb-3">
-                                            <h6 class="fw-bold text-primary">Fasilitas Dilaporkan</h6>
+                                            <h6 class="fw-bold">Fasilitas Dilaporkan</h6>
                                             <p class="fs-5">{{ $laporan->fasilitas->nama }}</p>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
-                                                <h6 class="fw-bold text-primary">Lokasi Ruangan</h6>
+                                                <h6 class="fw-bold">Lokasi Ruangan</h6>
                                                 <p>{{ $laporan->fasilitas->ruangan->nama }}</p>
                                             </div>
                                             <div class="col-md-6 mb-3">
-                                                <h6 class="fw-bold text-primary">Gedung</h6>
+                                                <h6 class="fw-bold">Gedung</h6>
                                                 <p>{{ $laporan->fasilitas->ruangan->gedung->nama }}</p>
                                             </div>
                                         </div>
 
                                         <div class="mb-3">
-                                            <h6 class="fw-bold text-primary">Kategori Fasilitas</h6>
+                                            <h6 class="fw-bold">Kategori Fasilitas</h6>
                                             <span
-                                                class="badge bg-info text-dark">{{ $laporan->fasilitas->kategori->nama }}</span>
+                                                class="badge bg-primary fs-6">{{ $laporan->fasilitas->kategori->nama }}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Right Column -->
                             <div class="col-md-6">
                                 <div class="card border-0 shadow-sm mb-4">
-                                    <div class="card-header bg-light">
-                                        <h5 class="mb-0 fw-bold"><i class="fas fa-file-alt me-2"></i>Deskripsi Laporan</h5>
+                                    <div class="card-header bg-primary">
+                                        <h5 class="mb-0 fw-bold text-white"><i class="fas fa-file-alt me-2"></i>Deskripsi Laporan</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="mb-3">
-                                            <h6 class="fw-bold text-primary">Status</h6>
+                                            <h6 class="fw-bold">Status</h6>
                                             @php
                                                 $statusColors = [
                                                     'BARU' => 'bg-primary',
@@ -120,14 +116,14 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <h6 class="fw-bold text-primary">Deskripsi Masalah</h6>
+                                            <h6 class="fw-bold">Deskripsi Masalah</h6>
                                             <div class="p-3 bg-light rounded">
                                                 {!! nl2br(e($laporan->deskripsi)) !!}
                                             </div>
                                         </div>
 
                                         <div class="mb-3">
-                                            <h6 class="fw-bold text-primary">Foto Pendukung</h6>
+                                            <h6 class="fw-bold">Foto Pendukung</h6>
                                             <img src="{{ asset('storage/laporan/' . $laporan->url_foto) }}"
                                                 alt="Foto Laporan" class="img-fluid rounded border"
                                                 style="max-height: 200px; cursor: pointer" data-bs-toggle="modal"
@@ -138,11 +134,19 @@
                             </div>
                         </div>
 
-                        <!-- Supporters Table -->
                         <div class="card border-0 shadow-sm mt-4">
                             <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0 fw-bold"><i class="fas fa-users me-2"></i>Pendukung Laporan</h5>
-                                <span class="badge bg-primary">{{ $laporan->pendukung->count() }} Orang</span>
+                                <h5 class="mb-0 fw-bold">
+                                    <i class="fas fa-users me-2"></i>Pendukung Laporan
+                                    <span class="badge bg-primary ms-2">{{ $laporan->pendukung->count() }} Orang</span>
+                                </h5>
+
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="modalAction('{{ url('/pelaporan/' . $laporan->id_laporan . '/pendukung/create') }}')">
+                                        <i class="fas fa-plus me-1"></i> Tambah Pendukung
+                                    </button>
+                                </div>
                             </div>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
@@ -210,8 +214,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Action Buttons -->
                         <div class="d-flex justify-content-between mt-4">
                             <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
                                 <i class="fas fa-arrow-left me-2"></i>Kembali
@@ -233,7 +235,6 @@
         </div>
     </div>
 
-    <!-- Image Modal -->
     <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -249,7 +250,6 @@
         </div>
     </div>
 
-    <!-- Supporter Detail Modal -->
     <div class="modal fade" id="supporterDetailModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -268,12 +268,22 @@
             </div>
         </div>
     </div>
+
+    <div id="myModal" class="modal fade" tabindex="-1">
+    </div>
 @endsection
+
+<script>
+    function modalAction(url = '') {
+        $('#myModal').load(url, function() {
+            $('#myModal').modal('show');
+        });
+    }
+</script>
 
 @section('scripts')
     <script>
         $(document).ready(function() {
-            // Initialize DataTable
             $('#supportersTable').DataTable({
                 responsive: true,
                 language: {
@@ -281,14 +291,12 @@
                 }
             });
 
-            // Supporter detail modal
             $('#supporterDetailModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var description = button.data('desc');
                 $(this).find('#supporterDescription').text(description);
             });
 
-            // Tooltips
             $('[data-bs-toggle="tooltip"]').tooltip();
         });
     </script>
@@ -320,13 +328,15 @@
         cursor: zoom-in;
     }
 
-    /* Sembunyikan elemen UI saat print */
     @media print {
+        .card {
+            padding: 20px
+        }
+
         .d-print-none {
             display: none !important;
         }
 
-        /* Sembunyikan navbar/footer/layout khusus layar */
         nav,
         footer,
         .card-header,
@@ -339,13 +349,11 @@
             display: block !important;
         }
 
-        /* Optimalkan margin halaman cetak */
         body {
             margin: 1cm;
             font-size: 12pt;
         }
 
-        /* Tampilkan header surat */
         .print-header {
             display: block !important;
             text-align: center;
@@ -357,8 +365,7 @@
             margin: 0;
         }
     }
-
-    /* Sembunyikan header cetak saat tampilan biasa */
+    
     .print-header {
         display: none;
     }

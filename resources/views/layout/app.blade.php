@@ -53,7 +53,7 @@
     <script src="{{ asset('template/assets/libs/flatpickr/flatpickr.min.js') }}"></script>
     <!-- apexcharts -->
     <script src="{{ asset('template/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-    
+
     <!-- twitter-bootstrap-wizard js -->
     <script src="{{ asset('template/assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}"></script>
     <script src="{{ asset('template/assets/libs/twitter-bootstrap-wizard/prettify.js') }}"></script>
@@ -80,7 +80,7 @@
     <script src="{{ asset('template/assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('template/assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('template/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <!-- pristine js -->
     <script src="{{ asset('template/assets/libs/pristinejs/pristine.min.js') }}"></script>
     <!-- form validation -->

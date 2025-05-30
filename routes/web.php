@@ -125,7 +125,6 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/coba', [PelaporanController::class, 'coba']);
 
 		Route::prefix('{pelaporanId}/pendukung')->group(function () {
-			Route::get('/', [PendukungLaporanController::class, 'index']);
 			Route::get('/create', [PendukungLaporanController::class, 'create']);
 			Route::post('/store', [PendukungLaporanController::class, 'store']);
 		});
@@ -133,6 +132,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::prefix('fasilitas')->group(function () {
 		Route::get('/', [FasilitasController::class, 'index']);
+		Route::get('/search', [FasilitasController::class, 'searchFasilitas']);
 		Route::get('/data', [FasilitasController::class, 'getAll']);
 		Route::get('/create', [FasilitasController::class, 'create']);
 		Route::post('/store', [FasilitasController::class, 'storeFasilitas']);
@@ -157,6 +157,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::prefix('user')->group(function () {
 		Route::get('/', [UserController::class, 'index']);
 		Route::post('/data', [UserController::class, 'getAll']);
+		Route::post('/search', [UserController::class, 'search']);
 		Route::get('/create', [UserController::class, 'create']);
 		Route::get('/{id}/edit_profil', [UserController::class, 'editProfil']);
 		Route::post('/store-user', [UserController::class, 'storeUser']);
@@ -178,4 +179,5 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::get('/pelaporan/ruangan-by-gedung/{id_gedung}', [PelaporanController::class, 'getRuanganByGedung']);
 	Route::get('/pelaporan/fasilitas-by-ruangan/{id_ruangan}', [PelaporanController::class, 'getFasilitasByRuangan']);
+	Route::get('/pelaporan/all-fasilitas-by-ruangan/{id_ruangan}', [PelaporanController::class, 'getAllFasilitasByRuangan']);
 });

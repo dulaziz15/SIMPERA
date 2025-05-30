@@ -9,4 +9,5 @@ interface PelaporanRepositoryInterface {
     public function delete($id);
     public function getAll();
     public function availableInLaporan($fasilitas) ;
+    public function getOneByUserLaporan($idLaporan, $id_user);
 }

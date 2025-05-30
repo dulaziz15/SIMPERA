@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanPerbaikanModel extends Model
 {
@@ -40,5 +41,11 @@ class LaporanPerbaikanModel extends Model
     public function pendukung()
     {
         return $this->hasMany(PendukungLaporanModel::class, 'id_laporan');
+    }
+
+    public function firstPendukung()
+    {
+        return $this->hasOne(PendukungLaporanModel::class, 'id_user', 'id_pengguna')
+            ->where('id_user', Auth::user()->id_pengguna);
     }
 }

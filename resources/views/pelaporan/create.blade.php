@@ -153,14 +153,15 @@
                                                 <h5 class="font-size-16 mb-3"><i
                                                         class="fas fa-exclamation-triangle me-2"></i>Tingkat Kerusakan
                                                 </h5>
-                                                <div class="row" id="radio" role="radiogroup" aria-label="Tingkat Kerusakan">
+                                                <div class="row" id="radio" role="radiogroup"
+                                                    aria-label="Tingkat Kerusakan">
                                                     <!-- Ringan -->
                                                     <div class="col-md-4">
                                                         <div class="form-check card-radio">
                                                             <input class="form-check-input" type="radio"
                                                                 name="tingkat_kerusakan" id="ringan"
-                                                                value="1" checked aria-checked="true" role="radio"
-                                                                tabindex="0" />
+                                                                value="1" checked aria-checked="true"
+                                                                role="radio" tabindex="0" />
                                                             <label class="form-check-label" for="ringan"
                                                                 tabindex="0" aria-describedby="desc-ringan"
                                                                 role="button">
@@ -257,7 +258,9 @@
                                             <li class="previous"><a href="javascript:void(0);"
                                                     class="btn btn-primary previous-btn"><i
                                                         class="bx bx-chevron-left me-1"></i> Previous</a></li>
-                                            <button type="submit" class="float-end btn btn-primary">Simpan</button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save me-2"></i>Simpan
+                                            </button>
                                         </ul>
                                     </div>
                                 </div>
@@ -267,14 +270,15 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Batal
+                </button>
             </div>
         </div>
     </div>
 </form>
 
 <style>
-    /* Hide the original radio buttons but keep them accessible */
     .card-radio .form-check-input {
         position: absolute;
         opacity: 0;
@@ -284,7 +288,6 @@
         pointer-events: none;
     }
 
-    /* Label styles for the card */
     .card-radio .form-check-label {
         cursor: pointer;
         display: block;
@@ -302,26 +305,22 @@
         user-select: none;
     }
 
-    /* Hover and focus states */
     .card-radio .form-check-label:hover .card-radio-content,
     .card-radio .form-check-label:focus-visible .card-radio-content {
         border-color: #405189;
         box-shadow: 0 0 8px rgba(64, 81, 137, 0.6);
     }
 
-    /* Checked state */
     .card-radio .form-check-input:checked+label .card-radio-content {
         border-color: #405189;
         background-color: #f7f7ff;
         transform: scale(1.03);
     }
 
-    /* Smooth transition for scale */
     .card-radio-content {
         will-change: transform, box-shadow;
     }
 
-    /* Accessibility: Show focus outline if keyboard */
     .card-radio .form-check-label:focus-visible {
         outline: 3px solid #405189;
         outline-offset: 3px;
@@ -330,12 +329,10 @@
 </style>
 
 <script>
-    // Preview image function
     function preview() {
         frame.src = URL.createObjectURL(event.target.files[0]);
     }
 
-    // Clear image function
     function clearImage() {
         document.getElementById('url_foto').value = null;
         frame.src = "";
@@ -351,11 +348,9 @@
     });
 
     $(document).ready(function() {
-        // Initialize state
         $('#id_ruangan').prop('disabled', true);
         $('#id_fasilitas').prop('disabled', true);
 
-        // Handle changes in gedung selection
         $('#id_gedung').change(function() {
             const idGedung = $(this).val();
             if (idGedung) {
@@ -384,7 +379,6 @@
             }
         });
 
-        // Handle changes in ruangan selection
         $('#id_ruangan').change(function() {
             const idRuangan = $(this).val();
             if (idRuangan) {
@@ -409,7 +403,6 @@
             }
         });
 
-        // Handle next button click
         $('.next-btn').click(function() {
             const currentTab = $(this).closest('.tab-pane');
             const isValid = validateCurrentTab(currentTab);
@@ -423,7 +416,6 @@
             }
         });
 
-        // Handle previous button click
         $('.previous-btn').click(function() {
             const currentTab = $(this).closest('.tab-pane');
             const prevTab = currentTab.prev('.tab-pane');
@@ -434,7 +426,6 @@
             }
         });
 
-        // Validate current tab
         function validateCurrentTab(tab) {
             let isValid = true;
             tab.find(':input[required]').each(function() {
@@ -460,9 +451,6 @@
             return isValid
         }
 
-        
-
-        // Update progress bar
         function updateProgressBar() {
             const totalTabs = $('.tab-pane').length;
             const activeTab = $('.tab-pane.active').index() + 1;
@@ -470,7 +458,6 @@
             $('#bar .progress-bar').css('width', progressPercentage + '%');
         }
 
-        // Form submission
         $('#form-tambah').validate({
             rules: {
                 id_gedung: {

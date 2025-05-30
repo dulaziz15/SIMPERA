@@ -5,8 +5,6 @@
         });
     }
 
-
-
     var dataPeran;
     $(document).ready(function() {
         dataPeran = $('#table_peran').DataTable({

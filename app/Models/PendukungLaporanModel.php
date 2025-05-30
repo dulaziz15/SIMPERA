@@ -18,12 +18,13 @@ class PendukungLaporanModel extends Model
         'tingkat_kerusakan'
     ];
 
-    public function laporan() {
+    public function laporan()
+    {
         return $this->belongsTo(LaporanPerbaikanModel::class, 'id_laporan');
     }
 
-    public function pengguna() {
+    public function pengguna()
+    {
         return $this->belongsTo(User::class, 'id_user');
     }
-
 }
