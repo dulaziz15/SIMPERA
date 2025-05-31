@@ -48,4 +48,15 @@ class LaporanPerbaikanModel extends Model
         return $this->hasOne(PendukungLaporanModel::class, 'id_user', 'id_pengguna')
             ->where('id_user', Auth::user()->id_pengguna);
     }
+
+    public function telahDidukung()
+    {
+        if (!Auth::check()) {
+            return false;
+        }
+
+        return $this->pendukung()
+            ->where('id_user', Auth::user()->id_pengguna)
+            ->exists();
+    }
 }

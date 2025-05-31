@@ -31,13 +31,18 @@ class PelaporanService implements PelaporanServiceInterface
         return $this->pelaporanRepository->getAll();
     }
 
+    public function getLaporanByFasilitas($idFasilitas)
+    {
+        return $this->pelaporanRepository->getLaporanByFasilitas($idFasilitas);
+    }
+
     public function storePelaporan(PelaporanRequest $request)
     {
         $imageName = null;
         if ($request->hasFile('url_foto')) {
             $url_foto = $request->file('url_foto');
             $imageName = time() . '_' . $url_foto->getClientOriginalName();
-            $url_foto->storeAs('uploads/fasilitas', $imageName, 'public');
+            $url_foto->storeAs('uploads/laporan', $imageName, 'public');
         }
 
         $periode = $this->periodeService->getPeriodeByCreateLaporan(now());

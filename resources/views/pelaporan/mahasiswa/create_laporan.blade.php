@@ -23,14 +23,6 @@
                         <div id="progrss-wizard" class="twitter-bs-wizard">
                             <ul class="twitter-bs-wizard-nav nav nav-pills nav-justified">
                                 <li class="nav-item">
-                                    <a href="#detail_fasilitas" class="nav-link" data-toggle="tab">
-                                        <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Detail fasilitas">
-                                            <i class="bx bx-buildings"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="#dokumen_pendukung" class="nav-link" data-toggle="tab">
                                         <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top"
                                             title="Dokumen Pendukung">
@@ -51,58 +43,6 @@
                                 <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated"></div>
                             </div>
                             <div class="tab-content twitter-bs-wizard-tab-content">
-                                <div class="tab-pane" id="detail_fasilitas">
-                                    <div class="text-center mb-4">
-                                        <h5>Detail Fasilitas</h5>
-                                        <p class="card-title-desc">Pilih Fasilitas berdasarkan lokasi</p>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label" for="id_gedung">Gedung <span
-                                                        class="text-danger">*</span></label>
-                                                <select class="form-control" id="id_gedung" name="id_gedung" required>
-                                                    <option value="">- Pilih Gedung -</option>
-                                                    @foreach ($gedung as $item)
-                                                        <option value="{{ $item->id_gedung }}">{{ $item->nama }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <div id="error-id_gedung" class="error-text"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label" for="id_ruangan">Ruangan <span
-                                                        class="text-danger">*</span></label>
-                                                <select class="form-control" id="id_ruangan" name="id_ruangan" disabled
-                                                    required>
-                                                    <option value="">- Pilih Ruangan -</option>
-                                                </select>
-                                                <div id="error-id_ruangan" class="error-text"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="form-label" for="id_fasilitas">Fasilitas <span
-                                                        class="text-danger">*</span></label>
-                                                <select class="form-control" id="id_fasilitas" name="id_fasilitas"
-                                                    disabled required>
-                                                    <option value="">- Pilih Fasilitas -</option>
-                                                </select>
-                                                <div id="error-id_fasilitas" class="error-text"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                        <li class="next"><a href="javascript:void(0);"
-                                                class="btn btn-primary next-btn">Next <i
-                                                    class="bx bx-chevron-right ms-1"></i></a></li>
-                                    </ul>
-                                </div>
-
                                 <div class="tab-pane" id="dokumen_pendukung">
                                     <div>
                                         <div class="text-center mb-4">
@@ -276,6 +216,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" name="id_fasilitas" id="id_fasilitas" value="{{ $fasilitas->id_fasilitas }}">
 </form>
 
 <style>
@@ -348,61 +289,6 @@
     });
 
     $(document).ready(function() {
-        $('#id_ruangan').prop('disabled', true);
-        $('#id_fasilitas').prop('disabled', true);
-
-        $('#id_gedung').change(function() {
-            const idGedung = $(this).val();
-            if (idGedung) {
-                $('#id_ruangan').prop('disabled', false).val('');
-                $('#id_fasilitas').empty().append('<option value="">- Pilih Fasilitas -</option>').prop(
-                    'disabled', true);
-                $.get('/pelaporan/ruangan-by-gedung/' + idGedung, function(data) {
-                    $('#id_ruangan').empty().append(
-                        '<option value="">- Pilih Ruangan -</option>');
-                    $.each(data, function(key, value) {
-                        $('#id_ruangan').append('<option value="' + value.id_ruangan +
-                            '">' + value.nama + '</option>');
-                    });
-                }).fail(function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Gagal memuat data ruangan'
-                    });
-                });
-            } else {
-                $('#id_ruangan').empty().append('<option value="">- Pilih Ruangan -</option>').prop(
-                    'disabled', true);
-                $('#id_fasilitas').empty().append('<option value="">- Pilih Fasilitas -</option>').prop(
-                    'disabled', true);
-            }
-        });
-
-        $('#id_ruangan').change(function() {
-            const idRuangan = $(this).val();
-            if (idRuangan) {
-                $('#id_fasilitas').prop('disabled', false);
-                $.get('/pelaporan/fasilitas-by-ruangan/' + idRuangan, function(data) {
-                    $('#id_fasilitas').empty().append(
-                        '<option value="">- Pilih Fasilitas -</option>');
-                    $.each(data, function(key, value) {
-                        $('#id_fasilitas').append('<option value="' + value
-                            .id_fasilitas + '">' + value.nama + '</option>');
-                    });
-                }).fail(function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Gagal memuat data fasilitas'
-                    });
-                });
-            } else {
-                $('#id_fasilitas').empty().append('<option value="">- Pilih Fasilitas -</option>').prop(
-                    'disabled', true);
-            }
-        });
-
         $('.next-btn').click(function() {
             const currentTab = $(this).closest('.tab-pane');
             const isValid = validateCurrentTab(currentTab);
@@ -460,15 +346,6 @@
 
         $('#form-tambah').validate({
             rules: {
-                id_gedung: {
-                    required: true,
-                },
-                id_ruangan: {
-                    required: true,
-                },
-                id_fasilitas: {
-                    required: true,
-                },
                 deskripsi: {
                     required: true,
                 },
@@ -480,15 +357,6 @@
                 }
             },
             messages: {
-                id_gedung: {
-                    required: "Gedung wajib dipilih",
-                },
-                id_ruangan: {
-                    required: "Ruangan wajib dipilih",
-                },
-                id_fasilitas: {
-                    required: "Fasilitas wajib dipilih",
-                },
                 deskripsi: {
                     required: "Deskripsi wajib diisi",
                 },
@@ -517,9 +385,11 @@
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Data Berhasil Ditambahkan',
-                                text: response.message
+                                text: response.message,
+                                timer: 2000,
+                                showConfirmButton: false
                             });
-                            dataPelaporan.ajax.reload();
+                            window.location.reload();
                         } else {
                             $('.invalid-feedback').text('');
                             $.each(response.msgField, function(prefix, val) {

@@ -33,4 +33,8 @@ class PelaporanRepository implements PelaporanRepositoryInterface {
     public function getOneByUserLaporan($idLaporan, $id_user) {
         return LaporanPerbaikanModel::find($idLaporan);
     }
+
+    public function getLaporanByFasilitas($idFasilitas) {
+        return LaporanPerbaikanModel::where('id_fasilitas', $idFasilitas)->first();
+    }
 }

@@ -63,35 +63,40 @@
                             <span data-key="t-dashboard">Periode</span>
                         </a>
                     </li>
-                @endif
-                <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="bx bx-wrench"></i>
-                        <span data-key="t-apps">laporan Perbaikan</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{ url('pelaporan') }}">
-                                <span data-key="t-calendar">Laporan</span>
-                            </a>
-                        </li>
-                        @if (Auth::user()->isAdmin())
+                    <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="bx bx-wrench"></i>
+                            <span data-key="t-apps">laporan Perbaikan</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li class="{{ $activeMenu == 'pelaporan' ? 'mm-active' : '' }}">
+                                <a href="{{ url('pelaporan') }}">
+                                    <span data-key="t-calendar">Laporan</span>
+                                </a>
+                            </li>
                             <li>
-                                <a href="#">
+                                <a href="#" class="{{ $activeMenu == 'pelaporan' ? 'mm-active' : '' }}">
                                     <span data-key="t-chat">Penugasan</span>
                                 </a>
                             </li>
-                        @else
-                        <li>
-                            <a href="#">
-                                <span data-key="t-chat">Tracking Laporan</span>
-                            </a>
-                        </li>
-                        @endif
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
+                @endif
+
+                @if (Auth::user()->isUser())
+                    <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
+                    
+                    <li class="{{ $activeMenu == 'pelaporan' ? 'mm-active' : '' }}">
+                        <a href="{{ url('pelaporan') }}">
+                            <i class="bx bx-wrench"></i>
+                            <span data-key="t-calendar">Laporan</span>
+                        </a>
+                    </li>
+                @endif
+
                 @if (Auth::user()->isAdmin() || Auth::user()->isSarpras())
                     <li class="menu-title" data-key="t-menu">Laporan</li>
                     <li>

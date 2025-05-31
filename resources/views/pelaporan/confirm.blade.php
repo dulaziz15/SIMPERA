@@ -80,7 +80,8 @@
                             @if ($pelaporan->pendukung->count() > 0)
                                 <div class="alert alert-warning mt-3">
                                     <i class="fas fa-exclamation-triangle me-2"></i>
-                                    Laporan ini memiliki <span class="fw-bold">{{ $pelaporan->pendukung->count() }} data pendukung laporan</span>yang juga akan
+                                    Laporan ini memiliki <span class="fw-bold">{{ $pelaporan->pendukung->count() }} data
+                                        pendukung laporan</span>yang juga akan
                                     dihapus.
                                 </div>
                             @endif
@@ -114,8 +115,14 @@
                                     icon: 'success',
                                     title: 'Berhasil',
                                     text: response.message
+                                }).then(function() {
+                                    if (typeof dataPelaporan !== 'undefined' &&
+                                        typeof dataPelaporan.ajax !== 'undefined') {
+                                        dataPelaporan.ajax.reload();
+                                    } else {
+                                        window.location.reload();
+                                    }
                                 });
-                                dataPelaporan.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {
