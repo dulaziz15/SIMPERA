@@ -83,6 +83,7 @@ class FasilitasRepository implements FasilitasRepositoryInterface
                 'gedung' => $fasilitas->ruangan->gedung ?? null,
                 'ruangan' => $fasilitas->ruangan ?? 'Tidak ada ruangan',
                 'kategori' => $fasilitas->kategori ?? 'Tidak terkategori',
+                'gambar' => $fasilitas->gambar,
                 'laporan_count' => $fasilitas->laporan_count ?? 0,
                 'memiliki_laporan_aktif' => $this->hasActiveReports($fasilitas)
             ];

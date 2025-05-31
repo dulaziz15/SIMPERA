@@ -63,19 +63,14 @@ class UserService implements UserServiceInterface
 
     public function fotoHandler($foto, $fotoLama = null)
     {
-        // Jika tidak ada file baru diupload, kembalikan foto lama
-        if (!$foto) {
-            return $fotoLama;
+        $imageName = null;
+        if ($foto->hasFile('foto_profil')) {
+            $url_foto = $foto->file('foto_profil');
+            $imageName = time() . '_' . $url_foto->getClientOriginalName();
+            $url_foto->storeAs('uploads/profil', $imageName, 'public');
         }
 
-        // Hapus foto lama jika ada
-        if ($fotoLama && Storage::disk('public')->exists($fotoLama)) {
-            Storage::disk('public')->delete($fotoLama);
-        }
-
-        // Simpan foto baru
-        $path = $foto->store('foto_profil', 'public');
-        return $path;
+        return $imageName;
     }
 
     public function updateProfile($id, UserRequest $request)

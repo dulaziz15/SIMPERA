@@ -27,7 +27,7 @@
                             <th class="text-right col-3">Tanggal Selesai :</th>
                             <td class="col-9">{{ $periode->tanggal_selesai }}</td>
                         </tr>
-                    <button type="submit">Delete</button>
+                        <button type="submit">Delete</button>
                 </form>
             </div>
         </div>

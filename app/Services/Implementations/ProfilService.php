@@ -15,4 +15,17 @@ class ProfilService implements ProfilServiceInterface {
     public function getProfil($id) {
         return $this->profilRepository->getProfil($id);
     }
+
+    public function updateImage($id, $request) {
+        $imageName = null;
+        // dd($imageName);
+        if ($request->hasFile('gambar')) {
+            $url_foto = $request->file('gambar');
+            $imageName = time() . '_' . $url_foto->getClientOriginalName();
+            $url_foto->storeAs('foto_profil', $imageName, 'public');
+        }
+        return $this->profilRepository->updateImage($id, [
+            'foto_profil' => $imageName
+        ]);
+    }
 }
