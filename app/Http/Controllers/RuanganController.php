@@ -32,10 +32,25 @@ class RuanganController extends Controller
         return DataTables::of($ruanganData)->make(true);
     }
 
-    public function getByGedung(RuanganRequest $request, $id) {
+    public function getByGedung(RuanganRequest $request, $id)
+    {
+        $ruangan = $this->ruanganService->getByGedung($request);
+        return $ruangan;
+    }
+
+
+    public function create()
+    {
+        $gedung = $this->gedungService->getAll();
+        return view('gedung.ruangan.create', compact('gedung'));
+    }
+
+    public function store(RuanganRequest $request)
+    {
         if ($request->ajax() || $request->wantsJson()) {
-            $ruangan = $this->ruanganService->getByGedung($request);
-            if($ruangan) {
+            $ruangan = $this->ruanganService->create($request);
+            // return $ruangan;
+            if ($ruangan) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.',
@@ -52,51 +67,25 @@ class RuanganController extends Controller
 
         return redirect('/gedung');
     }
-    
 
-    public function create()
+    public function show($id)
     {
-        $gedung = $this->gedungService->getAll();
-        return view('gedung.ruangan.create', compact('gedung'));
-    }
-
-    public function store($id) {
-        // if ($request->ajax() || $request->wantsJson()) {
-            $ruangan = $this->ruanganService->getByGedung($id);
-            return $ruangan;
-            // if($ruangan) {
-            //     return response()->json([
-            //         'status' => true,
-            //         'message' => 'Data berhasil disimpan.',
-            //         'redirect' => url('/gedung')
-            //     ]);
-            // } else {
-            //     return response()->json([
-            //         'status' => false,
-            //         'message' => 'Data Gagal Disimpan.',
-            //         'redirect' => url('/gedung')
-            //     ]);
-            // }
-        // }
-
-        // return redirect('/gedung');
-    }
-
-    public function show($id) {
         $ruangan = $this->ruanganService->show($id);
         return view('gedung.ruangan.show', compact('ruangan'));
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $ruangan = $this->ruanganService->show($id);
         $gedung = $this->gedungService->getAll();
         return view('gedung.ruangan.edit', compact('ruangan', 'gedung'));
     }
 
-    public function update($id, RuanganRequest $request) {
+    public function update($id, RuanganRequest $request)
+    {
         if ($request->ajax() || $request->wantsJson()) {
             $ruangan = $this->ruanganService->update($id, $request);
-            if($ruangan) {
+            if ($ruangan) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupdate.',
@@ -114,15 +103,17 @@ class RuanganController extends Controller
         return redirect('/gedung');
     }
 
-    public function confirm($id) {
+    public function confirm($id)
+    {
         $ruangan = $this->ruanganService->show($id);
         return view('gedung.ruangan.confirm', compact('ruangan'));
     }
 
-    public function delete($id, Request $request) {
+    public function delete($id, Request $request)
+    {
         if ($request->ajax() || $request->wantsJson()) {
             $ruangan = $this->ruanganService->delete($id);
-            if($ruangan) {
+            if ($ruangan) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',

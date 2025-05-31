@@ -5,13 +5,15 @@
         <div class="card-body">
             <div class="container mt-4">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 align-self-center">
                         <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s"
                             style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                             <div class="advisor_thumb">
-                                <img src="{{ asset('storage/' . $profil->profil->foto_profil) }}" alt="" style="width: 100%">
+                                <img src="{{ asset('storage/foto_profil/' . $profil->profil->foto_profil) }}" alt=""
+                                    style="width: 100%">
 
-                                <a href="" class="btn-edit-foto" title="Edit Foto">
+                                <a onclick="modalUpdateImage('{{ $profil->profil->id_profil }}')" class="btn-edit-foto"
+                                    title="Edit Foto">
                                     <i class="fa fa-camera"></i>
                                 </a>
                             </div>
@@ -21,7 +23,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-lg-8 align-self-center">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="mb-3">Informasi Lengkap</h5>
@@ -62,6 +64,7 @@
             </div>
         </div>
     </div>
+    @include('profil.component.modal_update_image')
 @endsection
 
 @push('css')
@@ -250,4 +253,112 @@
             color: #ffffff;
         }
     </style>
+@endpush
+
+@push('scripts')
+    <script>
+        function modalUpdateImage(id) {
+            $('#modalUpdateImage').modal('show');
+            $('#formUpdateImage').attr('action', `/profil/${id}/updateImage`);
+        }
+
+        $(document).ready(function() {
+            $('#formUpdateImage').validate({
+                rules: {
+                    gambar: {
+                        required: true,
+                        // extension: "jpg|jpeg|png|gif"
+                    }
+                },
+                messages: {
+                    gambar: {
+                        required: "Foto wajib diisi",
+                        extension: "Hanya file gambar (jpg, jpeg, png, gif) yang diperbolehkan"
+                    }
+                },
+                submitHandler: function(form) {
+                    const formData = new FormData(form);
+
+                    $.ajax({
+                        url: form.action,
+                        type: form.method,
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                            'Accept': 'application/json'
+                        },
+                        success: function(response) {
+                            if (response.status) {
+                                $('#modalUpdateImage').modal('hide');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil',
+                                    text: response.message,
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    window.location.reload();
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal',
+                                    text: response.message
+                                });
+                            }
+                        },
+                        error: function(xhr) {
+                            if (xhr.status === 422) {
+                                const res = xhr.responseJSON;
+                                $.each(res.errors, function(key, value) {
+                                    $('[name="' + key + '"]').addClass(
+                                        'is-invalid');
+                                    $('#error-' + key).html(value[0]);
+                                });
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Validasi Gagal',
+                                    text: res.message ||
+                                        'Harap isi data dengan benar.'
+                                });
+                            } else if (xhr.status === 302) {
+                                window.location.href = xhr.getResponseHeader('Location');
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Kesalahan Server',
+                                    text: 'Terjadi kesalahan tak terduga. Silakan coba lagi.'
+                                });
+                            }
+                        },
+                    });
+                    return false;
+                },
+                errorElement: 'div',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    error.insertAfter(element);
+                },
+                highlight: function(element) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element) {
+                    $(element).removeClass('is-invalid');
+                },
+            });
+        });
+
+        function preview() {
+            $('#preview-image').css('display', 'block');
+            frame.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+        function clearImage() {
+            $('#preview-image').css('display', 'none');
+            document.getElementById('gambar').value = null;
+            frame.src = "";
+        }
+    </script>
 @endpush

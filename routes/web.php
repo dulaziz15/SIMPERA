@@ -123,10 +123,14 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/{id}/confirm', [PelaporanController::class, 'confirm']);
 		Route::delete('/{id}/delete', [PelaporanController::class, 'delete']);
 		Route::get('/coba', [PelaporanController::class, 'coba']);
+		Route::get('/fasilitas/{id}/show', [PelaporanController::class, 'showFasilitas']);
+		Route::get('/{idFasilitas}/create', [PelaporanController::class, 'createLaporanByFasilitas']);
 
 		Route::prefix('{pelaporanId}/pendukung')->group(function () {
 			Route::get('/create', [PendukungLaporanController::class, 'create']);
 			Route::post('/store', [PendukungLaporanController::class, 'store']);
+			Route::get('/dukungan/create', [PendukungLaporanController::class, 'createDukungan']);
+			Route::delete('/{pendukungId}/delete', [PendukungLaporanController::class, 'delete']);
 		});
 	});
 
@@ -175,6 +179,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::prefix('profil')->group(function () {
 		Route::get('/', [ProfilController::class, 'index']);
+		Route::post('/{id}/updateImage', [ProfilController::class, 'updateImage']);
 	});
 
 	Route::get('/pelaporan/ruangan-by-gedung/{id_gedung}', [PelaporanController::class, 'getRuanganByGedung']);

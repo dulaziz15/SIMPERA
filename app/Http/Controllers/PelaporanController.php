@@ -75,6 +75,12 @@ class PelaporanController extends Controller
         return view('pelaporan.create', compact('fasilitas', 'gedung', 'ruangan'));
     }
 
+    public function createLaporanByFasilitas($id_fasilitas)
+    {
+        $fasilitas = $this->fasilitasService->show($id_fasilitas);
+        return view('pelaporan.mahasiswa.create_laporan', compact('fasilitas'));
+    }
+
     public function storePelaporan(PelaporanRequest $request)
     {
         if ($request->ajax() || $request->wantsJson()) {
@@ -109,7 +115,7 @@ class PelaporanController extends Controller
         $activeMenu = 'pelaporan';
         $laporan = $this->pelaporanService->show($id);
         
-        return view('pelaporan.show', compact('laporan', 'breadcrumb', 'page', 'activeMenu'));
+        return view('pelaporan.admin.show', compact('laporan', 'breadcrumb', 'page', 'activeMenu'));
     }
 
     public function edit($id)
@@ -186,5 +192,21 @@ class PelaporanController extends Controller
     public function getAllFasilitasByRuangan($id) {
         $fasilitas = $this->fasilitasService->getAllFasilitasByRuangan($id);
         return response()->json($fasilitas);
+    }
+
+    public function showFasilitas($id)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Halaman Detail Fasilitas',
+            'list' => ['Home', 'Detail Fasilitas']
+        ];
+
+        $page = (object) [
+            'title' => 'Halaman Detail Fasilitas'
+        ];
+
+        $activeMenu = 'pelaporan';
+        $fasilitas = $this->fasilitasService->show($id);
+        return view('pelaporan.mahasiswa.show', compact('fasilitas', 'breadcrumb', 'page', 'activeMenu'));
     }
 }

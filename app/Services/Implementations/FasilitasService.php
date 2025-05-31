@@ -20,11 +20,19 @@ class FasilitasService implements FasilitasServiceInterface
 
     public function storeFasilitas(FasilitasRequest $request)
     {
+        $imageName = null;
+        if ($request->hasFile('gambar')) {
+            $url_foto = $request->file('gambar');
+            $imageName = time() . '_' . $url_foto->getClientOriginalName();
+            $url_foto->storeAs('uploads/fasilitas', $imageName, 'public');
+        }
+
         return $this->fasilitasRepository->create([
             'nama' => $request->nama,
             'id_kategori' => $request->id_kategori,
             'id_ruangan' => $request->id_ruangan,
-            'status' => $request->status
+            'status' => $request->status,
+            'gambar' => $imageName
         ]);
     }
 

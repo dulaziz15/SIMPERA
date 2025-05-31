@@ -30,6 +30,14 @@ class PendukungLaporanController extends Controller
         return view('pelaporan.pendukung.create', compact('laporan', 'user'));
     }
 
+    public function createDukungan($idFasilitas)
+    {
+        $laporan = $this->pelaporanService->getLaporanByFasilitas($idFasilitas);
+        $user = $this->peranService->getAll();
+        // dd($laporan);
+        return view('pelaporan.mahasiswa.dukung_laporan', compact('laporan', 'user'));
+    }
+
     public function store(Request $request, $idlaporan)
     {
         // dd($request->ajax());
@@ -52,5 +60,27 @@ class PendukungLaporanController extends Controller
         }
 
         return redirect('/pelaporan/' . $idlaporan);
+    }
+
+    public function delete($idlaporan, $idPendukung, Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $pendukung = $this->pendukungService->delete($idlaporan, $idPendukung);
+            if ($pendukung) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil Dihapus.',
+                    'redirect' => url('pelaporan/' . $idlaporan . '/show')
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data Gagal Dihapus.',
+                    'redirect' => url('pelaporan/' . $idlaporan . '/show') 
+                ]);
+            }
+        }
+
+        return redirect('pelaporan/' . $idlaporan . '/show');
     }
 }

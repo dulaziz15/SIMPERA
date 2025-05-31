@@ -34,4 +34,9 @@ class PendukungService implements PendukungServiceInterface
             'tingkat_kerusakan' => $request->tingkat_kerusakan
         ]);
     }
+
+    public function delete($idLaporan, $idPendukung)
+    {
+        return $this->pendukungRepository->delete($idLaporan, $idPendukung);
+    }
 }

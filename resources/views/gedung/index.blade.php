@@ -252,6 +252,7 @@
             </div>
         </div>
     </div>
+    <div id="myModal" class="modal fade" tabindex="-1"></div>
 @endsection
 
 @push('scripts')
