@@ -21,12 +21,11 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_kategori" class="form-label">Kategori Fasilitas</label>
-                                    <select class="form-control" name="id_kategori" 
-                                    
-                                        id="id_kategori" placeholder="This is a search placeholder" required>
+                                    <select class="form-control" name="id_kategori" id="id_kategori"
+                                        placeholder="This is a search placeholder" required>
                                         <option value="">- Pilih kategori -</option>
                                         @foreach ($kategori as $l)
-                                            <option value="{{ $l->id_kategori}}">{{ $l->nama }}
+                                            <option value="{{ $l->id_kategori }}">{{ $l->nama }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -36,9 +35,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_ruangan" class="form-label">Ruangan</label>
-                                    <select class="form-control" name="id_ruangan" 
-                                    
-                                        id="id_ruangan" placeholder="This is a search placeholder" required>
+                                    <select class="form-control" name="id_ruangan" id="id_ruangan"
+                                        placeholder="This is a search placeholder" required>
                                         <option value="">- Pilih Ruangan -</option>
                                         @foreach ($ruangan as $l)
                                             <option value="{{ $l->id_ruangan }}">{{ $l->nama }}
@@ -67,6 +65,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Gambar Fasilitas</label>
+                                    <input type="file" name="gambar" id="gambar" value=""
+                                        class="form-control" accept="image/*" onchange="preview()">
+                                    <div id="error-gambar" class="error-text"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body p-2">
+                                        <img id="frame" src="" alt="Preview gambar" class="img-fluid my-3"
+                                            style="max-width: 100%" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,6 +92,9 @@
 
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     <i class="fas fa-times me-2"></i>Batal
+                </button>
+                <button type="button" onclick="clearImage()" class="btn btn-danger">
+                    <i class="fas fa-times me-2"></i>Hapus Gambar
                 </button>
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save me-2"></i>Simpan
@@ -83,6 +104,15 @@
     </div>
 </form>
 <script>
+    function preview() {
+        frame.src = URL.createObjectURL(event.target.files[0]);
+    }
+
+    function clearImage() {
+        document.getElementById('gambar').value = null;
+        frame.src = "";
+    }
+
     $(document).ready(function() {
         document.querySelectorAll('[data-trigger]').forEach(function(el) {
             new Choices(el, {

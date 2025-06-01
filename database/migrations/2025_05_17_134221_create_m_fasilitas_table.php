@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_kategori');
             $table->unsignedBigInteger('id_ruangan');
             $table->string('status')->default('berfungsi');
+            $table->string('gambar');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->foreign('id_kategori')

@@ -13,7 +13,7 @@
                             </h4>
                         </div>
 
-                        
+
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
@@ -33,7 +33,7 @@
                             </h4>
                         </div>
 
-                        
+
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success"></span>
@@ -53,7 +53,7 @@
                             </h4>
                         </div>
 
-                        
+
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
@@ -73,7 +73,7 @@
                             </h4>
                         </div>
 
-                        
+
                     </div>
                     <div class="text-nowrap">
                         <span class="badge bg-success-subtle text-success">+$20.9k</span>
@@ -85,153 +85,176 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-3" height="100%">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">{{ $page->title }}</h4>
-                </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
-                                aria-orientation="vertical">
-                                <a class="nav-link mb-2 active" id="kategori-gedung-tab" data-bs-toggle="pill"
-                                    href="#kategori-gedung" role="tab" onclick="kategoriGedungData.ajax.reload()"
-                                    aria-controls="kategori-gedung" aria-selected="true">Kategori Gedung</a>
-                                <a class="nav-link mb-2" id="gedung-tab" data-bs-toggle="pill" href="#gedung" role="tab"
-                                    onclick="gedungData.ajax.reload()" aria-controls="gedung"
-                                    aria-selected="false">Gedung</a>
-                                <a class="nav-link mb-2" id="ruangan-tab" data-bs-toggle="pill" href="#ruangan"
-                                    role="tab" onclick="ruanganData.ajax.reload()" aria-controls="ruangan"
-                                    aria-selected="false">Ruangan</a>
-                            </div>
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                        aria-orientation="horizontal">
+                        <div class="">
+                            <h6 class="fs-6">Menu Fasilitas</h6>
                         </div>
-                        <div class="col-md-10">
-                            <div class="tab-content text-muted mt-4 mt-md-0" id="v-pills-tabContent">
-                                <div class="tab-pane fade show active" id="kategori-gedung" role="tabpanel"
-                                    aria-labelledby="kategori-gedung-tab">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="card-tools">
-                                                <button onclick="modalAction('{{ url('kategori_gedung/create') }}')"
-                                                    class="btn btn-sm btn-success mt-1">Tambah</button>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <table id="table_kategori_gedung"
-                                                class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Kategori Gedung</th>
-                                                        <th>Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="gedung" role="tabpanel" aria-labelledby="gedung-tab">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="card-tools">
-                                                <button onclick="modalAction('{{ url('gedung/create') }}')"
-                                                    class="btn btn-sm btn-success mt-1">Tambah</button>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row mb-4">
-                                                <div class="col-md-12">
-                                                    <div class="col-lg-4">
-                                                        <label class="control-label col-form-label">Filter :</label>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <select class="form-control" name="id_kategori_gedung"
-                                                            data-trigger id="id_kategori_gedung_filter"
-                                                            placeholder="This is a search placeholder" required>
-                                                            <option value="">- Pilih kategori -</option>
-                                                            @foreach ($kategori as $item)
-                                                                <option
-                                                                    value="{{ $item->id_kategori_gedung }}|{{ $item->kategori_gedung }}">
-                                                                    {{ $item->kategori_gedung }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <small class="form-text text-muted">Kategori Gedung</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <table id="table_gedung"
-                                                class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Kode Gedung</th>
-                                                        <th>Nama Gedung</th>
-                                                        <th>Deskripsi</th>
-                                                        <th>Kategori Gedung</th>
-                                                        <th>Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="ruangan" role="tabpanel" aria-labelledby="ruangan-tab">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="card-tools">
-                                                <button onclick="modalAction('{{ url('ruangan/create') }}')"
-                                                    class="btn btn-sm btn-success mt-1">Tambah</button>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row mb-4">
-                                                <div class="col-md-12">
-                                                    <div class="col-lg-4">
-                                                        <label class="control-label col-form-label">Filter :</label>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <select class="form-control" id="id_gedung_filter" data-trigger
-                                                            name="id_gedung">
-                                                            <option value="">- Semua -</option>
-                                                            @foreach ($gedung as $item)
-                                                                <option
-                                                                    value="{{ $item->id_gedung }}|{{ $item->nama }}">
-                                                                    {{ $item->nama }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <small class="form-text text-muted">Gedung</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <table id="table_ruangan"
-                                                class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Kode Ruangan</th>
-                                                        <th>Nama Ruangan</th>
-                                                        <th>Lokasi</th>
-                                                        <th>Gedung</th>
-                                                        <th>Deskripsi</th>
-                                                        <th>aksi</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
+                        <hr>
+                        <div class="menu p-4">
+                            <a class="nav-link mb-2 active" id="kategori-gedung-tab" data-bs-toggle="pill"
+                                href="#kategori-gedung" role="tab" onclick="kategoriGedungData.ajax.reload()"
+                                aria-controls="kategori-gedung" aria-selected="true">Kategori Gedung</a>
+                            <a class="nav-link mb-2" id="gedung-tab" data-bs-toggle="pill" href="#gedung"
+                                role="tab" onclick="gedungData.ajax.reload()" aria-controls="gedung"
+                                aria-selected="false">Gedung</a>
+                            <a class="nav-link mb-2" id="ruangan-tab" data-bs-toggle="pill" href="#ruangan"
+                                role="tab" onclick="ruanganData.ajax.reload()" aria-controls="ruangan"
+                                aria-selected="false">Ruangan</a>
+                        </div>
+                        <hr>
+                        <div class="attention mt-auto ">
+                            <div class="card bg-warning border-warning text-white">
+                                <div class="card-body p-3">
+                                    <h5 class="mb-3 text-white fw-bold"><i class="fas fa-info-circle me-2"></i>Alur
+                                        Pengisian Data Ruangan</h5>
+                                    <ul class="ps-3" style="list-style-type: none;">
+                                        <li class="mb-2">
+                                            <span class="badge bg-white text-primary me-2">1</span>
+                                            Pastikan Kategori Gedung sudah dibuat
+                                        </li>
+                                        <li class="mb-2">
+                                            <span class="badge bg-white text-primary me-2">2</span>
+                                            Mengisi Data Kategori <span class="text-danger"> * jika belum ada </span>
+                                        </li>
+                                        <li class="mb-2">
+                                            <span class="badge bg-white text-primary me-2">3</span>
+                                            Mengisi Data Gedung
+                                        </li>
+                                        <li class="mb-2">
+                                            <span class="badge bg-white text-primary me-2">4</span>
+                                            Mengisi Data Ruangan
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="myModal" class="modal fade" tabindex="-1"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="tab-content text-muted mt-4 mt-md-0" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="kategori-gedung" role="tabpanel"
+                    aria-labelledby="kategori-gedung-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-tools">
+                                <button onclick="modalAction('{{ url('kategori_gedung/create') }}')"
+                                    class="btn btn-sm btn-success mt-1">Tambah</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table id="table_kategori_gedung"
+                                class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Kategori Gedung</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="gedung" role="tabpanel" aria-labelledby="gedung-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-tools">
+                                <button onclick="modalAction('{{ url('gedung/create') }}')"
+                                    class="btn btn-sm btn-success mt-1">Tambah</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <div class="col-lg-4">
+                                        <label class="control-label col-form-label">Filter :</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" name="id_kategori_gedung" data-trigger
+                                            id="id_kategori_gedung_filter" placeholder="This is a search placeholder"
+                                            required>
+                                            <option value="">- Pilih kategori -</option>
+                                            @foreach ($kategori as $item)
+                                                <option
+                                                    value="{{ $item->id_kategori_gedung }}|{{ $item->kategori_gedung }}">
+                                                    {{ $item->kategori_gedung }}</option>
+                                            @endforeach
+                                        </select>
+                                        <small class="form-text text-muted">Kategori Gedung</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="table_gedung"
+                                class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Kode Gedung</th>
+                                        <th>Nama Gedung</th>
+                                        <th>Deskripsi</th>
+                                        <th>Kategori Gedung</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="ruangan" role="tabpanel" aria-labelledby="ruangan-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-tools">
+                                <button onclick="modalAction('{{ url('ruangan/create') }}')"
+                                    class="btn btn-sm btn-success mt-1">Tambah</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <div class="col-lg-4">
+                                        <label class="control-label col-form-label">Filter :</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" id="id_gedung_filter" data-trigger name="id_gedung">
+                                            <option value="">- Semua -</option>
+                                            @foreach ($gedung as $item)
+                                                <option value="{{ $item->id_gedung }}|{{ $item->nama }}">
+                                                    {{ $item->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                        <small class="form-text text-muted">Gedung</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="table_ruangan"
+                                class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Kode Ruangan</th>
+                                        <th>Nama Ruangan</th>
+                                        <th>Lokasi</th>
+                                        <th>Gedung</th>
+                                        <th>Deskripsi</th>
+                                        <th>aksi</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div id="myModal" class="modal fade" tabindex="-1"></div>
 @endsection
 
 @push('scripts')
     @include('gedung.ajax_handler')
 @endpush
- 

@@ -10,4 +10,5 @@ interface PelaporanServiceInterface {
     public function show($id);
     public function update($id, PelaporanRequest $request);
     public function delete($id);
+    public function getLaporanByFasilitas($idFasilitas);
 }

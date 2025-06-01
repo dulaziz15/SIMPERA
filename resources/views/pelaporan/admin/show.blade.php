@@ -21,7 +21,7 @@
                     <p>Tanggal Cetak: {{ now()->format('d M Y') }}</p>
                 </div>
 
-                <div class="card border-0">
+                <div class="card border-0 shadow-sm">
                     <div class="card-header bg-primary text-white py-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
@@ -61,44 +61,88 @@
                         <hr class="my-4">
 
                         <div class="row">
+                            <!-- Kolom Kiri: Detail Fasilitas -->
                             <div class="col-md-6">
                                 <div class="card border-0 shadow-sm mb-4">
-                                    <div class="card-header bg-light">
-                                        <h5 class="mb-0 fw-bold"><i class="fas fa-info-circle me-2"></i>Detail Fasilitas
+                                    <div class="card-header bg-primary">
+                                        <h5 class="mb-0 fw-bold text-white">
+                                            <i class="fas fa-info-circle me-2"></i> Detail Fasilitas
                                         </h5>
                                     </div>
                                     <div class="card-body">
-                                        <div class="mb-3">
-                                            <h6 class="fw-bold">Fasilitas Dilaporkan</h6>
-                                            <p class="fs-5">{{ $laporan->fasilitas->nama }}</p>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <h6 class="fw-bold">Lokasi Ruangan</h6>
-                                                <p>{{ $laporan->fasilitas->ruangan->nama }}</p>
+                                        <div class="report-details">
+                                            <div
+                                                class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
+                                                <h4 class="h5 mb-0 fw-semibold text-dark">Detail Laporan</h4>
+                                                @php
+                                                    $statusColors = [
+                                                        'BARU' => 'primary',
+                                                        'DIPROSES' => 'warning',
+                                                        'SELESAI' => 'success',
+                                                        'DITOLAK' => 'danger',
+                                                    ];
+                                                @endphp
+                                                <span
+                                                    class="badge bg-{{ $statusColors[$laporan->status] ?? 'secondary' }} rounded-pill px-3 py-2 fw-normal">
+                                                    {{ $laporan->status }}
+                                                </span>
                                             </div>
-                                            <div class="col-md-6 mb-3">
-                                                <h6 class="fw-bold">Gedung</h6>
-                                                <p>{{ $laporan->fasilitas->ruangan->gedung->nama }}</p>
-                                            </div>
-                                        </div>
 
-                                        <div class="mb-3">
-                                            <h6 class="fw-bold">Kategori Fasilitas</h6>
-                                            <span
-                                                class="badge bg-primary fs-6">{{ $laporan->fasilitas->kategori->nama }}</span>
+                                            <div class="vstack gap-3 mb-4">
+                                                <!-- Info Fasilitas -->
+                                                <div class="d-flex align-items-start">
+                                                    <div class="bg-info bg-opacity-10 p-2 rounded-2 me-3">
+                                                        <i class="fas fa-info-circle text-info"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h5 class="h6 text-secondary mb-1">Fasilitas Dilaporkan</h5>
+                                                        <p class="mb-0 fw-medium">{{ $laporan->fasilitas->nama }}</p>
+                                                        <div class="mt-2">
+                                                            <span
+                                                                class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1">
+                                                                {{ $laporan->fasilitas->kategori->nama }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Info Lokasi -->
+                                                <div class="d-flex align-items-start">
+                                                    <div class="bg-info bg-opacity-10 p-2 rounded-2 me-3">
+                                                        <i class="fas fa-map-marker-alt text-info"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h5 class="h6 text-secondary mb-1">Lokasi</h5>
+                                                        <div class="d-flex flex-wrap gap-3">
+                                                            <div>
+                                                                <p class="mb-1 small text-muted">Ruangan</p>
+                                                                <p class="mb-0 fw-medium">
+                                                                    {{ $laporan->fasilitas->ruangan->nama }}</p>
+                                                            </div>
+                                                            <div>
+                                                                <p class="mb-1 small text-muted">Gedung</p>
+                                                                <p class="mb-0 fw-medium">
+                                                                    {{ $laporan->fasilitas->ruangan->gedung->nama }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- Kolom Kanan: Deskripsi Laporan -->
                             <div class="col-md-6">
                                 <div class="card border-0 shadow-sm mb-4">
-                                    <div class="card-header bg-light">
-                                        <h5 class="mb-0 fw-bold"><i class="fas fa-file-alt me-2"></i>Deskripsi Laporan</h5>
+                                    <div class="card-header bg-primary">
+                                        <h5 class="mb-0 fw-bold text-white">
+                                            <i class="fas fa-file-alt me-2"></i> Deskripsi Laporan
+                                        </h5>
                                     </div>
                                     <div class="card-body">
+                                        <!-- Status -->
                                         <div class="mb-3">
                                             <h6 class="fw-bold">Status</h6>
                                             @php
@@ -115,23 +159,36 @@
                                             </span>
                                         </div>
 
-                                        <div class="mb-3">
-                                            <h6 class="fw-bold">Deskripsi Masalah</h6>
-                                            <div class="p-3 bg-light rounded">
-                                                {!! nl2br(e($laporan->deskripsi)) !!}
+                                        <!-- Deskripsi Masalah -->
+                                        <div class="d-flex align-items-start mb-3">
+                                            <div class="bg-info bg-opacity-10 p-2 rounded-2 me-3">
+                                                <i class="fas fa-exclamation-triangle text-info"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="h6 text-secondary mb-1">Deskripsi Masalah</h5>
+                                                <div class="p-3 bg-light bg-opacity-10 rounded-2">
+                                                    {!! nl2br(e($laporan->deskripsi)) !!}
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="mb-3">
-                                            <h6 class="fw-bold">Foto Pendukung</h6>
-                                            <img src="{{ asset('storage/laporan/' . $laporan->url_foto) }}"
-                                                alt="Foto Laporan" class="img-fluid rounded border"
-                                                style="max-height: 200px; cursor: pointer" data-bs-toggle="modal"
-                                                data-bs-target="#imageModal">
+                                        <!-- Foto Pendukung -->
+                                        <div class="d-flex align-items-start">
+                                            <div class="bg-info bg-opacity-10 p-2 rounded-2 me-3">
+                                                <i class="fas fa-image text-info"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="h6 text-secondary mb-1">Foto Pendukung</h5>
+                                                <button type="button" class="btn btn-sm btn-outline-primary"
+                                                    data-bs-toggle="modal" data-bs-target="#imageModal">
+                                                    <i class="fas fa-eye me-1"></i> Lihat Gambar
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="card border-0 shadow-sm mt-4">
@@ -140,17 +197,15 @@
                                     <i class="fas fa-users me-2"></i>Pendukung Laporan
                                     <span class="badge bg-primary ms-2">{{ $laporan->pendukung->count() }} Orang</span>
                                 </h5>
-
-                                <div class="d-flex gap-2">
-                                    <button type="button" class="btn btn-sm btn-primary"
-                                        onclick="modalAction('{{ url('/pelaporan/' . $laporan->id_laporan . '/pendukung/create') }}')">
-                                        <i class="fas fa-plus me-1"></i> Tambah Pendukung
-                                    </button>
-                                </div>
+                                <button type="button" class="btn btn-primary"
+                                    onclick="modalAction('{{ url('/pelaporan/' . $laporan->id_laporan . '/pendukung/create') }}')">
+                                    <i class="fas fa-plus me-1"></i> Tambah Pendukung
+                                </button>
                             </div>
+
                             <div class="card-body p-0">
                                 <div class="table-responsive">
-                                    <table class="table table-hover mb-0" id="supportersTable">
+                                    <table class="table table-hover align-middle mb-0" id="supportersTable">
                                         <thead class="table-light">
                                             <tr>
                                                 <th width="5%">#</th>
@@ -163,32 +218,34 @@
                                         </thead>
                                         <tbody>
                                             @forelse ($laporan->pendukung as $index => $pendukung)
+                                                @php
+                                                    $user = $pendukung->pengguna;
+                                                    $profile = $user->profil;
+                                                    $avatar = asset('storage/foto_profil/' . ($profile->foto_profil));
+                                                    $nama = $profile->nama_lengkap ?? 'Nama Tidak Diketahui';
+                                                    $email = $user->surel ?? '-';
+                                                    $createdAt = \Carbon\Carbon::parse(
+                                                        $pendukung->created_at,
+                                                    )->translatedFormat('j M Y, H:i');
+                                                    $damageLevels = [
+                                                        1 => ['Ringan', 'success'],
+                                                        2 => ['Sedang', 'warning'],
+                                                        3 => ['Berat', 'danger'],
+                                                    ];
+                                                @endphp
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
                                                     <td>
                                                         <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0">
-                                                                <img src="{{ asset('template/assets/images/users/avatar-1.jpg') }}"
-                                                                    alt="User " class="rounded-circle" width="32"
-                                                                    height="32">
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-2">
-                                                                {{ $pendukung->pengguna->profil->nama_lengkap }}
-                                                            </div>
+                                                            <img src="{{ $avatar }}" alt="User"
+                                                                class="rounded-circle me-2" width="32"
+                                                                height="32">
+                                                            <span>{{ $nama }}</span>
                                                         </div>
                                                     </td>
-                                                    <td>{{ $pendukung->pengguna->surel }}</td>
+                                                    <td>{{ $email }}</td>
+                                                    <td>{{ $createdAt }}</td>
                                                     <td>
-                                                        {{ \Carbon\Carbon::parse($pendukung->created_at)->translatedFormat('j M Y, H:i') }}
-                                                    </td>
-                                                    <td>
-                                                        @php
-                                                            $damageLevels = [
-                                                                1 => ['Ringan', 'success'],
-                                                                2 => ['Sedang', 'warning'],
-                                                                3 => ['Berat', 'danger'],
-                                                            ];
-                                                        @endphp
                                                         <span
                                                             class="badge bg-{{ $damageLevels[$pendukung->tingkat_kerusakan][1] }}">
                                                             {{ $damageLevels[$pendukung->tingkat_kerusakan][0] }}
@@ -198,14 +255,19 @@
                                                         <button class="btn btn-sm btn-outline-primary"
                                                             data-bs-toggle="modal" data-bs-target="#supporterDetailModal"
                                                             data-desc="{{ $pendukung->deskripsi }}">
-                                                            <i class="fas fa-eye"></i> Detail
+                                                            <i class="fas fa-eye me-1"></i> Detail
+                                                        </button>
+                                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                                            onclick="modalConfirm({{ $pendukung->id_user }}, {{ $laporan->id_laporan }})">
+                                                            <i class="bx bx-trash me-1"></i> Hapus
                                                         </button>
                                                     </td>
                                                 </tr>
                                             @empty
                                                 <tr>
                                                     <td colspan="6" class="text-center py-4 text-muted">
-                                                        Belum ada pendukung untuk laporan ini
+                                                        <i class="fas fa-info-circle me-1"></i> Belum ada pendukung untuk
+                                                        laporan ini.
                                                     </td>
                                                 </tr>
                                             @endforelse
@@ -214,6 +276,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="d-flex justify-content-between mt-4">
                             <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
                                 <i class="fas fa-arrow-left me-2"></i>Kembali
@@ -243,8 +306,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="{{ asset('storage/laporan/' . $laporan->url_foto) }}" alt="Foto Laporan"
-                        class="img-fluid">
+                    <img src="{{ asset('storage/uploads/laporan/' . $laporan->url_foto) }}" alt="Foto Laporan"
+                        class="img-fluid" width="80%">
                 </div>
             </div>
         </div>
@@ -268,12 +331,92 @@
             </div>
         </div>
     </div>
-
     <div id="myModal" class="modal fade" tabindex="-1">
     </div>
+
+    @include('pelaporan.admin.modal_pendukung_confirm')
 @endsection
 
 <script>
+    function modalConfirm(pendukungId, laporanId) {
+        // Set up modal content and action
+        $('#confirmModalDelete').modal('show');
+        $('#form-delete').attr('action', '/pelaporan/' + laporanId + '/pendukung/' + pendukungId + '/delete');
+
+        $('#modal-delete-title').html('Konfirmasi Penghapusan Pendukung');
+        $('#modal-delete-body').html(`
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Anda akan menghapus data pendukung laporan ini. Data yang dihapus tidak dapat dikembalikan.
+        </div>
+    `);
+
+        // Remove any existing submit handlers to prevent duplicates
+        $('#form-delete').off('submit');
+
+        // Add new submit handler
+        $('#form-delete').on('submit', function(e) {
+            e.preventDefault();
+
+            const form = this;
+            const formData = new FormData(form);
+            const submitBtn = $('#delete-submit-btn');
+            const originalBtnText = submitBtn.html();
+
+            $.ajax({
+                url: form.action,
+                type: 'DELETE',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept': 'application/json'
+                },
+                success: function(response) {
+                    $('#confirmModalDelete').modal('hide');
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: response.message || 'Data pendukung berhasil dihapus',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        // Refresh data without full page reload if possible
+                        if (typeof dataPelaporan !== 'undefined' && dataPelaporan.ajax) {
+                            dataPelaporan.ajax.reload(null, false);
+                        } else {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    let errorMessage = 'Terjadi kesalahan saat menghapus pendukung.';
+
+                    if (xhr.status === 422) {
+                        errorMessage = xhr.responseJSON.message || 'Validasi gagal.';
+                    } else if (xhr.status === 404) {
+                        errorMessage = 'Data tidak ditemukan.';
+                    } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: errorMessage
+                    });
+                },
+                complete: function() {
+                    // Restore button state
+                    submitBtn.prop('disabled', false);
+                    submitBtn.html(originalBtnText);
+                }
+            });
+        });
+    }
+
     function modalAction(url = '') {
         $('#myModal').load(url, function() {
             $('#myModal').modal('show');
@@ -365,7 +508,7 @@
             margin: 0;
         }
     }
-    
+
     .print-header {
         display: none;
     }

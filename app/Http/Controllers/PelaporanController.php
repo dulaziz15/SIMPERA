@@ -41,7 +41,8 @@ class PelaporanController extends Controller
         ];
 
         $activeMenu = 'pelaporan';
-        return view('pelaporan.index', compact('breadcrumb', 'page', 'activeMenu'));
+        $gedung = $this->gedungService->getAll();
+        return view('pelaporan.index', compact('breadcrumb', 'page', 'activeMenu', 'gedung'));
     }
 
     public function coba()
@@ -72,6 +73,12 @@ class PelaporanController extends Controller
         $gedung = $this->gedungService->getAll();
         $ruangan = $this->ruanganService->getAll();
         return view('pelaporan.create', compact('fasilitas', 'gedung', 'ruangan'));
+    }
+
+    public function createLaporanByFasilitas($id_fasilitas)
+    {
+        $fasilitas = $this->fasilitasService->show($id_fasilitas);
+        return view('pelaporan.mahasiswa.create_laporan', compact('fasilitas'));
     }
 
     public function storePelaporan(PelaporanRequest $request)
@@ -108,7 +115,7 @@ class PelaporanController extends Controller
         $activeMenu = 'pelaporan';
         $laporan = $this->pelaporanService->show($id);
         
-        return view('pelaporan.show', compact('laporan', 'breadcrumb', 'page', 'activeMenu'));
+        return view('pelaporan.admin.show', compact('laporan', 'breadcrumb', 'page', 'activeMenu'));
     }
 
     public function edit($id)
@@ -185,5 +192,21 @@ class PelaporanController extends Controller
     public function getAllFasilitasByRuangan($id) {
         $fasilitas = $this->fasilitasService->getAllFasilitasByRuangan($id);
         return response()->json($fasilitas);
+    }
+
+    public function showFasilitas($id)
+    {
+        $breadcrumb = (object) [
+            'title' => 'Halaman Detail Fasilitas',
+            'list' => ['Home', 'Detail Fasilitas']
+        ];
+
+        $page = (object) [
+            'title' => 'Halaman Detail Fasilitas'
+        ];
+
+        $activeMenu = 'pelaporan';
+        $fasilitas = $this->fasilitasService->show($id);
+        return view('pelaporan.mahasiswa.show', compact('fasilitas', 'breadcrumb', 'page', 'activeMenu'));
     }
 }

@@ -56,6 +56,27 @@ class FasilitasController extends Controller
         return DataTables::of($data)->make(true);
     }
 
+    public function searchFasilitas(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $fasilitas = $this->fasilitasService->search($request);
+            if ($fasilitas) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil ditemukan.',
+                    'data' => $fasilitas
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan.'
+                ]);
+            }
+        }
+
+        return redirect('/fasilitas');
+    }
+
 
     public function create()
     {
