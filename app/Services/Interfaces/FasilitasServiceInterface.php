@@ -1,10 +1,11 @@
-<?php  
+<?php
 
 namespace App\Services\Interfaces;
 
 use App\Http\Requests\FasilitasRequest;
 
-interface FasilitasServiceInterface {
+interface FasilitasServiceInterface
+{
     public function getAll();
     public function storeFasilitas(FasilitasRequest $request);
     public function show($id);
@@ -12,4 +13,5 @@ interface FasilitasServiceInterface {
     public function delete($id);
     public function getByRuangan($ruangan);
     public function getAllFasilitasByRuangan($id);
+    public function search($request);
 }

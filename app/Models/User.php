@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\Peran\PeranEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -67,5 +69,29 @@ class User extends Authenticatable
     public function laporan()
     {
         return $this->hasMany(LaporanPerbaikanModel::class, 'id_pengguna');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->peran->kode_peran == PeranEnums::ADMIN->value ? true : false;
+    }
+
+    public function isSarpras(): bool
+    {
+        return ($this->peran->kode_peran == PeranEnums::SARANA_PRASARANA->value) ? true : false;
+    }
+
+    public function isTeknisi(): bool
+    {
+        return $this->peran->kode_peran == PeranEnums::TEKNISI->value ? true : false;
+    }
+
+    public function isUser(): bool
+    {
+        return in_array($this->peran->kode_peran, [
+            PeranEnums::DOSEN->value,
+            PeranEnums::TENAGA_KEPENDIDIKAN->value,
+            PeranEnums::MAHASISWA->value
+        ]);
     }
 }

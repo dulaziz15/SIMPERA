@@ -7,34 +7,40 @@
         <div class="modal-body row g-3 p-4">
             <div class="card">
                 <div class="card-body">
-                    <div class="data mt-4">
-                        <table class="table table-sm table-bordered table-striped">
-                            <tr>
-                                <th>Nama Fasilitas</th>
-                                <td>:</td>
-                                <td>{{ $fasilitas->nama }}</td>
-                            </tr>
-                            <tr>
-                                <th>Kategori</th>
-                                <td>:</td>
-                                <td>{{ $fasilitas->kategori->nama }}</td>
-                            </tr>
-                            <tr>
-                                <th>Ruangan</th>
-                                <td>:</td>
-                                <td>{{ $fasilitas->ruangan->nama }}</td>
-                            </tr>
-                            <tr>
-                                <th>Gedung</th>
-                                <td>:</td>
-                                <td>{{ $fasilitas->ruangan->gedung->nama }}</td>
-                            </tr>
-                            <tr>
-                                <th>Status</th>
-                                <td>:</td>
-                                <td>{{ $fasilitas->status }}</td>
-                            </tr>
-                        </table>
+                    <div class="row mt-3 mb-3 ">
+                        <div class="col-lg-4">
+                            <img src="{{ asset('storage/uploads/fasilitas/' . $fasilitas->gambar) }}"
+                                alt="Image Fasilitas" srcset="" width="100%" class="img-fluid rounded">
+                        </div>
+                        <div class="col-md-8 align-self-center">
+                            <table class="table table-sm table-bordered table-striped">
+                                <tr>
+                                    <th>Nama Fasilitas</th>
+                                    <td>:</td>
+                                    <td>{{ $fasilitas->nama }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Kategori</th>
+                                    <td>:</td>
+                                    <td>{{ $fasilitas->kategori->nama }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Ruangan</th>
+                                    <td>:</td>
+                                    <td>{{ $fasilitas->ruangan->nama }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Gedung</th>
+                                    <td>:</td>
+                                    <td>{{ $fasilitas->ruangan->gedung->nama }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>:</td>
+                                    <td>{{ $fasilitas->status }}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,8 @@ class FasilitasModel extends Model
         'nama',
         'id_kategori',
         'id_ruangan',
-        'status'
+        'status',
+        'gambar'
     ];
 
     public function kategori()
@@ -29,7 +30,8 @@ class FasilitasModel extends Model
         return $this->belongsTo(RuanganModel::class, 'id_ruangan');
     }
 
-    public function laporan() {
-        return $this->belongsTo(LaporanPerbaikanModel::class, 'id_fasilitas');
+    public function laporan()
+    {
+        return $this->hasOne(LaporanPerbaikanModel::class, 'id_fasilitas');
     }
 }

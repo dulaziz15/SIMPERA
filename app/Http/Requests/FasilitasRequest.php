@@ -32,11 +32,20 @@ class FasilitasRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'nama' => 'required',
             'id_kategori' => 'required',
             'id_ruangan' => 'required',
             'status' => 'required|string'
         ];
+
+        // Deteksi apakah ini create (POST) atau update (PUT/PATCH)
+        $isCreate = $this->isMethod('post');
+
+        // // Tambahkan aturan untuk url_foto sesuai kasus
+        $rules['gambar'] = ($isCreate ? 'required' : 'nullable')
+            . '|file|mimes:jpeg,png,jpg,gif,svg';
+
+        return $rules;
     }
 }

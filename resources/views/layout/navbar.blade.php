@@ -5,20 +5,20 @@
 			<div class="navbar-brand-box">
 				<a href="" class="logo logo-dark">
 					<span class="logo-sm">
-						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="50">
+						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="30">
 					</span>
 					<span class="logo-lg">
-						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="50">
+						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="30">
 						<span class="logo-txt">SIMPERA</span>
 					</span>
 				</a>
 
 				<a href="" class="logo logo-light">
 					<span class="logo-sm">
-						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="50">
+						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="30">
 					</span>
 					<span class="logo-lg">
-						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="50">
+						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="30">
 						<span class="logo-txt">SIMPERA</span>
 					</span>
 				</a>
@@ -262,9 +262,7 @@
 				<button type="button" class="btn header-item bg-light-subtle border-start border-end"
 					id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<img class="rounded-circle header-profile-user" {{ var_dump(auth()->user()->profil?->foto_profil) }}
-						src="{{ auth()->user()->profil && auth()->user()->profil->foto_profil
-						    ? asset('storage/' . auth()->user()->profil->foto_profil)
-						    : asset('storage/foto_profil/default.png') }}"
+						src="{{ asset('storage/foto_profil/' . Auth::user()->profil->foto_profil) ?? asset('template/assets/images/users/avatar-1.jpg') }}"
 						alt="Header Avatar">
 					<span class="d-none d-xl-inline-block ms-1 fw-medium">{{ Auth::user()->nama_pengguna }}</span>
 					<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
