@@ -3,7 +3,9 @@
 @section('content')
     @if (Auth::user()->isUser())
         @include('pelaporan.mahasiswa.index')
-    @elseif (Auth::user()->isAdmin())
+    @elseif (Auth::user()->isSarpras())
+        @include('pelaporan.sarpras.index')
+    @elseif(Auth::user()->isAdmin())
         @include('pelaporan.admin.index')
     @endif
 @endsection

@@ -23,16 +23,7 @@
                     <div class="card-body">
                         <div id="progrss-wizard" class="twitter-bs-wizard">
                             <ul class="twitter-bs-wizard-nav nav nav-pills nav-justified">
-                                @if (Auth::user()->isAdmin())
-                                    <li class="nav-item">
-                                        <a href="#detail_fasilitas" class="nav-link" data-toggle="tab">
-                                            <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                title="Detail fasilitas">
-                                                <i class="bx bx-buildings"></i>
-                                            </div>
-                                        </a>
-                                    </li>
-                                @endif
+
                                 <li class="nav-item">
                                     <a href="#dokumen_pendukung" class="nav-link" data-toggle="tab">
                                         <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -55,76 +46,7 @@
                             </div>
                             <div class="tab-content twitter-bs-wizard-tab-content">
 
-                                @if (Auth::user()->isAdmin())
-                                    <div class="tab-pane active" id="detail_fasilitas">
-                                        <div class="text-center mb-4">
-                                            <h5>Detail Fasilitas</h5>
-                                            <p class="card-title-desc">Pilih Fasilitas berdasarkan lokasi</p>
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="id_gedung">Gedung <span
-                                                            class="text-danger">*</span></label>
-                                                    <select class="form-control" id="id_gedung" name="id_gedung"
-                                                        required>
-                                                        <option value="">- Pilih Gedung -</option>
-                                                        @foreach ($gedung as $item)
-                                                            <option value="{{ $item->id_gedung }}"
-                                                                {{ $item->id_gedung == $laporan->fasilitas->ruangan->gedung->id_gedung ? 'selected' : '' }}>
-                                                                {{ $item->nama }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div id="error-id_gedung" class="error-text"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="id_ruangan">Ruangan <span
-                                                            class="text-danger">*</span></label>
-                                                    <select class="form-control" id="id_ruangan" name="id_ruangan"
-                                                        required>
-                                                        <option value="">- Pilih Ruangan -</option>
-                                                        @foreach ($ruangan as $item)
-                                                            <option value="{{ $item->id_ruangan }}"
-                                                                {{ $item->id_ruangan == $laporan->fasilitas->id_ruangan ? 'selected' : '' }}>
-                                                                {{ $item->nama }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div id="error-id_ruangan" class="error-text"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="id_fasilitas">Fasilitas <span
-                                                            class="text-danger">*</span></label>
-                                                    <select class="form-control" id="id_fasilitas" name="id_fasilitas"
-                                                        required>
-                                                        <option value="">- Pilih Fasilitas -</option>
-                                                        @foreach ($fasilitas as $item)
-                                                            <option value="{{ $item->id_fasilitas }}"
-                                                                {{ $item->id_fasilitas == $laporan->id_fasilitas ? 'selected' : '' }}>
-                                                                {{ $item->nama }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div id="error-id_fasilitas" class="error-text"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                            <li class="next"><a href="javascript:void(0);"
-                                                    class="btn btn-primary next-btn">Next <i
-                                                        class="bx bx-chevron-right ms-1"></i></a></li>
-                                        </ul>
-                                    </div>
-                                @endif
-
-                                <div class="tab-pane" id="dokumen_pendukung">
+                                <div class="tab-pane tracking-tab" id="dokumen_pendukung">
                                     <div>
                                         <div class="text-center mb-4">
                                             <h5>Dokumen Pendukung</h5>
@@ -164,7 +86,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane" id="detail_kerusakan">
+                                <div class="tab-pane tracking-tab" id="detail_kerusakan">
                                     <div>
                                         <div class="text-center mb-4">
                                             <h5>Detail Kerusakan</h5>
@@ -181,8 +103,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-check card-radio">
                                                             <input class="form-check-input" type="radio"
-                                                                name="tingkat_kerusakan" id="ringan"
-                                                                value="1"
+                                                                name="tingkat_kerusakan" id="ringan" value="1"
                                                                 {{ $laporan->firstPendukung->tingkat_kerusakan === 1 ? 'checked' : '' }} />
                                                             <label class="form-check-label" for="ringan">
                                                                 <div class="card-radio-content p-3 rounded-3 border">
@@ -288,6 +209,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" name="id_fasilitas" id="id_fasilitas" value="{{ $laporan->id_fasilitas }}">
 </form>
 
 <style>
@@ -376,84 +298,16 @@
     });
 
     $(document).ready(function() {
-        const currentRuangan = "{{ $laporan->fasilitas->id_ruangan }}";
-        const currentFasilitas = "{{ $laporan->id_fasilitas }}";
-
-        if (currentRuangan) {
-            loadFacilities(currentRuangan);
-        }
-
-        $('#id_gedung').change(function() {
-            const idGedung = $(this).val();
-            if (idGedung) {
-                $.get('/pelaporan/ruangan-by-gedung/' + idGedung, function(data) {
-                    $('#id_ruangan').empty().append(
-                        '<option value="">- Pilih Ruangan -</option>');
-                    $.each(data, function(key, value) {
-                        const selected = value.id_ruangan == currentRuangan ?
-                            'selected' : '';
-                        $('#id_ruangan').append(
-                            `<option value="${value.id_ruangan}" ${selected}>${value.nama}</option>`
-                            );
-                    });
-
-                    if ($('#id_ruangan option[value="' + currentRuangan + '"]').length > 0) {
-                        $('#id_ruangan').val(currentRuangan).trigger('change');
-                    }
-                }).fail(function() {
-                    showError('Gagal memuat data ruangan');
-                });
-            } else {
-                resetDependentFields();
-            }
-        });
-
-        $('#id_ruangan').change(function() {
-            const idRuangan = $(this).val();
-            if (idRuangan) {
-                loadFacilities(idRuangan);
-            } else {
-                $('#id_fasilitas').empty().append('<option value="">- Pilih Fasilitas -</option>');
-            }
-        });
-
-        function loadFacilities(idRuangan) {
-            $.get('/pelaporan/all-fasilitas-by-ruangan/' + idRuangan, function(data) {
-                $('#id_fasilitas').empty().append('<option value="">- Pilih Fasilitas -</option>');
-                $.each(data, function(key, value) {
-                    const selected = value.id_fasilitas == currentFasilitas ? 'selected' : '';
-                    $('#id_fasilitas').append(
-                        `<option value="${value.id_fasilitas}" ${selected}>${value.nama}</option>`
-                        );
-                });
-            }).fail(function() {
-                showError('Gagal memuat data fasilitas');
-            });
-        }
-
-        function resetDependentFields() {
-            $('#id_ruangan').empty().append('<option value="">- Pilih Ruangan -</option>');
-            $('#id_fasilitas').empty().append('<option value="">- Pilih Fasilitas -</option>');
-        }
-
-        function showError(message) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: message
-            });
-        }
-
         $('.next-btn').click(function() {
-            const currentTab = $(this).closest('.tab-pane');
+            const currentTab = $(this).closest('.tracking-tab');
             if (validateCurrentTab(currentTab)) {
-                navigateToTab(currentTab.next('.tab-pane'));
+                navigateToTab(currentTab.next('.tracking-tab'));
             }
         });
 
         $('.previous-btn').click(function() {
-            const currentTab = $(this).closest('.tab-pane');
-            navigateToTab(currentTab.prev('.tab-pane'));
+            const currentTab = $(this).closest('.tracking-tab');
+            navigateToTab(currentTab.prev('.tracking-tab'));
         });
 
         function validateCurrentTab(tab) {
@@ -484,27 +338,21 @@
 
         function navigateToTab(nextTab) {
             if (nextTab.length) {
-                $('.tab-pane').removeClass('active show');
+                $('.tracking-tab').removeClass('active show');
                 nextTab.addClass('active show');
                 updateProgressBar();
             }
         }
 
         function updateProgressBar() {
-            const totalTabs = $('.tab-pane').length;
-            const activeTab = $('.tab-pane.active').index() + 1;
+            const totalTabs = $('.tracking-tab').length;
+            const activeTab = $('.tracking-tab.active').index() + 1;
             const progressPercentage = (activeTab / totalTabs) * 100;
             $('#bar .progress-bar').css('width', progressPercentage + '%');
         }
 
         $('#form-tambah').validate({
             rules: {
-                id_gedung: {
-                    required: true
-                },
-                id_ruangan: {
-                    required: true
-                },
                 id_fasilitas: {
                     required: true
                 },
@@ -520,12 +368,6 @@
                 }
             },
             messages: {
-                id_gedung: {
-                    required: "Gedung wajib dipilih"
-                },
-                id_ruangan: {
-                    required: "Ruangan wajib dipilih"
-                },
                 id_fasilitas: {
                     required: "Fasilitas wajib dipilih"
                 },
@@ -571,7 +413,7 @@
                     beforeSend: function() {
                         $('.btn-primary').prop('disabled', true).html(
                             '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Memproses...'
-                            );
+                        );
                     },
                     success: function(response) {
                         if (response.status) {
@@ -580,15 +422,10 @@
                                 icon: 'success',
                                 title: 'Berhasil',
                                 text: response.message,
-                                timer: 2000,
+                                timer: 1000,
                                 showConfirmButton: false
                             }).then(function() {
-                                if (typeof dataPelaporan !== 'undefined' &&
-                                    typeof dataPelaporan.ajax !== 'undefined') {
-                                    dataPelaporan.ajax.reload();
-                                } else {
-                                    window.location.reload();
-                                }
+                                window.location.reload();
                             });
                         } else {
                             showFormErrors(response.msgField);

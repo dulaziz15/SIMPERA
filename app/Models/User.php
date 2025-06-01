@@ -71,6 +71,10 @@ class User extends Authenticatable
         return $this->hasMany(LaporanPerbaikanModel::class, 'id_pengguna');
     }
 
+    public function penugasan() {
+        return $this->belongsTo(PenugasanModel::class, 'id_pengguna');
+    }
+
     public function isAdmin(): bool
     {
         return $this->peran->kode_peran == PeranEnums::ADMIN->value ? true : false;

@@ -36,6 +36,20 @@ class PelaporanService implements PelaporanServiceInterface
         return $this->pelaporanRepository->getLaporanByFasilitas($idFasilitas);
     }
 
+    public function getLaporanByUser($id_user)
+    {
+        return $this->pelaporanRepository->getLaporanByUser($id_user);
+    }
+
+    public function getLaporanDidukungByUser($id)
+    {
+        return $this->pelaporanRepository->getLaporanDidukungByUser($id);
+    }
+
+    public function getAllLaporanByUser($id_user) {
+        return $this->pelaporanRepository->getAllLaporanByUser($id_user);
+    }
+
     public function storePelaporan(PelaporanRequest $request)
     {
         $imageName = null;
@@ -79,6 +93,21 @@ class PelaporanService implements PelaporanServiceInterface
         return $this->pelaporanRepository->getById($id);
     }
 
+    public function getLaporanById($id)
+    {
+        $laporan = $this->pelaporanRepository->getById($id);
+
+        // Hitung jumlah pendukung
+        $laporan->jumlah_pendukung = $laporan->pendukung->count();
+
+        // Tambahkan status color berdasarkan status
+        $statusEnum = StatusLaporanPerbaikan::tryFrom($laporan->status);
+        $laporan->status_color = $statusEnum?->color();
+
+        return $laporan;
+    }
+
+
     public function update($id, PelaporanRequest $request)
     {
         $laporanData = $this->pelaporanRepository->getById($id);
@@ -120,5 +149,19 @@ class PelaporanService implements PelaporanServiceInterface
     public function delete($id)
     {
         return $this->pelaporanRepository->delete($id);
+    }
+
+    public function pengajuan($id) {
+        return $this->pelaporanRepository->updateStatus($id, [
+            'status' => StatusLaporanPerbaikan::DIAJUKAN->value,
+            'waktu_perubahan' => now(),
+        ]);
+    }
+
+    public function verifikasi($id) {
+        return $this->pelaporanRepository->updateStatus($id, [
+            'status' => StatusLaporanPerbaikan::VERIFIKASI->value,
+            'waktu_perubahan' => now(),
+        ]);
     }
 }

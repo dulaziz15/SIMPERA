@@ -9,10 +9,13 @@ use App\Http\Controllers\KategoriGedungController;
 use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PendukungLaporanController;
+use App\Http\Controllers\PengajuanController;
+use App\Http\Controllers\PenugasanController;
 use App\Http\Controllers\PeranController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -82,6 +85,11 @@ Route::middleware(['auth'])->group(function () {
 		Route::delete('/{id}/delete', [RuanganController::class, 'delete']);
 	});
 
+	Route::prefix('tracking')->group(function () {
+		Route::get('/', [TrackingController::class, 'index']);
+		Route::get('/{idLaporan}/laporan/edit', [TrackingController::class, 'editLaporan']);
+	});
+
 	Route::prefix('kategori_gedung')->group(function () {
 		Route::get('/data', [KategoriGedungController::class, 'getAll']);
 		Route::get('/create', [KategoriGedungController::class, 'create']);
@@ -117,6 +125,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/create', [PelaporanController::class, 'create']);
 		Route::post('/store', [PelaporanController::class, 'storePelaporan']);
 		Route::get('/{id}/show', [PelaporanController::class, 'show']);
+		Route::get('/{id}/getLaporan', [PelaporanController::class, 'getLaporan']);
 		Route::get('/{id}/edit', [PelaporanController::class, 'edit']);
 		Route::put('/{id}/update', [PelaporanController::class, 'update']);
 		Route::get('/{id}/confirm', [PelaporanController::class, 'confirm']);
@@ -131,6 +140,18 @@ Route::middleware(['auth'])->group(function () {
 			Route::get('/dukungan/create', [PendukungLaporanController::class, 'createDukungan']);
 			Route::delete('/{pendukungId}/delete', [PendukungLaporanController::class, 'delete']);
 		});
+	});
+
+	Route::prefix('pengajuan')->group(function () {
+		Route::get('/', [PengajuanController::class, 'index']);
+		Route::post('/{idLaporan}/ajukan', [PengajuanController::class, 'ajukan']);
+		Route::post('/{idLaporan}/verifikasi', [PengajuanController::class, 'verifikasi']);
+	});
+	
+	Route::prefix('penugasan')->group(function () {
+		Route::get('/', [PenugasanController::class, 'index']);
+		Route::get('/{idLaporan}/detail', [PenugasanController::class, 'show']);
+		Route::post('/{idLaporan}/create', [PenugasanController::class, 'store']);
 	});
 
 	Route::prefix('fasilitas')->group(function () {

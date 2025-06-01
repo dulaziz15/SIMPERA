@@ -97,13 +97,13 @@
                                 <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
                                     <h4 class="h5 mb-0 fw-semibold text-dark">Detail Laporan</h4>
                                     <span
-                                        class="badge bg-{{ $fasilitas->laporan->status === 'diproses' ? 'warning' : 'primary' }} rounded-pill px-3 py-2 fw-normal">
-                                        {{ ucfirst($fasilitas->laporan->status) }}
+                                        class="badge bg-{{ $fasilitas->laporan->status->color() }} bg-opacity-15 text-white border border-{{ $fasilitas->laporan->status->color() }} border-opacity-25">
+                                        {{ $fasilitas->laporan->status }}
                                     </span>
                                 </div>
 
                                 <div class="vstack gap-3 mb-4">
-                                    <!-- Damage Description -->
+                                    <!-- Deskripsi kerusakannn -->
                                     <div class="d-flex align-items-start">
                                         <div class="bg-info bg-opacity-10 p-2 rounded-2 me-3">
                                             <i class="fas fa-exclamation-triangle text-info"></i>
@@ -114,18 +114,19 @@
                                         </div>
                                     </div>
 
-                                    <!-- Reporter -->
+                                    <!-- Pelapor -->
                                     <div class="d-flex align-items-start">
                                         <div class="bg-info bg-opacity-10 p-2 rounded-2 me-3">
                                             <i class="fas fa-user text-info"></i>
                                         </div>
                                         <div>
                                             <h5 class="h6 text-secondary mb-1">Pelapor</h5>
-                                            <p class="mb-0 fw-medium">{{ $fasilitas->laporan->pengguna->nama_pengguna }}</p>
+                                            <p class="mb-0 fw-medium">{{ $fasilitas->laporan->pengguna->nama_pengguna }}
+                                            </p>
                                         </div>
                                     </div>
 
-                                    <!-- Report Date -->
+                                    <!-- Tanggal Laporannnn -->
                                     <div class="d-flex align-items-start">
                                         <div class="bg-info bg-opacity-10 p-2 rounded-2 me-3">
                                             <i class="fas fa-calendar-alt text-info"></i>
@@ -138,7 +139,33 @@
                                         </div>
                                     </div>
 
-                                    <!-- Supporters -->
+                                    <!-- Deskripsii pelaporr-->
+                                    <div class="d-flex align-items-start">
+                                        <div class="bg-info bg-opacity-10 p-2 rounded-2 me-3">
+                                            <i class="fas fa-align-left text-info"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="h6 text-secondary mb-1">Deskripsi Pelapor</h5>
+                                            <p class="mb-0">
+                                                {{ $fasilitas->laporan->pendukung[0]->deskripsi }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tingkat kerusakann -->
+                                    <div class="d-flex align-items-start">
+                                        <div class="bg-info bg-opacity-10 p-2 rounded-2 me-3">
+                                            <i class="fas fa-exclamation-triangle text-info"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="h6 text-secondary mb-1">Tingkat Kerusakan</h5>
+                                            <p class="mb-0">
+                                                {{ $fasilitas->laporan->pendukung[0]->tingkat_kerusakan->label() }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- iki gae pendukunge -->
                                     <div class="d-flex align-items-start">
                                         <div class="bg-info bg-opacity-10 p-2 rounded-2 me-3">
                                             <i class="fas fa-users text-info"></i>
@@ -149,14 +176,29 @@
                                             @if ($fasilitas->laporan->pendukung->count() > 0)
                                                 <div class="d-flex flex-wrap gap-2 mt-2">
                                                     @foreach ($fasilitas->laporan->pendukung->take(5) as $pendukung)
+                                                        @php
+                                                            $isCurrentUser = $pendukung->id_user == auth()->id();
+                                                            $badgeClass = $isCurrentUser
+                                                                ? 'bg-primary bg-opacity-10 text-primary border-primary'
+                                                                : 'bg-secondary bg-opacity-10 text-dark border-secondary';
+                                                        @endphp
+
                                                         <span
-                                                            class="badge bg-secondary bg-opacity-10 text-dark rounded-pill px-3 py-1 border border-secondary border-opacity-10">
+                                                            class="badge {{ $badgeClass }} rounded-pill px-3 py-1 border border-opacity-10 d-flex align-items-center">
+                                                            @if ($isCurrentUser)
+                                                                <i class="fas fa-user-check me-1"></i>
+                                                            @endif
                                                             {{ $pendukung->pengguna->profil->nama_lengkap }}
+
+                                                            <span class="ms-2 small text-muted">
+                                                                ({{ $pendukung->tingkat_kerusakan->label() }})
+                                                            </span>
                                                         </span>
                                                     @endforeach
+
                                                     @if ($fasilitas->laporan->pendukung_count > 5)
                                                         <span class="badge bg-light text-dark rounded-pill px-3 py-1">
-                                                            +{{ $fasilitas->laporan->pendukung->count() - 5 }} lainnya
+                                                            +{{ $fasilitas->laporan->pendukung_count - 5 }} lainnya
                                                         </span>
                                                     @endif
                                                 </div>
@@ -167,7 +209,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Support/Cancel Support Buttons -->
+                                <!-- mendukung dan batalkan dukungannnnn -->
                                 <div class="text-center mt-4">
                                     @if (!$fasilitas->laporan->telahDidukung())
                                         <button
@@ -185,11 +227,13 @@
                                                 <span class="fw-medium">Anda sudah mendukung</span>
                                             </div>
                                             @if (auth()->id() == $fasilitas->laporan->id_pengguna)
-                                                <button
-                                                    class="btn btn-outline-danger rounded-pill px-4 py-2 fw-medium hover-scale"
-                                                    onclick="modalAction('{{ url('/pelaporan/' . $fasilitas->laporan->id_laporan . '/confirm') }}')">
-                                                    <i class="fas fa-trash me-2"></i>Hapus Laporan
-                                                </button>
+                                                @if (!$fasilitas->laporan->status->isFinal())
+                                                    <button
+                                                        class="btn btn-outline-danger rounded-pill px-4 py-2 fw-medium hover-scale"
+                                                        onclick="modalAction('{{ url('/pelaporan/' . $fasilitas->laporan->id_laporan . '/confirm') }}')">
+                                                        <i class="fas fa-trash me-2"></i>Hapus Laporan
+                                                    </button>
+                                                @endif
                                             @else
                                                 <button
                                                     class="btn btn-outline-danger rounded-pill px-4 py-2 fw-medium hover-scale"
@@ -200,8 +244,13 @@
                                         </div>
                                         <p class="small mt-2 text-success">
                                             @if (auth()->id() == $fasilitas->laporan->id_pengguna)
-                                                Anda adalah pembuat laporan ini. Anda dapat menghapus laporan jika
-                                                diperlukan.
+                                                @if (!$fasilitas->laporan->status->isFinal())
+                                                    Anda adalah pembuat laporan ini. Anda dapat menghapus laporan jika
+                                                    diperlukan.
+                                                @else
+                                                    Laporan ini sudah dalam proses perbaikan anda tidak bisa mengubah atau
+                                                    mengedit laporan ini !
+                                                @endif
                                             @else
                                                 {{ $fasilitas->laporan->telahDidukung() ? 'Terima kasih telah berkontribusi!' : 'Dukung laporan ini untuk mempercepat proses perbaikan' }}
                                             @endif
@@ -210,7 +259,6 @@
                                 </div>
                             </div>
                         @else
-                            <!-- No Report - Create New -->
                             <div
                                 class="alert alert-warning bg-warning bg-opacity-10 border border-warning border-opacity-25 d-flex align-items-start">
                                 <i class="fas fa-exclamation-triangle fa-lg mt-1 me-3 text-warning"></i>
@@ -240,8 +288,7 @@
             </div>
         </div>
     </div>
-    <div id="myModal" class="modal fade" tabindex="-1"></div>
-    <!-- Modal -->
+<div id="myModal" class="modal fade" tabindex="-1"></div>
     @if ($fasilitas->laporan)
         <div id="myModal" class="modal fade" tabindex="-1"></div>
     @else
