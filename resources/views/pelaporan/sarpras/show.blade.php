@@ -61,7 +61,6 @@
                         <hr class="my-4">
 
                         <div class="row">
-                            <!-- Kolom Kiri: Detail Fasilitas -->
                             <div class="col-md-6">
                                 <div class="card border-0 shadow-sm mb-4">
                                     <div class="card-header bg-primary">
@@ -74,16 +73,8 @@
                                             <div
                                                 class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
                                                 <h4 class="h5 mb-0 fw-semibold text-dark">Detail Laporan</h4>
-                                                @php
-                                                    $statusColors = [
-                                                        'BARU' => 'primary',
-                                                        'DIPROSES' => 'warning',
-                                                        'SELESAI' => 'success',
-                                                        'DITOLAK' => 'danger',
-                                                    ];
-                                                @endphp
                                                 <span
-                                                    class="badge bg-{{ $statusColors[$laporan->status] ?? 'secondary' }} rounded-pill px-3 py-2 fw-normal">
+                                                    class="badge bg-{{ $laporan->status->color() }} bg-opacity-15 text-white border border-{{ $laporan->status->color() }} border-opacity-25">
                                                     {{ $laporan->status }}
                                                 </span>
                                             </div>
@@ -145,16 +136,8 @@
                                         <!-- Status -->
                                         <div class="mb-3">
                                             <h6 class="fw-bold">Status</h6>
-                                            @php
-                                                $statusColors = [
-                                                    'BARU' => 'bg-primary',
-                                                    'DIPROSES' => 'bg-warning text-dark',
-                                                    'SELESAI' => 'bg-success',
-                                                    'DITOLAK' => 'bg-danger',
-                                                ];
-                                            @endphp
                                             <span
-                                                class="badge {{ $statusColors[$laporan->status] ?? 'bg-secondary' }} fs-6">
+                                                class="badge bg-{{ $laporan->status->color() }} bg-opacity-15 text-white border border-{{ $laporan->status->color() }} border-opacity-25">
                                                 {{ $laporan->status }}
                                             </span>
                                         </div>
@@ -197,10 +180,12 @@
                                     <i class="fas fa-users me-2"></i>Pendukung Laporan
                                     <span class="badge bg-primary ms-2">{{ $laporan->pendukung->count() }} Orang</span>
                                 </h5>
-                                <button type="button" class="btn btn-primary"
-                                    onclick="modalAction('{{ url('/pelaporan/' . $laporan->id_laporan . '/pendukung/create') }}')">
-                                    <i class="fas fa-plus me-1"></i> Tambah Pendukung
-                                </button>
+                                @if (Auth::user()->isSarpras())
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="modalAction('{{ url('/pelaporan/' . $laporan->id_laporan . '/pendukung/create') }}')">
+                                        <i class="fas fa-plus me-1"></i> Tambah Pendukung
+                                    </button>
+                                @endif
                             </div>
 
                             <div class="card-body p-0">
@@ -213,7 +198,9 @@
                                                 <th>Email</th>
                                                 <th>Waktu Dukungan</th>
                                                 <th>Tingkat Kerusakan</th>
-                                                <th width="15%">Aksi</th>
+                                                @if (Auth::user()->isSarpras())
+                                                    <th width="15%">Aksi</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -221,12 +208,12 @@
                                                 @php
                                                     $user = $pendukung->pengguna;
                                                     $profile = $user->profil;
-                                                    $avatar = asset('storage/foto_profil/' . ($profile->foto_profil));
+                                                    $avatar = asset('storage/foto_profil/' . $profile->foto_profil);
                                                     $nama = $profile->nama_lengkap ?? 'Nama Tidak Diketahui';
                                                     $email = $user->surel ?? '-';
                                                     $createdAt = \Carbon\Carbon::parse(
                                                         $pendukung->created_at,
-                                                    )->translatedFormat('j M Y, H:i');
+                                                    )->translatedFormat('j M Y');
                                                     $damageLevels = [
                                                         1 => ['Ringan', 'success'],
                                                         2 => ['Sedang', 'warning'],
@@ -247,21 +234,18 @@
                                                     <td>{{ $createdAt }}</td>
                                                     <td>
                                                         <span
-                                                            class="badge bg-{{ $damageLevels[$pendukung->tingkat_kerusakan][1] }}">
-                                                            {{ $damageLevels[$pendukung->tingkat_kerusakan][0] }}
+                                                            class="badge bg-{{ $damageLevels[$pendukung->tingkat_kerusakan->value][1] }}">
+                                                            {{ $damageLevels[$pendukung->tingkat_kerusakan->value][0] }}
                                                         </span>
                                                     </td>
-                                                    <td>
-                                                        <button class="btn btn-sm btn-outline-primary"
-                                                            data-bs-toggle="modal" data-bs-target="#supporterDetailModal"
-                                                            data-desc="{{ $pendukung->deskripsi }}">
-                                                            <i class="fas fa-eye me-1"></i> Detail
-                                                        </button>
-                                                        <button type="button" class="btn btn-sm btn-outline-danger"
-                                                            onclick="modalConfirm({{ $pendukung->id_user }}, {{ $laporan->id_laporan }})">
-                                                            <i class="bx bx-trash me-1"></i> Hapus
-                                                        </button>
-                                                    </td>
+                                                    @if (Auth::user()->isSarpras())
+                                                        <td>
+                                                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                                                onclick="modalConfirm({{ $pendukung->id_user }}, {{ $laporan->id_laporan }})">
+                                                                <i class="bx bx-trash me-1"></i> Hapus
+                                                            </button>
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                             @empty
                                                 <tr>
@@ -285,9 +269,9 @@
                                 <a href="javascript:window.print()" class="btn btn-outline-primary me-2">
                                     <i class="fas fa-print me-2"></i>Cetak
                                 </a>
-                                @if ($laporan->status == 'BARU')
-                                    <button class="btn btn-success">
-                                        <i class="fas fa-check-circle me-2"></i>Proses Laporan
+                                @if (Auth::user()->isAdmin())
+                                    <button onclick="showConfirmModal({{ $laporan->id_laporan }})" class="btn btn-outline-success me-2">
+                                        <i class="fas fa-check-circle me-2"></i>Verifikasi
                                     </button>
                                 @endif
                             </div>
@@ -313,33 +297,24 @@
         </div>
     </div>
 
-    <div class="modal fade" id="supporterDetailModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Detail Deskripsi Pendukung</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="p-3 bg-light rounded">
-                        <p id="supporterDescription">{{ $laporan->deskripsi }}</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
+    <!-- Modal Verifikasi -->
+    <div class="modal fade" id="verifikasiModal" tabindex="-1" aria-labelledby="ajukanModalLabel" aria-hidden="true">
+        @include('pelaporan.admin.component.modal_verifikasi');
     </div>
+
     <div id="myModal" class="modal fade" tabindex="-1">
     </div>
 
-    @include('pelaporan.admin.modal_pendukung_confirm')
+    @include('pelaporan.sarpras.modal_pendukung_confirm')
 @endsection
 
 <script>
+    function showConfirmModal(id) {
+        currentLaporanId = id;
+        $('#verifikasiModal').modal('show');
+    }
+
     function modalConfirm(pendukungId, laporanId) {
-        // Set up modal content and action
         $('#confirmModalDelete').modal('show');
         $('#form-delete').attr('action', '/pelaporan/' + laporanId + '/pendukung/' + pendukungId + '/delete');
 
@@ -351,10 +326,8 @@
         </div>
     `);
 
-        // Remove any existing submit handlers to prevent duplicates
         $('#form-delete').off('submit');
 
-        // Add new submit handler
         $('#form-delete').on('submit', function(e) {
             e.preventDefault();
 
@@ -408,11 +381,6 @@
                         text: errorMessage
                     });
                 },
-                complete: function() {
-                    // Restore button state
-                    submitBtn.prop('disabled', false);
-                    submitBtn.html(originalBtnText);
-                }
             });
         });
     }
@@ -423,27 +391,6 @@
         });
     }
 </script>
-
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#supportersTable').DataTable({
-                responsive: true,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json'
-                }
-            });
-
-            $('#supporterDetailModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget);
-                var description = button.data('desc');
-                $(this).find('#supporterDescription').text(description);
-            });
-
-            $('[data-bs-toggle="tooltip"]').tooltip();
-        });
-    </script>
-@endsection
 
 <style>
     .card-header {

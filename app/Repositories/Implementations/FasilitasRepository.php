@@ -20,7 +20,19 @@ class FasilitasRepository implements FasilitasRepositoryInterface
 
     public function getById($id)
     {
-        return FasilitasModel::find($id);
+        $fasilitas = FasilitasModel::where('id_fasilitas', $id)->with([
+            'ruangan.gedung',
+            'kategori',
+            'laporan' => function ($query) {
+                $query->where('status', '!=', 'selesai');
+            }
+        ])->first();
+        
+        if(!$fasilitas) {
+            return FasilitasModel::find($id);
+        }
+
+        return $fasilitas;
     }
 
     public function update($id, array $data)

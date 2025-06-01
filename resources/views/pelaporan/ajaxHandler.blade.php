@@ -34,7 +34,44 @@
                     data: "fasilitas.nama"
                 },
                 {
-                    data: "status"
+                    data: "status.value",
+                    render: function(data, type, row) {
+                        const statusMap = {
+                            'baru': {
+                                color: 'primary',
+                                label: 'Baru'
+                            },
+                            'diverifikasi': {
+                                color: 'info',
+                                label: 'Diverifikasi'
+                            },
+                            'diperbaiki': {
+                                color: 'warning',
+                                label: 'Sedang Diperbaiki'
+                            },
+                            'ditolak': {
+                                color: 'danger',
+                                label: 'Ditolak'
+                            },
+                            'selesai': {
+                                color: 'success',
+                                label: 'Selesai'
+                            }
+                        };
+
+                        const status = statusMap[data] || {
+                            color: 'secondary',
+                            icon: 'fa-question',
+                            label: data
+                        };
+
+                        return `
+                            <span class="badge bg-${status.color} bg-opacity-15 text-white
+                                border border-${status.color} border-opacity-25">
+                                ${status.label}
+                            </span>
+                        `;
+                    }
                 },
                 {
                     data: "periode.nama"

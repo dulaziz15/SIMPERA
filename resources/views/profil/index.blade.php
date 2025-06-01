@@ -1,70 +1,75 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="card p-6">
-        <div class="card-body">
-            <div class="container mt-4">
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 align-self-center">
-                        <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s"
-                            style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                            <div class="advisor_thumb">
-                                <img src="{{ asset('storage/foto_profil/' . $profil->profil->foto_profil) }}" alt=""
-                                    style="width: 100%">
+    @if ($profil->profil)
+        <div class="card p-6">
+            <div class="card-body">
+                <div class="container mt-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 align-self-center">
+                            <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s"
+                                style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                                <div class="advisor_thumb">
+                                    <img src="{{ asset('storage/foto_profil/' . $profil->profil->foto_profil) }}"
+                                        alt="" style="img-fluid object-fit-cover hover-zoom"
+                                        class="ratio ratio-1x1 rounded-3 overflow-hidden bg-light">
 
-                                <a onclick="modalUpdateImage('{{ $profil->profil->id_profil }}')" class="btn-edit-foto"
-                                    title="Edit Foto">
-                                    <i class="fa fa-camera"></i>
-                                </a>
-                            </div>
-                            <div class="single_advisor_details_info">
-                                <h6>{{ $profil->nama_pengguna }}</h6>
-                                <p class="designation">{{ $profil->peran->nama }}</p>
+                                    <a onclick="modalUpdateImage('{{ $profil->profil->id_profil }}')" class="btn-edit-foto"
+                                        title="Edit Foto">
+                                        <i class="fa fa-camera"></i>
+                                    </a>
+                                </div>
+                                <div class="single_advisor_details_info">
+                                    <h6>{{ $profil->nama_pengguna }}</h6>
+                                    <p class="designation">{{ $profil->peran->nama }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-8 align-self-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="mb-3">Informasi Lengkap</h5>
-                                <hr>
-                                <table class="table table-borderless">
-                                    <tr>
-                                        <th style="width: 200px;">Nama Lengkap</th>
-                                        <td>{{ $profil->profil->nama_lengkap }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Nama Pengguna</th>
-                                        <td>{{ $profil->nama_pengguna }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Email</th>
-                                        <td>{{ $profil->surel }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Kode Role</th>
-                                        <td>{{ $profil->peran->kode_peran }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Role</th>
-                                        <td>{{ $profil->peran->nama }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tanggal Bergabung</th>
-                                        <td>{{ $profil->created_at->format('d M Y') }}</td>
-                                    </tr>
-                                </table>
-                                <a href="" class="btn btn-primary mt-2">
-                                    <i class="fa fa-edit"></i> Edit Profil
-                                </a>
+                        <div class="col-lg-8 align-self-center">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Informasi Lengkap</h5>
+                                    <hr>
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <th style="width: 200px;">Nama Lengkap</th>
+                                            <td>{{ $profil->profil->nama_lengkap }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nama Pengguna</th>
+                                            <td>{{ $profil->nama_pengguna }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{ $profil->surel }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Kode Role</th>
+                                            <td>{{ $profil->peran->kode_peran }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Role</th>
+                                            <td>{{ $profil->peran->nama }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tanggal Bergabung</th>
+                                            <td>{{ $profil->created_at->format('d M Y') }}</td>
+                                        </tr>
+                                    </table>
+                                    <a href="" class="btn btn-primary mt-2">
+                                        <i class="fa fa-edit"></i> Edit Profil
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    @include('profil.component.modal_update_image')
+        @include('profil.component.modal_update_image')
+    @else
+        <h1>belum ada profil</h1>
+    @endif
 @endsection
 
 @push('css')

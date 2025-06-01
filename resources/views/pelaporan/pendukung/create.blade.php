@@ -339,19 +339,16 @@
                 },
                 error: function(xhr) {
                     if (xhr.status === 422) {
-                        // Handle validation errors
                         const res = xhr.responseJSON;
                         handleValidationErrors(res);
                     } else if (xhr.status === 500 && xhr.responseJSON &&
                         xhr.responseJSON.message.includes('Duplicate entry')) {
-                        // Specific handling for duplicate entry
                         Swal.fire({
                             icon: 'error',
                             title: 'Data Ganda',
                             text: 'Pengguna ini sudah mendukung laporan tersebut',
                         });
                     } else {
-                        // Generic server error
                         Swal.fire({
                             icon: 'error',
                             title: 'Kesalahan Server',
@@ -362,7 +359,6 @@
                 }
             });
 
-            // Helper function for validation errors
             function handleValidationErrors(response) {
                 $('.invalid-feedback').text('');
                 $('.form-control').removeClass('is-invalid');
@@ -381,7 +377,6 @@
                 });
             }
 
-            // Function to show existing supporters (optional)
             function showExistingSupporters() {
                 $('#supportersModal').modal('show');
             }

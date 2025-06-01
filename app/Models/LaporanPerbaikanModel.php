@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Status\StatusLaporanPerbaikan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +21,15 @@ class LaporanPerbaikanModel extends Model
         'deskripsi',
         'url_foto',
         'status',
-        'id_periode'
+        'id_periode',
+        'waktu_pelaporan',
+        'waktu_perubahan'
     ];
+
+    public function getStatusAttribute($value)
+    {
+        return StatusLaporanPerbaikan::from($value);
+    }
 
     public function pengguna()
     {
@@ -58,5 +66,13 @@ class LaporanPerbaikanModel extends Model
         return $this->pendukung()
             ->where('id_user', Auth::user()->id_pengguna)
             ->exists();
+    }
+
+    public function penugasan() {
+        return $this->hasOne(PenugasanModel::class, 'id_laporan');
+    }
+
+    public function sudahDitugaskan() {
+        return $this->penugasan()->exists() ? false : true;
     }
 }
