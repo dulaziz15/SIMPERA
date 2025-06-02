@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('m_riwayat_perbaikan', function (Blueprint $table) {
              $table->id('id_riwayat');
-            $table->unsignedBigInteger('id_laporan');
+            $table->unsignedBigInteger('id_penugasan');
             $table->text('tindakan_dilakukan');
             $table->text('material_dipakai')->nullable();
             $table->decimal('biaya', 10, 2)->nullable();
@@ -21,9 +21,9 @@ return new class extends Migration
             $table->timestamp('tanggal_perbaikan')->useCurrent();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
-            $table->foreign('id_laporan')
-                  ->references('id_laporan')
-                  ->on('m_laporan_perbaikan')
+            $table->foreign('id_penugasan')
+                  ->references('id_penugasan')
+                  ->on('m_penugasan')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->foreign('diperbaiki_oleh')
