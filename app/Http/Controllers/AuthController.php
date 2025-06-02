@@ -25,7 +25,9 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect('/dashboard');
         } else {
-            return redirect('login');
+            return redirect('login')->withErrors([
+                'surel' => 'Email atau password salah.',
+            ])->withInput($request->except('hash_kata_sandi'));
         }
     }
 
