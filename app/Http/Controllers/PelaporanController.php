@@ -115,7 +115,14 @@ class PelaporanController extends Controller
         $activeMenu = 'pelaporan';
         $laporan = $this->pelaporanService->show($id);
         
-        return view('pelaporan.admin.show', compact('laporan', 'breadcrumb', 'page', 'activeMenu'));
+        return view('pelaporan.sarpras.show', compact('laporan', 'breadcrumb', 'page', 'activeMenu'));
+    }
+
+    public function getLaporan($id)
+    {
+        $laporan = $this->pelaporanService->getLaporanById($id);
+        // dd($laporan);
+        return response()->json($laporan);
     }
 
     public function edit($id)
@@ -209,4 +216,5 @@ class PelaporanController extends Controller
         $fasilitas = $this->fasilitasService->show($id);
         return view('pelaporan.mahasiswa.show', compact('fasilitas', 'breadcrumb', 'page', 'activeMenu'));
     }
+
 }
