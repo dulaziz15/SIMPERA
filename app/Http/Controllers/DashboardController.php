@@ -9,7 +9,7 @@ class DashboardController extends Controller
     public function index() {
         $breadcrumb = (object) [
             'title' => 'Dashboard',
-            'list' => ['Home', 'Dashboard']
+            'list' => ['Dashboard', 'Dashboard']
         ];
 
         $page = (object) [

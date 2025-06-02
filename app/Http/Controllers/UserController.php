@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Daftar User',
-            'list' => ['Home', 'User']
+            'list' => ['Data Master', 'User']
         ];
 
         $page = (object) [

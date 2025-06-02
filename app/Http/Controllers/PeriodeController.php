@@ -17,7 +17,7 @@ class PeriodeController extends Controller
     public function index() {
         $breadcrumb = (object) [
             'title' => 'Periode Pelaporan',
-            'list' => ['Home', 'Periode']
+            'list' => ['Data Master', 'Periode']
         ];
 
         $page = (object) [

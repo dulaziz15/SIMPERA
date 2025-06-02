@@ -25,7 +25,7 @@ class PeranController extends Controller
 
         $breadcrumb = (object)[
             'title' => 'User Roles',
-            'list' => ['Home', 'Roles']
+            'list' => ['Data Master', 'Roles']
         ];
 
         return view('peran.index', compact('peran', 'breadcrumb', 'activeMenu'));

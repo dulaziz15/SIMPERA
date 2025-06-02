@@ -33,7 +33,7 @@ class FasilitasController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Fasilitas',
-            'list' => ['Home', 'Fasilitas']
+            'list' => ['Data Master', 'Fasilitas']
         ];
 
         $page = (object) [
