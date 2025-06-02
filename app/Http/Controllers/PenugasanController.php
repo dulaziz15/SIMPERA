@@ -7,6 +7,7 @@ use App\Http\Requests\PenugasanRequest;
 use App\Services\Interfaces\PelaporanServiceInterface;
 use App\Services\Interfaces\PenugasanServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PenugasanController extends Controller
 {
@@ -39,8 +40,8 @@ class PenugasanController extends Controller
                 StatusLaporanPerbaikan::DIAJUKAN->value
             ]);
         });
-        // dd($laporan);
-        return view('penugasan.index', compact('breadcrumb', 'page', 'activeMenu', 'laporan'));
+        $penugasan = $this->penugasanService->getPenugasanByTeknisi();
+        return view('penugasan.index', compact('breadcrumb', 'page', 'activeMenu', 'laporan', 'penugasan'));
     }
 
     public function show($id)
@@ -73,6 +74,27 @@ class PenugasanController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Penugasan Gagal Disimpan.',
+                    'redirect' => url('/penugasan')
+                ]);
+            }
+        }
+
+        return redirect('/penugasan');
+    }
+
+    public function terimaPenugasan(Request $request, $id) {
+        if ($request->ajax() || $request->wantsJson()) {
+            $terima = $this->penugasanService->terimaPenugasan($id);
+            if ($terima) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Penugasan berhasil diterima.',
+                    'redirect' => url('/penugasan')
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Penugasan Gagal diterima.',
                     'redirect' => url('/penugasan')
                 ]);
             }

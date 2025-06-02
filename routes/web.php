@@ -12,6 +12,7 @@ use App\Http\Controllers\PendukungLaporanController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PenugasanController;
 use App\Http\Controllers\PeranController;
+use App\Http\Controllers\PerbaikanController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RuanganController;
@@ -152,6 +153,11 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/', [PenugasanController::class, 'index']);
 		Route::get('/{idLaporan}/detail', [PenugasanController::class, 'show']);
 		Route::post('/{idLaporan}/create', [PenugasanController::class, 'store']);
+		Route::post('/{id}/terima', [PenugasanController::class, 'terimaPenugasan']);
+	});
+
+	Route::prefix('perbaikan')->group(function () {
+		Route::get('/', [PerbaikanController::class, 'index']);
 	});
 
 	Route::prefix('fasilitas')->group(function () {
