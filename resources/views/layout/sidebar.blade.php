@@ -86,12 +86,6 @@
                     </li>
                 @endif
                 </li>
-                <li>
-                    <a href="{{ url('periode') }}">
-                        <i class="bx bx-calendar"></i>
-                        <span data-key="t-dashboard">Periode</span>
-                    </a>
-                </li>
                 @if (Auth::user()->isUser())
                     <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
                     
@@ -138,7 +132,6 @@
                             <span data-key="t-dashboard">Perhitungan</span>
                         </a>
                     </li>
-                @endif
                 <li class="menu-title" data-key="t-menu">Log Activity</li>
                 <li>
                     <a href="index.html">
@@ -146,7 +139,7 @@
                         <span data-key="t-dashboard">Log Activity</span>
                     </a>
                 </li>
-
+                @endif
             </ul>
         </div>
     </div>
