@@ -15,9 +15,7 @@ class CreateMDukunganLaporanTable extends Migration
             $table->integer('tingkat_kerusakan');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
-
             $table->primary(['id_laporan', 'id_user']);
-
             $table->foreign('id_laporan')
                     ->references('id_laporan')
                     ->on('m_laporan_perbaikan')
