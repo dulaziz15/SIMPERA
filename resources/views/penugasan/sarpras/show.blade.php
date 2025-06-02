@@ -211,6 +211,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mt-4 text-center">
+                        <a href="{{ url()->previous() }}" class="btn btn-outline-secondary hover-scale">
+                            <i class="fas fa-arrow-left me-2"></i>Kembali
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -225,7 +230,6 @@
 
 @push('scripts')
     <script>
-        Fancybox.bind("[data-fancybox]", {
-        });
+        Fancybox.bind("[data-fancybox]", {});
     </script>
 @endpush

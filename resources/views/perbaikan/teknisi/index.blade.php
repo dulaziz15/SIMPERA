@@ -50,7 +50,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($penugasan as $tugas)
-                                        @if ($tugas->status_progres == 'ditugaskan')
+                                        @if ($tugas->status_progres != 'ditugaskan')
                                             <tr class="{{ $tugas->status == 'selesai' ? 'table-success' : '' }}">
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>

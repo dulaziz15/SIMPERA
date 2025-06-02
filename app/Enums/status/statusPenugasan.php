@@ -2,7 +2,7 @@
 
 namespace App\Enums\Status;
 
-enum statusPenugasan: string
+enum StatusPenugasan: string
 {
     case DITUGASKAN = 'ditugaskan';
     case PROSES = 'proses';

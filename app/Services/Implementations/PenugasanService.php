@@ -3,7 +3,7 @@
 namespace App\Services\Implementations;
 
 use App\Enums\Status\StatusLaporanPerbaikan;
-use App\Enums\Status\statusPenugasan;
+use App\Enums\Status\StatusPenugasan;
 use App\Repositories\Interfaces\PelaporanRepositoryInterface;
 use App\Repositories\Interfaces\PenugasanRepositoryInterface;
 use App\Services\Interfaces\PenugasanServiceInterface;
@@ -35,9 +35,19 @@ class PenugasanService implements PenugasanServiceInterface
                 'ditugaskan_oleh' => Auth::user()->id_pengguna,
                 'tanggal_mulai' => $request->tanggal_mulai,
                 'tanggal_selesai' => $request->tanggal_selesai,
-                'status_progres' => statusPenugasan::DITUGASKAN->value,
+                'status_progres' => StatusPenugasan::DITUGASKAN->value,
                 'catatan_perubahan' => $request->catatan_perubahan
             ]);
         }
+    }
+
+    public function getPenugasanByTeknisi() {
+        return $this->penugasanRepository->getByTeknisi(Auth::user()->id_pengguna);
+    }
+
+    public function terimaPenugasan($id) {
+        return $this->penugasanRepository->updateStatus($id, [
+            'status_progres' => StatusPenugasan::PROSES->value
+        ]);
     }
 }
