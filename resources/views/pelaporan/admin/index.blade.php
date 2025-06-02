@@ -81,19 +81,12 @@
     </div>
     <div class="card card-outline card-primary">
         <div class="card-header">
-
             <div class="card-tools">
                 <button onclick="modalAction('{{ url('pelaporan/create') }}')"
                     class="btn btn-sm btn-success mt-1">Tambah</button>
             </div>
         </div>
         <div class="card-body" id="user-list">
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
             <div class="row mb-4">
                 <div class="col-md-12">
                     <div class="col-lg-4">
@@ -109,7 +102,7 @@
                 </div>
             </div>
             <table class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive"
-                id="table_pelaporan">
+                id="table_pengajuan">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -123,6 +116,127 @@
                 </thead>
             </table>
         </div>
+        <!-- Modal Verifikasi -->
+        <div class="modal fade" id="verifikasiModal" tabindex="-1" aria-labelledby="ajukanModalLabel"
+            aria-hidden="true">
+            @include('pelaporan.admin.component.modal_verifikasi');
+        </div>
         <div id="myModal" class="modal fade" tabindex="-1">
         </div>
     </div>
+    @push('scripts')
+        <script>
+            function showConfirmModal(id) {
+                currentLaporanId = id;
+                $('#verifikasiModal').modal('show');
+            }
+
+            function modalAction(url = '') {
+                $('#myModal').load(url, function() {
+                    $('#myModal').modal('show');
+                });
+            }
+
+            var dataPengajuan;
+            $(document).ready(function() {
+                dataPengajuan = $('#table_pengajuan').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    stateSave: true,
+                    ajax: {
+                        url: "{{ url('pelaporan/data') }}",
+                        type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        dataFilter: function(data) {
+                            var json = JSON.parse(data);
+                            json.data = json.data.filter(function(item) {
+                                return item.status && item.status.value === 'diajukan';
+                            });
+                            return JSON.stringify(json);
+                        }
+                    },
+                    columns: [{
+                            data: null,
+                            className: 'text-center',
+                            orderable: false,
+                            searchable: false,
+                            render: function(data, type, row, meta) {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
+                        },
+                        {
+                            data: "pengguna.nama_pengguna"
+                        },
+                        {
+                            data: "fasilitas.nama"
+                        },
+                        {
+                            data: "status.value",
+                            render: function(data, type, row) {
+                                const statusMap = {
+                                    'baru': {
+                                        color: 'primary',
+                                        label: 'Baru'
+                                    },
+                                    'diverifikasi': {
+                                        color: 'info',
+                                        label: 'Diverifikasi'
+                                    },
+                                    'diperbaiki': {
+                                        color: 'warning',
+                                        label: 'Sedang Diperbaiki'
+                                    },
+                                    'ditolak': {
+                                        color: 'danger',
+                                        label: 'Ditolak'
+                                    },
+                                    'selesai': {
+                                        color: 'success',
+                                        label: 'Selesai'
+                                    }
+                                };
+
+                                const status = statusMap[data] || {
+                                    color: 'secondary',
+                                    icon: 'fa-question',
+                                    label: data
+                                };
+
+                                return `
+                            <span class="badge bg-${status.color} bg-opacity-15 text-white
+                                border border-${status.color} border-opacity-25">
+                                ${status.label}
+                            </span>
+                        `;
+                            }
+                        },
+                        {
+                            data: "periode.nama"
+                        },
+                        {
+                            data: null,
+                            render: function(data, type, row) {
+                                return moment(row.created_at).format('D MMM YYYY');
+                            }
+                        },
+                        {
+                            data: null,
+                            orderable: false,
+                            searchable: false,
+                            className: 'text-center p-2',
+                            render: function(data, type, row) {
+                                return `
+                                    <a href="{{ url('/pelaporan/${row.id_laporan}/show') }}" class="btn btn-soft-info btn-sm"><i class="bx bx-show-alt"></i> Detail</a>
+                                    <button onclick="showConfirmModal(${row.id_laporan})" class="btn btn-soft-success btn-sm">
+                                        <i class="bx bx-check-shield"></i> Verifikasi
+                                    </button>
+                                `;
+                            }
+                        }
+                    ]
+                });
+            });
+        </script>
+    @endpush

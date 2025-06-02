@@ -22,17 +22,18 @@ class UserRepository implements UserRepositoryInterface
     public function search($request)
     {
         $query = User::query()->with('peran');
+        
+
+        if ($request->role) {
+            $query->whereHas('peran', function ($q) use ($request) {
+                $q->where('nama', $request->role);
+            });
+        }
 
         if ($request->keyword) {
             $query->where(function ($q) use ($request) {
                 $q->where('nama_pengguna', 'like', '%' . $request->keyword . '%')
                     ->orWhere('surel', 'like', '%' . $request->keyword . '%');
-            });
-        }
-
-        if ($request->role) {
-            $query->whereHas('peran', function ($q) use ($request) {
-                $q->where('nama', $request->role);
             });
         }
 

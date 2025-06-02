@@ -5,29 +5,64 @@ namespace App\Enums\Status;
 enum StatusLaporanPerbaikan: string
 {
     case BARU = 'baru';
+    case DIAJUKAN = 'diajukan';
     case VERIFIKASI = 'diverifikasi';
     case PERBAIKAN = 'diperbaiki';
     case REJECT = 'ditolak';
     case SELESAI = 'selesai';
 
-    public static function labels(): array
-    {
-        return [
-            self::BARU->value => 'baru',
-            self::VERIFIKASI->value => 'diverifikasi',
-            self::PERBAIKAN->value => 'esdang diperbaiki',
-            self::REJECT->value => 'ditolak',
-            self::SELESAI->value => 'selesai'
-        ];
-    }
-    public function badge(): string
+    public function label(): string
     {
         return match ($this) {
-            self::BARU => '<span class="badge bg-primary">Baru</span>',
-            self::VERIFIKASI => '<span class="badge bg-info">Diverifikasi</span>',
-            self::PERBAIKAN => '<span class="badge bg-warning">Sedang Diperbaiki</span>',
-            self::REJECT => '<span class="badge bg-danger">Ditolak</span>',
-            self::SELESAI => '<span class="badge bg-success">Selesai</span>',
+            self::BARU => 'Baru',
+            self::DIAJUKAN => 'Diajukan',
+            self::VERIFIKASI => 'Diverifikasi',
+            self::PERBAIKAN => 'Sedang Diperbaiki',  // Fixed typo from "esdang"
+            self::REJECT => 'Ditolak',
+            self::SELESAI => 'Selesai'
+        };
+    }
+
+    public function badge(): string
+    {
+        return sprintf(
+            '<span class="badge bg-%s bg-opacity-15 text-white border border-%s border-opacity-25">%s</span>',
+            $this->color(),
+            $this->color(),
+            $this->color(),
+            $this->label()
+        );
+    }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::BARU => 'primary',
+            self::DIAJUKAN => 'secondary',
+            self::VERIFIKASI => 'info',
+            self::PERBAIKAN => 'warning',
+            self::REJECT => 'danger',
+            self::SELESAI => 'success',
+        };
+    }
+
+    public function icon(): string
+    {
+        return match ($this) {
+            self::BARU => 'fa-clock',
+            self::DIAJUKAN => 'fa-timae-circle',
+            self::VERIFIKASI => 'fa-check-circle',
+            self::PERBAIKAN => 'fa-tools',
+            self::REJECT => 'fa-times-circle',
+            self::SELESAI => 'fa-check-double',
+        };
+    }
+
+    public function isFinal(): bool
+    {
+        return match ($this) {
+            self::VERIFIKASI, self::PERBAIKAN, self::SELESAI => true,
+            default => false,
         };
     }
 }
