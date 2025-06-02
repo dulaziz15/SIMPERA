@@ -33,7 +33,7 @@ class PelaporanController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Laporan Perbaikan',
-            'list' => ['Laporan Perbaikan', 'Laporan Perbaikan']
+            'list' => ['Laporan Perbaikan', 'Laporan']
         ];
 
         $page = (object) [
