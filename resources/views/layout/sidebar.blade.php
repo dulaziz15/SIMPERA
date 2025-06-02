@@ -85,13 +85,6 @@
                         </ul>
                     </li>
                 @endif
-
-                        <li>
-                            <a href="{{ url('fasilitas') }}">
-                                <span data-key="t-chat">Fasilitas</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li>
                     <a href="{{ url('periode') }}">
