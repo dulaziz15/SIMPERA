@@ -26,7 +26,7 @@ class PengajuanController extends Controller
 
         $activeMenu = 'pengajuan';
         $laporan = $this->laporanService->getAll();
-        $rekomendasi = $this->laporanService->show([16])->filter(function ($item) {
+        $rekomendasi = $this->laporanService->show([])->filter(function ($item) {
             return $item->status->value === 'baru';
         });
         $laporanDiajukan = $laporan->filter(function ($item) {
