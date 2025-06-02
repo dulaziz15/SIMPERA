@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Status\StatusPenugasan;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,7 +29,7 @@ class PenugasanModel extends Model
         'tanggal_mulai' => 'datetime',
         'tanggal_selesai' => 'datetime',
     ];
-
+  
     // public function status($value)
     // {
     //     return StatusPenugasan::from($value);

@@ -57,7 +57,28 @@
         </h4>
     </div>
     <div class="card-body">
-
+        <!-- Filter Section -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <label class="form-label">Filter Tanggal</label>
+                <input type="date" class="form-control" id="filter-date">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Filter Fasilitas</label>
+                <select class="form-select" id="filter-fasilitas">
+                    <option value="">Semua Fasilitas</option>
+                    <option value="1">Lab Komputer</option>
+                    <option value="2">AC Ruangan</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Urutkan</label>
+                <select class="form-select" id="filter-sort">
+                    <option value="terbaru">Terbaru</option>
+                    <option value="terlama">Terlama</option>
+                </select>
+            </div>
+        </div>
         <!-- Daftar Laporan -->
         <div class="table-responsive">
             <table class="table table-hover table-striped" id="tabel-penugasan">
@@ -97,6 +118,21 @@
                                 </td>
                             </tr>
                         @endif
+                    {{-- @dd($laporan) --}}
+                    @foreach ($laporan as $index => $item)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $item->fasilitas->nama }}</td>
+                            <td>{{ $item->pengguna->profil->nama_lengkap }}</td>
+                            <td>{{ $item->waktu_perubahan }}</td>
+                            <td><span class="badge bg-{{ $item->status->color() }}">{{ $item->status->label() }}</span></td>
+                            <td>
+                                <a href="{{ url('/penugasan/' . $item->id_laporan . '/detail') }}"
+                                    class="btn btn-sm btn-primary btn-detail">
+                                    <i class="fas fa-eye me-1"></i>Detail
+                                </a>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
