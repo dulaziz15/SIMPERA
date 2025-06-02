@@ -196,7 +196,7 @@
                                                                     alt="...">
                                                             </div>
                                                             <div class="flex-grow-1 ms-3 mb-4">
-                                                                <h5 class="font-size-18 text-white">Dina Aprilliana
+                                                                <h5 class="font-size-18 text-white">Brian Hernandez
                                                                 </h5>
                                                                 <p class="mb-0 text-white-50">Mahasiswa Akuntansi</p>
                                                             </div>
