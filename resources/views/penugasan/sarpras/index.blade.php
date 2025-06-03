@@ -34,7 +34,7 @@
                                 <td>{{ $item->pengguna->profil->nama_lengkap }}</td>
                                 <td>{{ $item->waktu_perubahan }}</td>
                                 <td><span
-                                        class="badge bg-warning">{{ $item->penugasan->status_progres }}</span>
+                                        class="badge bg-warning">{{ $item->status->label() }}</span>
                                 </td>
                                 <td>
                                     <a href="{{ url('/penugasan/' . $item->id_laporan . '/detail') }}"
@@ -118,21 +118,6 @@
                                 </td>
                             </tr>
                         @endif
-                    {{-- @dd($laporan) --}}
-                    @foreach ($laporan as $index => $item)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->fasilitas->nama }}</td>
-                            <td>{{ $item->pengguna->profil->nama_lengkap }}</td>
-                            <td>{{ $item->waktu_perubahan }}</td>
-                            <td><span class="badge bg-{{ $item->status->color() }}">{{ $item->status->label() }}</span></td>
-                            <td>
-                                <a href="{{ url('/penugasan/' . $item->id_laporan . '/detail') }}"
-                                    class="btn btn-sm btn-primary btn-detail">
-                                    <i class="fas fa-eye me-1"></i>Detail
-                                </a>
-                            </td>
-                        </tr>
                     @endforeach
                 </tbody>
             </table>

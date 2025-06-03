@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Services\Interfaces\PelaporanServiceInterface;
+use App\Services\Interfaces\SpkServiceInterface;
 use Illuminate\Http\Request;
 
 class PengajuanController extends Controller
 {
     protected $laporanService;
+    protected $spkService;
 
-    public function __construct(PelaporanServiceInterface $laporanService)
-    {
+    public function __construct(
+        PelaporanServiceInterface $laporanService,
+        SpkServiceInterface $spkService,
+    ) {
         $this->laporanService = $laporanService;
+        $this->spkService = $spkService;
     }
     public function index()
     {
@@ -25,10 +30,11 @@ class PengajuanController extends Controller
         ];
 
         $activeMenu = 'pengajuan';
+        $spk = $this->spkService->spk();
+        // dd($spk);
         $laporan = $this->laporanService->getAll();
-        $rekomendasi = $this->laporanService->show([])->filter(function ($item) {
-            return $item->status->value === 'baru';
-        });
+        $rekomendasi = $this->laporanService->hasilSpk($spk);
+        // dd($rekomendasi);
         $laporanDiajukan = $laporan->filter(function ($item) {
             return $item->status->value === 'diajukan';
         });
@@ -36,7 +42,42 @@ class PengajuanController extends Controller
         return view('pengajuan.sarpras.index', compact('breadcrumb', 'page', 'activeMenu', 'laporan', 'rekomendasi', 'laporanDiajukan'));
     }
 
-    public function ajukan(Request $request, $id) {
+    public function spk()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Pengajuan',
+            'list' => ['Home', 'Pengajuan']
+        ];
+
+        $page = (object) [
+            'title' => 'Daftar Pengajuan yang terdaftar dalam sistem'
+        ];
+
+        $activeMenu = 'pengajuan';
+        $alternatif = $this->spkService->alternatif();
+        $kriteria = $this->spkService->kriteria();
+        $normalisasi = $this->spkService->normalisasi();
+        $preferensi = $this->spkService->preferensi();
+        $persimpanganPreferensi = $this->spkService->persimpanganPreferensi();
+        $bobot = $this->spkService->bobot();
+        $ranking = $this->spkService->ranking();
+        $hasil = $this->spkService->hasil();
+        // dd($laporanDiajukan);
+        $spk = [
+            'alternatif' => $alternatif,
+            'kriteria' => $kriteria,
+            'normalisasi' => $normalisasi,
+            'preferensi' => $preferensi,
+            'persimpanganPreferensi' => $persimpanganPreferensi,
+            'bobot' => $bobot,
+            'ranking' => $ranking,
+            'hasil' => $hasil
+        ];
+        return view('pengajuan.sarpras.spk', compact('breadcrumb', 'page', 'activeMenu', 'spk'));
+    }
+
+    public function ajukan(Request $request, $id)
+    {
         // dd($request->ajax());
         if ($request->ajax() || $request->wantsJson()) {
             // dd($request);
@@ -59,7 +100,8 @@ class PengajuanController extends Controller
         return redirect('/pengajuan/');
     }
 
-    public function verifikasi(Request $request, $id) {
+    public function verifikasi(Request $request, $id)
+    {
         // dd($request->ajax());
         if ($request->ajax() || $request->wantsJson()) {
             // dd($request);

@@ -2,7 +2,7 @@
 
 namespace App\Enums\Status;
 
-enum StatusPenugasan: string
+enum StatusPenugasan: string {
     case DITUGASKAN = 'ditugaskan';
     case PROSES = 'proses';
     case SELESAI = 'selesai';
@@ -16,7 +16,7 @@ enum StatusPenugasan: string
         };
     }
 
-    public function badge(): string
+    public function badge()
     {
         return sprintf(
             '<span class="badge bg-%s bg-opacity-15 text-white border border-%s border-opacity-25">%s</span>',
