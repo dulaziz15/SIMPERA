@@ -173,7 +173,7 @@ class SpkService implements SpkServiceInterface
     public function kriteria()
     {
         $laporan = $this->alternatif();
-        $data = []; // Inisialisasi array data
+        $data = []; 
 
         foreach ($laporan as $item) {
             $idFasilitas = $item->id_fasilitas;
@@ -192,7 +192,7 @@ class SpkService implements SpkServiceInterface
             };
 
             // 3. Frekuensi Penggunaan
-            $frekuensi = $fungsi; 
+            $frekuensi = $fungsi;
 
             // 4. Resiko Keselamatan
             $resiko = match (strtolower($item->fasilitas->kategori->kode)) {
@@ -215,7 +215,7 @@ class SpkService implements SpkServiceInterface
 
             $laporan_bobot = 1;
             if ($jumlah_laporan >= 3) $laporan_bobot = 3;
-            elseif ($jumlah_laporan > 1 ) $laporan_bobot = 2;
+            elseif ($jumlah_laporan > 1) $laporan_bobot = 2;
             elseif ($jumlah_laporan = 1) $laporan_bobot = 1;
 
             // Menyimpan nilai kriteria
@@ -230,22 +230,26 @@ class SpkService implements SpkServiceInterface
             ];
         }
 
-        return $data; // Pindahkan return ke luar loop
+        return $data; 
     }
 
     public function normalisasi()
     {
         $data = $this->kriteria();
-        if (empty($data)) return []; // Tambahkan pengecekan data kosong
-
+        if (empty($data)) return []; 
         // 1. Normalisasi Matrix
-        $sumEach = [];
+        $maxEach = [];
         foreach ($data as $row) {
-            foreach ($row as $k => $v) {
-                if ($k === 'nama_fasilitas') continue;
-                $sumEach[$k] = ($sumEach[$k] ?? 0) + $v;
+            foreach ($row as $key => $value) {
+                if ($key === 'nama_fasilitas') continue;
+
+                if (!isset($maxEach[$key]) || $value > $maxEach[$key]) {
+                    $maxEach[$key] = $value;
+                }
             }
         }
+        // dd($maxEach);
+
 
         $normalized = [];
         foreach ($data as $id => $row) {
@@ -254,7 +258,7 @@ class SpkService implements SpkServiceInterface
                     $normalized[$id][$k] = $v;
                     continue;
                 }
-                $normalized[$id][$k] = $sumEach[$k] != 0 ? $v / $sumEach[$k] : 0; // Hindari pembagian dengan nol
+                $normalized[$id][$k] = $maxEach[$k] != 0 ? $v / $maxEach[$k] : 0;
             }
         }
 
@@ -264,8 +268,7 @@ class SpkService implements SpkServiceInterface
     public function preferensi()
     {
         $normalized = $this->normalisasi();
-        if (empty($normalized)) return []; // Tambahkan pengecekan data kosong
-
+        if (empty($normalized)) return [];
         // 2. Rata-Rata Preferensi
         $avgPref = [];
         $countData = count($normalized);
@@ -288,7 +291,7 @@ class SpkService implements SpkServiceInterface
     {
         $normalized = $this->normalisasi();
         $avgPref = $this->preferensi();
-        if (empty($normalized) || empty($avgPref)) return []; // Tambahkan pengecekan data kosong
+        if (empty($normalized) || empty($avgPref)) return []; 
 
         $countData = count($normalized);
         $deviasi = [];
@@ -296,13 +299,27 @@ class SpkService implements SpkServiceInterface
         foreach ($normalized as $row) {
             foreach ($row as $k => $v) {
                 if ($k === 'nama_fasilitas') continue;
-                $deviasi[$k] = ($deviasi[$k] ?? 0) + abs($v - $avgPref[$k]);
+                $deviasi[$k] = ($deviasi[$k] ?? 0) + ($v - $avgPref[$k]) ** 2; // iki awale abs
             }
         }
 
+
         foreach ($deviasi as $k => $v) {
-            $deviasi[$k] = $v / $countData;
+            $deviasi[$k] = 1 - $v; // iki haruse langsung 1 - sum(deviasi)
         }
+
+
+        // dd($deviasi);
+
+        // $sumEach = [];
+        // foreach ($data as $row) {
+        //     foreach ($row as $k => $v) {
+        //         if ($k === 'nama_fasilitas') continue;
+        //         $sumEach[$k] = ($sumEach[$k] ?? 0) + $v;
+        //     }
+        // }
+
+        // dd($deviasi);
 
         return $deviasi;
     }
@@ -313,17 +330,17 @@ class SpkService implements SpkServiceInterface
         if (empty($deviasi)) return []; // Tambahkan pengecekan data kosong
 
         // 4. Hitung Bobot
-        $bobot = [];
-        $nilaiPreferensi = [];
-        $totalPref = 0;
 
+        $jumlah_penyimpangan = 0;
         foreach ($deviasi as $k => $v) {
-            $nilaiPreferensi[$k] = 1 - $v;
-            $totalPref += $nilaiPreferensi[$k];
+            if ($k === 'nama_fasilitas') continue;
+            $jumlah_penyimpangan = ($jumlah_penyimpangan ?? 0) + $v;
         }
 
-        foreach ($nilaiPreferensi as $k => $v) {
-            $bobot[$k] = $totalPref != 0 ? $v / $totalPref : 0; // Hindari pembagian dengan nol
+
+
+        foreach ($deviasi as $k => $v) {
+            $bobot[$k] = $jumlah_penyimpangan != 0 ? $v / $jumlah_penyimpangan : 0;
         }
 
         return $bobot;
@@ -333,18 +350,18 @@ class SpkService implements SpkServiceInterface
     {
         $normalized = $this->normalisasi();
         $bobot = $this->bobot();
-        if (empty($normalized) || empty($bobot)) return []; // Tambahkan pengecekan data kosong
+        if (empty($normalized) || empty($bobot)) return []; 
 
         // 5. WSM: Hitung Skor Akhir
         $skor = [];
 
         foreach ($normalized as $id => $row) {
             $total = 0;
-            $nama_fasilitas = $row['nama_fasilitas'] ?? 'Unknown'; // Default value jika tidak ada
+            $nama_fasilitas = $row['nama_fasilitas'] ?? 'Unknown'; 
 
             foreach ($row as $k => $v) {
                 if ($k === 'nama_fasilitas') continue;
-                if (isset($bobot[$k])) { // Pastikan bobot ada
+                if (isset($bobot[$k])) { 
                     $total += $v * $bobot[$k];
                 }
             }
@@ -361,7 +378,7 @@ class SpkService implements SpkServiceInterface
     public function hasil()
     {
         $skor = $this->ranking();
-        if (empty($skor)) return []; // Tambahkan pengecekan data kosong
+        if (empty($skor)) return []; 
 
         // 6. Ranking
         usort($skor, fn($a, $b) => $b['skor'] <=> $a['skor']);
@@ -370,6 +387,6 @@ class SpkService implements SpkServiceInterface
             $val['ranking'] = $i + 1;
         }
 
-        return $skor; // Kembalikan seluruh data skor, bukan hanya nama fasilitas
+        return $skor; 
     }
 }
