@@ -17,4 +17,5 @@ interface PelaporanServiceInterface {
     public function getAllLaporanByUser($id_user);
     public function pengajuan($id);
     public function verifikasi($id);
+    public function hasilSpk($id);
 }

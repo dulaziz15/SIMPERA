@@ -19,13 +19,16 @@ class PelaporanRepository implements PelaporanRepositoryInterface
 
     public function getById($id)
     {
-        return LaporanPerbaikanModel::with([
-            'fasilitas.kategori',
-            'fasilitas.ruangan.gedung',
-            'pengguna.profil',
-            'pendukung',
-            'periode'
-        ])->findOrFail($id);
+        return LaporanPerbaikanModel::find($id);
+    }
+
+    public function hasilSpk($id)
+    {
+        $items = LaporanPerbaikanModel::find($id)->keyBy('id_laporan');
+
+        $reordered = collect($id)->map(fn($id) => $items[$id]);
+
+        return $reordered;
     }
 
     public function update($id, array $data)
@@ -76,7 +79,8 @@ class PelaporanRepository implements PelaporanRepositoryInterface
             ->get();
     }
 
-    public function updateStatus($id, $status) {
+    public function updateStatus($id, $status)
+    {
         return LaporanPerbaikanModel::find($id)->update($status) ? true : false;
     }
 }

@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <div class="row align-items-center" style="height: 100vh;">
             <div class="col-lg-12">
                 <div class="print-header">

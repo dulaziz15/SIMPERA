@@ -80,14 +80,14 @@
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-sm btn-success view-detail"
-                                                        onclick="showTerimaPenugasan({{ $tugas->id_penugasan }})">
-                                                        <i class="fas fa-check"></i> Terima Penugsan
+                                                        onclick="showSelesaiPenugasan({{ $tugas->id_penugasan }})">
+                                                        <i class="fas fa-check"></i> Selesaikan Penugsan
                                                     </button>
                                                     <!-- Submission Modal -->
-                                                    <div class="modal fade" id="terimaPenugasan" tabindex="-1"
+                                                    <div class="modal fade" id="selesaikanPenugasan" tabindex="-1"
                                                         aria-labelledby="terimaPenugasanLabel" aria-hidden="true">
                                                         @include(
-                                                            'penugasan.teknisi.component.modal_terima_penugasan',
+                                                            'perbaikan.component.modal_selesai_penugasan',
                                                             [
                                                                 'item' => $tugas,
                                                             ]
@@ -140,9 +140,9 @@
 
 @push('scripts')
     <script>
-        function showTerimaPenugasan(idPenugasan) {
+        function showSelesaiPenugasan(idPenugasan) {
             currentLaporanId = idPenugasan;
-            $('#terimaPenugasan').modal('show');
+            $('#selesaikanPenugasan').modal('show');
         }
 
         $(document).ready(function() {

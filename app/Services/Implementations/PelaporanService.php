@@ -164,4 +164,8 @@ class PelaporanService implements PelaporanServiceInterface
             'waktu_perubahan' => now(),
         ]);
     }
+
+    public function hasilSpk($id) {
+        return $this->pelaporanRepository->hasilSpk($id);
+    }
 }
