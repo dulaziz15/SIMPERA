@@ -63,9 +63,12 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">Status:</label>
+
                                         <p class="form-control-static bg-light p-2 rounded">
-                                            {!! App\Enums\Status\StatusLaporanPerbaikan::tryFrom($pelaporan->status)?->badge() ??
-                                                '<span class="badge bg-dark">Unknown</span>' !!}
+                                            <span
+                                                class="badge bg-{{ $pelaporan->status->color() }} bg-opacity-15 text-white border border-{{ $pelaporan->status->color() }} border-opacity-25">
+                                                {{ $pelaporan->status }}
+                                            </span>
                                         </p>
                                     </div>
                                     <div class="mb-3">

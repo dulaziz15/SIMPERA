@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\kerusakan\TingkatKerusakan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +17,10 @@ class PendukungLaporanModel extends Model
         'id_user',
         'deskripsi',
         'tingkat_kerusakan'
+    ];
+
+    protected $casts = [
+        'tingkat_kerusakan' => TingkatKerusakan::class,
     ];
 
     public function laporan()

@@ -68,7 +68,7 @@ class FasilitasService implements FasilitasServiceInterface
 
     public function getByRuangan($ruangan)
     {
-        
+
         $allFasilitas =  $this->fasilitasRepository->getByRuangan($ruangan);
         // Ambil fasilitas yang sudah ada di laporan
         $reportedFasilitas = $this->pelaporanRespository->availableInLaporan($allFasilitas);
@@ -79,7 +79,8 @@ class FasilitasService implements FasilitasServiceInterface
         });
     }
 
-    public function getAllFasilitasByRuangan($id) {
+    public function getAllFasilitasByRuangan($id)
+    {
         return $this->fasilitasRepository->getAllFasilitasByRuangan($id);
     }
 }

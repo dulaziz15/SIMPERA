@@ -10,7 +10,7 @@
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
                 </li>
-
+                <li class="menu-title" data-key="t-menu">Profil</li>
                 <li>
                     <a href="{{ url('profil') }}">
                         <i class="bx bxs-user"></i>
@@ -65,6 +65,16 @@
                     </li>
 
                     <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
+                    <li>
+                        <a href="{{ url('pelaporan') }}" class="{{ $activeMenu == 'pelaporan' ? 'mm-active' : '' }}">
+                            <i class="bx bx-wrench"></i>
+                            <span data-key="t-chat">Pengajuan Perbaikan</span>
+                        </a>
+                    </li>
+                @endif
+
+                @if (Auth::user()->isSarpras())
+                    <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
 
                     <li>
                         <a href="javascript: void(0);" class="has-arrow">
@@ -77,8 +87,13 @@
                                     <span data-key="t-calendar">Laporan</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#" class="{{ $activeMenu == 'pelaporan' ? 'mm-active' : '' }}">
+                            <li class="{{ $activeMenu == 'pengajuan' ? 'mm-active' : '' }}">
+                                <a href="{{ url('pengajuan') }}">
+                                    <span data-key="t-calendar">Pengajuan</span>
+                                </a>
+                            </li>
+                            <li class="{{ $activeMenu == 'penugasan' ? 'mm-active' : '' }}">
+                                <a href="{{ url('penugasan') }}">
                                     <span data-key="t-chat">Penugasan</span>
                                 </a>
                             </li>
@@ -86,13 +101,47 @@
                     </li>
                 @endif
 
+                @if (Auth::user()->isTeknisi())
+                    <li class="menu-title" data-key="t-menu">Penugasan Perbaikan</li>
+
+                    <li class="{{ $activeMenu == 'penugasan' ? 'mm-active' : '' }}">
+                        <a href="{{ url('penugasan') }}">
+                            <i class="bx bx-wrench"></i>
+                            <span data-key="t-calendar">Penugasan</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-title" data-key="t-menu">Perbaikan</li>
+
+                    <li class="{{ $activeMenu == 'perbaikan' ? 'mm-active' : '' }}">
+                        <a href="{{ url('perbaikan') }}">
+                            <i class="bx bx-wrench"></i>
+                            <span data-key="t-calendar">Perbaikan</span>
+                        </a>
+                    </li>
+
+                    <li class="{{ $activeMenu == 'riwayat' ? 'mm-active' : '' }}">
+                        <a href="{{ url('riwayat') }}">
+                            <i class="bx bx-wrench"></i>
+                            <span data-key="t-calendar">Riwayat Perbaikan</span>
+                        </a>
+                    </li>
+                @endif
+
                 @if (Auth::user()->isUser())
                     <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
-                    
+
                     <li class="{{ $activeMenu == 'pelaporan' ? 'mm-active' : '' }}">
                         <a href="{{ url('pelaporan') }}">
                             <i class="bx bx-wrench"></i>
                             <span data-key="t-calendar">Laporan</span>
+                        </a>
+                    </li>
+
+                    <li class="{{ $activeMenu == 'tracking' ? 'mm-active' : '' }}">
+                        <a href="{{ url('tracking') }}">
+                            <i class="bx bx-transfer-alt"></i>
+                            <span data-key="t-calendar">Tracking Laporan</span>
                         </a>
                     </li>
                 @endif

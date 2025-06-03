@@ -1,4 +1,5 @@
-<form action="{{ url('/pelaporan/' . $laporan->id_laporan . '/update') }}" method="POST" id="form-tambah" class="needs-validation" enctype="multipart/form-data" novalidate>
+<form action="{{ url('/pelaporan/' . $laporan->id_laporan . '/update') }}" method="POST" id="form-tambah"
+    class="needs-validation" enctype="multipart/form-data" novalidate>
     @csrf
     @method('PUT')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
@@ -22,23 +23,28 @@
                     <div class="card-body">
                         <div id="progrss-wizard" class="twitter-bs-wizard">
                             <ul class="twitter-bs-wizard-nav nav nav-pills nav-justified">
-                                <li class="nav-item">
-                                    <a href="#detail_fasilitas" class="nav-link" data-toggle="tab">
-                                        <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail fasilitas">
-                                            <i class="bx bx-buildings"></i>
-                                        </div>
-                                    </a>
-                                </li>
+                                @if (Auth::user()->isAdmin())
+                                    <li class="nav-item">
+                                        <a href="#detail_fasilitas" class="nav-link" data-toggle="tab">
+                                            <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Detail fasilitas">
+                                                <i class="bx bx-buildings"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endif
                                 <li class="nav-item">
                                     <a href="#dokumen_pendukung" class="nav-link" data-toggle="tab">
-                                        <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Dokumen Pendukung">
+                                        <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="Dokumen Pendukung">
                                             <i class="bx bx-image-add"></i>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#detail_kerusakan" class="nav-link" data-toggle="tab">
-                                        <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Kerusakan">
+                                        <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="Detail Kerusakan">
                                             <i class="bx bx-detail"></i>
                                         </div>
                                     </a>
@@ -48,64 +54,75 @@
                                 <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated"></div>
                             </div>
                             <div class="tab-content twitter-bs-wizard-tab-content">
-                                <div class="tab-pane active" id="detail_fasilitas">
-                                    <div class="text-center mb-4">
-                                        <h5>Detail Fasilitas</h5>
-                                        <p class="card-title-desc">Pilih Fasilitas berdasarkan lokasi</p>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label" for="id_gedung">Gedung <span class="text-danger">*</span></label>
-                                                <select class="form-control" id="id_gedung" name="id_gedung" required>
-                                                    <option value="">- Pilih Gedung -</option>
-                                                    @foreach ($gedung as $item)
-                                                        <option value="{{ $item->id_gedung }}" 
-                                                            {{ $item->id_gedung == $laporan->fasilitas->ruangan->gedung->id_gedung ? 'selected' : '' }}>
-                                                            {{ $item->nama }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <div id="error-id_gedung" class="error-text"></div>
+
+                                @if (Auth::user()->isAdmin())
+                                    <div class="tab-pane active" id="detail_fasilitas">
+                                        <div class="text-center mb-4">
+                                            <h5>Detail Fasilitas</h5>
+                                            <p class="card-title-desc">Pilih Fasilitas berdasarkan lokasi</p>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="id_gedung">Gedung <span
+                                                            class="text-danger">*</span></label>
+                                                    <select class="form-control" id="id_gedung" name="id_gedung"
+                                                        required>
+                                                        <option value="">- Pilih Gedung -</option>
+                                                        @foreach ($gedung as $item)
+                                                            <option value="{{ $item->id_gedung }}"
+                                                                {{ $item->id_gedung == $laporan->fasilitas->ruangan->gedung->id_gedung ? 'selected' : '' }}>
+                                                                {{ $item->nama }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div id="error-id_gedung" class="error-text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="id_ruangan">Ruangan <span
+                                                            class="text-danger">*</span></label>
+                                                    <select class="form-control" id="id_ruangan" name="id_ruangan"
+                                                        required>
+                                                        <option value="">- Pilih Ruangan -</option>
+                                                        @foreach ($ruangan as $item)
+                                                            <option value="{{ $item->id_ruangan }}"
+                                                                {{ $item->id_ruangan == $laporan->fasilitas->id_ruangan ? 'selected' : '' }}>
+                                                                {{ $item->nama }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div id="error-id_ruangan" class="error-text"></div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label" for="id_ruangan">Ruangan <span class="text-danger">*</span></label>
-                                                <select class="form-control" id="id_ruangan" name="id_ruangan" required>
-                                                    <option value="">- Pilih Ruangan -</option>
-                                                    @foreach ($ruangan as $item)
-                                                        <option value="{{ $item->id_ruangan }}"
-                                                            {{ $item->id_ruangan == $laporan->fasilitas->id_ruangan ? 'selected' : '' }}>
-                                                            {{ $item->nama }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <div id="error-id_ruangan" class="error-text"></div>
+                                        <div class="row mb-2">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="id_fasilitas">Fasilitas <span
+                                                            class="text-danger">*</span></label>
+                                                    <select class="form-control" id="id_fasilitas" name="id_fasilitas"
+                                                        required>
+                                                        <option value="">- Pilih Fasilitas -</option>
+                                                        @foreach ($fasilitas as $item)
+                                                            <option value="{{ $item->id_fasilitas }}"
+                                                                {{ $item->id_fasilitas == $laporan->id_fasilitas ? 'selected' : '' }}>
+                                                                {{ $item->nama }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div id="error-id_fasilitas" class="error-text"></div>
+                                                </div>
                                             </div>
                                         </div>
+                                        <ul class="pager wizard twitter-bs-wizard-pager-link">
+                                            <li class="next"><a href="javascript:void(0);"
+                                                    class="btn btn-primary next-btn">Next <i
+                                                        class="bx bx-chevron-right ms-1"></i></a></li>
+                                        </ul>
                                     </div>
-                                    <div class="row mb-2">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="form-label" for="id_fasilitas">Fasilitas <span class="text-danger">*</span></label>
-                                                <select class="form-control" id="id_fasilitas" name="id_fasilitas" required>
-                                                    <option value="">- Pilih Fasilitas -</option>
-                                                    @foreach ($fasilitas as $item)
-                                                        <option value="{{ $item->id_fasilitas }}"
-                                                            {{ $item->id_fasilitas == $laporan->id_fasilitas ? 'selected' : '' }}>
-                                                            {{ $item->nama }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <div id="error-id_fasilitas" class="error-text"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                        <li class="next"><a href="javascript:void(0);" class="btn btn-primary next-btn">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
-                                    </ul>
-                                </div>
+                                @endif
 
                                 <div class="tab-pane" id="dokumen_pendukung">
                                     <div>
@@ -116,8 +133,10 @@
                                         <div class="row mb-2">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="url_foto">Foto Fasilitas <span class="text-danger">*</span></label>
-                                                    <input type="file" name="url_foto" id="url_foto" onchange="preview()" accept="image/*" class="form-control">
+                                                    <label class="form-label" for="url_foto">Foto Fasilitas <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="file" name="url_foto" id="url_foto"
+                                                        onchange="preview()" accept="image/*" class="form-control">
                                                     <div id="error-url_foto" class="error-text"></div>
                                                 </div>
                                             </div>
@@ -126,14 +145,21 @@
                                             <div class="col-md-12">
                                                 <div class="card mt-3">
                                                     <div class="card-body">
-                                                        <img id="frame" src="{{ asset('storage/' . $laporan->url_foto) }}" alt="Preview gambar" class="img-fluid my-3" style="max-width: 100%" />
+                                                        <img id="frame"
+                                                            src="{{ asset('storage/' . $laporan->url_foto) }}"
+                                                            alt="Preview gambar" class="img-fluid my-3"
+                                                            style="max-width: 100%" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                            <li class="previous"><a href="javascript:void(0);" class="btn btn-primary previous-btn"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
-                                            <li class="next"><a href="javascript:void(0);" class="btn btn-primary next-btn">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
+                                            <li class="previous"><a href="javascript:void(0);"
+                                                    class="btn btn-primary previous-btn"><i
+                                                        class="bx bx-chevron-left me-1"></i> Previous</a></li>
+                                            <li class="next"><a href="javascript:void(0);"
+                                                    class="btn btn-primary next-btn">Next <i
+                                                        class="bx bx-chevron-right ms-1"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -146,19 +172,25 @@
                                         </div>
                                         <div class="row mb-4">
                                             <div class="col-12">
-                                                <h5 class="font-size-16 mb-3"><i class="fas fa-exclamation-triangle me-2"></i>Tingkat Kerusakan</h5>
-                                                <div class="row" id="radio" role="radiogroup" aria-label="Tingkat Kerusakan">
+                                                <h5 class="font-size-16 mb-3"><i
+                                                        class="fas fa-exclamation-triangle me-2"></i>Tingkat Kerusakan
+                                                </h5>
+                                                <div class="row" id="radio" role="radiogroup"
+                                                    aria-label="Tingkat Kerusakan">
                                                     <!-- Ringan -->
                                                     <div class="col-md-4">
                                                         <div class="form-check card-radio">
-                                                            <input class="form-check-input" type="radio" name="tingkat_kerusakan" id="ringan" value="1"
+                                                            <input class="form-check-input" type="radio"
+                                                                name="tingkat_kerusakan" id="ringan"
+                                                                value="1"
                                                                 {{ $laporan->firstPendukung->tingkat_kerusakan === 1 ? 'checked' : '' }} />
                                                             <label class="form-check-label" for="ringan">
                                                                 <div class="card-radio-content p-3 rounded-3 border">
                                                                     <div class="d-flex align-items-center">
                                                                         <div class="flex-shrink-0">
                                                                             <div class="avatar-xs">
-                                                                                <div class="avatar-title bg-success-subtle text-success rounded-circle">
+                                                                                <div
+                                                                                    class="avatar-title bg-success-subtle text-success rounded-circle">
                                                                                     <i class="fas fa-check-circle"></i>
                                                                                 </div>
                                                                             </div>
@@ -174,15 +206,19 @@
                                                     <!-- Sedang -->
                                                     <div class="col-md-4">
                                                         <div class="form-check card-radio">
-                                                            <input class="form-check-input" type="radio" name="tingkat_kerusakan" id="sedang" value="2"
+                                                            <input class="form-check-input" type="radio"
+                                                                name="tingkat_kerusakan" id="sedang"
+                                                                value="2"
                                                                 {{ $laporan->firstPendukung->tingkat_kerusakan === 2 ? 'checked' : '' }} />
                                                             <label class="form-check-label" for="sedang">
                                                                 <div class="card-radio-content p-3 rounded-3 border">
                                                                     <div class="d-flex align-items-center">
                                                                         <div class="flex-shrink-0">
                                                                             <div class="avatar-xs">
-                                                                                <div class="avatar-title bg-warning-subtle text-warning rounded-circle">
-                                                                                    <i class="fas fa-exclamation-circle"></i>
+                                                                                <div
+                                                                                    class="avatar-title bg-warning-subtle text-warning rounded-circle">
+                                                                                    <i
+                                                                                        class="fas fa-exclamation-circle"></i>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -197,14 +233,17 @@
                                                     <!-- Berat -->
                                                     <div class="col-md-4">
                                                         <div class="form-check card-radio">
-                                                            <input class="form-check-input" type="radio" name="tingkat_kerusakan" id="berat" value="3"
+                                                            <input class="form-check-input" type="radio"
+                                                                name="tingkat_kerusakan" id="berat"
+                                                                value="3"
                                                                 {{ $laporan->firstPendukung->tingkat_kerusakan === 3 ? 'checked' : '' }} />
                                                             <label class="form-check-label" for="berat">
                                                                 <div class="card-radio-content p-3 rounded-3 border">
                                                                     <div class="d-flex align-items-center">
                                                                         <div class="flex-shrink-0">
                                                                             <div class="avatar-xs">
-                                                                                <div class="avatar-title bg-danger-subtle text-danger rounded-circle">
+                                                                                <div
+                                                                                    class="avatar-title bg-danger-subtle text-danger rounded-circle">
                                                                                     <i class="fas fa-times-circle"></i>
                                                                                 </div>
                                                                             </div>
@@ -224,14 +263,17 @@
                                         <div class="row mb-2">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="deskripsi">Deskripsi <span class="text-danger">*</span></label>
+                                                    <label class="form-label" for="deskripsi">Deskripsi <span
+                                                            class="text-danger">*</span></label>
                                                     <textarea name="deskripsi" id="deskripsi" rows="5" class="form-control" required>{{ $laporan->deskripsi }}</textarea>
                                                     <div id="error-deskripsi" class="error-text"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                            <li class="previous"><a href="javascript:void(0);" class="btn btn-primary previous-btn"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
+                                            <li class="previous"><a href="javascript:void(0);"
+                                                    class="btn btn-primary previous-btn"><i
+                                                        class="bx bx-chevron-left me-1"></i> Previous</a></li>
                                             <button type="submit" class="float-end btn btn-primary">Simpan</button>
                                         </ul>
                                     </div>
@@ -336,7 +378,7 @@
     $(document).ready(function() {
         const currentRuangan = "{{ $laporan->fasilitas->id_ruangan }}";
         const currentFasilitas = "{{ $laporan->id_fasilitas }}";
-        
+
         if (currentRuangan) {
             loadFacilities(currentRuangan);
         }
@@ -345,13 +387,17 @@
             const idGedung = $(this).val();
             if (idGedung) {
                 $.get('/pelaporan/ruangan-by-gedung/' + idGedung, function(data) {
-                    $('#id_ruangan').empty().append('<option value="">- Pilih Ruangan -</option>');
+                    $('#id_ruangan').empty().append(
+                        '<option value="">- Pilih Ruangan -</option>');
                     $.each(data, function(key, value) {
-                        const selected = value.id_ruangan == currentRuangan ? 'selected' : '';
-                        $('#id_ruangan').append(`<option value="${value.id_ruangan}" ${selected}>${value.nama}</option>`);
+                        const selected = value.id_ruangan == currentRuangan ?
+                            'selected' : '';
+                        $('#id_ruangan').append(
+                            `<option value="${value.id_ruangan}" ${selected}>${value.nama}</option>`
+                            );
                     });
-                    
-                    if ($('#id_ruangan option[value="'+currentRuangan+'"]').length > 0) {
+
+                    if ($('#id_ruangan option[value="' + currentRuangan + '"]').length > 0) {
                         $('#id_ruangan').val(currentRuangan).trigger('change');
                     }
                 }).fail(function() {
@@ -376,7 +422,9 @@
                 $('#id_fasilitas').empty().append('<option value="">- Pilih Fasilitas -</option>');
                 $.each(data, function(key, value) {
                     const selected = value.id_fasilitas == currentFasilitas ? 'selected' : '';
-                    $('#id_fasilitas').append(`<option value="${value.id_fasilitas}" ${selected}>${value.nama}</option>`);
+                    $('#id_fasilitas').append(
+                        `<option value="${value.id_fasilitas}" ${selected}>${value.nama}</option>`
+                        );
                 });
             }).fail(function() {
                 showError('Gagal memuat data fasilitas');
@@ -410,12 +458,13 @@
 
         function validateCurrentTab(tab) {
             let isValid = true;
-            
+
             tab.find(':input[required]').each(function() {
                 if (!this.checkValidity()) {
                     isValid = false;
                     $(this).addClass('is-invalid');
-                    $(this).siblings('.error-text').text(this.validationMessage || 'Field ini wajib diisi');
+                    $(this).siblings('.error-text').text(this.validationMessage ||
+                        'Field ini wajib diisi');
                 } else {
                     $(this).removeClass('is-invalid');
                     $(this).siblings('.error-text').text('');
@@ -450,23 +499,43 @@
 
         $('#form-tambah').validate({
             rules: {
-                id_gedung: { required: true },
-                id_ruangan: { required: true },
-                id_fasilitas: { required: true },
-                deskripsi: { required: true },
-                tingkat_kerusakan: { required: true },
-                url_foto: { 
+                id_gedung: {
+                    required: true
+                },
+                id_ruangan: {
+                    required: true
+                },
+                id_fasilitas: {
+                    required: true
+                },
+                deskripsi: {
+                    required: true
+                },
+                tingkat_kerusakan: {
+                    required: true
+                },
+                url_foto: {
                     required: {{ empty($laporan->url_foto) ? 'true' : 'false' }},
                     extension: "jpg|jpeg|png|gif"
                 }
             },
             messages: {
-                id_gedung: { required: "Gedung wajib dipilih" },
-                id_ruangan: { required: "Ruangan wajib dipilih" },
-                id_fasilitas: { required: "Fasilitas wajib dipilih" },
-                deskripsi: { required: "Deskripsi wajib diisi" },
-                tingkat_kerusakan: { required: "Tingkat Kerusakan wajib dipilih" },
-                url_foto: { 
+                id_gedung: {
+                    required: "Gedung wajib dipilih"
+                },
+                id_ruangan: {
+                    required: "Ruangan wajib dipilih"
+                },
+                id_fasilitas: {
+                    required: "Fasilitas wajib dipilih"
+                },
+                deskripsi: {
+                    required: "Deskripsi wajib diisi"
+                },
+                tingkat_kerusakan: {
+                    required: "Tingkat Kerusakan wajib dipilih"
+                },
+                url_foto: {
                     required: "Foto wajib diupload",
                     extension: "Hanya file gambar (jpg, jpeg, png, gif) yang diperbolehkan"
                 }
@@ -488,7 +557,7 @@
             },
             submitHandler: function(form) {
                 const formData = new FormData(form);
-                
+
                 $.ajax({
                     url: form.action,
                     type: form.method,
@@ -500,7 +569,9 @@
                         'Accept': 'application/json'
                     },
                     beforeSend: function() {
-                        $('.btn-primary').prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Memproses...');
+                        $('.btn-primary').prop('disabled', true).html(
+                            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Memproses...'
+                            );
                     },
                     success: function(response) {
                         if (response.status) {
@@ -511,8 +582,14 @@
                                 text: response.message,
                                 timer: 2000,
                                 showConfirmButton: false
+                            }).then(function() {
+                                if (typeof dataPelaporan !== 'undefined' &&
+                                    typeof dataPelaporan.ajax !== 'undefined') {
+                                    dataPelaporan.ajax.reload();
+                                } else {
+                                    window.location.reload();
+                                }
                             });
-                            dataPelaporan.ajax.reload();
                         } else {
                             showFormErrors(response.msgField);
                             Swal.fire({
@@ -529,7 +606,8 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Validasi Gagal',
-                                text: res.message || 'Harap isi data dengan benar.'
+                                text: res.message ||
+                                    'Harap isi data dengan benar.'
                             });
                         } else {
                             Swal.fire({
@@ -549,7 +627,7 @@
         function showFormErrors(errors) {
             $('.error-text').text('');
             $('.is-invalid').removeClass('is-invalid');
-            
+
             if (errors) {
                 $.each(errors, function(prefix, val) {
                     const errorElement = $('#error-' + prefix);
