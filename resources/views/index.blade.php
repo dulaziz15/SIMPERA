@@ -319,7 +319,7 @@
                         value: {{ $fasilitas->filter(function ($item) {
                                 return in_array($item->kategori->kode, ["FSP"]);
                             })->count() }},
-                        name: "Jumlah Fsailitas Penunjang"
+                        name: "Jumlah Fasilitas Penunjang"
                     }, {
                         value: {{ $fasilitas->filter(function ($item) {
                                 return in_array($item->kategori->kode, ["FSI"]);
