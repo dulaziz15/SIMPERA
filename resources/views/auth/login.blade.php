@@ -91,7 +91,7 @@
                                         </div>
                                     </form>
 
-                                    <div class="mt-4 pt-2 text-center">
+                                    {{-- <div class="mt-4 pt-2 text-center">
                                         <div class="signin-other-title">
                                             <h5 class="font-size-14 mb-3 text-muted fw-medium">- Sign in with -</h5>
                                         </div>
@@ -122,7 +122,7 @@
                                         <p class="text-muted mb-0">Don't have an account ? <a
                                                 href="auth-register.html" class="text-primary fw-semibold"> Signup now
                                             </a> </p>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="mt-4 mt-md-5 text-center">
                                     <p class="mb-0">©
