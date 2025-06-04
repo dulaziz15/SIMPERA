@@ -57,12 +57,12 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ url('periode') }}">
                             <i class="bx bx-calendar"></i>
                             <span data-key="t-dashboard">Periode</span>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
                     <li>
@@ -101,6 +101,33 @@
                     </li>
                 @endif
 
+                @if (Auth::user()->isTeknisi())
+                    <li class="menu-title" data-key="t-menu">Penugasan Perbaikan</li>
+
+                    <li class="{{ $activeMenu == 'penugasan' ? 'mm-active' : '' }}">
+                        <a href="{{ url('penugasan') }}">
+                            <i class="bx bx-wrench"></i>
+                            <span data-key="t-calendar">Penugasan</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-title" data-key="t-menu">Perbaikan</li>
+
+                    <li class="{{ $activeMenu == 'perbaikan' ? 'mm-active' : '' }}">
+                        <a href="{{ url('perbaikan') }}">
+                            <i class="bx bx-wrench"></i>
+                            <span data-key="t-calendar">Perbaikan</span>
+                        </a>
+                    </li>
+
+                    <li class="{{ $activeMenu == 'riwayat' ? 'mm-active' : '' }}">
+                        <a href="{{ url('riwayat') }}">
+                            <i class="bx bx-wrench"></i>
+                            <span data-key="t-calendar">Riwayat Perbaikan</span>
+                        </a>
+                    </li>
+                @endif
+
                 @if (Auth::user()->isUser())
                     <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
 
@@ -120,7 +147,7 @@
                 @endif
 
                 @if (Auth::user()->isAdmin() || Auth::user()->isSarpras())
-                    <li class="menu-title" data-key="t-menu">Laporan</li>
+                    {{-- <li class="menu-title" data-key="t-menu">Laporan</li>
                     <li>
                         <a href="index.html">
                             <i class="bx bx-trending-up"></i>
@@ -154,6 +181,7 @@
                             <span data-key="t-dashboard">Perhitungan</span>
                         </a>
                     </li>
+                @endif
                 <li class="menu-title" data-key="t-menu">Log Activity</li>
                 <li>
                     <a href="index.html">

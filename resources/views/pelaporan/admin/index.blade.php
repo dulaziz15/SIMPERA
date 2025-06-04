@@ -80,15 +80,9 @@
         </div>
     </div>
     <div class="card card-outline card-primary">
-        <div class="card-header">
-            <div class="card-tools">
-                <button onclick="modalAction('{{ url('pelaporan/create') }}')"
-                    class="btn btn-sm btn-success mt-1">Tambah</button>
-            </div>
-        </div>
         <div class="card-body" id="user-list">
             <div class="row mb-4">
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <div class="col-lg-4">
                         <label class="control-label col-form-label">Filter :</label>
                     </div>
@@ -99,7 +93,7 @@
                         </select>
                         <small class="form-text text-muted">peran Pengguna</small>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <table class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive"
                 id="table_pengajuan">

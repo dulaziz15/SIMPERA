@@ -41,13 +41,28 @@ class PenugasanService implements PenugasanServiceInterface
         }
     }
 
-    public function getPenugasanByTeknisi() {
+    public function getPenugasanByTeknisi()
+    {
         return $this->penugasanRepository->getByTeknisi(Auth::user()->id_pengguna);
     }
 
-    public function terimaPenugasan($id) {
+    public function terimaPenugasan($id)
+    {
         return $this->penugasanRepository->updateStatus($id, [
             'status_progres' => StatusPenugasan::PROSES->value
         ]);
+    }
+
+    public function selesaiPenugasan($id)
+    {
+        $penugasan = $this->penugasanRepository->getById($id);
+        $laporan = $this->laporanRepository->updateStatus($penugasan->id_laporan, [
+            'status' => StatusLaporanPerbaikan::SELESAI->value
+        ]);
+        if ($laporan) {
+            return $this->penugasanRepository->updateStatus($id, [
+                'status_progres' => StatusPenugasan::SELESAI->value
+            ]);
+        }
     }
 }

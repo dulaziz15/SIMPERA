@@ -35,11 +35,12 @@ class PenugasanController extends Controller
 
         $activeMenu = 'penugasan';
         $laporan = $this->laporanService->getAll()->filter(function ($item) {
-            return !in_array($item->status->value, [
-                StatusLaporanPerbaikan::BARU->value,
-                StatusLaporanPerbaikan::DIAJUKAN->value
+            return in_array($item->status->value, [
+                StatusLaporanPerbaikan::VERIFIKASI->value,
+                StatusLaporanPerbaikan::PERBAIKAN->value
             ]);
         });
+        // dd($laporan);
         $penugasan = $this->penugasanService->getPenugasanByTeknisi();
         return view('penugasan.index', compact('breadcrumb', 'page', 'activeMenu', 'laporan', 'penugasan'));
     }
@@ -82,7 +83,8 @@ class PenugasanController extends Controller
         return redirect('/penugasan');
     }
 
-    public function terimaPenugasan(Request $request, $id) {
+    public function terimaPenugasan(Request $request, $id)
+    {
         if ($request->ajax() || $request->wantsJson()) {
             $terima = $this->penugasanService->terimaPenugasan($id);
             if ($terima) {
@@ -95,6 +97,27 @@ class PenugasanController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Penugasan Gagal diterima.',
+                    'redirect' => url('/penugasan')
+                ]);
+            }
+        }
+
+        return redirect('/penugasan');
+    }
+
+    public function selesaiPenugasan(Request $request, $id) {
+        if ($request->ajax() || $request->wantsJson()) {
+            $terima = $this->penugasanService->selesaiPenugasan($id);
+            if ($terima) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Penugasan telah diselesaikan.',
+                    'redirect' => url('/penugasan')
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Penugasan gagal diselesaikan.',
                     'redirect' => url('/penugasan')
                 ]);
             }
