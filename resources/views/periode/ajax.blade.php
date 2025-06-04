@@ -49,7 +49,7 @@
                         orderable: false, 
                         searchable: false 
                     },{ 
-                        data: 'nama_fasilitas', 
+                        data: 'pe', 
                         name: 'nama_fasilitas' 
                     },{ 
                         data: 'status', 

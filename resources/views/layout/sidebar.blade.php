@@ -58,7 +58,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="index.html">
+                        <a href="{{ url('periode') }}">
                             <i class="bx bx-calendar"></i>
                             <span data-key="t-dashboard">Periode</span>
                         </a>
