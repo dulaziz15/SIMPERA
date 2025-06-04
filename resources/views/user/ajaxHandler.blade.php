@@ -14,8 +14,33 @@
 	var dataUser;
 	$(document).ready(function() {
 		dataUser = $('#table_user').DataTable({
-			dom: 'B<"d-flex justify-content-between align-items-center mt-4"lf>rtip',
-			buttons: ['copy', 'csv', 'excel', 'pdf', 'print', 'colvis'],
+			dom: 'B<"d-flex justify-content-between align-items-center mt-4"lf>',
+			buttons: [{
+					extend: 'pdfHtml5',
+					text: '<i class="bx bx-download"></i> Download PDF',
+					className: 'btn btn-soft-primary btn-md',
+					title: 'Data User',
+					download: 'open',
+					exportOptions: {
+						columns: ':visible:not(:last-child)' // Exclude action column
+					}
+				},
+				{
+					extend: 'excelHtml5',
+					text: '<i class="bx bx-file"></i> Export to Excel',
+					className: 'btn btn-soft-success btn-md',
+					title: 'Data User',
+					download: 'open',
+					exportOptions: {
+						columns: ':visible:not(:last-child)' // Exclude action column
+					}
+				},
+				{
+					extend: 'colvis',
+					text: '<i class="bx bx-columns"></i> Column Visibility',
+					className: 'btn btn-soft-secondary btn-md'
+				}
+			],
 			responsive: true,
 			ordering: true, // make sure ordering is enabled
 			paging: true, // enable pagination
