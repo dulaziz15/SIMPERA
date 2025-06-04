@@ -180,8 +180,7 @@
                             <i class="bx bx-calculator"></i>
                             <span data-key="t-dashboard">Perhitungan</span>
                         </a>
-                    </li>
-                @endif
+                    </li> --}}
                 <li class="menu-title" data-key="t-menu">Log Activity</li>
                 <li>
                     <a href="index.html">
