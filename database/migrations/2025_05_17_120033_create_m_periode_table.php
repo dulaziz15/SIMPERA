@@ -14,6 +14,7 @@ return new class extends Migration
          Schema::create('periode', function (Blueprint $table) {
             $table->id('id_periode');
             $table->string('nama');
+            $table->decimal('biaya', 15, 2)->default(0)->nullable();
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->timestamps();

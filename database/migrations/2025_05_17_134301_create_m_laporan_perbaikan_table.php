@@ -18,6 +18,7 @@
                 $table->text('deskripsi')->nullable();
                 $table->string('url_foto', 255)->nullable();
                 $table->string('status')->default('baru');
+                $table->decimal('perkiraan_biaya', 15, 2)->default(0);
                 $table->unsignedBigInteger('id_periode');
                 $table->timestamp('waktu_pelaporan')->useCurrent();
                 $table->timestamp('waktu_perubahan')->nullable();
