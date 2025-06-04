@@ -114,9 +114,9 @@
                                                             </span>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-sm btn-outline-primary">
+                                                            <a href="" class="btn btn-sm btn-outline-primary">
                                                                 <i class="fas fa-eye"></i>
-                                                            </button>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

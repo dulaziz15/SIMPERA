@@ -43,6 +43,7 @@ use App\Services\Implementations\PeranService;
 use App\Services\Implementations\PeriodeService;
 use App\Services\Implementations\ProfilService;
 use App\Services\Implementations\RuanganService;
+use App\Services\Implementations\SpkService;
 use App\Services\Interfaces\FasilitasServiceInterface;
 use App\Services\Interfaces\FeedbackServiceInterface;
 use App\Services\Implementations\UserService;
@@ -58,6 +59,7 @@ use App\Services\Interfaces\PeranServiceInterface;
 use App\Services\Interfaces\PeriodeServiceInterface;
 use App\Services\Interfaces\ProfilServiceInterface;
 use App\Services\Interfaces\RuanganServiceInterface;
+use App\Services\Interfaces\SpkServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -83,6 +85,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProfilServiceInterface::class, ProfilService::class);
         $this->app->bind(PendukungServiceInterface::class, PendukungService::class);
         $this->app->bind(PenugasanServiceInterface::class, PenugasanService::class);
+        $this->app->bind(SpkServiceInterface::class, SpkService::class);
         
 
         // Repository

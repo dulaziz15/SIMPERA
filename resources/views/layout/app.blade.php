@@ -89,6 +89,8 @@
     <script src="{{ asset('template/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('template/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}">
     </script>
+           <!-- echarts js -->
+        <script src="{{ asset('template/assets/libs/echarts/echarts.min.js')}}"></script>
     <script src="{{ asset('template/assets/js/app.js') }}"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>

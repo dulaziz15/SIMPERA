@@ -18,4 +18,8 @@ class PenugasanRepository implements PenugasanRepositoryInterface {
     public function updateStatus($id, $data) {
         return PenugasanModel::find($id)->update($data) ? true : false;
     }
+
+    public function getById($id) {
+        return PenugasanModel::find($id);
+    }
 }
