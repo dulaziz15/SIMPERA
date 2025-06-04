@@ -16,6 +16,9 @@ class SpkService implements SpkServiceInterface
 
         $data = [];
 
+        if($laporan->count() < 10) {
+            return $hasilAkhir = [];
+        }
 
         foreach ($laporan as $item) {
             $idFasilitas = $item->id_fasilitas;
@@ -160,7 +163,7 @@ class SpkService implements SpkServiceInterface
 
         // dd($skor);
 
-        $hasilAkhir = array_column($skor, 'nama_fasilitas');
+        $hasilAkhir = array_slice(array_column($skor, 'nama_fasilitas'), 1, 3);
         // dd($hasilAkhir);
         return $hasilAkhir;
     }
