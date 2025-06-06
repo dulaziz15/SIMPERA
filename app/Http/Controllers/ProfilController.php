@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfilRequest;
 use App\Services\Interfaces\ProfilServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
@@ -59,6 +60,24 @@ class ProfilController extends Controller
             }
         }
 
+        return redirect('/profil');
+    }
+
+    public function edit($id)
+    {
+        $data = $this->userService->getUserById($id);
+        return view('profil.edit', compact('data'));
+    }
+
+    public function update(ProfilRequest $request, $id)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $result = $this->profilService->update($request, $id);
+            return response()->json([
+                'status' => (bool) $result['status'],
+                'message' => $result['message']
+            ]);
+        }
         return redirect('/profil');
     }
 }

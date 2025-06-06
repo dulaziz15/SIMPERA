@@ -54,7 +54,7 @@
 											<td>{{ $profil->created_at->format('d M Y') }}</td>
 										</tr>
 									</table>
-									<a href="" class="btn btn-primary mt-2">
+									<a onclick="modalAction('/profil/{{ $profil->profil->id_profil }}/edit')" class="btn btn-primary mt-2">
 										<i class="fa fa-edit"></i> Edit Profil
 									</a>
 								</div>
@@ -265,6 +265,12 @@
 			$('#formUpdateImage').attr('action', `/profil/${id}/updateImage`);
 		}
 
+		function modalAction(url = '') {
+			$('#myModal').load(url, function() {
+				$('#myModal').modal('show');
+			});
+		}
+
 		$(document).ready(function() {
 			$('#formUpdateImage').validate({
 				rules: {
@@ -365,3 +371,7 @@
 		}
 	</script>
 @endpush
+
+<div id="myModal" class="modal fade" tabindex="-1">
+
+</div>

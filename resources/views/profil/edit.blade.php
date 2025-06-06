@@ -1,6 +1,7 @@
-<form action="{{ url('/user/' . Auth::user()->id_pengguna . '/store-profil') }}" enctype="multipart/form-data"
-	method="POST" id="form-tambah" class="needs-validation">
+<form action="{{ url('/profil/' . Auth::user()->id_pengguna . '/update') }}" enctype="multipart/form-data" method="POST"
+	id="form-tambah" class="needs-validation">
 	@csrf
+	@method('PUT')
 	<div id="modal-master" class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -13,7 +14,7 @@
 						<div class="alert alert-warning">
 							<h5><i class="fas fa-exclamation-triangle"></i> Perhatian!!!</h5>
 							<ul>
-								<li>User ini masih belum memiliki profil. Dimohon untuk mengisikan profil</li>
+								<li>Kosongi untuk menghapus foto profil</li>
 							</ul>
 						</div>
 					</div>
@@ -22,14 +23,16 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="form-label">Nama Lengkap</label>
-									<input type="text" name="nama_lengkap" id="nama_lengkap" value="" class="form-control">
+									<input type="text" name="nama_lengkap" id="nama_lengkap" value="{{ Auth::user()->profil->nama_lengkap }}"
+										class="form-control">
 									<div id="error-nama_lengkap" class="error-text"></div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="form-label">Foto Profil</label>
-									<input type="file" name="foto_profil" id="foto_profil" value="" onchange="preview()" accept="image/*"
+									<input type="file" name="gambar" id="foto_profil"
+										value="storage/foto_profil/{{ Auth::user()->profil->foto_profil }}" onchange="preview()" accept="image/*"
 										class="form-control">
 									<div id="error-foto_profil" class="error-text"></div>
 								</div>
@@ -40,7 +43,8 @@
 								<div class="col-md-6">
 									<div class="card mt-3">
 										<div class="card-body">
-											<img id="frame" src="" class="img-fluid my-3" max-width="100%" alt="Preview gambar" />
+											<img id="frame" src="{{ Auth::user()->profil && Auth::user()->profil->foto_profil ? asset('storage/foto_profil/' . Auth::user()->profil->foto_profil) : asset('template/assets/images/users/avatar-1.jpg') }}" class="img-fluid my-3"
+												style="max-width: 100%" alt="Preview gambar" />
 										</div>
 									</div>
 								</div>
@@ -49,7 +53,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" onclick="clearImage()">Clear Image</button>
+					<button class="btn btn-secondary" type="button" onclick="clearImageProfil()">Clear Image</button>
 					<button type="button" class="btn btn-warning" data-bs-dismiss="modal">Batal</button>
 					<button type="submit" class="btn btn-primary">Simpan</button>
 				</div>
@@ -57,13 +61,15 @@
 		</div>
 </form>
 <script>
+	// Inisialisasi variabel frame untuk preview gambar
+	const frame = document.getElementById('frame');
 	// Preview Gambar
 	function preview() {
 		frame.src = URL.createObjectURL(event.target.files[0]);
 	}
 
 	// Clear Gambar
-	function clearImage() {
+	function clearImageProfil() {
 		document.getElementById('foto_profil').value = null;
 		frame.src = "";
 	}
