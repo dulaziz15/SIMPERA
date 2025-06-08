@@ -6,6 +6,7 @@ use App\Http\Requests\PelaporanRequest;
 
 interface PelaporanServiceInterface {
     public function getAll();
+    public function getAllPeninjauan();
     public function storePelaporan(PelaporanRequest $request);
     public function show($id);
     public function getLaporanById($id);

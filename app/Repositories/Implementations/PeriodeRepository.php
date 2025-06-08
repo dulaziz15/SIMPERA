@@ -8,6 +8,10 @@ use App\Repositories\Interfaces\PeriodeRepositoryInterface;
 
 class PeriodeRepository implements PeriodeRepositoryInterface
 {
+    public function getAll() {
+        return PeriodeModel::all();
+    }
+
     public function create(array $data)
     {
         return PeriodeModel::create($data) ? true : false;

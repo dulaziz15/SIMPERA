@@ -31,6 +31,10 @@ class PelaporanService implements PelaporanServiceInterface
         return $this->pelaporanRepository->getAll();
     }
 
+    public function getAllPeninjauan() {
+        return $this->pelaporanRepository->getAllPeninjauan();
+    }
+
     public function getLaporanByFasilitas($idFasilitas)
     {
         return $this->pelaporanRepository->getLaporanByFasilitas($idFasilitas);

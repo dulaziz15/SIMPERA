@@ -120,3 +120,23 @@
         <div id="myModal" class="modal fade" tabindex="-1">
         </div>
     </div>
+    <div class="card card-outline card-primary">
+        <div class="card-body" id="user-list">
+            <table class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive"
+                id="table_pelaporan_peninjauan">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Pelapor</th>
+                        <th>Fasilitas</th>
+                        <th>Status</th>
+                        <th>Periode</th>
+                        <th>Waktu Pelaporan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="myModal" class="modal fade" tabindex="-1">
+        </div>
+    </div>

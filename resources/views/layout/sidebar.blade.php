@@ -57,12 +57,12 @@
                             </li>
                         </ul>
                     </li>
-                    {{-- <li>
-                        <a href="index.html">
+                    <li>
+                        <a href="{{ url('periode') }}">
                             <i class="bx bx-calendar"></i>
                             <span data-key="t-dashboard">Periode</span>
                         </a>
-                    </li> --}}
+                    </li>
 
                     <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
                     <li>

@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::middleware(['authorize:ADM'])->group(function () {
 		Route::prefix('periode')->group(function () {
 			Route::get('/', [PeriodeController::class, 'index']);
+			Route::get('/data', [PeriodeController::class, 'getAll']);
 			Route::get('/create', [PeriodeController::class, 'create']);
 			Route::post('/store', [PeriodeController::class, 'storePeriode']);
 			Route::get('/{id}/show', [PeriodeController::class, 'show']);

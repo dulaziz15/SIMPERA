@@ -12,6 +12,10 @@ class PelaporanRepository implements PelaporanRepositoryInterface
         return LaporanPerbaikanModel::with(['periode', 'fasilitas', 'pengguna'])->get();
     }
 
+    public function getAllPeninjauan() {
+        return LaporanPerbaikanModel::where('biaya', null);
+    }
+
     public function create(array $data)
     {
         return LaporanPerbaikanModel::create($data);

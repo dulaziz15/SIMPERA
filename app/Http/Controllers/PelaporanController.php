@@ -64,6 +64,7 @@ class PelaporanController extends Controller
     public function getAll()
     {
         $pelaporanData = $this->pelaporanService->getAll();
+        $pelaporanPeninjauanData = $this->pelaporanService->getAllPeninjauan();
         return DataTables::of($pelaporanData)->make(true);
     }
 
