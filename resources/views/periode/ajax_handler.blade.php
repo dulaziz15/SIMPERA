@@ -5,15 +5,15 @@
 		});
 	}
 
-	var dataPeran;
+	var periodeData;
 	$(document).ready(function() {
-		dataPeran = $('#table_peran').DataTable({
+		periodeData = $('#table_periode').DataTable({
 			dom: 'B<"d-flex justify-content-between align-items-center mt-4"lf>',
 			buttons: [{
 					extend: 'pdfHtml5',
 					text: '<i class="bx bx-download"></i> Download PDF',
 					className: 'btn btn-soft-primary btn-md',
-					title: 'Data Peran',
+					title: 'Data Kategori Fasilitas',
 					download: 'open',
 					exportOptions: {
 						columns: ':visible:not(:last-child)' // Exclude action column
@@ -23,7 +23,7 @@
 					extend: 'excelHtml5',
 					text: '<i class="bx bx-file"></i> Export to Excel',
 					className: 'btn btn-soft-success btn-md',
-					title: 'Data Peran',
+					title: 'Data Kategori Fasilitas',
 					download: 'open',
 					exportOptions: {
 						columns: ':visible:not(:last-child)' // Exclude action column
@@ -40,42 +40,43 @@
 			paging: true, // enable pagination
 			lengthChange: true, // show 'Show entries' dropdown
 			info: true, // show info text below table
-			processing: true,
-			serverSide: true,
-			stateSave: true,
+			processing: false,
+			serverSide: false,
+			stateSave: false,
 			ajax: {
-				url: "{{ url('peran/data') }}",
-				type: 'POST',
-				headers: {
-					'X-CSRF-TOKEN': '{{ csrf_token() }}'
-				}
+				url: '{{ url('periode/data') }}',
+				type: 'GET',
 			},
 			columns: [{
 					data: null,
 					className: 'text-center',
 					orderable: false,
 					searchable: false,
-					render: function(data, type, row, meta) {
-						return meta.row + meta.settings._iDisplayStart + 1;
-					}
+					render: (data, type, row, meta) => meta.row + 1
 				},
 				{
-					data: "nama"
+					data: 'nama'
 				},
 				{
-					data: "kode_peran"
+					data: 'biaya'
 				},
+                {
+                    data: 'tanggal_mulai'
+                },
+                {
+                    data: 'tanggal_selesai'
+                },
 				{
 					data: null,
+					className: 'text-center',
 					orderable: false,
 					searchable: false,
-					className: 'text-center p-2',
 					render: function(data, type, row) {
 						return `
-                        <button type="button" class="btn btn-soft-info btn-sm" onclick="modalAction('/peran/${row.id_peran}/show')"><i class="bx bx-show-alt"></i> Detail</button>
-                        <button type="button" class="btn btn-soft-warning btn-sm" onclick="modalAction('/peran/${row.id_peran}/edit')"><i class="bx bx-edit"></i> Edit</button>
-                        <button type="button" class="btn btn-soft-danger btn-sm" onclick="modalAction('/peran/${row.id_peran}/confirm')"><i class="bx bx-trash"></i> Hapus</button>
-                    `;
+                            <button type="button" class="btn btn-soft-info waves-effect waves-light btn-sm" onclick="modalAction('{{ url('periode/${row.id_periode}/show') }}')" ><i class="bx bx-show-alt font-size-16 align-middle"></i> Show</button>
+                            <button type="button" class="btn btn-soft-warning waves-effect waves-light btn-sm" onclick="modalAction('{{ url('periode/${row.id_periode}/edit') }}')"><i class="bx bx-edit font-size-16 align-middle"></i> Edit</button>
+                            <button type="button" class="btn btn-soft-danger waves-effect waves-light btn-sm" onclick="modalAction('{{ url('periode/${row.id_periode}/confirm') }}')"><i class="bx bx-trash font-size-16 align-middle"></i> hapus</button>
+                        `
 					}
 				}
 			]

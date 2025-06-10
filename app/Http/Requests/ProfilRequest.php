@@ -23,7 +23,8 @@ class ProfilRequest extends FormRequest
     {
         return [
             'nama_lengkap' => 'required|string|max:50|min:3',
-            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'page_asal' => 'nullable'
         ];
     }
 }

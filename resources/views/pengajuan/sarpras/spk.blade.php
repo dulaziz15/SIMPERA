@@ -4,12 +4,29 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-12">
-                    <h5>Alternatif</h5>
-                    @foreach ($spk['alternatif'] as $alternatif)
-                        <li>{{ $alternatif->id_laporan }}</li>
-                    @endforeach
-                </div>
+                <table border="0" class="table table-responsive table-striped table-bordered">
+                    <thead>
+                        <th class="">Alternatif</th>
+                        <th>Id Laporan</th>
+                        <th>Nama Fasilitas</th>
+                        <th>kategori Fasilitas</th>
+                        <th>Ruangan</th>
+                        <th>Gedung</th>
+                        <th>Jumlah Dukungan</th>
+                    </thead>
+                    <tbody>
+                        @foreach ($spk['alternatif'] as $i => $item)
+                            <tr>
+                                <td>Alternatif {{ $i + 1 }}</td>
+                                <td>{{ $item->id_laporan }}</td>
+                                <td>{{ $item->fasilitas->nama }}</td>
+                                <td>{{ $item->fasilitas->kategori->nama }}</td>
+                                <td>{{ $item->fasilitas->ruangan->nama }}</td>
+                                <td>{{ $item->fasilitas->ruangan->gedung->nama }}</td>
+                                <td>{{ $item->pendukung->count() }}</td>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -18,7 +35,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h5>kriteria</h5>
-                    <table border="2" class="table">
+                    <table border="0" class="table table-responsive table-striped table-bordered">
                         <thead>
                             <th>Nama Fasilitas</th>
                             <th>Kerusakan</th>
@@ -53,7 +70,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h5>Normalisasi</h5>
-                    <table border="2" class="table">
+                    <table border="0" class="table table-responsive table-striped table-bordered">
                         <thead>
                             <th>Nama Fasilitas</th>
                             <th>Kerusakan</th>
@@ -88,7 +105,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h5>Preferensi</h5>
-                    <table border="2" class="table">
+                    <table border="0" class="table table-responsive table-striped table-bordered">
                         <thead>
                             <th>Kerusakan</th>
                             <th>Fungsi</th>
@@ -115,7 +132,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h5>Persimpangan Preferensi</h5>
-                    <table border="2" class="table">
+                    <table border="0" class="table table-responsive table-striped table-bordered">
                         <thead>
                             <th>Kerusakan</th>
                             <th>Fungsi</th>
@@ -142,7 +159,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h5>Bobot</h5>
-                    <table border="2" class="table">
+                    <table border="0" class="table table-responsive table-striped table-bordered">
                         <thead>
                             <th>Kerusakan</th>
                             <th>Fungsi</th>
@@ -170,7 +187,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h5>Skor</h5>
-                    <table border="2" class="table">
+                    <table border="0" class="table table-responsive table-striped table-bordered">
                         <thead>
                             <th>Nama Fasilitas</th>
                             <th>Skor</th>
@@ -195,7 +212,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h5>Ranking</h5>
-                    <table border="2" class="table">
+                    <table border="0" class="table table-responsive table-striped table-bordered">
                         <thead>
                             <th>Nama Fasilitas</th>
                             <th>Skor</th>

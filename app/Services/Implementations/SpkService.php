@@ -4,176 +4,25 @@ namespace App\Services\Implementations;
 
 use App\Enums\Status\StatusLaporanPerbaikan;
 use App\Models\LaporanPerbaikanModel;
+use App\Models\PeriodeModel;
 use App\Services\Interfaces\SpkServiceInterface;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class SpkService implements SpkServiceInterface
 {
-    public function spk()
-    {
-        // Ambil semua laporan yang statusnya 'baru'
-        $laporan = LaporanPerbaikanModel::where('status', StatusLaporanPerbaikan::BARU->value)->get();
-
-        $data = [];
-
-
-        foreach ($laporan as $item) {
-            $idFasilitas = $item->id_fasilitas;
-
-            // 1. Tingkat kerusakan 
-            $tingkat_kerusakan = DB::table('m_dukungan_laporan')
-                ->join('m_laporan_perbaikan', 'm_dukungan_laporan.id_laporan', '=', 'm_laporan_perbaikan.id_laporan')
-                ->where('m_laporan_perbaikan.id_fasilitas', $idFasilitas)
-                ->max('tingkat_kerusakan'); // Mengambil Nilai maksimum tingkat kerusakan
-
-            // 2. Fungsi Fasilitas: berdasarkan kategori
-            $fungsi = match (strtolower($item->kategori)) {
-                'inti' => 3,
-                'pendukung' => 2,
-                default => 1,
-            };
-
-            // 3. Frekuensi Penggunaan
-            $frekuensi = $fungsi;
-
-            // 4. Resiko Keselamatan
-            $resiko = match (strtolower($item->kategori)) {
-                'umum' => 3,
-                'pendukung' => 2,
-                default => 1,
-            };
-
-            // 5. Lokasi Fasilitas
-            $lokasi = match (strtolower($item->gedung)) {
-                'administratif' => 3,
-                'perkuliahan' => 2,
-                default => 1,
-            };
-
-            // 6. Laporan Kerusakan yang Masuk
-            $jumlah_laporan = DB::table('m_laporan_perbaikan')
-                ->where('id_fasilitas', $idFasilitas)
-                ->count();
-
-            $laporan_bobot = 1;
-            if ($jumlah_laporan > 50) $laporan_bobot = 3;
-            elseif ($jumlah_laporan >= 20) $laporan_bobot = 2;
-
-            // Menyimpan nilai kriteria
-            $data[$idFasilitas] = [
-                'nama_fasilitas' => $item->id_laporan,
-                'kerusakan' => $tingkat_kerusakan,
-                'fungsi' => $fungsi,
-                'frekuensi' => $frekuensi,
-                'resiko' => $resiko,
-                'lokasi' => $lokasi,
-                'jumlah_laporan' => $laporan_bobot,
-            ];
-        }
-
-
-        // 1. Normalisasi Matrix
-        $sumEach = [];
-        foreach ($data as $row) {
-            foreach ($row as $k => $v) {
-                if ($k === 'nama_fasilitas') continue;
-                $sumEach[$k] = ($sumEach[$k] ?? 0) + $v;
-            }
-        }
-
-
-
-
-        $normalized = [];
-        foreach ($data as $id => $row) {
-            foreach ($row as $k => $v) {
-                if ($k === 'nama_fasilitas') continue;
-                $normalized[$id][$k] = $v / $sumEach[$k];
-            }
-        }
-
-
-
-        // 2. Rata-Rata Preferensi
-        $avgPref = [];
-        $countData = count($normalized);
-        foreach ($normalized as $row) {
-            foreach ($row as $k => $v) {
-                $avgPref[$k] = ($avgPref[$k] ?? 0) + $v;
-            }
-        }
-        foreach ($avgPref as $k => $v) {
-            $avgPref[$k] = $v / $countData;
-        }
-
-
-        // 3. Penyimpangan Preferensi 
-        $deviasi = [];
-        foreach ($normalized as $row) {
-            foreach ($row as $k => $v) {
-                $deviasi[$k] = ($deviasi[$k] ?? 0) + abs($v - $avgPref[$k]);
-            }
-        }
-
-        // dd($deviasi);
-        // dd($normalized);
-        foreach ($deviasi as $k => $v) {
-            $deviasi[$k] = $v / $countData;
-        }
-
-        // 4. Hitung Bobot
-        $bobot = [];
-        $nilaiPreferensi = [];
-        $totalPref = 0;
-        foreach ($deviasi as $k => $v) {
-            $nilaiPreferensi[$k] = 1 - $v;
-            $totalPref += $nilaiPreferensi[$k];
-        }
-        foreach ($nilaiPreferensi as $k => $v) {
-            $bobot[$k] = $v / $totalPref;
-        }
-
-        // dd($nilaiPreferensi);
-
-        // 5. WSM: Hitung Skor Akhir
-        $skor = [];
-        foreach ($data as $id => $row) {
-            $total = 0;
-            foreach ($row as $k => $v) {
-                if ($k === 'nama_fasilitas') continue;
-                $total += $v * $bobot[$k];
-            }
-            $skor[$id] = [
-                'nama_fasilitas' => $row['nama_fasilitas'],
-                'skor' => round($total, 4)
-            ];
-        }
-
-        // dd($skor);
-
-        // 6. Ranking
-        usort($skor, fn($a, $b) => $b['skor'] <=> $a['skor']);
-        foreach ($skor as $i => &$val) {
-            $val['ranking'] = $i + 1;
-        }
-
-
-        // dd($skor);
-
-        $hasilAkhir = array_column($skor, 'nama_fasilitas');
-        // dd($hasilAkhir);
-        return $hasilAkhir;
-    }
-
     public function alternatif()
     {
-        return LaporanPerbaikanModel::where('status', StatusLaporanPerbaikan::BARU->value)->get();
+        return LaporanPerbaikanModel::where('status', StatusLaporanPerbaikan::BARU->value)
+            ->whereNotNull('perkiraan_biaya')
+            ->whereNotNull('kerusakan')
+            ->get();
     }
 
     public function kriteria()
     {
         $laporan = $this->alternatif();
-        $data = []; 
+        $data = [];
 
         foreach ($laporan as $item) {
             $idFasilitas = $item->id_fasilitas;
@@ -221,6 +70,8 @@ class SpkService implements SpkServiceInterface
             // Menyimpan nilai kriteria
             $data[$idFasilitas] = [
                 'nama_fasilitas' => $item->fasilitas->nama,
+                'id_laporan' => $item->id_laporan,
+                'perkiraan_biaya' => $item->perkiraan_biaya,
                 'kerusakan' => $tingkat_kerusakan,
                 'fungsi' => $fungsi,
                 'frekuensi' => $frekuensi,
@@ -230,19 +81,20 @@ class SpkService implements SpkServiceInterface
             ];
         }
 
-        return $data; 
+        return $data;
     }
 
     public function normalisasi()
     {
         $data = $this->kriteria();
-        if (empty($data)) return []; 
+        if (empty($data)) return [];
         // 1. Normalisasi Matrix
         $maxEach = [];
         foreach ($data as $row) {
             foreach ($row as $key => $value) {
                 if ($key === 'nama_fasilitas') continue;
-
+                if ($key === 'id_laporan') continue;
+                if ($key === 'perkiraan_biaya') continue;
                 if (!isset($maxEach[$key]) || $value > $maxEach[$key]) {
                     $maxEach[$key] = $value;
                 }
@@ -255,6 +107,12 @@ class SpkService implements SpkServiceInterface
         foreach ($data as $id => $row) {
             foreach ($row as $k => $v) {
                 if ($k === 'nama_fasilitas') {
+                    $normalized[$id][$k] = $v;
+                    continue;
+                } elseif ($k === 'id_laporan') {
+                    $normalized[$id][$k] = $v;
+                    continue;
+                } elseif ($k === 'perkiraan_biaya') {
                     $normalized[$id][$k] = $v;
                     continue;
                 }
@@ -276,6 +134,8 @@ class SpkService implements SpkServiceInterface
         foreach ($normalized as $row) {
             foreach ($row as $k => $v) {
                 if ($k === 'nama_fasilitas') continue;
+                if ($k === 'id_laporan') continue;
+                if ($k === 'perkiraan_biaya') continue;
                 $avgPref[$k] = ($avgPref[$k] ?? 0) + $v;
             }
         }
@@ -291,7 +151,7 @@ class SpkService implements SpkServiceInterface
     {
         $normalized = $this->normalisasi();
         $avgPref = $this->preferensi();
-        if (empty($normalized) || empty($avgPref)) return []; 
+        if (empty($normalized) || empty($avgPref)) return [];
 
         $countData = count($normalized);
         $deviasi = [];
@@ -299,6 +159,8 @@ class SpkService implements SpkServiceInterface
         foreach ($normalized as $row) {
             foreach ($row as $k => $v) {
                 if ($k === 'nama_fasilitas') continue;
+                if ($k === 'id_laporan') continue;
+                if ($k === 'perkiraan_biaya') continue;
                 $deviasi[$k] = ($deviasi[$k] ?? 0) + ($v - $avgPref[$k]) ** 2; // iki awale abs
             }
         }
@@ -334,6 +196,8 @@ class SpkService implements SpkServiceInterface
         $jumlah_penyimpangan = 0;
         foreach ($deviasi as $k => $v) {
             if ($k === 'nama_fasilitas') continue;
+            if ($k === 'id_laporan') continue;
+            if ($k === 'perkiraan_biaya') continue;
             $jumlah_penyimpangan = ($jumlah_penyimpangan ?? 0) + $v;
         }
 
@@ -350,24 +214,29 @@ class SpkService implements SpkServiceInterface
     {
         $normalized = $this->normalisasi();
         $bobot = $this->bobot();
-        if (empty($normalized) || empty($bobot)) return []; 
+        if (empty($normalized) || empty($bobot)) return [];
 
         // 5. WSM: Hitung Skor Akhir
         $skor = [];
 
         foreach ($normalized as $id => $row) {
             $total = 0;
-            $nama_fasilitas = $row['nama_fasilitas'] ?? 'Unknown'; 
+            $nama_fasilitas = $row['nama_fasilitas'] ?? 'Unknown';
+            $id_laporan = $row['id_laporan'];
 
             foreach ($row as $k => $v) {
                 if ($k === 'nama_fasilitas') continue;
-                if (isset($bobot[$k])) { 
+                if ($k === 'id_laporan') continue;
+                if ($k === 'perkiraan_biaya') continue;
+                if (isset($bobot[$k])) {
                     $total += $v * $bobot[$k];
                 }
             }
 
             $skor[$id] = [
                 'nama_fasilitas' => $nama_fasilitas,
+                'id_laporan' => $id_laporan,
+                'perkiraan_biaya' => $row['perkiraan_biaya'],
                 'skor' => round($total, 4)
             ];
         }
@@ -375,10 +244,68 @@ class SpkService implements SpkServiceInterface
         return $skor;
     }
 
+    public function hasilSpk()
+    {
+        $laporan = $this->alternatif();
+
+        if ($laporan->count() < 2) {
+            return [];
+        }
+
+        $skor = $this->ranking();
+        if (empty($skor)) return [];
+
+        // Urutkan berdasarkan skor tertinggi
+        usort($skor, fn($a, $b) => $b['skor'] <=> $a['skor']);
+        foreach ($skor as $i => &$val) {
+            $val['ranking'] = $i + 1;
+        }
+
+        // Ambil budget dari periode aktif
+        $periode = PeriodeModel::whereDate('tanggal_mulai', '<=', now())
+            ->whereDate('tanggal_selesai', '>=', now())
+            ->first();
+
+        if (!$periode) {
+            return [];
+        }
+
+        $budget = $periode->biaya;
+
+        // Coba semua kombinasi yang memungkinkan
+        $bestCombo = [];
+        $bestSkor = 0;
+
+        $n = count($skor);
+        for ($i = 1; $i < (1 << $n); $i++) {
+            $combo = [];
+            $totalBiaya = 0;
+            $totalSkor = 0;
+
+            for ($j = 0; $j < $n; $j++) {
+                if ($i & (1 << $j)) {
+                    $totalBiaya += $skor[$j]['perkiraan_biaya'];
+                    $totalSkor += $skor[$j]['skor'];
+                    $combo[] = $skor[$j];
+                }
+            }
+
+            if ($totalBiaya <= $budget && $totalSkor > $bestSkor) {
+                $bestCombo = $combo;
+                $bestSkor = $totalSkor;
+            }
+        }
+
+        // Jika hanya perlu ID laporan:
+        return array_column($bestCombo, 'id_laporan');
+
+        // Jika ingin seluruh detail (hapus baris atas):
+        // return $bestCombo;
+    }
     public function hasil()
     {
         $skor = $this->ranking();
-        if (empty($skor)) return []; 
+        if (empty($skor)) return [];
 
         // 6. Ranking
         usort($skor, fn($a, $b) => $b['skor'] <=> $a['skor']);
@@ -387,6 +314,6 @@ class SpkService implements SpkServiceInterface
             $val['ranking'] = $i + 1;
         }
 
-        return $skor; 
+        return $skor;
     }
 }

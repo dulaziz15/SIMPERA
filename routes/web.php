@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::middleware(['authorize:ADM'])->group(function () {
 		Route::prefix('periode')->group(function () {
 			Route::get('/', [PeriodeController::class, 'index']);
+			Route::get('/data', [PeriodeController::class, 'getAll']);
 			Route::get('/create', [PeriodeController::class, 'create']);
 			Route::post('/store', [PeriodeController::class, 'storePeriode']);
 			Route::get('/{id}/show', [PeriodeController::class, 'show']);
@@ -136,6 +137,9 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/{id}/show', [PelaporanController::class, 'show']);
 		Route::get('/{id}/getLaporan', [PelaporanController::class, 'getLaporan']);
 		Route::get('/{id}/edit', [PelaporanController::class, 'edit']);
+		Route::get('/{id}/peninjauan', [PelaporanController::class, 'peninjauan']);
+		Route::put('/{id}/peninjauan', [PelaporanController::class, 'storePeninjauan']);
+		Route::get('/{id}/peninjauan/edit', [PelaporanController::class, 'editPeninjauan']);
 		Route::put('/{id}/update', [PelaporanController::class, 'update']);
 		Route::get('/{id}/confirm', [PelaporanController::class, 'confirm']);
 		Route::delete('/{id}/delete', [PelaporanController::class, 'delete']);
@@ -195,25 +199,27 @@ Route::middleware(['auth'])->group(function () {
 	});
 
 	// Route::middleware(['authorize:ADM'])->group(function () {
-		Route::prefix('user')->group(function () {
-			Route::get('/', [UserController::class, 'index']);
-			Route::post('/data', [UserController::class, 'getAll']);
-			Route::post('/search', [UserController::class, 'search']);
-			Route::get('/create', [UserController::class, 'create']);
-			Route::get('/{id}/edit_profil', [UserController::class, 'editProfil']);
-			Route::post('/store-user', [UserController::class, 'storeUser']);
-			Route::post('/{id}/store-profil', [UserController::class, 'storeProfil']);
-			Route::get('/{id}/show', [UserController::class, 'show']);
-			Route::get('/{id}/edit', [UserController::class, 'edit']);
-			Route::put('/{id}/update', [UserController::class, 'updateProfile']);
-			Route::get('/{id}/confirm', [UserController::class, 'confirmDelete']);
-			Route::delete('/{id}/delete', [UserController::class, 'delete']);
-		});
+	Route::prefix('user')->group(function () {
+		Route::get('/', [UserController::class, 'index']);
+		Route::post('/data', [UserController::class, 'getAll']);
+		Route::post('/search', [UserController::class, 'search']);
+		Route::get('/create', [UserController::class, 'create']);
+		Route::get('/{id}/edit_profil', [UserController::class, 'editProfil']);
+		Route::post('/store-user', [UserController::class, 'storeUser']);
+		Route::post('/{id}/store-profil', [UserController::class, 'storeProfil']);
+		Route::get('/{id}/show', [UserController::class, 'show']);
+		Route::get('/{id}/edit', [UserController::class, 'edit']);
+		Route::put('/{id}/update', [UserController::class, 'updateProfile']);
+		Route::get('/{id}/confirm', [UserController::class, 'confirmDelete']);
+		Route::delete('/{id}/delete', [UserController::class, 'delete']);
+	});
 	// });
 
 	Route::prefix('profil')->group(function () {
 		Route::get('/', [ProfilController::class, 'index']);
 		Route::post('/{id}/updateImage', [ProfilController::class, 'updateImage']);
+		Route::get('/{id}/edit', [ProfilController::class, 'edit']);
+		Route::put('/{id}/update', [ProfilController::class, 'update']);
 	});
 
 	Route::get('/pelaporan/ruangan-by-gedung/{id_gedung}', [PelaporanController::class, 'getRuanganByGedung']);

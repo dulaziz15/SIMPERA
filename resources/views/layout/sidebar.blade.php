@@ -57,12 +57,12 @@
                             </li>
                         </ul>
                     </li>
-                    {{-- <li>
+                    <li>
                         <a href="{{ url('periode') }}">
                             <i class="bx bx-calendar"></i>
                             <span data-key="t-dashboard">Periode</span>
                         </a>
-                    </li> --}}
+                    </li>
 
                     <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
                     <li>
@@ -147,7 +147,7 @@
                 @endif
 
                 @if (Auth::user()->isAdmin() || Auth::user()->isSarpras())
-                    {{-- <li class="menu-title" data-key="t-menu">Laporan</li>
+                    <li class="menu-title" data-key="t-menu">Laporan</li>
                     <li>
                         <a href="index.html">
                             <i class="bx bx-trending-up"></i>
@@ -166,21 +166,8 @@
                             <i class="bx bx-sync"></i>
                             <span data-key="t-">Riwayat Perbaikan</span>
                         </a>
-                    </li>
-                    <li class="menu-title" data-key="t-menu">Rekomendasi Keputusan</li>
-                    <li>
-                        <a href="index.html">
-                            <i class="bx bx-list-ol"></i>
-                            <span data-key="t-dashboard">Kriteria</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="index.html">
-                            <i class="bx bx-calculator"></i>
-                            <span data-key="t-dashboard">Perhitungan</span>
-                        </a>
                     </li> --}}
+                @endif
                 <li class="menu-title" data-key="t-menu">Log Activity</li>
                 <li>
                     <a href="index.html">

@@ -16,16 +16,33 @@ class PeriodeController extends Controller
 
     public function index() {
         $breadcrumb = (object) [
-            'title' => 'Periode Pelaporan',
-            'list' => ['Data Master', 'Periode']
+            'title' => 'Periode',
+            'list' => ['Home', 'Periode']
         ];
 
         $page = (object) [
-            'title' => 'Periode Pelaporan'
+            'title' => 'Daftar Periode yang terdaftar dalam sistem'
         ];
 
         $activeMenu = 'periode';
         return view('periode.index', compact('breadcrumb', 'page', 'activeMenu'));
+    }
+
+    public function getAll() {
+        $periode = $this->periodeServiceInterface->getAll();
+        if ($periode && $periode->count() > 0) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data berhasil diambil.',
+                'data' => $periode
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan.',
+                'data' => []
+            ]);
+        }
     }
 
     public function create() {

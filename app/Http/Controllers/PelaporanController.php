@@ -61,11 +61,23 @@ class PelaporanController extends Controller
         return view('pelaporan.coba', compact('breadcrumb', 'page', 'activeMenu', 'gedung'));
     }
 
-    public function getAll()
+    public function getAll(Request $request)
     {
-        $pelaporanData = $this->pelaporanService->getAll();
-        return DataTables::of($pelaporanData)->make(true);
+        $tipe = $request->get('tipe');
+
+        if ($tipe === 'pelaporan') {
+            $data = $this->pelaporanService->getAll();
+        } elseif ($tipe === 'peninjauan') {
+            $data = $this->pelaporanService->getAllPeninjauan();
+        } else {
+            return response()->json([
+                'message' => 'Tipe data tidak valid'
+            ], 400);
+        }
+
+        return DataTables::of($data)->make(true);
     }
+
 
     public function create()
     {
@@ -114,7 +126,7 @@ class PelaporanController extends Controller
 
         $activeMenu = 'pelaporan';
         $laporan = $this->pelaporanService->show($id);
-        
+
         return view('pelaporan.sarpras.show', compact('laporan', 'breadcrumb', 'page', 'activeMenu'));
     }
 
@@ -132,6 +144,38 @@ class PelaporanController extends Controller
         $gedung = $this->gedungService->getAll();
         $ruangan = $this->ruanganService->getAll();;
         return view('pelaporan.edit', compact('laporan', 'gedung', 'fasilitas', 'ruangan'));
+    }
+
+    public function peninjauan($id)
+    {
+        $laporan = $this->pelaporanService->show($id);
+        return view('pelaporan.sarpras.peninjauan', compact('laporan'));
+    }
+
+    public function storePeninjauan(Request $request, $id) {
+        if ($request->ajax() || $request->wantsJson()) {
+            $pelaporan = $this->pelaporanService->storePeninjauan($request, $id);
+            if ($pelaporan) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil Diupdate.',
+                    'redirect' => url('/pelaporan')
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data Gagal Diupdate.',
+                    'redirect' => url('/pelaporan')
+                ]);
+            }
+        }
+
+        return redirect('/pelaporan');
+    }
+
+    public function editPeninjauan($id) {
+        $laporan = $this->pelaporanService->show($id);
+        return view('pelaporan.sarpras.edit_peninjauan', compact('laporan'));
     }
 
     public function update($id, PelaporanRequest $request)
@@ -183,7 +227,7 @@ class PelaporanController extends Controller
 
         return redirect('/pelaporan');
     }
- 
+
     public function getRuanganByGedung($id_gedung)
     {
         $ruangan = $this->ruanganService->getByGedung($id_gedung);
@@ -196,7 +240,8 @@ class PelaporanController extends Controller
         return response()->json($fasilitas);
     }
 
-    public function getAllFasilitasByRuangan($id) {
+    public function getAllFasilitasByRuangan($id)
+    {
         $fasilitas = $this->fasilitasService->getAllFasilitasByRuangan($id);
         return response()->json($fasilitas);
     }
@@ -216,5 +261,4 @@ class PelaporanController extends Controller
         $fasilitas = $this->fasilitasService->show($id);
         return view('pelaporan.mahasiswa.show', compact('fasilitas', 'breadcrumb', 'page', 'activeMenu'));
     }
-
 }

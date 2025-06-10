@@ -57,7 +57,8 @@ class UserController extends Controller
         return DataTables::of($userData)->make(true);
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         $user = $this->userServiceInterface->search($request);
         if ($user && $user->count() > 0) {
             return response()->json([
@@ -123,8 +124,11 @@ class UserController extends Controller
                 ]);
             }
         }
-
-        return redirect('/user');
+        if ($request->has('page_asal') && $request->page_asal == 'user') {
+            return redirect('/profil');
+        } else if ($request->has('page_asal') && $request->page_asal == 'admin') {
+            return redirect('/user');
+        }
     }
 
     public function edit($id)
