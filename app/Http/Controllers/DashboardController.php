@@ -29,7 +29,7 @@ class DashboardController extends Controller
     public function index() {
         $breadcrumb = (object) [
             'title' => 'Dashboard',
-            'list' => ['Home', 'Dashboard']
+            'list' => ['Dashboard', 'Dashboard']
         ];
 
         $page = (object) [
@@ -41,6 +41,6 @@ class DashboardController extends Controller
         $user = $this->userService->getAll();
         $ruangan = $this->ruanganService->getAll();
         $fasilitas = $this->fasilitasService->getAll();
-        return view('index', compact('breadcrumb', 'page', 'activeMenu', 'laporan', 'user', 'ruangan', 'fasilitas'));
+        return view('welcome', compact('breadcrumb', 'page', 'activeMenu', 'laporan', 'user', 'ruangan', 'fasilitas'));
     }
 }

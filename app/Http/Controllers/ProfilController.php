@@ -23,7 +23,7 @@ class ProfilController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Data Profil',
-            'list' => ['Home', 'Profil']
+            'list' => ['Dashboard', 'Profil']
         ];
 
         $page = (object) [

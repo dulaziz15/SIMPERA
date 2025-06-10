@@ -11,7 +11,7 @@ class AuthController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            return redirect('/');
+            return redirect('/dashboard');
         }
         return view('auth.login');
     }
@@ -23,9 +23,11 @@ class AuthController extends Controller
             'password' => $request->hash_kata_sandi
         ];
         if (Auth::attempt($credentials)) {
-            return redirect('');
+            return redirect('/dashboard');
         } else {
-            return redirect('login');
+            return redirect('login')->withErrors([
+                'surel' => 'Email atau password salah.',
+            ])->withInput($request->except('hash_kata_sandi'));
         }
     }
 

@@ -27,7 +27,7 @@ class GedungController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Gedung',
-            'list' => ['Home', 'Gedung']
+            'list' => ['Data Master', 'Gedung & Ruangan']
         ];
 
         $page = (object) [
