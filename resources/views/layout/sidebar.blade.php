@@ -166,7 +166,7 @@
                             <i class="bx bx-sync"></i>
                             <span data-key="t-">Riwayat Perbaikan</span>
                         </a>
-                    </li> --}}
+                    </li>
                 @endif
                 <li class="menu-title" data-key="t-menu">Log Activity</li>
                 <li>
@@ -175,7 +175,6 @@
                         <span data-key="t-dashboard">Log Activity</span>
                     </a>
                 </li>
-                @endif
             </ul>
         </div>
     </div>
