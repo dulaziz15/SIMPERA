@@ -22,7 +22,8 @@ class UserService implements UserServiceInterface
         return $this->userRepository->getAll();
     }
 
-    public function search($request) {
+    public function search($request)
+    {
         return $this->userRepository->search($request);
     }
 
@@ -49,7 +50,7 @@ class UserService implements UserServiceInterface
 
     public function createProfil(ProfilRequest $request, $id)
     {
-        $fotoPath = $this->fotoHandler($request->file('foto_profil'));
+        $fotoPath = $this->fotoHandler($request);
 
         $profil = $this->userRepository->storeProfil([
             'id_pengguna' => $id, // or get from $request if needed
