@@ -37,7 +37,7 @@ class DashboardController extends Controller
         ];
 
         $activeMenu = 'user';
-        $laporan = $this->laporanService->getAll();
+        $laporan = $this->laporanService->all();
         $user = $this->userService->getAll();
         $ruangan = $this->ruanganService->getAll();
         $fasilitas = $this->fasilitasService->getAll();

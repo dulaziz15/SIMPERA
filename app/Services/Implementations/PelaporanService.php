@@ -26,6 +26,10 @@ class PelaporanService implements PelaporanServiceInterface
         $this->pendukungService = $pendukungService;
     }
 
+    public function all() {
+        return $this->pelaporanRepository->all();
+    }
+
     public function getAll()
     {
         return $this->pelaporanRepository->getAll();
@@ -95,6 +99,13 @@ class PelaporanService implements PelaporanServiceInterface
     public function show($id)
     {
         return $this->pelaporanRepository->getById($id);
+    }
+
+    public function storePeninjauan($request, $id) {
+        return $this->pelaporanRepository->update($id, [
+            'perkiraan_biaya' => $request->perkiraan_biaya,
+            'kerusakan' => $request->tingkat_kerusakan
+        ]);
     }
 
     public function getLaporanById($id)

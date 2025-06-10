@@ -133,6 +133,9 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/{id}/show', [PelaporanController::class, 'show']);
 		Route::get('/{id}/getLaporan', [PelaporanController::class, 'getLaporan']);
 		Route::get('/{id}/edit', [PelaporanController::class, 'edit']);
+		Route::get('/{id}/peninjauan', [PelaporanController::class, 'peninjauan']);
+		Route::put('/{id}/peninjauan', [PelaporanController::class, 'storePeninjauan']);
+		Route::get('/{id}/peninjauan/edit', [PelaporanController::class, 'editPeninjauan']);
 		Route::put('/{id}/update', [PelaporanController::class, 'update']);
 		Route::get('/{id}/confirm', [PelaporanController::class, 'confirm']);
 		Route::delete('/{id}/delete', [PelaporanController::class, 'delete']);

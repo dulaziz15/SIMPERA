@@ -1,23 +1,53 @@
-<div id="modal-master" class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-        <div class="modal-header text-white">
-            <h5 class="modal-title" id="tambahPendukungModalLabel">
-                <i class="fas fa-user-plus me-2"></i>Tambah Pendukung Laporan
-            </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{ asset('/pelaporan/' . $laporan->id_laporan . '/pendukung/store') }}" method="POST"
-            id="form-tambah-pendukung">
-            @csrf
-            <input type="hidden" name="id_laporan" value="{{ $laporan->id_laporan ?? '' }}">
-            <div class="card m-3">
-                <div class="card-body">
-                    <div class="modal-body">
-
-                        <div class="row mb-4 mt-4">
+<form action="{{ url('/pelaporan/' . $laporan->id_laporan . '/peninjauan') }}" method="POST" id="form-peninjauan"
+    class="needs-validation">
+    @csrf
+    @method('PUT')
+    <div id="modal-master" class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Data laporan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body row g-3 p-4">
+                <div class="card">
+                    <div class="mt-2">
+                        <div class="alert alert-warning">
+                            <h5><i class="fas fa-exclamation-triangle"></i> Perthatikan!!!</h5>
+                            <ul>
+                                <li>pastikan <b>perkiraan biaya benar</b> karena mempengaruhi rekomendasi perbaikan</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Fasilitas</label>
+                                        <input type="text" name="fasilitas" id="fasilitas"
+                                            value="{{ $laporan->fasilitas->nama }}" class="form-control" disabled>
+                                        <div id="error-fasilitas" class="error-text"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Perkiraan Biaya</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text">Rp.</div>
+                                        <input type="number" class="form-control" id="perkiraan_biaya" name="perkiraan_biaya"
+                                            placeholder="100000">
+                                    </div>
+                                    <div id="error-perkiraan_biaya" class="error-text"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-12">
                                 <h5 class="font-size-16 mb-3"><i class="fas fa-exclamation-triangle me-2"></i>Tingkat
-                                    Kerusakan
+                                    Kerusakan Peninjauan
                                 </h5>
                                 <div class="row" id="radio" role="radiogroup" aria-label="Tingkat Kerusakan">
                                     {{-- Ringan --}}
@@ -102,21 +132,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="deskripsi" class="form-label">Keterangan Pendukung</label>
-                                    <textarea name="deskripsi" id="deskripsi" rows="3" class="form-control"
-                                        placeholder="Deskripsi Pendukung Laporan Mengenai Laporan Fasilitas ini" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
-
             <div class="modal-footer">
+
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     <i class="fas fa-times me-2"></i>Batal
                 </button>
@@ -124,10 +144,9 @@
                     <i class="fas fa-save me-2"></i>Simpan
                 </button>
             </div>
-            <input type="hidden" name="id_pengguna" id="id_pengguna" value="{{ Auth::user()->id_pengguna }}">
-        </form>
+        </div>
     </div>
-</div>
+</form>
 <style>
     .card-radio .form-check-input {
         position: absolute;
@@ -177,79 +196,101 @@
         border-radius: 12px;
     }
 </style>
-<script>
+    <script>
     $(document).ready(function() {
 
-        $('#form-tambah-pendukung').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: $(this).attr('action'),
-                method: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    if (response.status) {
-                        $('#myModal').modal('hide');
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Data Berhasil Ditambahkan',
-                            text: response.message,
-                            timer: 2000,
-                            showConfirmButton: false
-                        }).then(function() {
-                            window.location.reload();
-                        });
-                    } else {
-                        handleValidationErrors(response);
-                    }
+        $('#form-peninjauan').validate({
+            rules: {
+                perkiraan_biaya: {
+                    required: true
                 },
-                error: function(xhr) {
-                    if (xhr.status === 422) {
-                        // Handle validation errors
-                        const res = xhr.responseJSON;
-                        handleValidationErrors(res);
-                    } else if (xhr.status === 500 && xhr.responseJSON &&
-                        xhr.responseJSON.message.includes('Duplicate entry')) {
-                        // Specific handling for duplicate entry
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Data Ganda',
-                            text: 'Pengguna ini sudah mendukung laporan tersebut',
-                        });
-                    } else {
-                        // Generic server error
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Kesalahan Server',
-                            text: xhr.responseJSON?.message ||
-                                'Terjadi kesalahan pada server'
-                        });
+                tingkat_kerusakan: {
+                    required: true
+                },
+            },
+            messages: {
+                perkiraan_biaya: {
+                    required: "Perkiraan Biaya wajib diisi.",
+                },
+                tingkat_kerusakan: {
+                    required: "Tingkat Kerusakan wajib diisi.",
+                }
+            },
+            submitHandler: function(form) {
+                const formData = new FormData(form);
+                $.ajax({
+                    url: form.action,
+                    type: form.method,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                        'Accept': 'application/json'
+                    },
+                    success: function(response) {
+                        if (response.status) {
+                            $('#myModal').modal('hide');
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Data Berhasil Ditambahkan',
+                                text: response.message
+                            });
+                            dataPelaporan.ajax.reload();
+                            dataPelaporanPeninjauan.ajax.reload();
+                        } else {
+                            $('.invalid-feedback').text('');
+                            $.each(response.msgField, function(prefix, val) {
+                                $('#error-' + prefix).text(val[0]);
+                                $('#' + prefix).addClass('is-invalid');
+                            });
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            const res = xhr.responseJSON;
+                            $('.invalid-feedback').text('');
+                            $('.form-control').removeClass('is-invalid');
+
+                            $.each(res.msgField, function(prefix, val) {
+                                $('#error-' + prefix).text(val[0]);
+                                $('#' + prefix).addClass('is-invalid');
+                            });
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Validasi Gagal',
+                                text: res.message ||
+                                    'Harap isi data dengan benar.'
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Kesalahan Server',
+                                text: 'Terjadi kesalahan tak terduga. Silakan coba lagi.'
+                            });
+                        }
                     }
-                }
-            });
-
-            // Helper function for validation errors
-            function handleValidationErrors(response) {
-                $('.invalid-feedback').text('');
-                $('.form-control').removeClass('is-invalid');
-
-                if (response.msgField) {
-                    $.each(response.msgField, function(prefix, val) {
-                        $('#error-' + prefix).text(val[0]);
-                        $('#' + prefix).addClass('is-invalid');
-                    });
-                }
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Validasi Gagal',
-                    text: response.message || 'Harap isi data dengan benar.'
                 });
-            }
-
-            // Function to show existing supporters (optional)
-            function showExistingSupporters() {
-                $('#supportersModal').modal('show');
+                return false;
+            },
+            errorElement: 'div',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element) {
+                $(element).addClass('is-invalid').removeClass('is-valid');
+            },
+            unhighlight: function(element) {
+                $(element).removeClass('is-invalid').addClass('is-valid');
             }
         });
+
     });
 </script>

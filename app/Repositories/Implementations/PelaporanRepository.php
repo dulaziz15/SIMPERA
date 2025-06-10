@@ -9,11 +9,15 @@ class PelaporanRepository implements PelaporanRepositoryInterface
 {
     public function getAll()
     {
-        return LaporanPerbaikanModel::with(['periode', 'fasilitas', 'pengguna'])->get();
+        return LaporanPerbaikanModel::where('perkiraan_biaya', '!=', null)->orWhere('kerusakan','!=', null)->with(['periode', 'fasilitas', 'pengguna'])->get();
+    }
+
+    public function all() {
+        return LaporanPerbaikanModel::all();
     }
 
     public function getAllPeninjauan() {
-        return LaporanPerbaikanModel::where('biaya', null);
+        return LaporanPerbaikanModel::where('perkiraan_biaya', null)->orWhere('kerusakan', null)->with(['periode', 'fasilitas', 'pengguna'])->get();
     }
 
     public function create(array $data)

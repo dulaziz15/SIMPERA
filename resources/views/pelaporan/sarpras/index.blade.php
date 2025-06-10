@@ -132,6 +132,9 @@
                         <th>Status</th>
                         <th>Periode</th>
                         <th>Waktu Pelaporan</th>
+                        <th>Perkiraan Biaya</th>
+                        <th>Kerusakan</th>
+                        <th>Peninjauan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>

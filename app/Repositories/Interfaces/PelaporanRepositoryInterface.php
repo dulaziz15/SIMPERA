@@ -7,6 +7,7 @@ interface PelaporanRepositoryInterface {
     public function getById($id);
     public function update($id, array $data);
     public function delete($id);
+    public function all();
     public function getAll();
     public function getAllPeninjauan();
     public function availableInLaporan($fasilitas) ;
