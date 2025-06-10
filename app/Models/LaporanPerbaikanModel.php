@@ -23,7 +23,9 @@ class LaporanPerbaikanModel extends Model
         'status',
         'id_periode',
         'waktu_pelaporan',
-        'waktu_perubahan'
+        'waktu_perubahan',
+        'perkiraan_biaya',
+        'kerusakan'
     ];
 
     public function getStatusAttribute($value)

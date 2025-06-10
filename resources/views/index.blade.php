@@ -150,7 +150,6 @@
         </div>
         <!-- end col -->
     </div> <!-- end row-->
-
 @endsection
 @push('scripts')
     <script>
@@ -175,8 +174,8 @@
             legend: {
                 orient: "vertical",
                 left: "left",
-                data: ["Jumlah Laporan Baru", "Jumlah Laporan Diproses", "Jumlah Laporan Diverifikasi",
-                    "Jumlah Laporan Selesai"
+                data: ["Laporan Baru", "Laporan Diproses", "Laporan Diverifikasi",
+                    "Laporan Selesai"
                 ],
                 textStyle: {
                     color: "#858d98"
@@ -188,26 +187,32 @@
                 type: "pie",
                 radius: "55%",
                 center: ["50%", "60%"],
+                label: {
+                    show: true,
+                    position: 'outside',
+                    formatter: '{b}: {c} ({d}%)',
+                    fontSize: 14,
+                },
                 data: [{
                     value: {{ $laporan->filter(function ($item) {
                             return in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::BARU->value]);
                         })->count() }},
-                    name: "Jumlah Laporan Baru"
+                    name: "Laporan Baru"
                 }, {
                     value: {{ $laporan->filter(function ($item) {
                             return in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::DIAJUKAN->value]);
                         })->count() }},
-                    name: "Jumlah Laporan Diproses"
+                    name: "Laporan Diproses"
                 }, {
                     value: {{ $laporan->filter(function ($item) {
                             return in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::VERIFIKASI->value]);
                         })->count() }},
-                    name: "Jumlah Laporan Diverifikasi"
+                    name: "Laporan Diverifikasi"
                 }, {
                     value: {{ $laporan->filter(function ($item) {
                             return in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::SELESAI->value]);
                         })->count() }},
-                    name: "Jumlah Laporan Selesai"
+                    name: "Laporan Selesai"
                 }],
                 itemStyle: {
                     emphasis: {
@@ -231,8 +236,8 @@
             legend: {
                 orient: "vertical",
                 left: "left",
-                data: ["Jumlah Admin", "Jumlah Sarpras", "Jumlah Teknisi", "Jumlah Mahasiswa", "Jumlah Dosen",
-                    "Jumlah Tenaga Pendidik"
+                data: ["Admin", "Sarpras", "Teknisi", "Mahasiswa", "Dosen",
+                    "Tenaga Pendidik"
                 ],
                 textStyle: {
                     color: "#858d98"
@@ -244,37 +249,43 @@
                 type: "pie",
                 radius: "55%",
                 center: ["50%", "60%"],
+                label: {
+                    show: true,
+                    position: 'outside',
+                    formatter: '{b}: {c} ({d}%)',
+                    fontSize: 14,
+                },
                 data: [{
                         value: {{ $user->filter(function ($item) {
                                 return in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::ADMIN->value]);
                             })->count() }},
-                        name: "Jumlah Admin"
+                        name: "Admin"
                     }, {
                         value: {{ $user->filter(function ($item) {
                                 return in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::SARANA_PRASARANA->value]);
                             })->count() }},
-                        name: "Jumlah Sarpras"
+                        name: "Sarpras"
                     }, {
                         value: {{ $user->filter(function ($item) {
                                 return in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::TEKNISI->value]);
                             })->count() }},
-                        name: "Jumlah Teknisi"
+                        name: "Teknisi"
                     }, {
                         value: {{ $user->filter(function ($item) {
                                 return in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::MAHASISWA->value]);
                             })->count() }},
-                        name: "Jumlah Mahasiswa"
+                        name: "Mahasiswa"
                     },
                     {
                         value: {{ $user->filter(function ($item) {
                                 return in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::DOSEN->value]);
                             })->count() }},
-                        name: "Jumlah Dosen"
+                        name: "Dosen"
                     }, {
                         value: {{ $user->filter(function ($item) {
                                 return in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::TENAGA_KEPENDIDIKAN->value]);
                             })->count() }},
-                        name: "Jumlah Tenaga Pendidik"
+                        name: "Tenaga Pendidik"
                     }
                 ],
                 itemStyle: {
@@ -299,7 +310,7 @@
             legend: {
                 orient: "vertical",
                 left: "left",
-                data: ["Jumlah Fasilitas Umum", "Jumlah Fasilitas Penunjang", "Jumlah Fasilitas Inti"],
+                data: ["Fasilitas Umum", "Fasilitas Penunjang", "Fasilitas Inti"],
                 textStyle: {
                     color: "#858d98"
                 }
@@ -310,23 +321,28 @@
                 type: "pie",
                 radius: "55%",
                 center: ["50%", "60%"],
+                label: {
+                    show: true,
+                    position: 'outside',
+                    formatter: '{b}: {c} ({d}%)',
+                    fontSize: 14,
+                },
                 data: [{
-                        value: {{ $fasilitas->filter(function ($item) {
-                                return in_array($item->kategori->kode, ["FSU"]);
-                            })->count() }},
-                        name: "Jumlah Fasilitas Umum"
-                    }, {
-                        value: {{ $fasilitas->filter(function ($item) {
-                                return in_array($item->kategori->kode, ["FSP"]);
-                            })->count() }},
-                        name: "Jumlah Fasilitas Penunjang"
-                    }, {
-                        value: {{ $fasilitas->filter(function ($item) {
-                                return in_array($item->kategori->kode, ["FSI"]);
-                            })->count() }},
-                        name: "Jumlah Fasilitas Inti"
-                    },
-                ],
+                    value: {{ $fasilitas->filter(function ($item) {
+                            return in_array($item->kategori->kode, ['FSU']);
+                        })->count() }},
+                    name: "Fasilitas Umum"
+                }, {
+                    value: {{ $fasilitas->filter(function ($item) {
+                            return in_array($item->kategori->kode, ['FSP']);
+                        })->count() }},
+                    name: "Fasilitas Penunjang"
+                }, {
+                    value: {{ $fasilitas->filter(function ($item) {
+                            return in_array($item->kategori->kode, ['FSI']);
+                        })->count() }},
+                    name: "Fasilitas Inti"
+                }, ],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,

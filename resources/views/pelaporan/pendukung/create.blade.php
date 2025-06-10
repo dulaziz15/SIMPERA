@@ -197,13 +197,13 @@
 
     .card-radio .form-check-label:hover .card-radio-content,
     .card-radio .form-check-label:focus-visible .card-radio-content {
-        border-color: #405189;
-        box-shadow: 0 0 8px rgba(64, 81, 137, 0.6);
+        border-color: #142353;
+        box-shadow: 0 0 8px rgba(13, 64, 231, 0.1);
     }
 
     .card-radio .form-check-input:checked+label .card-radio-content {
-        border-color: #405189;
-        background-color: #f7f7ff;
+        border-color: #142353;
+        background-color: #1b3792b2;
         transform: scale(1.03);
     }
 
@@ -212,7 +212,7 @@
     }
 
     .card-radio .form-check-label:focus-visible {
-        outline: 3px solid #405189;
+        outline: 3px solid #142353;
         outline-offset: 3px;
         border-radius: 12px;
     }
