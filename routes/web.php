@@ -32,16 +32,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('index');
+});
+
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/proses_login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::middleware(['auth'])->group(function () {
-	Route::get('/', [DashboardController::class, 'index']);
+	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 	Route::middleware(['authorize:ADM'])->group(function () {
 		Route::prefix('periode')->group(function () {
 			Route::get('/', [PeriodeController::class, 'index']);
+			Route::get('/data', [PeriodeController::class, 'getAll']);
 			Route::get('/create', [PeriodeController::class, 'create']);
 			Route::post('/store', [PeriodeController::class, 'storePeriode']);
 			Route::get('/{id}/show', [PeriodeController::class, 'show']);
@@ -133,6 +138,9 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/{id}/show', [PelaporanController::class, 'show']);
 		Route::get('/{id}/getLaporan', [PelaporanController::class, 'getLaporan']);
 		Route::get('/{id}/edit', [PelaporanController::class, 'edit']);
+		Route::get('/{id}/peninjauan', [PelaporanController::class, 'peninjauan']);
+		Route::put('/{id}/peninjauan', [PelaporanController::class, 'storePeninjauan']);
+		Route::get('/{id}/peninjauan/edit', [PelaporanController::class, 'editPeninjauan']);
 		Route::put('/{id}/update', [PelaporanController::class, 'update']);
 		Route::get('/{id}/confirm', [PelaporanController::class, 'confirm']);
 		Route::delete('/{id}/delete', [PelaporanController::class, 'delete']);

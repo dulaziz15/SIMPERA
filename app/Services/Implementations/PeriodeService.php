@@ -17,6 +17,11 @@ class PeriodeService implements PeriodeServiceInterface {
     public function show($id){
         return $this->periodeRepository->show($id);
     }
+
+    public function getAll() {
+        return $this->periodeRepository->getAll();
+    }
+
     public function storePeriode(PeriodeRequest $request){
         return $this->periodeRepository->create([
             'nama' => $request->nama,

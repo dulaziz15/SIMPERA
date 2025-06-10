@@ -1,75 +1,63 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-6 col-12">
-            <h1>Periode</h1>
-        <div class="col-lg-6 col-12 mt-4 mt-lg-0">
-            <div class="card shadow h-100">
-                <div class="card-header pb-0 p-3">
-                    <h6 class="mb-0">Reviews</h6>
-                </div>
-                <div class="card-body pb-0 p-3">
-                    <ul class="list-group">
-                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-0">
-                            <div class="w-100">
-                                <div class="d-flex mb-2">
-                                    <span class="me-2 text-sm font-weight-bold text-dark">Positive
-                                        Reviews</span>
-                                    <span class="ms-auto text-sm font-weight-bold">80%</span>
-                                </div>
-                                <div>
-                                    <div class="progress progress-md">
-                                        <div class="progress-bar bg-primary w-80" role="progressbar" aria-valuenow="60"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                            <div class="w-100">
-                                <div class="d-flex mb-2">
-                                    <span class="me-2 text-sm font-weight-bold text-dark">Neutral
-                                        Reviews</span>
-                                    <span class="ms-auto text-sm font-weight-bold">17%</span>
-                                </div>
-                                <div>
-                                    <div class="progress progress-md">
-                                        <div class="progress-bar bg-primary w-10" role="progressbar" aria-valuenow="10"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                            <div class="w-100">
-                                <div class="d-flex mb-2">
-                                    <span class="me-2 text-sm font-weight-bold text-dark">Negative
-                                        Reviews</span>
-                                    <span class="ms-auto text-sm font-weight-bold">3%</span>
-                                </div>
-                                <div>
-                                    <div class="progress progress-md">
-                                        <div class="progress-bar bg-primary w-5" role="progressbar" aria-valuenow="5"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-footer pt-0 p-3 d-flex align-items-center">
-                    <div class="w-60">
-                        <p class="text-sm">
-                            More than <b>1,500,000</b> developers used Creative Tim's products and over
-                            <b>700,000</b> projects were created.
-                        </p>
+    <div class="card">
+        <div class="card-header">
+            <span>{{ $page->title }}</span>
+        </div>
+
+        <div class="btn-group">
+            <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickableInside"
+                data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                <option value="" class="mdi mdi-chevron-down">-- Pilih Periode -- </option>
+            </select>
+        </div>
+
+        <div class="card-body">
+            <table id="table_periode" class="table table-bordered dt-responsive w-100">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Fasilitas</th>
+                        <th>Status</th>
+            <div class="card-tools">
+                <button onclick="modalAction('{{ url('periode/create') }}')"
+                    class="btn btn-sm btn-success mt-1">Tambah</button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="col-lg-4">
+                        <label class="control-label col-form-label">Filter :</label>
                     </div>
-                    <div class="w-40 text-end">
-                        <a class="btn btn-dark mb-0 text-end" href="javascript:;">View all reviews</a>
+                    <div class="col-lg-4">
+                        <select class="form-control" id="id_gedung_filter" data-trigger name="id_gedung">
+                            <option value="">- Semua -</option>
+
+                        </select>
+                        <small class="form-text text-muted">Periode</small>
                     </div>
                 </div>
             </div>
+            <table id="table_periode"
+                class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Periode</th>
+                        <th>Budget Perbaikan</th>
+                        <th>Tanggal Mulai</th>
+                        <th>Tanggal Selesai</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
+    <div id="myModal" class="modal fade" tabindex="-1"></div>
 @endsection
+
+@push('scripts')
+    @include('periode.ajax_handler')
+@endpush

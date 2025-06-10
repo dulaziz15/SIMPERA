@@ -5,7 +5,7 @@
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
 
                 <li>
-                    <a href="{{ url('/') }}">
+                    <a href="{{ url('/dashboard') }}">
                         <i data-feather="home"></i>
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
@@ -57,12 +57,12 @@
                             </li>
                         </ul>
                     </li>
-                    {{-- <li>
-                        <a href="index.html">
+                    <li>
+                        <a href="{{ url('periode') }}">
                             <i class="bx bx-calendar"></i>
                             <span data-key="t-dashboard">Periode</span>
                         </a>
-                    </li> --}}
+                    </li>
 
                     <li class="menu-title" data-key="t-menu">Laporan Perbaikan</li>
                     <li>
@@ -120,12 +120,12 @@
                         </a>
                     </li>
 
-                    {{-- <li class="{{ $activeMenu == 'riwayat' ? 'mm-active' : '' }}">
+                    <li class="{{ $activeMenu == 'riwayat' ? 'mm-active' : '' }}">
                         <a href="{{ url('riwayat') }}">
                             <i class="bx bx-wrench"></i>
                             <span data-key="t-calendar">Riwayat Perbaikan</span>
                         </a>
-                    </li> --}}
+                    </li>
                 @endif
 
                 @if (Auth::user()->isUser())
@@ -161,6 +161,12 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="#">
+                            <i class="bx bx-sync"></i>
+                            <span data-key="t-">Riwayat Perbaikan</span>
+                        </a>
+                    </li> --}}
                 @endif
                 <li class="menu-title" data-key="t-menu">Log Activity</li>
                 <li>
@@ -169,7 +175,7 @@
                         <span data-key="t-dashboard">Log Activity</span>
                     </a>
                 </li>
-
+                @endif
             </ul>
         </div>
     </div>

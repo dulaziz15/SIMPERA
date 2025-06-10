@@ -30,7 +30,8 @@ class PengajuanController extends Controller
         ];
 
         $activeMenu = 'pengajuan';
-        $spk = $this->spkService->spk();
+        $spk = $this->spkService->hasilSpk();
+        // dd($spk);
         // dd($spk);
         $laporan = $this->laporanService->getAll();
         $rekomendasi = $this->laporanService->hasilSpk($spk);

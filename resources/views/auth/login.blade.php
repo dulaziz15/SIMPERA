@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login | Minia - Minimal Admin & Dashboard Template</title>
+    <title>Login | SIMPERA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -39,17 +39,25 @@
                     <div class="auth-full-page-content d-flex p-sm-5 p-4">
                         <div class="w-100">
                             <div class="d-flex flex-column h-100">
-                                <div class="mb-4 mb-md-5 text-center">
+                                <div class="mt-5 mb-md-0 text-center">
                                     <a href="index.html" class="d-block auth-logo">
                                         <img src="{{ asset('template/assets/images/logo.png') }}" alt=""
                                             height="28"> <span class="logo-txt">SIMPERA</span>
                                     </a>
                                 </div>
+
                                 <div class="auth-content my-auto">
                                     <div class="text-center">
                                         <h5 class="mb-0">Welcome Back !</h5>
                                         <p class="text-muted mt-2">Sign in to continue to SIMPERA.</p>
                                     </div>
+
+                                    @if($errors->has('surel'))
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('surel') }}
+                                        </div>
+                                    @endif
+
                                     <form class="mt-4 pt-2" action="{{ url('/proses_login') }}" method="POST"
                                         id="form-login">
                                         @method('POST')
@@ -83,13 +91,45 @@
                                         </div>
                                     </form>
 
+                                    {{-- <div class="mt-4 pt-2 text-center">
+                                        <div class="signin-other-title">
+                                            <h5 class="font-size-14 mb-3 text-muted fw-medium">- Sign in with -</h5>
+                                        </div>
+
+                                        <ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                                <a href="javascript:void()"
+                                                    class="social-list-item bg-primary text-white border-primary">
+                                                    <i class="mdi mdi-facebook"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="javascript:void()"
+                                                    class="social-list-item bg-info text-white border-info">
+                                                    <i class="mdi mdi-twitter"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="javascript:void()"
+                                                    class="social-list-item bg-danger text-white border-danger">
+                                                    <i class="mdi mdi-google"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="mt-5 text-center">
+                                        <p class="text-muted mb-0">Don't have an account ? <a
+                                                href="auth-register.html" class="text-primary fw-semibold"> Signup now
+                                            </a> </p>
+                                    </div> --}}
                                 </div>
                                 <div class="mt-4 mt-md-5 text-center">
                                     <p class="mb-0">©
                                         <script>
                                             document.write(new Date().getFullYear())
-                                        </script> Minia . Crafted with <i
-                                            class="mdi mdi-heart text-danger"></i> by Themesbrand
+                                        </script> SIMPERA . Crafted with <i
+                                            class="mdi mdi-heart text-danger"></i> by Kelompok 1
                                     </p>
                                 </div>
                             </div>
@@ -135,12 +175,12 @@
                                                 <div class="testi-contain text-white">
                                                     <i class="bx bxs-quote-alt-left text-success display-6"></i>
 
-                                                    <h4 class="mt-4 fw-medium lh-base text-white">“I feel confident
-                                                        imposing change
-                                                        on myself. It's a lot more progressing fun than looking back.
-                                                        That's why
-                                                        I ultricies enim
-                                                        at malesuada nibh diam on tortor neaded to throw curve balls.”
+                                                    <h4 class="mt-4 fw-medium lh-base text-white">"Aplikasi ini benar-benar 
+                                                        mempermudah saya sebagai mahasiswa dalam melaporkan kerusakan 
+                                                        fasilitas di kampus. Proses pelaporan yang cepat dan mudah tanpa perlu 
+                                                        datang langsung ke bagian administrasi sangat membantu. Selain itu, saya 
+                                                        bisa memantau status laporan secara real-time, jadi saya tahu kapan kerusakan 
+                                                        tersebut ditangani. Sangat praktis dan efisien!"
                                                     </h4>
                                                     <div class="mt-4 pt-3 pb-5">
                                                         <div class="d-flex align-items-start">
@@ -150,9 +190,9 @@
                                                                     alt="...">
                                                             </div>
                                                             <div class="flex-grow-1 ms-3 mb-4">
-                                                                <h5 class="font-size-18 text-white">Richard Drews
+                                                                <h5 class="font-size-18 text-white">Brian Hernandez
                                                                 </h5>
-                                                                <p class="mb-0 text-white-50">Web Designer</p>
+                                                                <p class="mb-0 text-white-50">Mahasiswa Akuntansi</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -163,12 +203,12 @@
                                                 <div class="testi-contain text-white">
                                                     <i class="bx bxs-quote-alt-left text-success display-6"></i>
 
-                                                    <h4 class="mt-4 fw-medium lh-base text-white">“Our task must be to
-                                                        free ourselves by widening our circle of compassion to embrace
-                                                        all living
-                                                        creatures and
-                                                        the whole of quis consectetur nunc sit amet semper justo. nature
-                                                        and its beauty.”</h4>
+                                                    <h4 class="mt-4 fw-medium lh-base text-white">"Bagi kami yang bekerja di bagian 
+                                                        pengelolaan fasilitas, aplikasi ini sangat memudahkan dalam memantau dan 
+                                                        menangani laporan kerusakan. Dashboard yang tersedia memberikan informasi 
+                                                        yang jelas dan terstruktur tentang jenis kerusakan, lokasi, serta status 
+                                                        perbaikan. Dengan adanya aplikasi ini, kami bisa lebih cepat merespons laporan 
+                                                        dan memastikan fasilitas kampus selalu dalam kondisi optimal."</h4>
                                                     <div class="mt-4 pt-3 pb-5">
                                                         <div class="d-flex align-items-start">
                                                             <div class="flex-shrink-0">
@@ -179,7 +219,7 @@
                                                             <div class="flex-grow-1 ms-3 mb-4">
                                                                 <h5 class="font-size-18 text-white">Rosanna French
                                                                 </h5>
-                                                                <p class="mb-0 text-white-50">Web Developer</p>
+                                                                <p class="mb-0 text-white-50">Tenaga Pendidik</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -190,20 +230,20 @@
                                                 <div class="testi-contain text-white">
                                                     <i class="bx bxs-quote-alt-left text-success display-6"></i>
 
-                                                    <h4 class="mt-4 fw-medium lh-base text-white">“I've learned that
-                                                        people will forget what you said, people will forget what you
-                                                        did,
-                                                        but people will never forget
-                                                        how donec in efficitur lectus, nec lobortis metus you made them
-                                                        feel.”</h4>
+                                                    <h4 class="mt-4 fw-medium lh-base text-white">"Sebagai dosen, aplikasi ini sangat 
+                                                        berguna untuk melaporkan kerusakan di ruang kelas atau laboratorium. Dulu, 
+                                                        melaporkan kerusakan sering kali memakan waktu dan tenaga. Sekarang, saya hanya 
+                                                        perlu beberapa klik, dan kerusakan langsung tercatat dan diprioritaskan. Sistem 
+                                                        pelaporan yang transparan memungkinkan saya untuk mengetahui proses perbaikan 
+                                                        dengan jelas, sehingga saya bisa memberikan informasi yang tepat kepada mahasiswa."</h4>
                                                     <div class="mt-4 pt-3 pb-5">
                                                         <div class="d-flex align-items-start">
                                                             <img src="{{ asset('template/assets/images/users/avatar-3.jpg') }}"
                                                                 class="avatar-md img-fluid rounded-circle"
                                                                 alt="...">
                                                             <div class="flex-1 ms-3 mb-4">
-                                                                <h5 class="font-size-18 text-white">Ilse R. Eaton</h5>
-                                                                <p class="mb-0 text-white-50">Manager
+                                                                <h5 class="font-size-18 text-white">Ilse Rahma Adira</h5>
+                                                                <p class="mb-0 text-white-50">Dosen TI
                                                                 </p>
                                                             </div>
                                                         </div>
