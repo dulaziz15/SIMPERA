@@ -38,34 +38,16 @@ class ProfilService implements ProfilServiceInterface
     {
         $profil = $this->profilRepository->getProfil($id);
         $isChanged = false;
-        $imageUpdated = false;
-        $imageName = null;
-        if ($request->hasFile('gambar')) {
-            $url_foto = $request->file('gambar');
-            $imageName = time() . '_' . $url_foto->getClientOriginalName();
-            $url_foto->storeAs('foto_profil', $imageName, 'public');
-            $imageUpdated = true;
-        }
         if ($profil && $profil->nama_lengkap !== $request->nama_lengkap) {
             $isChanged = true;
-        }
-        if ($imageUpdated) {
-            $this->profilRepository->updateImage($id, [
-                'foto_profil' => $imageName
-            ]);
         }
         if ($isChanged) {
             $updated = $this->profilRepository->update($id, [
                 'nama_lengkap' => $request->nama_lengkap,
             ]);
             return [
-                'status' => $updated || $imageUpdated,
-                'message' => ($updated || $imageUpdated) ? 'Data berhasil diupdate.' : 'Data gagal diupdate.'
-            ];
-        } elseif ($imageUpdated) {
-            return [
-                'status' => true,
-                'message' => 'Foto profil berhasil diupdate.'
+                'status' => $updated,
+                'message' => $updated ? 'Data berhasil diupdate.' : 'Data gagal diupdate.'
             ];
         } else {
             return [
