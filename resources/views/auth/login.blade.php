@@ -40,7 +40,7 @@
                         <div class="w-100">
                             <div class="d-flex flex-column h-100">
                                 <div class="mt-5 mb-md-0 text-center">
-                                    <a href="index.html" class="d-block auth-logo">
+                                    <a href="{{ url('/') }}" class="d-block auth-logo">
                                         <img src="{{ asset('template/assets/images/logo.png') }}" alt=""
                                             height="28"> <span class="logo-txt">SIMPERA</span>
                                     </a>
