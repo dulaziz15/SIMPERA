@@ -29,18 +29,18 @@ class FeedbackController extends Controller
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Disimpan.',
-                    'redirect' => url('/feedback')
+                    'redirect' => url('/tracking')
                 ]);
             } else {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data Gagal Disimpan.',
-                    'redirect' => url('/feedback')
+                    'redirect' => url('/tracking')
                 ]);
             }
         }
 
-        return redirect('/feedback');
+        return redirect('/tracking');
     }
 
     public function show($id) {

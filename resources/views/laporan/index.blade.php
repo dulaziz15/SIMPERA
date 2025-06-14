@@ -111,8 +111,12 @@
                                 <button type="submit" class="btn btn-primary me-2">
                                     <i class="fas fa-filter me-1"></i> Filter
                                 </button>
-                                <a href="{{ url('laporan') }}" class="btn btn-secondary">
+                                <a href="{{ url('laporan') }}" class="btn btn-secondary me-2">
                                     <i class="fas fa-sync-alt me-1"></i> Reset
+                                </a>
+                                <a href="{{ route('laporan.print', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
+                                    class="btn btn-outline-primary" target="_blank">
+                                    <i class="fas fa-print me-2"></i>Cetak Laporan
                                 </a>
                             </div>
                             <div class="col-md-3 d-flex align-items-end justify-content-end">
