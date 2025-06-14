@@ -284,38 +284,41 @@
                                                         </p>
 
                                                         <div class="feedback-section mb-4 p-3 bg-light rounded-3 border">
-                                                            @forelse ($laporan->feedback as $item)
-                                                                <div
-                                                                    class="feedback-item mb-3 p-3 bg-white rounded-2 shadow-sm">
-                                                                    <div class="d-flex align-items-start">
-                                                                        <div
-                                                                            class="bg-success bg-opacity-10 p-2 rounded-circle me-3">
-                                                                            <i
-                                                                                class="fas fa-comment-medical"></i>
-                                                                        </div>
-                                                                        <div class="flex-grow-1">
+                                                            @if ($laporan->feedback)
+                                                                @forelse ($laporan->feedback as $item)
+                                                                    <div
+                                                                        class="feedback-item mb-3 p-3 bg-white rounded-2 shadow-sm">
+                                                                        <div class="d-flex align-items-start">
                                                                             <div
-                                                                                class="d-flex justify-content-between align-items-center mb-2">
-                                                                                <h6 class="mb-0 fw-semibold">Feedback Anda
-                                                                                </h6>
-                                                                                <small class="text-muted">
-                                                                                    {{ $item->created_at }}
-                                                                                </small>
+                                                                                class="bg-success bg-opacity-10 p-2 rounded-circle me-3">
+                                                                                <i class="fas fa-comment-medical"></i>
                                                                             </div>
-                                                                            <p class="mb-2">{{ $item->komentar }}</p>
-                                                                            <div class="rating">
-                                                                                @for ($i = 1; $i <= 5; $i++)
-                                                                                    <i class="{{ $i <= $item->penilaian ? 'fas fa-star rating-star text-warning' : 'far fa-star rating-star' }}"></i>
-                                                                                @endfor
-                                                                                <span
-                                                                                    class="ms-2 small text-muted">{{ $item->rating }}/5</span>
+                                                                            <div class="flex-grow-1">
+                                                                                <div
+                                                                                    class="d-flex justify-content-between align-items-center mb-2">
+                                                                                    <h6 class="mb-0 fw-semibold">
+                                                                                        Feedback
+                                                                                        {{ $item->user->id === Auth::id() ? 'Anda' : 'dari ' . $item->user->name }}
+                                                                                    </h6>
+                                                                                    <small class="text-muted">
+                                                                                        {{ $item->created_at->format('d M Y H:i') }}
+                                                                                    </small>
+                                                                                </div>
+                                                                                <p class="mb-2">{{ $item->komentar }}
+                                                                                </p>
+                                                                                <div class="rating">
+                                                                                    @for ($i = 1; $i <= 5; $i++)
+                                                                                        <i
+                                                                                            class="{{ $i <= $item->penilaian ? 'fas fa-star text-warning' : 'far fa-star text-muted' }}"></i>
+                                                                                    @endfor
+                                                                                    <span
+                                                                                        class="ms-2 small text-muted">{{ $item->penilaian }}/5</span>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            @empty
-                                                                @if (Auth::user()->id_pengguna == $item->id_pengguna)
-                                                                    <div class="text-center py-3">
+                                                                @empty
+                                                                    <div class="text-center pt-2">
                                                                         <button
                                                                             class="btn btn-outline-success rounded-pill px-4"
                                                                             data-bs-toggle="modal"
@@ -326,11 +329,12 @@
                                                                         </button>
                                                                         <p class="small text-muted mt-2 mb-0">
                                                                             Bagikan pengalaman Anda tentang penanganan
-                                                                            laporan ini
+                                                                            laporan
+                                                                            ini
                                                                         </p>
                                                                     </div>
-                                                                @endif
-                                                            @endforelse
+                                                                @endforelse
+                                                            @endif
                                                         </div>
 
                                                         <div class="d-flex justify-content-between align-items-center">
