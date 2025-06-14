@@ -7,6 +7,7 @@ use App\Services\Interfaces\PelaporanServiceInterface;
 use App\Services\Interfaces\RuanganServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -20,13 +21,14 @@ class DashboardController extends Controller
         UserServiceInterface $userService,
         RuanganServiceInterface $ruanganService,
         FasilitasServiceInterface $fasilitasService
-        ){
+    ) {
         $this->laporanService = $pelaporanService;
         $this->userService = $userService;
         $this->ruanganService = $ruanganService;
         $this->fasilitasService = $fasilitasService;
     }
-    public function index() {
+    public function index()
+    {
         $breadcrumb = (object) [
             'title' => 'Dashboard',
             'list' => ['Dashboard', 'Dashboard']
@@ -41,6 +43,20 @@ class DashboardController extends Controller
         $user = $this->userService->getAll();
         $ruangan = $this->ruanganService->getAll();
         $fasilitas = $this->fasilitasService->getAll();
-        return view('welcome', compact('breadcrumb', 'page', 'activeMenu', 'laporan', 'user', 'ruangan', 'fasilitas'));
+        $laporanSaya = $this->laporanService->getLaporanByUser(Auth::user()->id_pengguna);
+        $laporanDidukung = $this->laporanService->getLaporanDidukungByUser(Auth::user()->id_pengguna);
+        $laporanSelesai = $this->laporanService->getAllLaporanByUser(Auth::user()->id_pengguna);
+        return view('welcome', compact(
+            'breadcrumb',
+            'page',
+            'activeMenu',
+            'laporan',
+            'user',
+            'ruangan',
+            'fasilitas',
+            'laporanSaya',
+            'laporanDidukung',
+            'laporanSelesai'
+        ));
     }
 }

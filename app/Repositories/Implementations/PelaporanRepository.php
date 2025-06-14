@@ -37,32 +37,32 @@ class PelaporanRepository implements PelaporanRepositoryInterface
     }
 
     public function getLaporanPerPeriode()
-{
-    $laporan = LaporanPerbaikanModel::select('id_periode', DB::raw('COUNT(*) as jumlah'))
-        ->groupBy('id_periode')
-        ->with([
-            'periode:id_periode,nama',
-            'periode.laporan' => function ($query) {
-                $query->select('id_periode', 'id_periode', 'status');
-            }
-        ])
-        ->get();
+    {
+        $laporan = LaporanPerbaikanModel::select('id_periode', DB::raw('COUNT(*) as jumlah'))
+            ->groupBy('id_periode')
+            ->with([
+                'periode:id_periode,nama',
+                'periode.laporan' => function ($query) {
+                    $query->select('id_periode', 'id_periode', 'status');
+                }
+            ])
+            ->get();
 
-    return $laporan->map(function ($item) {
-        $laporanPerPeriode = $item ?? collect();
+        return $laporan->map(function ($item) {
+            $laporanPerPeriode = $item ?? collect();
 
-        return [
-            'id_periode'      => $item->id_periode,
-            'nama_periode'    => $item->periode->nama ?? 'Tanpa Nama',
-            'jumlah_laporan'  => $item->jumlah,
-            'baru'            => $laporanPerPeriode->where('status', StatusLaporanPerbaikan::BARU)->where('id_periode', $item->id_periode)->count(),
-            'diverifikasi'    => $laporanPerPeriode->where('status', StatusLaporanPerbaikan::VERIFIKASI)->where('id_periode', $item->id_periode)->count(),
-            'diajukan'        => $laporanPerPeriode->where('status', StatusLaporanPerbaikan::DIAJUKAN)->where('id_periode', $item->id_periode)->count(),
-            'perbaikan'       => $laporanPerPeriode->where('status', StatusLaporanPerbaikan::PERBAIKAN)->where('id_periode', $item->id_periode)->count(),
-            'selesai'         => $laporanPerPeriode->where('status', StatusLaporanPerbaikan::SELESAI)->where('id_periode', $item->id_periode)->count(),
-        ];
-    });
-}
+            return [
+                'id_periode'      => $item->id_periode,
+                'nama_periode'    => $item->periode->nama ?? 'Tanpa Nama',
+                'jumlah_laporan'  => $item->jumlah,
+                'baru'            => $laporanPerPeriode->where('status', StatusLaporanPerbaikan::BARU)->where('id_periode', $item->id_periode)->count(),
+                'diverifikasi'    => $laporanPerPeriode->where('status', StatusLaporanPerbaikan::VERIFIKASI)->where('id_periode', $item->id_periode)->count(),
+                'diajukan'        => $laporanPerPeriode->where('status', StatusLaporanPerbaikan::DIAJUKAN)->where('id_periode', $item->id_periode)->count(),
+                'perbaikan'       => $laporanPerPeriode->where('status', StatusLaporanPerbaikan::PERBAIKAN)->where('id_periode', $item->id_periode)->count(),
+                'selesai'         => $laporanPerPeriode->where('status', StatusLaporanPerbaikan::SELESAI)->where('id_periode', $item->id_periode)->count(),
+            ];
+        });
+    }
 
 
     public function getLaporanSering($startDate = null, $endDate = null)
@@ -205,10 +205,19 @@ class PelaporanRepository implements PelaporanRepositoryInterface
 
     public function getAllLaporanByUser($id)
     {
-        return LaporanPerbaikanModel::whereHas('pendukung', function ($query) use ($id) {
-            $query->where('id_user', $id)
-                ->whereColumn('id_user', '=', 'm_laporan_perbaikan.id_pengguna');
-        })->where('status', '=', 'selesai')
+        return LaporanPerbaikanModel::query()
+            ->with([
+                'pendukung' => function ($query) use ($id) {
+                    $query->where('id_user', $id);
+                },
+                'fasilitas',
+                'feedback'
+            ])
+            ->whereHas('pendukung', function ($query) use ($id) {
+                $query->where('id_user', $id);
+            })
+            ->where('status', StatusLaporanPerbaikan::SELESAI->value)
+            ->orderByDesc('waktu_pelaporan')
             ->get();
     }
 

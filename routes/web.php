@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilitasController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\KategoriFasilitasController;
 use App\Http\Controllers\KategoriGedungController;
@@ -190,14 +191,7 @@ Route::middleware(['auth'])->group(function () {
 	});
 
 	Route::prefix('feedback')->group(function () {
-		Route::get('/', [FasilitasController::class, 'index']);
-		Route::get('/create', [FasilitasController::class, 'create']);
-		Route::post('/store', [FasilitasController::class, 'storeFeedback']);
-		Route::get('/{id}/show', [FasilitasController::class, 'show']);
-		Route::get('/{id}/edit', [FasilitasController::class, 'edit']);
-		Route::put('/{id}/update', [FasilitasController::class, 'update']);
-		Route::get('/{id}/confirm', [FasilitasController::class, 'confirm']);
-		Route::delete('/{id}/delete', [FasilitasController::class, 'delete']);
+		Route::post('/store', [FeedbackController::class, 'storeFeedback']);
 	});
 
 	// Route::middleware(['authorize:ADM'])->group(function () {
@@ -230,6 +224,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::prefix('laporan')->group(function () {
 		Route::get('/', [LaporanController::class, 'index']);
+		Route::get('/print', [LaporanController::class, 'print'])->name('laporan.print');;
 	});
 
 	Route::get('/pelaporan/ruangan-by-gedung/{id_gedung}', [PelaporanController::class, 'getRuanganByGedung']);
