@@ -273,7 +273,7 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Mix Line-Bar</h4>
+                    <h4 class="card-title mb-0">Statistik Laporan Per Periode</h4>
                 </div>
                 <div class="card-body p-5">
                     <div id="mix-line-bar" data-colors='["#2ab57d", "#5156be", "#fd625e"]' class="e-charts">
@@ -538,7 +538,9 @@
                 },
                 color: mixlinebarColors,
                 legend: {
-                    data: ["Jumlah Laporan"],
+                    data: ["Jumlah Laporan", "Laporan Baru", "Laporan Diverifikasi",
+                        "Laporan Diajukan", "Laporan Diproses", "Laporan Selesai"
+                    ],
                     textStyle: {
                         color: "#858d98"
                     }
@@ -574,10 +576,36 @@
                     }
                 }],
                 series: [{
-                    name: "Jumlah Laporan",
-                    type: "bar",
-                    data: @json(collect($laporanPerPeriode)->pluck('jumlah_laporan')),
-                }]
+                        name: "Jumlah Laporan",
+                        type: "bar",
+                        data: @json(collect($laporanPerPeriode)->pluck('jumlah_laporan')),
+                    },
+                    {
+                        name: "Laporan Baru",
+                        type: "bar",
+                        data: @json(collect($laporanPerPeriode)->pluck('baru')),
+                    },
+                    {
+                        name: "Laporan Diverifikasi",
+                        type: "bar",
+                        data: @json(collect($laporanPerPeriode)->pluck('diverifikasi')),
+                    },
+                    {
+                        name: "Laporan Diajukan",
+                        type: "bar",
+                        data: @json(collect($laporanPerPeriode)->pluck('diajukan')),
+                    },
+                    {
+                        name: "Laporan Diproses",
+                        type: "bar",
+                        data: @json(collect($laporanPerPeriode)->pluck('perbaikan')),
+                    },
+                    {
+                        name: "Laporan Selesai",
+                        type: "bar",
+                        data: @json(collect($laporanPerPeriode)->pluck('selesai')),
+                    }
+                ],
             };
 
             // Terapkan ke chart
