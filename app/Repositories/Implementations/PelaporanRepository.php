@@ -2,21 +2,132 @@
 
 namespace App\Repositories\Implementations;
 
+use App\Enums\Status\StatusLaporanPerbaikan;
 use App\Models\LaporanPerbaikanModel;
+use App\Models\PeriodeModel;
 use App\Repositories\Interfaces\PelaporanRepositoryInterface;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PelaporanRepository implements PelaporanRepositoryInterface
 {
     public function getAll()
     {
-        return LaporanPerbaikanModel::where('perkiraan_biaya', '!=', null)->orWhere('kerusakan','!=', null)->with(['periode', 'fasilitas', 'pengguna'])->get();
+        return LaporanPerbaikanModel::where('perkiraan_biaya', '!=', null)->orWhere('kerusakan', '!=', null)->with(['periode', 'fasilitas', 'pengguna'])->get();
     }
 
-    public function all() {
-        return LaporanPerbaikanModel::all();
+    public function all()
+    {
+        return LaporanPerbaikanModel::with(['periode', 'fasilitas', 'pengguna'])->get();
     }
 
-    public function getAllPeninjauan() {
+    public function getByPeriode()
+    {
+        $today = Carbon::now();
+
+        $periode = PeriodeModel::whereDate('tanggal_mulai', '<=', $today)
+            ->whereDate('tanggal_selesai', '>=', $today)
+            ->first();
+
+        if (!$periode) {
+            return collect();
+        }
+
+        return LaporanPerbaikanModel::where('id_periode', $periode->id_periode)->get();
+    }
+
+    public function getLaporanPerPeriode()
+    {
+        return LaporanPerbaikanModel::select('id_periode', DB::raw('COUNT(*) as jumlah'))
+            ->groupBy('id_periode')
+            ->with('periode:id_periode,nama') // hanya ambil field yg diperlukan
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id_periode' => $item->id_periode,
+                    'nama_periode' => $item->periode->nama ?? 'Tanpa Nama',
+                    'jumlah_laporan' => $item->jumlah,
+                ];
+            });
+    }
+
+    public function getLaporanSering($startDate = null, $endDate = null)
+    {
+        $query = LaporanPerbaikanModel::query();
+
+        if ($startDate && $endDate) {
+            $query->whereBetween('waktu_pelaporan', [$startDate, $endDate . ' 23:59:59']);
+        }
+
+        return $query->withCount('pendukung')
+            ->where('status', '!=', StatusLaporanPerbaikan::SELESAI)
+            ->whereHas('fasilitas')
+            ->with('fasilitas')
+            ->get()
+            ->groupBy('id_fasilitas')
+            ->map(function ($group) {
+                return [
+                    'id_fasilitas' => $group->first()->id_fasilitas,
+                    'total' => $group->sum('pendukung_count'),
+                    'fasilitas' => $group->first()->fasilitas,
+                ];
+            })
+            ->sortByDesc('total')
+            ->values();
+    }
+
+    public function getBiayaPerbaikan()
+    {
+        $today = Carbon::now();
+
+        $periode = PeriodeModel::whereDate('tanggal_mulai', '<=', $today)
+            ->whereDate('tanggal_selesai', '>=', $today)
+            ->first();
+
+        if (!$periode) {
+            return collect();
+        }
+
+        return LaporanPerbaikanModel::where('id_periode', $periode->id_periode)
+            ->where('status', '!=', StatusLaporanPerbaikan::SELESAI)
+            ->whereNotNull('perkiraan_biaya')
+            ->orderByDesc('perkiraan_biaya')
+            ->get();
+    }
+
+    public function getLaporanSeringThisPeriode()
+    {
+        $today = Carbon::now();
+
+        $periode = PeriodeModel::whereDate('tanggal_mulai', '<=', $today)
+            ->whereDate('tanggal_selesai', '>=', $today)
+            ->first();
+
+        if (!$periode) {
+            return collect();
+        }
+
+        return LaporanPerbaikanModel::where('id_periode', $periode->id_periode)
+            ->where('status', '!=', StatusLaporanPerbaikan::SELESAI)
+            ->whereHas('fasilitas')
+            ->with(['fasilitas'])
+            ->withCount('pendukung')
+            ->get()
+            ->groupBy('id_fasilitas')
+            ->map(function ($laporan) {
+                return [
+                    'fasilitas' => $laporan->first()->fasilitas,
+                    'laporan'   => $laporan,
+                    'total'     => $laporan->sum('pendukung_count'),
+                ];
+            })
+            ->sortByDesc('total')
+            ->values();
+    }
+
+
+    public function getAllPeninjauan()
+    {
         return LaporanPerbaikanModel::where('perkiraan_biaya', null)->orWhere('kerusakan', null)->with(['periode', 'fasilitas', 'pengguna'])->get();
     }
 

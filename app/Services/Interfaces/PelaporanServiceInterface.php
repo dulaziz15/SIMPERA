@@ -7,6 +7,12 @@ use App\Http\Requests\PelaporanRequest;
 interface PelaporanServiceInterface {
     public function all();
     public function getAll();
+    public function getByPeriode();
+    public function getLaporanSering(string $startDate, string $endDate);
+    public function filterByDate(string $startDate, string $endDate);
+    public function getLaporanSeringThisPeriode();
+    public function getBiayaPerbaikan();
+    public function getLaporanPerPeriode();
     public function getAllPeninjauan();
     public function storePelaporan(PelaporanRequest $request);
     public function show($id);

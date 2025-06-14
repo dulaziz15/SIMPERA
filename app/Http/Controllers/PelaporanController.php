@@ -70,9 +70,7 @@ class PelaporanController extends Controller
         } elseif ($tipe === 'peninjauan') {
             $data = $this->pelaporanService->getAllPeninjauan();
         } else {
-            return response()->json([
-                'message' => 'Tipe data tidak valid'
-            ], 400);
+            $data = $this->pelaporanService->all();
         }
 
         return DataTables::of($data)->make(true);
@@ -152,7 +150,8 @@ class PelaporanController extends Controller
         return view('pelaporan.sarpras.peninjauan', compact('laporan'));
     }
 
-    public function storePeninjauan(Request $request, $id) {
+    public function storePeninjauan(Request $request, $id)
+    {
         if ($request->ajax() || $request->wantsJson()) {
             $pelaporan = $this->pelaporanService->storePeninjauan($request, $id);
             if ($pelaporan) {
@@ -173,7 +172,8 @@ class PelaporanController extends Controller
         return redirect('/pelaporan');
     }
 
-    public function editPeninjauan($id) {
+    public function editPeninjauan($id)
+    {
         $laporan = $this->pelaporanService->show($id);
         return view('pelaporan.sarpras.edit_peninjauan', compact('laporan'));
     }

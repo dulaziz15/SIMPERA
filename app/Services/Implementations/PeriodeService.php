@@ -22,9 +22,14 @@ class PeriodeService implements PeriodeServiceInterface {
         return $this->periodeRepository->getAll();
     }
 
+    public function getNow() {
+        return $this->periodeRepository->getNow();
+    }
+
     public function storePeriode(PeriodeRequest $request){
         return $this->periodeRepository->create([
-            'nama' => $request->nama,
+            'nama' => $request->nama_periode,
+            'biaya' => $request->budget_perbaikan,
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_selesai' => $request->tanggal_selesai
         ]);
@@ -36,7 +41,8 @@ class PeriodeService implements PeriodeServiceInterface {
 
     public function update($id, PeriodeRequest $request) {
         return $this->periodeRepository->update($id, [
-            'nama' => $request->nama,
+            'nama' => $request->nama_periode,
+            'biaya' => $request->budget_perbaikan,
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_selesai' => $request->tanggal_selesai
         ]);

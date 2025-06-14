@@ -72,7 +72,8 @@ class PeriodeController extends Controller
     }
 
     public function show($id_periode) {
-        return $this->periodeServiceInterface->show($id_periode);
+        $periode = $this->periodeServiceInterface->show($id_periode);
+        return view('periode.show', compact('periode'));
     }
 
     public function edit($id_periode) {
