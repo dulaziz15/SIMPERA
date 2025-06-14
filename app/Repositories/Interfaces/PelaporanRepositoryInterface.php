@@ -8,7 +8,12 @@ interface PelaporanRepositoryInterface {
     public function update($id, array $data);
     public function delete($id);
     public function all();
+    public function getByPeriode();
+    public function getLaporanPerPeriode();
     public function getAll();
+    public function getLaporanSering($startDate = null, $endDate = null);
+    public function getLaporanSeringThisPeriode();
+    public function getBiayaPerbaikan();
     public function getAllPeninjauan();
     public function availableInLaporan($fasilitas) ;
     public function getOneByUserLaporan($idLaporan, $id_user);

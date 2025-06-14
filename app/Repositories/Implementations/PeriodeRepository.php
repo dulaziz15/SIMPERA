@@ -12,6 +12,13 @@ class PeriodeRepository implements PeriodeRepositoryInterface
         return PeriodeModel::all();
     }
 
+    public function getNow()
+    {
+        return PeriodeModel::where('tanggal_mulai', '<=', now())
+            ->where('tanggal_selesai', '>=', now())
+            ->first();
+    }
+
     public function create(array $data)
     {
         return PeriodeModel::create($data) ? true : false;

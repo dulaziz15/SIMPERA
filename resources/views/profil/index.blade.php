@@ -54,7 +54,7 @@
 											<td>{{ $profil->created_at->format('d M Y') }}</td>
 										</tr>
 									</table>
-									<a onclick="modalAction('/profil/{{ $profil->profil->id_profil }}/edit')" class="btn btn-primary mt-2">
+									<a onclick="modalAction('/profil/{{ $profil->profil->id_pengguna }}/edit')" class="btn btn-primary mt-2">
 										<i class="fa fa-edit"></i> Edit Profil
 									</a>
 								</div>

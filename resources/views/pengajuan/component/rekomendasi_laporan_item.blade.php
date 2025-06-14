@@ -110,7 +110,7 @@
                             <div class="modal-body text-center">
                                 <h6>{{ $item->fasilitas->nama }}</h6>
                             </div>
-                            <form method="POST" action="{{ url('/pengajuan/' . $item->id_laporan . '/ajukan') }}">
+                            <form method="POST" action="{{ url('/pengajuan/' . $item->id_laporan . '/ajukan') }}" id="formAjukan">
                                 @csrf
                                 <div class="modal-footer justify-content-center">
                                     <button class="btn btn-success" type="submit">Ajukan</button>
@@ -169,6 +169,78 @@
 @endpush
 
 @push('scripts')
+    <script>
+        $('#formAjukan').validate({
+            rules: {
+            },
+            messages: {
+            },
+            submitHandler: function(form) {
+                const formData = new FormData(form);
+                $.ajax({
+                    url: form.action,
+                    type: form.method,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                        'Accept': 'application/json'
+                    },
+                    success: function(response) {
+                        if (response.status) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Data Berhasil Ditambahkan',
+                                text: response.message,
+                                timer: 1000,
+                                showConfirmButton: false
+                            }).then(function() {
+                                window.location.reload();
+                            });
+                        } else {
+                            $('.invalid-feedback').text('');
+                            $.each(response.msgField, function(prefix, val) {
+                                $('#error-' + prefix).text(val[0]);
+                                $('#' + prefix).addClass('is-invalid');
+                            });
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            const res = xhr.responseJSON;
+                            $('.invalid-feedback').text('');
+                            $('.form-control').removeClass('is-invalid');
+
+                            $.each(res.msgField, function(prefix, val) {
+                                $('#error-' + prefix).text(val[0]);
+                                $('#' + prefix).addClass('is-invalid');
+                            });
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Validasi Gagal',
+                                text: res.message ||
+                                    'Harap isi data dengan benar.'
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Kesalahan Server',
+                                text: 'Terjadi kesalahan tak terduga. Silakan coba lagi.'
+                            });
+                        }
+                    }
+                });
+                return false;
+            },
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.read-more-btn').forEach(btn => {

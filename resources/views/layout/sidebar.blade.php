@@ -149,13 +149,13 @@
                 @if (Auth::user()->isAdmin() || Auth::user()->isSarpras())
                     <li class="menu-title" data-key="t-menu">Laporan</li>
                     <li>
-                        <a href="index.html">
+                        <a href="{{ url('statistik') }}">
                             <i class="bx bx-trending-up"></i>
                             <span data-key="t-dashboard">Statistik Laporan</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ url('laporan') }}">
                             <i class="bx bx-bar-chart-square"></i>
                             <span data-key="t-">laporan Periode</span>
                         </a>

@@ -113,12 +113,6 @@
                 </div>
             </div>
             <div class="card-body" id="user-list">
-                @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
                 <div class="row mb-4">
                     <div class="col-md-12">
                         <div class="col-lg-4">

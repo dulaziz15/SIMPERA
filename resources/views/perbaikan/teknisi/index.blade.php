@@ -50,7 +50,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($penugasan as $tugas)
-                                        @if ($tugas->status_progres != 'ditugaskan')
+                                        @if ($tugas->status_progres == 'proses')
                                             <tr class="{{ $tugas->status == 'selesai' ? 'table-success' : '' }}">
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>
@@ -93,6 +93,64 @@
                                                             ]
                                                         );
                                                     </div>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Assignment List -->
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle" id="assignments-table">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th width="5%">#</th>
+                                        <th width="20%">Laporan</th>
+                                        <th width="15%">Pelapor</th>
+                                        <th width="15%">Tanggal</th>
+                                        <th width="15%">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($penugasan as $tugas)
+                                        @if ($tugas->status_progres == 'selesai')
+                                            <tr class="{{ $tugas->status == 'selesai' ? 'table-success' : '' }}">
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="{{ asset('storage/uploads/laporan/' . $tugas->laporan->url_foto) }}"
+                                                                class="rounded" width="40" height="40"
+                                                                style="object-fit: cover;">
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-2">
+                                                            <h6 class="mb-0">
+                                                                {{ Str::limit($tugas->laporan->deskripsi, 30) }}
+                                                            </h6>
+                                                            <small
+                                                                class="text-muted">#{{ $tugas->laporan->id_laporan }}</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $tugas->laporan->pengguna->profil->nama_lengkap }}</td>
+                                                <td>{{ $tugas->laporan->waktu_pelaporan }}</td>
+                                                <td>
+                                                    {{-- @dd($tugas->status_progres) --}}
+                                                    <span
+                                                        class="badge bg-{{ $tugas->status_progres == 'selesai' ? 'success' : ($tugas->status_progres == 'penugasan' ? 'primary' : 'warning') }}">
+                                                        {{ $tugas->status_progres }}
+                                                    </span>
                                                 </td>
                                             </tr>
                                         @endif

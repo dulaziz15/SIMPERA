@@ -6,6 +6,7 @@ use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\KategoriFasilitasController;
 use App\Http\Controllers\KategoriGedungController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PendukungLaporanController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\PerbaikanController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -220,6 +222,14 @@ Route::middleware(['auth'])->group(function () {
 		Route::post('/{id}/updateImage', [ProfilController::class, 'updateImage']);
 		Route::get('/{id}/edit', [ProfilController::class, 'edit']);
 		Route::put('/{id}/update', [ProfilController::class, 'update']);
+	});
+
+	Route::prefix('statistik')->group(function () {
+		Route::get('/', [StatistikController::class, 'index']);
+	});
+
+	Route::prefix('laporan')->group(function () {
+		Route::get('/', [LaporanController::class, 'index']);
 	});
 
 	Route::get('/pelaporan/ruangan-by-gedung/{id_gedung}', [PelaporanController::class, 'getRuanganByGedung']);
