@@ -1,28 +1,4 @@
 <header id="page-topbar">
-	<div class="navbar-header">
-		<div class="d-flex">
-			<!-- LOGO -->
-			<div class="navbar-brand-box">
-				<a href="{{ url('/dashboard') }}" class="logo logo-dark">
-					<span class="logo-sm">
-						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="30">
-					</span>
-					<span class="logo-lg">
-						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="30">
-						<span class="logo-txt">SIMPERA</span>
-					</span>
-				</a>
-
-				<a href="{{ url('/dashboard') }}" class="logo logo-light">
-					<span class="logo-sm">
-						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="30">
-					</span>
-					<span class="logo-lg">
-						<img src="{{ asset('template/assets/images/logo.png') }}" alt="" height="30">
-						<span class="logo-txt">SIMPERA</span>
-					</span>
-				</a>
-			</div>
     <div class="navbar-header">
         <div class="d-flex">
             <!-- LOGO -->
