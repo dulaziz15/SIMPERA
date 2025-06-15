@@ -160,13 +160,6 @@
                             <span data-key="t-">laporan Periode</span>
                         </a>
                     </li>
-
-                    <li>
-                        <a href="#">
-                            <i class="bx bx-sync"></i>
-                            <span data-key="t-">Riwayat Perbaikan</span>
-                        </a>
-                    </li>
                 @endif
                 <li class="menu-title" data-key="t-menu">Log Activity</li>
                 <li>
