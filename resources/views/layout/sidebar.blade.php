@@ -149,28 +149,21 @@
                 @if (Auth::user()->isAdmin() || Auth::user()->isSarpras())
                     <li class="menu-title" data-key="t-menu">Laporan</li>
                     <li>
-                        <a href="index.html">
+                        <a href="{{ url('statistik') }}">
                             <i class="bx bx-trending-up"></i>
                             <span data-key="t-dashboard">Statistik Laporan</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ url('laporan') }}">
                             <i class="bx bx-bar-chart-square"></i>
                             <span data-key="t-">laporan Periode</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                            <i class="bx bx-sync"></i>
-                            <span data-key="t-">Riwayat Perbaikan</span>
                         </a>
                     </li>
                 @endif
                 <li class="menu-title" data-key="t-menu">Log Activity</li>
                 <li>
-                    <a href="index.html">
+                    <a href="{{ url('log') }}">
                         <i class="bx bx-time"></i>
                         <span data-key="t-dashboard">Log Activity</span>
                     </a>

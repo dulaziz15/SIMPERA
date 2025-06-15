@@ -15,6 +15,7 @@ class PeriodeModel extends Model
 
     protected $fillable = [
         'nama',
+        'biaya',
         'tanggal_mulai',
         'tanggal_selesai'
     ];

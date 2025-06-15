@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\FasilitasRequest;
 use App\Services\Interfaces\FasilitasServiceInterface;
 use App\Services\Interfaces\GedungServiceInterface;
 use App\Services\Interfaces\KategoriFasilitasServiceInterface;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use App\Services\Interfaces\RuanganServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class FasilitasController extends Controller
@@ -16,17 +19,20 @@ class FasilitasController extends Controller
     protected $gedungService;
     protected $ruanganService;
     protected $kategoriFasilitasService;
+    protected $logService;
 
     public function __construct(
         FasilitasServiceInterface $fasilitasService,
         GedungServiceInterface $gedungService,
         KategoriFasilitasServiceInterface $kategoriFasilitasService,
-        RuanganServiceInterface $ruanganService
+        RuanganServiceInterface $ruanganService,
+        LogActivityServiceInterface $logService
     ) {
         $this->fasilitasService = $fasilitasService;
         $this->gedungService = $gedungService;
         $this->ruanganService = $ruanganService;
         $this->kategoriFasilitasService = $kategoriFasilitasService;
+        $this->logService = $logService;
     }
 
     public function index()
@@ -90,6 +96,7 @@ class FasilitasController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $fasilitas = $this->fasilitasService->storeFasilitas($request);
             if ($fasilitas) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambah data Fasilitas Ke dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.',
@@ -127,6 +134,7 @@ class FasilitasController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $fasilitas = $this->fasilitasService->update($id, $request);
             if ($fasilitas) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Mengubah data Fasilitas di dalam dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupdate.',
@@ -155,6 +163,7 @@ class FasilitasController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $fasilitas = $this->fasilitasService->delete($id);
             if ($fasilitas) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGHAPUS, 'Menghapus data Fasilitas dari sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',

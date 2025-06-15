@@ -251,9 +251,7 @@
                                                 <div class="list-group-item p-0">
                                                     @include(
                                                         'pengajuan.component.rekomendasi_laporan_item',
-                                                        [
-                                                            'item' => $item,
-                                                        ]
+                                                        ['item' => $item]
                                                     )
                                                 </div>
                                             @endforeach
@@ -267,8 +265,7 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="newReportModal" tabindex="-1" aria-hidden="true">
+    <div id="myModal" class="modal fade" tabindex="-1">
     </div>
 @endsection
 
@@ -343,6 +340,28 @@
 @endpush
 
 @push('scripts')
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.read-more-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = this.dataset.bsTarget;
+                    const collapse = document.querySelector(target);
+                    const more = this.querySelector('.more');
+                    const less = this.querySelector('.less');
+
+                    if (collapse.classList.contains('show')) {
+                        more.classList.remove('d-none');
+                        less.classList.add('d-none');
+                    } else {
+                        more.classList.add('d-none');
+                        less.classList.remove('d-none');
+                    }
+                });
+            });
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const counters = document.querySelectorAll('.counter-value');

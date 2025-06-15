@@ -98,4 +98,9 @@ class User extends Authenticatable
             PeranEnums::MAHASISWA->value
         ]);
     }
+
+    public function log()
+    {
+        return $this->hasMany(LogActivityModel::class, 'id_pengguna');
+    }
 }

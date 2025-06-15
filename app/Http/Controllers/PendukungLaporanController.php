@@ -2,26 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Services\Implementations\PendukungService;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use App\Services\Interfaces\PelaporanServiceInterface;
 use App\Services\Interfaces\PendukungServiceInterface;
 use App\Services\Interfaces\PeranServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PendukungLaporanController extends Controller
 {
     protected $pelaporanService;
     protected $peranService;
     protected $pendukungService;
+    protected  $logService;
     public function __construct(
         PelaporanServiceInterface $pelaporanService,
         PeranServiceInterface $peranService,
-        PendukungServiceInterface $pendukungService
+        PendukungServiceInterface $pendukungService,
+        LogActivityServiceInterface $logService,
     ) {
         $this->pelaporanService = $pelaporanService;
         $this->peranService = $peranService;
         $this->pendukungService = $pendukungService;
+        $this->logService = $logService;
     }
     public function create($idlaporan)
     {
@@ -45,6 +51,7 @@ class PendukungLaporanController extends Controller
             // dd($request);
             $pendukung = $this->pendukungService->create($idlaporan, $request);
             if ($pendukung) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambah Dukungan untuk laporan perbaikan', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.',
@@ -67,6 +74,7 @@ class PendukungLaporanController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $pendukung = $this->pendukungService->delete($idlaporan, $idPendukung);
             if ($pendukung) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGHAPUS, 'Menghapus Dukungan untuk laporan perbaikan', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',

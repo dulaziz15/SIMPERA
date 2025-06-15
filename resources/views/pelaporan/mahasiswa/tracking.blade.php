@@ -92,7 +92,7 @@
                                                         </h5>
                                                         <p class="card-text text-muted mb-3">
                                                             <i class="fas fa-quote-left me-1 text-muted opacity-50"></i>
-                                                            {{ Str::limit($laporan->deskripsi, 120) }}
+                                                            {{ Str::limit($laporan->komentar, 120) }}
                                                         </p>
 
                                                         <div class="d-flex align-items-center mb-3">
@@ -155,8 +155,7 @@
                                         <p class="text-muted mb-4">Mulai laporkan fasilitas yang perlu diperbaiki agar
                                             segera
                                             ditindaklanjuti.</p>
-                                        <a href=""
-                                            class="btn btn-primary px-4 rounded-pill">
+                                        <a href="" class="btn btn-primary px-4 rounded-pill">
                                             <i class="fas fa-plus me-2"></i>Buat Laporan Baru
                                         </a>
                                     </div>
@@ -193,7 +192,7 @@
                                                         </h5>
                                                         <p class="card-text text-muted mb-3">
                                                             <i class="fas fa-quote-left me-1 text-muted opacity-50"></i>
-                                                            {{ Str::limit($laporan->deskripsi, 120) }}
+                                                            {{ Str::limit($laporan->komentar, 120) }}
                                                         </p>
 
                                                         <div class="d-flex align-items-center mb-3">
@@ -281,44 +280,60 @@
                                                         </h5>
                                                         <p class="card-text text-muted mb-3">
                                                             <i class="fas fa-quote-left me-1 text-muted opacity-50"></i>
-                                                            {{ Str::limit($laporan->deskripsi, 120) }}
+                                                            {{ Str::limit($laporan->komentar, 120) }}
                                                         </p>
 
-                                                        <div class="feedback-section mb-3 p-3 bg-light rounded">
+                                                        <div class="feedback-section mb-4 p-3 bg-light rounded-3 border">
                                                             @if ($laporan->feedback)
-                                                                <div class="d-flex align-items-start">
+                                                                @forelse ($laporan->feedback as $item)
                                                                     <div
-                                                                        class="bg-success bg-opacity-10 p-2 rounded-2 me-3">
-                                                                        <i class="fas fa-comment-check text-success"></i>
-                                                                    </div>
-                                                                    <div>
-                                                                        <h6 class="mb-1">Feedback Anda</h6>
-                                                                        <p class="mb-0">{{ $laporan->feedback->ulasan }}
-                                                                        </p>
-                                                                        <div class="rating mt-1">
-                                                                            @for ($i = 1; $i <= 5; $i++)
-                                                                                <i
-                                                                                    class="fas fa-star {{ $i <= $laporan->feedback->rating ? 'text-warning' : 'text-muted' }}"></i>
-                                                                            @endfor
+                                                                        class="feedback-item mb-3 p-3 bg-white rounded-2 shadow-sm">
+                                                                        <div class="d-flex align-items-start">
+                                                                            <div
+                                                                                class="bg-success bg-opacity-10 p-2 rounded-circle me-3">
+                                                                                <i class="fas fa-comment-medical"></i>
+                                                                            </div>
+                                                                            <div class="flex-grow-1">
+                                                                                <div
+                                                                                    class="d-flex justify-content-between align-items-center mb-2">
+                                                                                    <h6 class="mb-0 fw-semibold">
+                                                                                        Feedback
+                                                                                        {{ $item->pengguna->id_pengguna === Auth::user()->id_pengguna ? 'Anda' : 'dari ' . $item->pengguna->nama }}
+                                                                                    </h6>
+                                                                                    <small class="text-muted">
+                                                                                        {{ $item->created_at }}
+                                                                                    </small>
+                                                                                </div>
+                                                                                <p class="mb-2">{{ $item->komentar }}
+                                                                                </p>
+                                                                                <div class="rating">
+                                                                                    @for ($i = 1; $i <= 5; $i++)
+                                                                                        <i
+                                                                                            class="{{ $i <= $item->penilaian ? 'fas fa-star text-warning' : 'far fa-star text-muted' }}"></i>
+                                                                                    @endfor
+                                                                                    <span
+                                                                                        class="ms-2 small text-muted">{{ $item->penilaian }}/5</span>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <small class="text-muted">
-                                                                            Dikirim pada
-                                                                            {{ $laporan->feedback->created_at->format('d M Y H:i') }}
-                                                                        </small>
                                                                     </div>
-                                                                </div>
-                                                            @elseif(Auth::user()->id_pengguna == $laporan->id_pengguna)
-                                                                <button
-                                                                    class="btn btn btn-outline-success rounded-pill"
-                                                                    data-bs-toggle="modal" data-bs-target="#feedbackModal"
-                                                                    data-laporan-id="{{ $laporan->id_laporan }}"> 
-                                                                    Beri Feedback
-                                                                </button>
-                                                            @else
-                                                                <p class="text-muted mb-0">
-                                                                    <i class="fas fa-info-circle me-1"></i>
-                                                                    Menunggu feedback dari pelapor
-                                                                </p>
+                                                                @empty
+                                                                    <div class="text-center pt-2">
+                                                                        <button
+                                                                            class="btn btn-outline-success rounded-pill px-4"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#feedbackModal"
+                                                                            data-laporan-id="{{ $laporan->id_laporan }}">
+                                                                            <i class="fas fa-comment-medical me-2"></i>
+                                                                            Beri Feedback
+                                                                        </button>
+                                                                        <p class="small text-muted mt-2 mb-0">
+                                                                            Bagikan pengalaman Anda tentang penanganan
+                                                                            laporan
+                                                                            ini
+                                                                        </p>
+                                                                    </div>
+                                                                @endforelse
                                                             @endif
                                                         </div>
 
@@ -336,10 +351,6 @@
                                                                     </span>
                                                                 @endif
                                                             </div>
-                                                            <a class="btn btn-sm btn-outline-primary rounded-pill px-3"
-                                                                href="{{ url('pelaporan/fasilitas/' . $laporan->id_fasilitas . '/show') }}">
-                                                                <i class="fas fa-arrow-right me-1"></i> Detail
-                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -364,84 +375,171 @@
             </div>
         </div>
     </div>
-    <div id="myModal" class="modal fade" tabindex="-1">
-
-        <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header bg-light-success">
-                        <h5 class="modal-title"><i class="fas fa-comment-medical me-2"></i>Beri Feedback</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="feedbackForm" method="POST">
-                        @csrf
-                        <div class="modal-body">
-                            <input type="hidden" name="id_laporan" id="feedbackLaporanId">
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-light-success">
+                    <h5 class="modal-title"><i class="fas fa-comment-medical me-2"></i>Beri Feedback</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ url('feedback/store') }}" id="feedbackForm" method="POST" class="needs-validation">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="id_laporan" id="feedbackLaporanId">
+                        <input type="hidden" name="id_pengguna" value="{{ Auth::user()->id_pengguna }}">
+                        <div class="form-group">
                             <div class="mb-3">
                                 <label class="form-label">Rating</label>
                                 <div class="rating-input">
                                     @for ($i = 1; $i <= 5; $i++)
                                         <i class="far fa-star rating-star" data-value="{{ $i }}"></i>
                                     @endfor
-                                    <input type="hidden" name="rating" id="selectedRating" required>
+                                    <input type="hidden" name="penilaian" id="penilaian" required>
                                 </div>
                             </div>
+                            <div id="error-penilaian" class="error-text"></div>
+                        </div>
+                        <div class="form-group">
                             <div class="mb-3">
-                                <label for="ulasan" class="form-label">Ulasan</label>
-                                <textarea class="form-control" id="ulasan" name="ulasan" rows="3" required></textarea>
+                                <label for="komentar" class="form-label">komentar</label>
+                                <textarea class="form-control" id="komentar" name="komentar" rows="3" required></textarea>
                             </div>
+                            <div id="error-komentar" class="error-text"></div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-success">Kirim Feedback</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success">Kirim Feedback</button>
+                    </div>
+                </form>
             </div>
         </div>
-
     </div>
-    <script>
-        function modalAction(url = '') {
-            $('#myModal').load(url, function() {
-                $('#myModal').modal('show');
-            });
-        }
-    </script>
     @push('scripts')
         <script>
-            $('#feedbackModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget);
-                var laporanId = button.data('laporan-id');
-                var modal = $(this);
-                modal.find('#feedbackLaporanId').val(laporanId);
-            });
+            $(document).ready(function() {
+                $('#feedbackModal').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget);
+                    var laporanId = button.data('laporan-id');
+                    var modal = $(this);
+                    modal.find('#feedbackLaporanId').val(laporanId);
+                });
 
-            $('.rating-star').on('click', function() {
-                const value = $(this).data('value');
-                $('#selectedRating').val(value);
-                $('.rating-star').each(function(i, star) {
-                    if ($(star).data('value') <= value) {
-                        $(star).removeClass('far').addClass('fas text-warning');
-                    } else {
-                        $(star).removeClass('fas text-warning').addClass('far');
+                $('.rating-star').on('click', function() {
+                    const value = $(this).data('value');
+                    $('#penilaian').val(value);
+                    $('.rating-star').each(function(i, star) {
+                        if ($(star).data('value') <= value) {
+                            $(star).removeClass('far').addClass('fas text-warning');
+                        } else {
+                            $(star).removeClass('fas text-warning').addClass('far');
+                        }
+                    });
+                });
+
+                $('#feedbackForm').validate({
+                    rules: {
+                        penilaian: {
+                            required: true,
+                        },
+                        komentar: {
+                            required: true,
+                        }
+                    },
+                    messages: {
+                        penilaian: {
+                            required: "Wajib mengisi rating",
+                        },
+                        komentar: {
+                            required: "Wajib Mengisi komentar",
+                        }
+                    },
+                    submitHandler: function(form) {
+                        const formData = new FormData(form);
+                        $.ajax({
+                            url: form.action,
+                            type: form.method,
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            headers: {
+                                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                                'Accept': 'application/json'
+                            },
+                            success: function(response) {
+                                if (response.status) {
+                                    $('#feedbackModal').modal('hide');
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Feedback Berhasil Ditambahkan',
+                                        text: response.message,
+                                        showConfirmButton: false,
+                                        timer: 1000
+                                    }).then(() => {
+                                        window.location.reload();
+                                    });
+                                } else {
+                                    $('.invalid-feedback').text('');
+                                    $.each(response.msgField, function(prefix, val) {
+                                        $('#error-' + prefix).text(val[0]);
+                                        $('#' + prefix).addClass('is-invalid');
+                                    });
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Terjadi Kesalahan',
+                                        text: response.message
+                                    });
+                                }
+                            },
+                            error: function(xhr) {
+                                if (xhr.status === 422) {
+                                    const res = xhr.responseJSON;
+                                    $('.invalid-feedback').text('');
+                                    $('.form-control').removeClass('is-invalid');
+
+                                    $.each(res.msgField, function(prefix, val) {
+                                        $('#error-' + prefix).text(val[0]);
+                                        $('#' + prefix).addClass('is-invalid');
+                                    });
+
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Validasi Gagal',
+                                        text: res.message ||
+                                            'Harap isi data dengan benar.'
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Kesalahan Server',
+                                        text: 'Terjadi kesalahan tak terduga. Silakan coba lagi.'
+                                    });
+                                }
+                            }
+                        });
+                        return false;
+                    },
+                    errorElement: 'div',
+                    errorPlacement: function(error, element) {
+                        error.addClass('invalid-feedback');
+                        element.closest('.form-group').append(error);
+                        element.closest('#radio').append(error);
+                    },
+                    highlight: function(element) {
+                        $(element).addClass('is-invalid').removeClass('is-valid');
+                    },
+                    unhighlight: function(element) {
+                        $(element).removeClass('is-invalid').addClass('is-valid');
                     }
                 });
-            });
 
-            $('#feedbackForm').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: '',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('#feedbackModal').modal('hide');
-                        location.reload(); // Refresh to show the new feedback
-                    },
-                    error: function(xhr) {
-                        alert('Terjadi kesalahan. Silakan coba lagi.');
-                    }
+                // Reset form when modal closes
+                $('#feedbackModal').on('hidden.bs.modal', function() {
+                    $('#feedbackForm')[0].reset();
+                    $('.rating-star').addClass('far').removeClass('fas active');
+                    $('#penilaian').val('');
+                    $(this).find('button[type="submit"]').prop('disabled', false).html(
+                        '<i class="fas fa-paper-plane me-1"></i> Kirim Feedback');
                 });
             });
         </script>

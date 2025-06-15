@@ -92,34 +92,10 @@
                     <i class="fas fa-eye me-1"></i> Detail
                 </a>
                 <!-- Button -->
-                <button class="btn btn-sm btn-warning rounded-pill px-3 action-btn" data-bs-toggle="modal"
-                    data-bs-target="#ajukanModal-{{ $item->id_laporan }}" data-id="{{ $item->id_laporan }}">
+                <button class="btn btn-sm btn-warning rounded-pill px-3 action-btn"
+                    onclick="modalAction('{{ url('pengajuan/' . $item->id_laporan . '/ajukan') }}')">
                     <i class="fas fa-paper-plane me-1"></i> Ajukan
                 </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="ajukanModal-{{ $item->id_laporan }}" tabindex="-1"
-                    aria-labelledby="ajukanModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Konfirmasi Pengajuan</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body text-center">
-                                <h6>{{ $item->fasilitas->nama }}</h6>
-                            </div>
-                            <form method="POST" action="{{ url('/pengajuan/' . $item->id_laporan . '/ajukan') }}">
-                                @csrf
-                                <div class="modal-footer justify-content-center">
-                                    <button class="btn btn-success" type="submit">Ajukan</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -169,6 +145,13 @@
 @endpush
 
 @push('scripts')
+    <script>
+        function modalAction(url = '') {
+            $('#myModal').load(url, function() {
+                $('#myModal').modal('show');
+            });
+        }
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.read-more-btn').forEach(btn => {

@@ -20,7 +20,7 @@ class SpkService implements SpkServiceInterface
     }
 
     public function kriteria()
-    {
+    {   
         $laporan = $this->alternatif();
         $data = [];
 
@@ -248,7 +248,7 @@ class SpkService implements SpkServiceInterface
     {
         $laporan = $this->alternatif();
 
-        if ($laporan->count() < 2) {
+        if ($laporan->count() < 3) {
             return [];
         }
 
@@ -269,6 +269,8 @@ class SpkService implements SpkServiceInterface
         if (!$periode) {
             return [];
         }
+
+        // dd($periode->biaya);
 
         $budget = $periode->biaya;
 

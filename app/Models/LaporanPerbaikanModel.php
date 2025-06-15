@@ -43,6 +43,11 @@ class LaporanPerbaikanModel extends Model
         return $this->belongsTo(FasilitasModel::class, 'id_fasilitas');
     }
 
+    public function feedback()
+    {
+        return $this->hasMany(FeedbackModel::class, 'id_laporan');
+    }
+
     public function periode()
     {
         return $this->belongsTo(PeriodeModel::class, 'id_periode');
@@ -76,5 +81,10 @@ class LaporanPerbaikanModel extends Model
 
     public function sudahDitugaskan() {
         return $this->penugasan()->exists() ? false : true;
+    }
+
+    public function notifikasi()
+    {
+        return $this->hasMany(NotifikasiModel::class, 'id_laporan');
     }
 }

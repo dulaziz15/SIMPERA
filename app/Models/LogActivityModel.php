@@ -20,4 +20,9 @@ class LogActivityModel extends Model
         'deskripsi',
         'waktu'
     ];
+
+    public function pengguna()
+    {
+        return $this->belongsTo(User::class, 'id_pengguna');
+    }
 }

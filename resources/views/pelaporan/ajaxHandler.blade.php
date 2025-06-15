@@ -79,7 +79,7 @@
                 {
                     data: null,
                     render: function(data, type, row) {
-                        return moment(row.created_at).format('D MMM YYYY');
+                        return moment(row.waktu_pelaporan).format('D MMM YYYY');
                     }
                 },
                 {
@@ -219,7 +219,7 @@
                 {
                     data: null,
                     render: function(data, type, row) {
-                        return moment(row.created_at).format('D MMM YYYY');
+                        return moment(row.waktu_pelaporan).format('D MMM YYYY');
                     }
                 },
                 {

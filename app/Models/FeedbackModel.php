@@ -26,6 +26,6 @@ class FeedbackModel extends Model
     }
     public function laporan()
     {
-        return $this->belongsTo(LaporanPerbaikanModel::class, 'id_laporan');
+        return $this->hasOne(LaporanPerbaikanModel::class, 'id_laporan');
     }
 }
