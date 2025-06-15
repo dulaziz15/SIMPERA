@@ -124,7 +124,6 @@ class PelaporanController extends Controller
 
         $activeMenu = 'pelaporan';
         $laporan = $this->pelaporanService->show($id);
-
         return view('pelaporan.sarpras.show', compact('laporan', 'breadcrumb', 'page', 'activeMenu'));
     }
 

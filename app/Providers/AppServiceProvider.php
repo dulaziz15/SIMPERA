@@ -8,6 +8,7 @@ use App\Repositories\Implementations\GedungRepository;
 use App\Repositories\Implementations\KategoriFasilitasRepository;
 use App\Repositories\Implementations\KategoriGedungRepository;
 use App\Repositories\Implementations\LogActivityRepository;
+use App\Repositories\Implementations\NotifikasiRepository;
 use App\Repositories\Implementations\PelaporanRepository;
 use App\Repositories\Implementations\PendukungRepository;
 use App\Repositories\Implementations\PenugasanRepository;
@@ -22,6 +23,7 @@ use App\Repositories\Interfaces\GedungRepositoryInterface;
 use App\Repositories\Interfaces\KategoriFasilitasRepositoryInterface;
 use App\Repositories\Interfaces\KategoriGedungRepositoryInterface;
 use App\Repositories\Interfaces\LogActivityRepositoryInterface;
+use App\Repositories\Interfaces\NotifikasiRepositoryInterface;
 use App\Repositories\Interfaces\PelaporanRepositoryInterface;
 use App\Repositories\Interfaces\PendukungRepositoryInterface;
 use App\Repositories\Interfaces\PenugasanRepositoryInterface;
@@ -36,6 +38,7 @@ use App\Services\Implementations\GedungService;
 use App\Services\Implementations\KategoriFasilitasService;
 use App\Services\Implementations\KategoriGedungService;
 use App\Services\Implementations\LogActivityService;
+use App\Services\Implementations\NotifikasiService;
 use App\Services\Implementations\PelaporanService;
 use App\Services\Implementations\PendukungService;
 use App\Services\Implementations\PenugasanService;
@@ -51,6 +54,7 @@ use App\Services\Interfaces\GedungServiceInterface;
 use App\Services\Interfaces\KategoriFasilitasServiceInterface;
 use App\Services\Interfaces\KategoriGedungServiceInterface;
 use App\Services\Interfaces\LogActivityServiceInterface;
+use App\Services\Interfaces\NotifikasiServiceInterface;
 use App\Services\Interfaces\PelaporanServiceInterface;
 use App\Services\Interfaces\PendukungServiceInterface;
 use App\Services\Interfaces\PenugasanServiceInterface;
@@ -86,7 +90,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PendukungServiceInterface::class, PendukungService::class);
         $this->app->bind(PenugasanServiceInterface::class, PenugasanService::class);
         $this->app->bind(SpkServiceInterface::class, SpkService::class);
-        
+        $this->app->bind(NotifikasiServiceInterface::class, NotifikasiService::class);
 
         // Repository
         $this->app->bind(PeriodeRepositoryInterface::class, PeriodeRepository::class);
@@ -103,6 +107,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProfilRepositoryInterface::class, ProfilRepository::class);
         $this->app->bind(PendukungRepositoryInterface::class, PendukungRepository::class);
         $this->app->bind(PenugasanRepositoryInterface::class, PenugasanRepository::class);
+        $this->app->bind(NotifikasiRepositoryInterface::class, NotifikasiRepository::class);
     }
 
     /**

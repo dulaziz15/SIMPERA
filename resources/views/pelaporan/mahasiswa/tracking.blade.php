@@ -298,10 +298,10 @@
                                                                                     class="d-flex justify-content-between align-items-center mb-2">
                                                                                     <h6 class="mb-0 fw-semibold">
                                                                                         Feedback
-                                                                                        {{ $item->user->id === Auth::id() ? 'Anda' : 'dari ' . $item->user->name }}
+                                                                                        {{ $item->pengguna->id_pengguna === Auth::user()->id_pengguna ? 'Anda' : 'dari ' . $item->pengguna->nama }}
                                                                                     </h6>
                                                                                     <small class="text-muted">
-                                                                                        {{ $item->created_at->format('d M Y H:i') }}
+                                                                                        {{ $item->created_at }}
                                                                                     </small>
                                                                                 </div>
                                                                                 <p class="mb-2">{{ $item->komentar }}
@@ -351,10 +351,6 @@
                                                                     </span>
                                                                 @endif
                                                             </div>
-                                                            <a class="btn btn-sm btn-outline-primary rounded-pill px-3"
-                                                                href="{{ url('pelaporan/fasilitas/' . $laporan->id_fasilitas . '/show') }}">
-                                                                <i class="fas fa-arrow-right me-1"></i> Detail
-                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -472,13 +468,16 @@
                             },
                             success: function(response) {
                                 if (response.status) {
-                                    $('#myModal').modal('hide');
+                                    $('#feedbackModal').modal('hide');
                                     Swal.fire({
                                         icon: 'success',
-                                        title: 'Data Berhasil Ditambahkan',
-                                        text: response.message
+                                        title: 'Feedback Berhasil Ditambahkan',
+                                        text: response.message,
+                                        showConfirmButton: false,
+                                        timer: 1000
+                                    }).then(() => {
+                                        window.location.reload();
                                     });
-                                    dataPelaporan.ajax.reload();
                                 } else {
                                     $('.invalid-feedback').text('');
                                     $.each(response.msgField, function(prefix, val) {

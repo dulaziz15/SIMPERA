@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Interfaces\NotifikasiServiceInterface;
 use App\Services\Interfaces\PelaporanServiceInterface;
 use App\Services\Interfaces\SpkServiceInterface;
 use Illuminate\Http\Request;
@@ -10,13 +11,16 @@ class PengajuanController extends Controller
 {
     protected $laporanService;
     protected $spkService;
+    protected $notifikasiService;
 
     public function __construct(
         PelaporanServiceInterface $laporanService,
         SpkServiceInterface $spkService,
+        NotifikasiServiceInterface $notifikasiService
     ) {
         $this->laporanService = $laporanService;
         $this->spkService = $spkService;
+        $this->notifikasiService = $notifikasiService;
     }
     public function index()
     {
@@ -77,23 +81,27 @@ class PengajuanController extends Controller
         return view('pengajuan.sarpras.spk', compact('breadcrumb', 'page', 'activeMenu', 'spk'));
     }
 
-    public function ajukan(Request $request, $id)
+    public function create($id)
+    {
+        $laporan = $this->laporanService->show($id);
+        return view('pengajuan.component.modal_ajukan', compact('laporan'));
+    }
+
+    public function ajukan(Request $request, $idLaporan)
     {
         // dd($request->ajax());
         if ($request->ajax() || $request->wantsJson()) {
-            // dd($request);
-            $pengajuan = $this->laporanService->pengajuan($id);
+            $pengajuan = $this->laporanService->pengajuan($idLaporan);
             if ($pengajuan) {
+                $this->notifikasiService->createNotif($idLaporan, 'Pengajuan Laporan Perbaikan', 'Laporan Perbaikan telah diajukan untuk diverifikasi.');
                 return response()->json([
                     'status' => true,
                     'message' => 'Laporan Berhasil Diajukan untuk diverifikasi.',
-                    'redirect' => url('/pengajuan/')
                 ]);
             } else {
                 return response()->json([
                     'status' => false,
                     'message' => 'Laporan Gagal Diajukan untuk diverifikasi.',
-                    'redirect' => url('/pengajuan/')
                 ]);
             }
         }
@@ -108,6 +116,7 @@ class PengajuanController extends Controller
             // dd($request);
             $verifikasi = $this->laporanService->verifikasi($id);
             if ($verifikasi) {
+                $this->notifikasiService->createNotif($id, 'Verifikasi Laporan Perbaikan', 'Laporan Perbaikan telah Diverifikasi dan menunggu penugasan untuk proses perbaikan.');
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diverifikasi.',

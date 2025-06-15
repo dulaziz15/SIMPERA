@@ -82,4 +82,9 @@ class LaporanPerbaikanModel extends Model
     public function sudahDitugaskan() {
         return $this->penugasan()->exists() ? false : true;
     }
+
+    public function notifikasi()
+    {
+        return $this->hasMany(NotifikasiModel::class, 'id_laporan');
+    }
 }
