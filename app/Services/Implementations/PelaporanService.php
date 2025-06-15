@@ -5,6 +5,7 @@ namespace App\Services\Implementations;
 use App\Enums\Status\StatusLaporanPerbaikan;
 use App\Http\Requests\PelaporanRequest;
 use App\Models\LaporanPerbaikanModel;
+use App\Models\NotifikasiModel;
 use App\Models\PendukungLaporanModel;
 use App\Repositories\Interfaces\PelaporanRepositoryInterface;
 use App\Services\Interfaces\PelaporanServiceInterface;
@@ -21,7 +22,7 @@ class PelaporanService implements PelaporanServiceInterface
     public function __construct(
         PelaporanRepositoryInterface $pelaporanRepository,
         PeriodeServiceInterface $periodeService,
-        PendukungServiceInterface $pendukungService
+        PendukungServiceInterface $pendukungService,
     ) {
         $this->pelaporanRepository = $pelaporanRepository;
         $this->periodeService = $periodeService;
@@ -204,7 +205,7 @@ class PelaporanService implements PelaporanServiceInterface
     }
 
     public function pengajuan($id)
-    {
+    {   
         return $this->pelaporanRepository->updateStatus($id, [
             'status' => StatusLaporanPerbaikan::DIAJUKAN->value,
             'waktu_perubahan' => now(),

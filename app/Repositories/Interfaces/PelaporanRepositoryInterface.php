@@ -22,5 +22,6 @@ interface PelaporanRepositoryInterface {
     public function getLaporanDidukungByUser($id);
     public function getAllLaporanByUser($id_user);
     public function updateStatus($id, $status);
+    public function getPendukungByLaporan($id);
     public function hasilSpk($id);
 }

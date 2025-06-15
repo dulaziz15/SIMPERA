@@ -194,6 +194,11 @@ class PelaporanRepository implements PelaporanRepositoryInterface
         return LaporanPerbaikanModel::where('id_pengguna', $id_user)->where('status', '!=', 'selesai')->get();
     }
 
+    public function getPendukungByLaporan($id)
+    {
+        return LaporanPerbaikanModel::find($id)->pendukung()->get();
+    }
+
     public function getLaporanDidukungByUser($id)
     {
         return LaporanPerbaikanModel::whereHas('pendukung', function ($query) use ($id) {

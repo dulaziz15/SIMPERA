@@ -9,6 +9,7 @@ use App\Http\Controllers\KategoriFasilitasController;
 use App\Http\Controllers\KategoriGedungController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LogActivityController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PendukungLaporanController;
 use App\Http\Controllers\PengajuanController;
@@ -161,6 +162,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::prefix('pengajuan')->group(function () {
 		Route::get('/', [PengajuanController::class, 'index']);
 		Route::get('/spk', [PengajuanController::class, 'spk']);
+		Route::get('/{idLaporan}/ajukan', [PengajuanController::class, 'create']);
 		Route::post('/{idLaporan}/ajukan', [PengajuanController::class, 'ajukan']);
 		Route::post('/{idLaporan}/verifikasi', [PengajuanController::class, 'verifikasi']);
 	});
@@ -175,6 +177,10 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::prefix('perbaikan')->group(function () {
 		Route::get('/', [PerbaikanController::class, 'index']);
+	});
+
+	Route::prefix('notifikasi')->group(function () {
+		Route::post('/{id}/markRead', [NotifikasiController::class, 'markRead']);
 	});
 
 	Route::prefix('fasilitas')->group(function () {
