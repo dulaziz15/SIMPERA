@@ -3,11 +3,17 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilitasController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\KategoriFasilitasController;
 use App\Http\Controllers\KategoriGedungController;
+<<<<<<< HEAD
 use App\Http\Controllers\LaporanPeriodeController;
+=======
+use App\Http\Controllers\LaporanController;
+>>>>>>> eb6db41385396b8e755d2d3afca33cfc26c1876d
 use App\Http\Controllers\LogActivityController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PendukungLaporanController;
 use App\Http\Controllers\PengajuanController;
@@ -17,6 +23,7 @@ use App\Http\Controllers\PerbaikanController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -126,6 +133,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::prefix('log')->group(function () {
 		Route::get('/', [LogActivityController::class, 'index']);
+		Route::get('/data', [LogActivityController::class, 'data']);
 		Route::post('/store', [LogActivityController::class, 'storeLog']);
 		Route::get('/{id}/show', [LogActivityController::class, 'show']);
 	});
@@ -159,6 +167,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::prefix('pengajuan')->group(function () {
 		Route::get('/', [PengajuanController::class, 'index']);
 		Route::get('/spk', [PengajuanController::class, 'spk']);
+		Route::get('/{idLaporan}/ajukan', [PengajuanController::class, 'create']);
 		Route::post('/{idLaporan}/ajukan', [PengajuanController::class, 'ajukan']);
 		Route::post('/{idLaporan}/verifikasi', [PengajuanController::class, 'verifikasi']);
 	});
@@ -175,6 +184,10 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/', [PerbaikanController::class, 'index']);
 	});
 
+	Route::prefix('notifikasi')->group(function () {
+		Route::post('/{id}/markRead', [NotifikasiController::class, 'markRead']);
+	});
+
 	Route::prefix('fasilitas')->group(function () {
 		Route::get('/', [FasilitasController::class, 'index']);
 		Route::get('/search', [FasilitasController::class, 'searchFasilitas']);
@@ -189,14 +202,7 @@ Route::middleware(['auth'])->group(function () {
 	});
 
 	Route::prefix('feedback')->group(function () {
-		Route::get('/', [FasilitasController::class, 'index']);
-		Route::get('/create', [FasilitasController::class, 'create']);
-		Route::post('/store', [FasilitasController::class, 'storeFeedback']);
-		Route::get('/{id}/show', [FasilitasController::class, 'show']);
-		Route::get('/{id}/edit', [FasilitasController::class, 'edit']);
-		Route::put('/{id}/update', [FasilitasController::class, 'update']);
-		Route::get('/{id}/confirm', [FasilitasController::class, 'confirm']);
-		Route::delete('/{id}/delete', [FasilitasController::class, 'delete']);
+		Route::post('/store', [FeedbackController::class, 'storeFeedback']);
 	});
 
 	// Route::middleware(['authorize:ADM'])->group(function () {
@@ -225,6 +231,15 @@ Route::middleware(['auth'])->group(function () {
 		Route::post('/{id}/updateImage', [ProfilController::class, 'updateImage']);
 		Route::get('/{id}/edit', [ProfilController::class, 'edit']);
 		Route::put('/{id}/update', [ProfilController::class, 'update']);
+	});
+
+	Route::prefix('statistik')->group(function () {
+		Route::get('/', [StatistikController::class, 'index']);
+	});
+
+	Route::prefix('laporan')->group(function () {
+		Route::get('/', [LaporanController::class, 'index']);
+		Route::get('/print', [LaporanController::class, 'print'])->name('laporan.print');;
 	});
 
 	Route::get('/pelaporan/ruangan-by-gedung/{id_gedung}', [PelaporanController::class, 'getRuanganByGedung']);

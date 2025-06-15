@@ -20,7 +20,7 @@ class SpkService implements SpkServiceInterface
     }
 
     public function kriteria()
-    {
+    {   
         $laporan = $this->alternatif();
         $data = [];
 
@@ -247,9 +247,14 @@ class SpkService implements SpkServiceInterface
     public function hasilSpk()
     {
         $laporan = $this->alternatif();
+<<<<<<< HEAD
         // dd($laporan);
         // dd($laporan->count() < 2);
         if ($laporan->count() < 2) {
+=======
+
+        if ($laporan->count() < 3) {
+>>>>>>> eb6db41385396b8e755d2d3afca33cfc26c1876d
             return [];
         }
         $skor = $this->ranking();
@@ -272,6 +277,10 @@ class SpkService implements SpkServiceInterface
             return [];
         }
 
+<<<<<<< HEAD
+=======
+        // dd($periode->biaya);
+>>>>>>> eb6db41385396b8e755d2d3afca33cfc26c1876d
 
         $budget = $periode->biaya;
 

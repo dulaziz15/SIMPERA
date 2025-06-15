@@ -31,7 +31,13 @@
 									<table class="table table-borderless">
 										<tr>
 											<th style="width: 200px;">Nama Lengkap</th>
-											<td>{{ $profil->profil->nama_lengkap }}</td>
+											<td>
+												{{ $profil->profil->nama_lengkap }}
+												<a onclick="modalAction('/profil/{{ $profil->profil->id_pengguna }}/edit')" class="btn-edit-inline ms-2"
+													title="Edit Nama Lengkap">
+													<i class="fa fa-pencil"></i>
+												</a>
+											</td>
 										</tr>
 										<tr>
 											<th>Nama Pengguna</th>
@@ -54,7 +60,7 @@
 											<td>{{ $profil->created_at->format('d M Y') }}</td>
 										</tr>
 									</table>
-									<a onclick="modalAction('/profil/{{ $profil->profil->id_profil }}/edit')" class="btn btn-primary mt-2">
+									<a onclick="modalAction('/profil/{{ $profil->profil->id_pengguna }}/edit')" class="btn btn-primary mt-2">
 										<i class="fa fa-edit"></i> Edit Profil
 									</a>
 								</div>
@@ -100,6 +106,29 @@
 		}
 
 		.btn-edit-foto:hover {
+			background-color: #3f43fd;
+			color: white;
+		}
+
+		.btn-edit-inline {
+			position: static;
+			width: 28px;
+			height: 28px;
+			background-color: #ffffffcc;
+			color: #3f43fd;
+			border-radius: 50%;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 14px;
+			text-decoration: none;
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+			margin-left: 6px;
+			vertical-align: middle;
+			transition: background 0.3s, color 0.3s;
+		}
+
+		.btn-edit-inline:hover {
 			background-color: #3f43fd;
 			color: white;
 		}

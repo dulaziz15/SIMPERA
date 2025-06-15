@@ -4,6 +4,9 @@ namespace App\Services\Implementations;
 
 use App\Enums\Status\StatusLaporanPerbaikan;
 use App\Http\Requests\PelaporanRequest;
+use App\Models\LaporanPerbaikanModel;
+use App\Models\NotifikasiModel;
+use App\Models\PendukungLaporanModel;
 use App\Repositories\Interfaces\PelaporanRepositoryInterface;
 use App\Services\Interfaces\PelaporanServiceInterface;
 use App\Services\Interfaces\PendukungServiceInterface;
@@ -19,15 +22,37 @@ class PelaporanService implements PelaporanServiceInterface
     public function __construct(
         PelaporanRepositoryInterface $pelaporanRepository,
         PeriodeServiceInterface $periodeService,
-        PendukungServiceInterface $pendukungService
+        PendukungServiceInterface $pendukungService,
     ) {
         $this->pelaporanRepository = $pelaporanRepository;
         $this->periodeService = $periodeService;
         $this->pendukungService = $pendukungService;
     }
 
-    public function all() {
+    public function all()
+    {
         return $this->pelaporanRepository->all();
+    }
+
+    public function getByPeriode()
+    {
+        return $this->pelaporanRepository->getByPeriode();
+    }
+
+    public function getLaporanPerPeriode()
+    {
+        return $this->pelaporanRepository->getLaporanPerPeriode();
+    }
+
+    public function filterByDate(string $startDate, string $endDate)
+    {
+        return LaporanPerbaikanModel::whereBetween('waktu_pelaporan', [$startDate, $endDate . ' 23:59:59'])
+            ->get();
+    }
+
+    public function getLaporanSering(string $startDate = null, string $endDate = null)
+    {
+        return $this->pelaporanRepository->getLaporanSering($startDate, $endDate);
     }
 
     public function getAll()
@@ -35,7 +60,18 @@ class PelaporanService implements PelaporanServiceInterface
         return $this->pelaporanRepository->getAll();
     }
 
-    public function getAllPeninjauan() {
+    public function getLaporanSeringThisPeriode()
+    {
+        return $this->pelaporanRepository->getLaporanSeringThisPeriode();
+    }
+
+    public function getBiayaPerbaikan()
+    {
+        return $this->pelaporanRepository->getBiayaPerbaikan();
+    }
+
+    public function getAllPeninjauan()
+    {
         return $this->pelaporanRepository->getAllPeninjauan();
     }
 
@@ -54,7 +90,8 @@ class PelaporanService implements PelaporanServiceInterface
         return $this->pelaporanRepository->getLaporanDidukungByUser($id);
     }
 
-    public function getAllLaporanByUser($id_user) {
+    public function getAllLaporanByUser($id_user)
+    {
         return $this->pelaporanRepository->getAllLaporanByUser($id_user);
     }
 
@@ -101,7 +138,8 @@ class PelaporanService implements PelaporanServiceInterface
         return $this->pelaporanRepository->getById($id);
     }
 
-    public function storePeninjauan($request, $id) {
+    public function storePeninjauan($request, $id)
+    {
         return $this->pelaporanRepository->update($id, [
             'perkiraan_biaya' => $request->perkiraan_biaya,
             'kerusakan' => $request->tingkat_kerusakan
@@ -166,21 +204,24 @@ class PelaporanService implements PelaporanServiceInterface
         return $this->pelaporanRepository->delete($id);
     }
 
-    public function pengajuan($id) {
+    public function pengajuan($id)
+    {   
         return $this->pelaporanRepository->updateStatus($id, [
             'status' => StatusLaporanPerbaikan::DIAJUKAN->value,
             'waktu_perubahan' => now(),
         ]);
     }
 
-    public function verifikasi($id) {
+    public function verifikasi($id)
+    {
         return $this->pelaporanRepository->updateStatus($id, [
             'status' => StatusLaporanPerbaikan::VERIFIKASI->value,
             'waktu_perubahan' => now(),
         ]);
     }
 
-    public function hasilSpk($id) {
+    public function hasilSpk($id)
+    {
         return $this->pelaporanRepository->hasilSpk($id);
     }
 }

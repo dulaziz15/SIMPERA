@@ -6,44 +6,9 @@
             <div class="col-md-3" height="100%">
                 <div class="card">
                     <div class="card-body">
-                        <div class="card-header bg-gradient-primary text-white">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h2 class="h5 mb-0">
-                                <i class="fas fa-tasks me-2"></i>Menu Fasilitas
-                            </h2>
-                            <div class="badge bg-white bg-opacity-20 text-white">
-                                <i class="fas fa-sync-alt me-1"></i> Pembaruan Real-time
-                            </div>
-                        </div>
-
-                        <ul class="nav nav-tabs nav-tabs-white mt-3" id="laporanTabs" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="laporan-saya-tab" data-bs-toggle="tab"
-                                    data-bs-target="#laporan-saya" type="button" role="tab"
-                                    aria-controls="laporan-saya" aria-selected="true">
-                                    <i class="fas fa-clipboard-check me-2"></i>Laporan Saya
-                                    <span class="badge bg-white text-primary ms-2">{{ count($laporanSaya) }}</span>
-                                </a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="pendukung-tab" data-bs-toggle="tab" data-bs-target="#pendukung"
-                                    type="button" role="tab" aria-controls="pendukung" aria-selected="false">
-                                    <i class="fas fa-hands-helping me-2"></i>Laporan Didukung
-                                    <span class="badge bg-white text-success ms-2">{{ count($laporanDidukung) }}</span>
-                                </a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="selesai-tab" data-bs-toggle="tab" data-bs-target="#selesai"
-                                    type="button" role="tab" aria-controls="selesai" aria-selected="true">
-                                    <i class="fas fa-clipboard-check me-2"></i>Laporan Selesai
-                                    <span class="badge bg-white text-primary ms-2">{{ count($laporanSelesai) }}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                             aria-orientation="horizontal">
-                            {{-- <div class="">
+                            <div class="">
                                 <h6 class="fs-6">Menu Fasilitas</h6>
                             </div>
                             <hr>
@@ -51,14 +16,14 @@
                                 <a class="nav-link mb-2 active" id="kategori-gedung-tab" data-bs-toggle="pill"
                                     href="#kategori-gedung" role="tab" onclick="kategoriGedungData.ajax.reload()"
                                     aria-controls="kategori-gedung" aria-selected="true">Kategori Gedung</a>
-                                <a class="nav-link mb-2" id="gedung-tab" data-bs-toggle="pill" href="#gedung"
-                                    role="tab" onclick="gedungData.ajax.reload()" aria-controls="gedung"
+                                <a class="nav-link mb-2" id="gedung-tab" data-bs-toggle="pill" href="#gedung" role="tab"
+                                    onclick="gedungData.ajax.reload()" aria-controls="gedung"
                                     aria-selected="false">Gedung</a>
                                 <a class="nav-link mb-2" id="ruangan-tab" data-bs-toggle="pill" href="#ruangan"
                                     role="tab" onclick="ruanganData.ajax.reload()" aria-controls="ruangan"
                                     aria-selected="false">Ruangan</a>
                             </div>
-                            <hr> --}}
+                            <hr>
                             <div class="attention mt-auto ">
                                 <div class="card bg-warning border-warning text-white">
                                     <div class="card-body p-3">
@@ -174,7 +139,8 @@
                                             <label class="control-label col-form-label">Filter :</label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <select class="form-control" id="id_gedung_filter" data-trigger name="id_gedung">
+                                            <select class="form-control" id="id_gedung_filter" data-trigger
+                                                name="id_gedung">
                                                 <option value="">- Semua -</option>
                                                 @foreach ($gedung as $item)
                                                     <option value="{{ $item->id_gedung }}|{{ $item->nama }}">

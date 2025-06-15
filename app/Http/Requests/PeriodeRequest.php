@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class PeriodeRequest extends FormRequest
 {
@@ -14,6 +16,15 @@ class PeriodeRequest extends FormRequest
         return true;
     }
 
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'status' => false,
+            'message' => 'Validasi Gagal. Harap periksa kembali data Anda.',
+            'msgField' => $validator->errors()
+        ], 422));
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +33,8 @@ class PeriodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => 'required',
+            'nama_periode' => 'required',
+            'budget_perbaikan' => 'required',
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required'
         ];

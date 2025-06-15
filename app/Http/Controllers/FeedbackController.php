@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\FeedbackRequest;
 use App\Services\Interfaces\FeedbackServiceInterface;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FeedbackController extends Controller
 {
     protected $feedbackService;
+    protected $logService;
 
-    public function __construct(FeedbackServiceInterface $feedbackService){
+    public function __construct(FeedbackServiceInterface $feedbackService, LogActivityServiceInterface $logService){
         $this->feedbackService = $feedbackService;
+        $this->logService = $logService;
     }
 
     public function index() {
@@ -26,21 +31,22 @@ class FeedbackController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $gedung = $this->feedbackService->storeFeedback($request);
             if($gedung) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambah feedback lapora perbaikan yang telah selesai', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Disimpan.',
-                    'redirect' => url('/feedback')
+                    'redirect' => url('/tracking')
                 ]);
             } else {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data Gagal Disimpan.',
-                    'redirect' => url('/feedback')
+                    'redirect' => url('/tracking')
                 ]);
             }
         }
 
-        return redirect('/feedback');
+        return redirect('/tracking');
     }
 
     public function show($id) {

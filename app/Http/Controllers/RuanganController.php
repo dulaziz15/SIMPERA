@@ -2,22 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\RuanganRequest;
 use App\Services\Interfaces\GedungServiceInterface;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use App\Services\Interfaces\RuanganServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class RuanganController extends Controller
 {
     protected $ruanganService;
     protected $gedungService;
+    protected $logService;
     public function __construct(
         RuanganServiceInterface $ruanganService,
-        GedungServiceInterface $gedungService
+        GedungServiceInterface $gedungService,
+        LogActivityServiceInterface $logService,
     ) {
         $this->ruanganService = $ruanganService;
         $this->gedungService = $gedungService;
+        $this->logService = $logService;
     }
 
     public function getAll(Request $request)
@@ -51,6 +57,7 @@ class RuanganController extends Controller
             $ruangan = $this->ruanganService->create($request);
             // return $ruangan;
             if ($ruangan) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambah data ruangan dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.',
@@ -86,6 +93,7 @@ class RuanganController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $ruangan = $this->ruanganService->update($id, $request);
             if ($ruangan) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Mengubah data ruangan dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupdate.',
@@ -114,6 +122,7 @@ class RuanganController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $ruangan = $this->ruanganService->delete($id);
             if ($ruangan) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGHAPUS, 'Menghapus data periode dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',

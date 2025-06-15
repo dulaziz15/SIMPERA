@@ -19,10 +19,10 @@ class FeedbackService implements FeedbackServiceInterface
     public function storeFeedback(FeedbackRequest $request)
     {
         return $this->feedbackRepository->create([
-            'id_pengguna' => $request->id_pengguna, // ganti Auth::user()
-            'id_laporan' => $request->id_laporan, // ganti id_laporan real
-            'penilaian' => $request->penilain,
-            'komentar' => $request->komentat
+            'id_pengguna' => $request->id_pengguna,
+            'id_laporan' => $request->id_laporan, 
+            'penilaian' => $request->penilaian,
+            'komentar' => $request->komentar
         ]);
     }
 
