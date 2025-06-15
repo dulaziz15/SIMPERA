@@ -247,14 +247,14 @@ class SpkService implements SpkServiceInterface
     public function hasilSpk()
     {
         $laporan = $this->alternatif();
-
+        // dd($laporan);
+        // dd($laporan->count() < 2);
         if ($laporan->count() < 2) {
             return [];
         }
-
         $skor = $this->ranking();
         if (empty($skor)) return [];
-
+        // dd($skor);
         // Urutkan berdasarkan skor tertinggi
         usort($skor, fn($a, $b) => $b['skor'] <=> $a['skor']);
         foreach ($skor as $i => &$val) {
@@ -262,16 +262,20 @@ class SpkService implements SpkServiceInterface
         }
 
         // Ambil budget dari periode aktif
-        $periode = PeriodeModel::whereDate('tanggal_mulai', '<=', now())
+        $periode = PeriodeModel::whereDate('tanggal_mulai', '>=', now())
             ->whereDate('tanggal_selesai', '>=', now())
             ->first();
+
+        // dd($periode);  
 
         if (!$periode) {
             return [];
         }
 
+
         $budget = $periode->biaya;
 
+        // dd(!$periode);  
         // Coba semua kombinasi yang memungkinkan
         $bestCombo = [];
         $bestSkor = 0;
@@ -295,6 +299,7 @@ class SpkService implements SpkServiceInterface
                 $bestSkor = $totalSkor;
             }
         }
+        // dd($bestSkor);
 
         // Jika hanya perlu ID laporan:
         return array_column($bestCombo, 'id_laporan');
