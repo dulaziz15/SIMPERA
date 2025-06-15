@@ -116,7 +116,7 @@
                                                 <p class="mb-1">{{ $notification->pesan }}</p>
                                                 <p class="mb-0">
                                                     <i class="mdi mdi-clock-outline"></i>
-                                                    <span>{{ $notification->created_at->diffForHumans() }}</span>
+                                                    <span>{{ \Carbon\Carbon::parse($notification->created_at)->locale('id')->diffForHumans() }}</span>
                                                 </p>
                                             </div>
                                     </div>

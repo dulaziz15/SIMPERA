@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\GedungRequest;
 use App\Services\Interfaces\GedungServiceInterface;
 use App\Services\Interfaces\KategoriGedungServiceInterface;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use App\Services\Interfaces\RuanganServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class GedungController extends Controller
@@ -14,15 +17,19 @@ class GedungController extends Controller
     protected $gedungService;
     protected $kategoriGedungService;
     protected $ruanganService;
+    protected $logService;
     public function __construct(
         GedungServiceInterface $gedungService,
         KategoriGedungServiceInterface $kategoriGedungService,
-        RuanganServiceInterface $ruanganService
+        RuanganServiceInterface $ruanganService,
+        LogActivityServiceInterface $logService
     ) {
         $this->gedungService = $gedungService;
         $this->kategoriGedungService = $kategoriGedungService;
         $this->ruanganService = $ruanganService;
+        $this->logService = $logService;
     }
+
     public function index()
     {
         $breadcrumb = (object) [
@@ -69,6 +76,7 @@ class GedungController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $gedung = $this->gedungService->storeGedung($request);
             if ($gedung) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambah data Gedung Ke dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.',
@@ -104,6 +112,7 @@ class GedungController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $gedung = $this->gedungService->edit($id, $request);
             if ($gedung) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Mengubah data Gedung di dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupdate.',
@@ -132,6 +141,7 @@ class GedungController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $gedung = $this->gedungService->delete($id);
             if ($gedung) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGHAPUS, 'Menghapus data Gedung dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',

@@ -16,6 +16,7 @@ if (!function_exists('getUserNotifications')) {
     {
         return NotifikasiModel::with('pengguna')
             ->where('id_pengguna', Auth::user()->id_pengguna)
+            ->where('sudah_dibaca', 0)
             ->latest()
             ->limit($limit)
             ->get();

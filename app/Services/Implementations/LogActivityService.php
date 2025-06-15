@@ -5,6 +5,7 @@ namespace App\Services\Implementations;
 use App\Http\Requests\LogRequest;
 use App\Repositories\Interfaces\LogActivityRepositoryInterface;
 use App\Services\Interfaces\LogActivityServiceInterface;
+use Illuminate\Support\Facades\Auth;
 
 class LogActivityService implements LogActivityServiceInterface {
     protected $logActivityRepository;
@@ -12,13 +13,22 @@ class LogActivityService implements LogActivityServiceInterface {
     public function __construct(LogActivityRepositoryInterface $logActivityRepository){
         $this->logActivityRepository = $logActivityRepository;
     }
-    public function storeLog(LogRequest $request)
+
+    public function getAll()
+    {
+        if(Auth::user()->isUser() || Auth::user()->isTeknisi()) {
+            return $this->logActivityRepository->getAll(Auth::user()->id_pengguna);
+        } else {
+            return $this->logActivityRepository->getAllAdmin();
+        }
+    }
+    public function storeLog($id_pengguna, $jenis_aktivitas, $deskripsi, $waktu)
     {
         return $this->logActivityRepository->create([
-            'id_pengguna' => $request->id_pengguna,
-            'jenis_aktivitas' => $request->jenis_aktivitas,
-            'deskripsi' => $request->deskripsi,
-            'waktu' => $request->waktu
+            'id_pengguna' => $id_pengguna,
+            'jenis_aktivitas' => $jenis_aktivitas,
+            'deskripsi' => $deskripsi,
+            'waktu' => $waktu
         ]);
     }
 

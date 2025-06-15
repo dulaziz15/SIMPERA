@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\PelaporanRequest;
 use App\Services\Interfaces\FasilitasServiceInterface;
 use App\Services\Interfaces\GedungServiceInterface;
+use App\Services\Interfaces\LogActivityServiceInterface;
+use App\Services\Interfaces\NotifikasiServiceInterface;
 use App\Services\Interfaces\PelaporanServiceInterface;
 use App\Services\Interfaces\RuanganServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -17,16 +21,22 @@ class PelaporanController extends Controller
     protected $fasilitasService;
     protected $gedungService;
     protected $ruanganService;
+    protected $notifikasiService;
+    protected $logService;
     public function __construct(
         PelaporanServiceInterface $pelaporanService,
         GedungServiceInterface $gedungService,
         FasilitasServiceInterface $fasilitasService,
-        RuanganServiceInterface $ruanganService
+        RuanganServiceInterface $ruanganService,
+        NotifikasiServiceInterface $notifikasiService,
+        LogActivityServiceInterface $logService
     ) {
         $this->pelaporanService = $pelaporanService;
         $this->fasilitasService = $fasilitasService;
         $this->gedungService = $gedungService;
         $this->ruanganService = $ruanganService;
+        $this->notifikasiService = $notifikasiService;
+        $this->logService = $logService;
     }
 
     public function index()
@@ -96,6 +106,7 @@ class PelaporanController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $pelaporan = $this->pelaporanService->storePelaporan($request);
             if ($pelaporan) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambah data Laporan Ke dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Disimpan.',
@@ -154,6 +165,8 @@ class PelaporanController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $pelaporan = $this->pelaporanService->storePeninjauan($request, $id);
             if ($pelaporan) {
+                $this->notifikasiService->createNotif($id, 'Peninjauan Laporan Perbaikan', 'Sarpras telah melakukan peninjauan laporan perbaikan.');
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Merubah data untuk Melakukan Peninjauan data laporan', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupdate.',
@@ -182,6 +195,7 @@ class PelaporanController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $pelaporan = $this->pelaporanService->update($id, $request);
             if ($pelaporan) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Merubah data laporan perbaikan', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupdate.',
@@ -209,7 +223,8 @@ class PelaporanController extends Controller
     {
         if ($request->ajax() || $request->wantsJson()) {
             $pelaporan = $this->pelaporanService->delete($id);
-            if ($pelaporan) {
+            if ($pelaporan) {                
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGHAPUS, 'Menghapus data laporan perbaikan', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',

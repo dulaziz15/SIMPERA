@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LogRequest;
 use App\Services\Interfaces\LogActivityServiceInterface;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class LogActivityController extends Controller
 {
@@ -16,16 +17,22 @@ class LogActivityController extends Controller
 
     public function index()
     {
-        return view('log.index');
+        $breadcrumb = (object) [
+            'title' => 'Daftar Log Activity',
+            'list' => ['Log Activity', 'Log']
+        ];
+
+        $page = (object) [
+            'title' => 'Daftar Log Activity sistem'
+        ];
+
+        $activeMenu = 'log';
+        return view('log.index', compact('breadcrumb', 'page', 'activeMenu'));
     }
 
-    public function storeLog(LogRequest $request)
-    {
-        $log =  $this->logActivityService->storeLog($request);
-        return response()->json([
-            'status' => $log ? true : false,
-            'message' => $log ? 'Log berhasil disimpan.' : 'Log gagal disimpan.',
-        ]);
+    public function data() {
+        $logData = $this->logActivityService->getAll();
+        return DataTables::of($logData)->make(true);
     }
 
     public function show($id)
