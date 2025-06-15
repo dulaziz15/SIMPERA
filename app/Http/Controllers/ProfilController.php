@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\ProfilRequest;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use App\Services\Interfaces\ProfilServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
@@ -12,11 +14,13 @@ class ProfilController extends Controller
 {
     protected $profilService;
     protected $userService;
+    protected $logService;
 
-    public function __construct(ProfilServiceInterface $profilService, UserServiceInterface $userService)
+    public function __construct(ProfilServiceInterface $profilService, UserServiceInterface $userService, LogActivityServiceInterface $logService)
     {
         $this->profilService = $profilService;
         $this->userService = $userService;
+        $this->logService = $logService;
     }
 
     public function index()
@@ -46,6 +50,7 @@ class ProfilController extends Controller
 
             $profil = $this->profilService->updateImage($id, $request);
             if ($profil) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Mengubah foto profil', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Foto Profil berhasil diubah.',
@@ -73,6 +78,7 @@ class ProfilController extends Controller
     {
         if ($request->ajax() || $request->wantsJson()) {
             $result = $this->profilService->update($request, $id);
+            $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Mengubah data profil dalam sistem', now());
             return response()->json([
                 'status' => (bool) $result['status'],
                 'message' => $result['message']

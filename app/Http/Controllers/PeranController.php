@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\PeranRequest;
 use App\Models\PeranModel;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use App\Services\Interfaces\PeranServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +16,10 @@ use Yajra\DataTables\Facades\DataTables;
 class PeranController extends Controller
 {
     protected $peranService;
-    public function __construct(PeranServiceInterface $peranService){
+    protected $logService;
+    public function __construct(PeranServiceInterface $peranService, LogActivityServiceInterface $logService){
         $this->peranService = $peranService;
+        $this->logService = $logService;
     }
 
     public function index() {
@@ -53,6 +57,7 @@ class PeranController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $peran = $this->peranService->storePeran($request);
             if($peran) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambah data peran baru', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.',
@@ -79,6 +84,7 @@ class PeranController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $peran = $this->peranService->edit($id, $request);
             if($peran) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Mengubah data peran dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupdate.',
@@ -116,6 +122,7 @@ class PeranController extends Controller
 
             $peran = $this->peranService->delete($id);
             if($peran) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGHAPUS, 'Menghapus data peran dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',

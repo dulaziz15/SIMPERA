@@ -170,7 +170,7 @@
                 @endif
                 <li class="menu-title" data-key="t-menu">Log Activity</li>
                 <li>
-                    <a href="index.html">
+                    <a href="{{ url('log') }}">
                         <i class="bx bx-time"></i>
                         <span data-key="t-dashboard">Log Activity</span>
                     </a>

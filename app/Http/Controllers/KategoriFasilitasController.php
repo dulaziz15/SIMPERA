@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\KategoriRequest;
 use App\Services\Interfaces\KategoriFasilitasServiceInterface;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class KategoriFasilitasController extends Controller
 {
     protected $kategoriFasilitasService;
-    public function __construct(KategoriFasilitasServiceInterface $kategoriFasilitasService){
+    protected $logService;
+    public function __construct(KategoriFasilitasServiceInterface $kategoriFasilitasService, LogActivityServiceInterface $logService){
         $this->kategoriFasilitasService = $kategoriFasilitasService;
+        $this->logService = $logService;
     }
     public function index() {
         return view('kategori.index');
@@ -42,6 +47,7 @@ class KategoriFasilitasController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $kategori = $this->kategoriFasilitasService->storekategori($request);
             if($kategori) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambah data Katgeori Fasilitas Ke dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.',
@@ -73,6 +79,7 @@ class KategoriFasilitasController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $kategori = $this->kategoriFasilitasService->edit($id, $request);
             if($kategori) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Mengubah data Kategori Fasilitas di dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupdate.',
@@ -99,6 +106,7 @@ class KategoriFasilitasController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $kategori = $this->kategoriFasilitasService->delete($id);
             if($kategori) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGHAPUS, 'Menghapus data Kategori Fasilitas di dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',

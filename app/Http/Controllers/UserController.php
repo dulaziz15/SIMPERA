@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\ProfilRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use App\Services\Interfaces\PeranServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Support\Facades\Auth;
@@ -14,13 +16,16 @@ class UserController extends Controller
 {
     protected $userServiceInterface;
     protected $peranService;
+    protected $logService;
 
     public function __construct(
         UserServiceInterface $userServiceInterface,
-        PeranServiceInterface $peranService
+        PeranServiceInterface $peranService,
+        LogActivityServiceInterface $logServiceInterface
     ) {
         $this->userServiceInterface = $userServiceInterface;
         $this->peranService = $peranService;
+        $this->logService = $logServiceInterface;
     }
 
     public function index()
@@ -93,6 +98,7 @@ class UserController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $user = $this->userServiceInterface->createUser($request);
             if ($user) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambahkan User baru', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.'
@@ -113,6 +119,7 @@ class UserController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $profil = $this->userServiceInterface->createProfil($request, $id);
             if ($profil) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambahkan Data Profil User baru', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.'
@@ -151,7 +158,7 @@ class UserController extends Controller
         }
 
         $updated = $this->userServiceInterface->updateProfile($id, $request);
-
+        $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Mengubah Data User', now());
         return response()->json([
             'status' => (bool) $updated,
             'message' => $updated ? 'Data berhasil diupdate.' : 'Data gagal diupdate.',
@@ -188,6 +195,7 @@ class UserController extends Controller
             }
 
             $user = $this->userServiceInterface->deleteUser($id);
+            $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGHAPUS, 'Menghapus Data User', now());
             if ($user) {
                 return response()->json([
                     'status' => true,

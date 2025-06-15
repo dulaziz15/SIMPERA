@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\PeriodeRequest;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use App\Services\Interfaces\PeriodeServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PeriodeController extends Controller
 {
     protected $periodeServiceInterface;
+    protected $logService;
 
-    public function __construct(PeriodeServiceInterface $periodeServiceInterface) {
+    public function __construct(PeriodeServiceInterface $periodeServiceInterface, LogActivityServiceInterface $logService) {
         $this->periodeServiceInterface = $periodeServiceInterface;
+        $this->logService = $logService;
     }
 
     public function index() {
@@ -54,6 +59,7 @@ class PeriodeController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $periode = $this->periodeServiceInterface->storePeriode($request);
             if($periode) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambah data Periode baru', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.',
@@ -86,6 +92,7 @@ class PeriodeController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $periode = $this->periodeServiceInterface->update($id_periode,$request);
             if($periode) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Mengubah data periode dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupdate.',
@@ -112,6 +119,7 @@ class PeriodeController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $periode = $this->periodeServiceInterface->delete($id_periode);
             if($periode) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGHAPUS, 'Menghapus data periode dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',

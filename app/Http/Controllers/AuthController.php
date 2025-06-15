@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\AuthRequest;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    protected $logService;
+    
+    public function __construct(LogActivityServiceInterface $logService) {
+        $this->logService = $logService;
+    }
+
     public function index()
     {
         if (Auth::check()) {
@@ -23,6 +31,7 @@ class AuthController extends Controller
             'password' => $request->hash_kata_sandi
         ];
         if (Auth::attempt($credentials)) {
+        $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::LOGIN, 'User Berhasil Login ke Sistem', now());
             return redirect('/dashboard');
         } else {
             return redirect('login')->withErrors([
@@ -33,6 +42,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::LOGOUT, 'User Berhasil Logout dari Sistem', now());
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

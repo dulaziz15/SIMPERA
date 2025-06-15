@@ -129,6 +129,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::prefix('log')->group(function () {
 		Route::get('/', [LogActivityController::class, 'index']);
+		Route::get('/data', [LogActivityController::class, 'data']);
 		Route::post('/store', [LogActivityController::class, 'storeLog']);
 		Route::get('/{id}/show', [LogActivityController::class, 'show']);
 	});

@@ -2,25 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use App\Services\Interfaces\NotifikasiServiceInterface;
 use App\Services\Interfaces\PelaporanServiceInterface;
 use App\Services\Interfaces\SpkServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PengajuanController extends Controller
 {
     protected $laporanService;
     protected $spkService;
     protected $notifikasiService;
+    protected $logService;
 
     public function __construct(
         PelaporanServiceInterface $laporanService,
         SpkServiceInterface $spkService,
-        NotifikasiServiceInterface $notifikasiService
+        NotifikasiServiceInterface $notifikasiService,
+        LogActivityServiceInterface $logService
     ) {
         $this->laporanService = $laporanService;
         $this->spkService = $spkService;
         $this->notifikasiService = $notifikasiService;
+        $this->logService = $logService;
     }
     public function index()
     {
@@ -94,6 +100,7 @@ class PengajuanController extends Controller
             $pengajuan = $this->laporanService->pengajuan($idLaporan);
             if ($pengajuan) {
                 $this->notifikasiService->createNotif($idLaporan, 'Pengajuan Laporan Perbaikan', 'Laporan Perbaikan telah diajukan untuk diverifikasi.');
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::PENGAJUAN, 'Melakukan Pengajuan laporan perbaikan', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Laporan Berhasil Diajukan untuk diverifikasi.',
@@ -117,6 +124,7 @@ class PengajuanController extends Controller
             $verifikasi = $this->laporanService->verifikasi($id);
             if ($verifikasi) {
                 $this->notifikasiService->createNotif($id, 'Verifikasi Laporan Perbaikan', 'Laporan Perbaikan telah Diverifikasi dan menunggu penugasan untuk proses perbaikan.');
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::VERIFIKASI, 'Melakukan Verifikasi laporan perbaikan yang diajukan', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diverifikasi.',

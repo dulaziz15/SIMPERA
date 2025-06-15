@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LogActivity\JenisAktivitas;
 use App\Http\Requests\KategoriGedungRequest;
 use App\Services\Interfaces\KategoriGedungServiceInterface;
+use App\Services\Interfaces\LogActivityServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KategoriGedungController extends Controller
 {
     protected $kategoriGedungService;
-    public function __construct(KategoriGedungServiceInterface $kategoriGedungService)
+    protected $logService;
+    public function __construct(KategoriGedungServiceInterface $kategoriGedungService, LogActivityServiceInterface $logService)
     {
         $this->kategoriGedungService = $kategoriGedungService;
+        $this->logService = $logService;
     }
 
     public function getAll()
@@ -40,6 +45,7 @@ class KategoriGedungController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $kategori_gedung = $this->kategoriGedungService->create($request);
             if ($kategori_gedung) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENAMBAH, 'Menambah data Kategori Gedung Ke dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil disimpan.'
@@ -69,6 +75,7 @@ class KategoriGedungController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $kategori_gedung = $this->kategoriGedungService->update($id, $request);
             if ($kategori_gedung) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGUBAH, 'Mengubah data Kategori Gedung dalam dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Diupadate.'
@@ -93,6 +100,7 @@ class KategoriGedungController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $kategori_gedung = $this->kategoriGedungService->delete($id);
             if ($kategori_gedung) {
+                $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::MENGHAPUS, 'Menghapus data Kategori Gedung di dalam sistem', now());
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil Dihapus.',

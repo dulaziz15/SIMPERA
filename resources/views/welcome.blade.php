@@ -1,10 +1,8 @@
 @extends('layout.app')
 
 @section('content')
-    @if (Auth::user()->isAdmin())
+    @if (Auth::user()->isAdmin() || Auth::user()->isSarpras())
         @include('dashboard.admin')
-    @elseif (Auth::user()->isSarpras())
-        @include('dashboard.sarpras')
     @elseif (Auth::user()->isTeknisi())
         @include('dashboard.teknisi')
     @elseif (Auth::user()->isUser())
