@@ -8,7 +8,9 @@
 	var dataPeran;
 	$(document).ready(function() {
 		dataPeran = $('#table_peran').DataTable({
-			dom: 'B<"d-flex justify-content-between align-items-center mt-4"lf>',
+			dom: '<"row mb-3"<"col-md-6"B><"col-md-6"f>>' +
+                '<"row"<"col-sm-12"tr>>' +
+                '<"row mt-3"<"col-md-6"i><"col-md-6"p>>',
 			buttons: [{
 					extend: 'pdfHtml5',
 					text: '<i class="bx bx-download"></i> Download PDF',

@@ -2,17 +2,23 @@
 
 @section('content')
     <div class="print-header mb-4">
-        <div class="text-center">
-            <h2>Laporan Sistem Pelaporan Fasilitas</h2>
-            <p class="text-muted">
-                Periode: 
-                {{ request('start_date') ? date('d M Y', strtotime(request('start_date'))) : date('d M Y', strtotime($periode->tanggal_mulai)) }} - 
-                {{ request('end_date') ? date('d M Y', strtotime(request('end_date'))) : date('d M Y', strtotime($periode->tanggal_selesai)) }}
-            </p>
-            <p class="text-muted">Dicetak pada: {{ date('d M Y H:i:s') }}</p>
+        <div class="row align-items-center text-center">
+            <div class="col-2 text-start">
+                <img src="{{ asset('template/assets/images/polinema.png') }}" alt="Logo Polinema" width="100">
+            </div>
+            <div class="col-10 text-start">
+                <h2 class="mb-1">Laporan Sistem Pelaporan Fasilitas</h2>
+                <p class="text-muted mb-1">
+                    Periode:
+                    {{ request('start_date') ? date('d M Y', strtotime(request('start_date'))) : date('d M Y', strtotime($periode->tanggal_mulai)) }}
+                    -
+                    {{ request('end_date') ? date('d M Y', strtotime(request('end_date'))) : date('d M Y', strtotime($periode->tanggal_selesai)) }}
+                </p>
+                <p class="text-muted mb-0">Dicetak pada: {{ now()->format('d M Y H:i:s') }}</p>
+            </div>
         </div>
-    </div>
-
+        </div>
+        <hr class="mb-5">
     <div class="print-section mb-4">
         <h4 class="section-title">Ringkasan Statistik</h4>
         <div class="row">
@@ -61,16 +67,16 @@
             </thead>
             <tbody>
                 @foreach ($perkiraanBiayaPerbaikan->take(5) as $i => $item)
-                <tr>
-                    <td>{{ $i + 1 }}</td>
-                    <td>{{ $item['fasilitas']->nama }}</td>
-                    <td>
-                        {{ $item['fasilitas']->ruangan->nama }} - 
-                        {{ $item['fasilitas']->ruangan->gedung->nama }}
-                    </td>
-                    <td>{{ $item->status->label() }}</td>
-                    <td>Rp. {{ number_format($item['perkiraan_biaya'], 0, ',', '.') }}</td>
-                </tr>
+                    <tr>
+                        <td>{{ $i + 1 }}</td>
+                        <td>{{ $item['fasilitas']->nama }}</td>
+                        <td>
+                            {{ $item['fasilitas']->ruangan->nama }} -
+                            {{ $item['fasilitas']->ruangan->gedung->nama }}
+                        </td>
+                        <td>{{ $item->status->label() }}</td>
+                        <td>Rp. {{ number_format($item['perkiraan_biaya'], 0, ',', '.') }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -90,16 +96,16 @@
             </thead>
             <tbody>
                 @foreach ($fasilitasSeringDilaporkan->take(5) as $i => $item)
-                <tr>
-                    <td>{{ $i + 1 }}</td>
-                    <td>{{ $item['fasilitas']->nama }}</td>
-                    <td>
-                        {{ $item['fasilitas']->ruangan->nama }} - 
-                        {{ $item['fasilitas']->ruangan->gedung->nama }}
-                    </td>
-                    <td>{{ $item['fasilitas']->laporan->status }}</td>
-                    <td>{{ $item['total'] }} Pelapor</td>
-                </tr>
+                    <tr>
+                        <td>{{ $i + 1 }}</td>
+                        <td>{{ $item['fasilitas']->nama }}</td>
+                        <td>
+                            {{ $item['fasilitas']->ruangan->nama }} -
+                            {{ $item['fasilitas']->ruangan->gedung->nama }}
+                        </td>
+                        <td>{{ $item['fasilitas']->laporan->status }}</td>
+                        <td>{{ $item['total'] }} Pelapor</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -113,27 +119,33 @@
                 <table class="print-subtable">
                     <tr>
                         <td>Admin</td>
-                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::ADMIN->value]))->count() }}</td>
+                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::ADMIN->value]))->count() }}
+                        </td>
                     </tr>
                     <tr>
                         <td>Sarpras</td>
-                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::SARANA_PRASARANA->value]))->count() }}</td>
+                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::SARANA_PRASARANA->value]))->count() }}
+                        </td>
                     </tr>
                     <tr>
                         <td>Teknisi</td>
-                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::TEKNISI->value]))->count() }}</td>
+                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::TEKNISI->value]))->count() }}
+                        </td>
                     </tr>
                     <tr>
                         <td>Mahasiswa</td>
-                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::MAHASISWA->value]))->count() }}</td>
+                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::MAHASISWA->value]))->count() }}
+                        </td>
                     </tr>
                     <tr>
                         <td>Dosen</td>
-                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::DOSEN->value]))->count() }}</td>
+                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::DOSEN->value]))->count() }}
+                        </td>
                     </tr>
                     <tr>
                         <td>Tenaga Pendidik</td>
-                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::TENAGA_KEPENDIDIKAN->value]))->count() }}</td>
+                        <td>{{ $user->filter(fn($item) => in_array($item->peran->kode_peran, [App\Enums\Peran\PeranEnums::TENAGA_KEPENDIDIKAN->value]))->count() }}
+                        </td>
                     </tr>
                     <tr class="total-row">
                         <td>Total</td>
@@ -146,19 +158,23 @@
                 <table class="print-subtable">
                     <tr>
                         <td>Laporan Baru</td>
-                        <td>{{ $laporan->filter(fn($item) => in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::BARU->value]))->count() }}</td>
+                        <td>{{ $laporan->filter(fn($item) => in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::BARU->value]))->count() }}
+                        </td>
                     </tr>
                     <tr>
                         <td>Laporan Diproses</td>
-                        <td>{{ $laporan->filter(fn($item) => in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::DIAJUKAN->value]))->count() }}</td>
+                        <td>{{ $laporan->filter(fn($item) => in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::DIAJUKAN->value]))->count() }}
+                        </td>
                     </tr>
                     <tr>
                         <td>Laporan Diverifikasi</td>
-                        <td>{{ $laporan->filter(fn($item) => in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::VERIFIKASI->value]))->count() }}</td>
+                        <td>{{ $laporan->filter(fn($item) => in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::VERIFIKASI->value]))->count() }}
+                        </td>
                     </tr>
                     <tr>
                         <td>Laporan Selesai</td>
-                        <td>{{ $laporan->filter(fn($item) => in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::SELESAI->value]))->count() }}</td>
+                        <td>{{ $laporan->filter(fn($item) => in_array($item->status->value, [App\Enums\Status\StatusLaporanPerbaikan::SELESAI->value]))->count() }}
+                        </td>
                     </tr>
                     <tr class="total-row">
                         <td>Total</td>
@@ -206,15 +222,15 @@
             </thead>
             <tbody>
                 @foreach ($laporanPerPeriode as $item)
-                <tr>
-                    <td>{{ $item['nama_periode'] }}</td>
-                    <td>{{ $item['jumlah_laporan'] }}</td>
-                    <td>{{ $item['baru'] }}</td>
-                    <td>{{ $item['diverifikasi'] }}</td>
-                    <td>{{ $item['diajukan'] }}</td>
-                    <td>{{ $item['perbaikan'] }}</td>
-                    <td>{{ $item['selesai'] }}</td>
-                </tr>
+                    <tr>
+                        <td>{{ $item['nama_periode'] }}</td>
+                        <td>{{ $item['jumlah_laporan'] }}</td>
+                        <td>{{ $item['baru'] }}</td>
+                        <td>{{ $item['diverifikasi'] }}</td>
+                        <td>{{ $item['diajukan'] }}</td>
+                        <td>{{ $item['perbaikan'] }}</td>
+                        <td>{{ $item['selesai'] }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -245,80 +261,87 @@
         color: #333;
         font-size: 12px;
     }
-    .print-header {
-        border-bottom: 2px solid #333;
-        padding-bottom: 15px;
-        margin-bottom: 20px;
-    }
-    .print-header h2 {
-        margin: 0;
-        font-size: 20px;
-    }
+
     .print-section {
         margin-bottom: 25px;
         page-break-inside: avoid;
     }
+
     .section-title {
         font-size: 16px;
         border-bottom: 1px solid #ddd;
         padding-bottom: 5px;
         margin-bottom: 10px;
     }
+
     .stat-card {
         border: 1px solid #ddd;
         padding: 10px;
         text-align: center;
         border-radius: 4px;
     }
+
     .stat-title {
         font-size: 12px;
         color: #666;
     }
+
     .stat-value {
         font-size: 18px;
         font-weight: bold;
         margin: 5px 0;
     }
+
     .stat-desc {
         font-size: 10px;
         color: #999;
     }
+
     .print-table {
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 15px;
     }
-    .print-table th, .print-table td {
+
+    .print-table th,
+    .print-table td {
         border: 1px solid #ddd;
         padding: 6px 8px;
         text-align: left;
     }
+
     .print-table th {
         background-color: #f5f5f5;
         font-weight: bold;
     }
+
     .print-subtable {
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 10px;
     }
+
     .print-subtable td {
         padding: 4px 8px;
         border-bottom: 1px solid #eee;
     }
+
     .print-subtable .total-row td {
         font-weight: bold;
         border-top: 1px solid #333;
     }
+
     .print-footer {
         margin-top: 30px;
         padding-top: 15px;
         border-top: 1px solid #333;
     }
+
     @media print {
         body {
             padding: 20px;
         }
+
         .no-print {
             display: none !important;
         }

@@ -97,9 +97,10 @@ class PenugasanController extends Controller
     public function terimaPenugasan(Request $request, $id)
     {
         if ($request->ajax() || $request->wantsJson()) {
+            $penugasan = $this->penugasanService->getById($id);
             $terima = $this->penugasanService->terimaPenugasan($id);
             if ($terima) {
-                $this->notifikasiService->createNotif($id, 'Penerimaan Penugasan Perbaikan', 'Teknisi telah menerima penugasan perbaikan.');
+                $this->notifikasiService->createNotif($penugasan->id_laporan, 'Penerimaan Penugasan Perbaikan', 'Teknisi telah menerima penugasan perbaikan.');
                 $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::PENUGASAN, 'Menerima penugasan perbaikan', now());
                 return response()->json([
                     'status' => true,
@@ -121,9 +122,10 @@ class PenugasanController extends Controller
     public function selesaiPenugasan(Request $request, $id)
     {
         if ($request->ajax() || $request->wantsJson()) {
+            $penugasan = $this->penugasanService->getById($id);
             $terima = $this->penugasanService->selesaiPenugasan($id);
             if ($terima) {
-                $this->notifikasiService->createNotif($id, 'Perbaikan Selesai', 'Perbaikan Telah selesai.');
+                $this->notifikasiService->createNotif($penugasan->id_laporan, 'Perbaikan Selesai', 'Perbaikan Telah selesai.');
                 $this->logService->storeLog(Auth::user()->id_pengguna, JenisAktivitas::SELESAI, 'Menyelesaikan Tugas Perbaikan', now());
                 return response()->json([
                     'status' => true,

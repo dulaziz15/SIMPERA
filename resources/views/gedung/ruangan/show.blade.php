@@ -7,7 +7,11 @@
         <div class="modal-body row g-3 p-4">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <table class="table table-sm table-bordered table-striped">
+                        <tr>
+                            <th>Nama Gedung</th>
+                            <td>{{ $ruangan->gedung->nama }}</td>
+                        </tr>
                         <tr>
                             <th>Nama ruangan</th>
                             <td>{{ $ruangan->nama }}</td>

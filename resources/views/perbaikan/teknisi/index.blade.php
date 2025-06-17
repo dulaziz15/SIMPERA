@@ -10,7 +10,7 @@
                     </div>
                     <div class="card-body">
                         <!-- Filter Section -->
-                        <div class="row mb-4">
+                        {{-- <div class="row mb-4">
                             <div class="col-md-4">
                                 <label class="form-label">Status</label>
                                 <select class="form-select" id="filter-status">
@@ -33,11 +33,11 @@
                                 <label class="form-label">Tanggal</label>
                                 <input type="date" class="form-control" id="filter-date">
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- Assignment List -->
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle" id="assignments-table">
+                            <table class="table table-hover align-middle table-perbaikan-teknisi" id="assignments-table">
                                 <thead class="table-light">
                                     <tr>
                                         <th width="5%">#</th>
@@ -112,7 +112,7 @@
                     <div class="card-body">
                         <!-- Assignment List -->
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle" id="assignments-table">
+                            <table class="table table-hover align-middle table-perbaikan-teknisi" id="assignments-table">
                                 <thead class="table-light">
                                     <tr>
                                         <th width="5%">#</th>
@@ -136,7 +136,7 @@
                                                         </div>
                                                         <div class="flex-grow-1 ms-2">
                                                             <h6 class="mb-0">
-                                                                {{ Str::limit($tugas->laporan->deskripsi, 30) }}
+                                                                {{ Str::limit($tugas->laporan->fasilitas->nama, 30) }}
                                                             </h6>
                                                             <small
                                                                 class="text-muted">#{{ $tugas->laporan->id_laporan }}</small>
@@ -197,6 +197,14 @@
 @endpush
 
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.table-perbaikan-teknisi').DataTable({
+                ordering: true,
+                searching: true
+            });
+        });
+    </script>
     <script>
         function showSelesaiPenugasan(idPenugasan) {
             currentLaporanId = idPenugasan;

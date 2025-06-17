@@ -49,7 +49,7 @@
                                 data-bs-target="#data-fasilitas" type="button" role="tab"
                                 aria-controls="data-fasilitas" aria-selected="false"
                                 onclick="fasilitasData.ajax.reload()">
-                                <i class="fas fa-hands-helping me-2"></i>Fasilitas
+                                <i class="fas fa-table me-2"></i>Fasilitas
                             </button>
                         </li>
                     </ul>
@@ -90,7 +90,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="row mb-4">
+                                    {{-- <div class="row mb-4">
                                         <div class="col-md-12">
                                             <div class="col-lg-4">
                                                 <label class="control-label col-form-label">Filter :</label>
@@ -104,7 +104,7 @@
                                                 <small class="form-text text-muted">Gedung</small>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <table id="table_fasilitas"
                                         class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive">
                                         <thead>

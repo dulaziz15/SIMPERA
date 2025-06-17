@@ -9,7 +9,9 @@
 	var fasilitasData;
 	$(document).ready(function() {
 		kategoriFasilitasData = $('#table_kategori_fasilitas').DataTable({
-			dom: 'B<"d-flex justify-content-between align-items-center mt-4"lf>',
+			dom: '<"row mb-3"<"col-md-6"B><"col-md-6"f>>' +
+                '<"row"<"col-sm-12"tr>>' +
+                '<"row mt-3"<"col-md-6"i><"col-md-6"p>>',
 			buttons: [{
 					extend: 'pdfHtml5',
 					text: '<i class="bx bx-download"></i> Download PDF',
@@ -78,7 +80,10 @@
 		});
 
 		fasilitasData = $('#table_fasilitas').DataTable({
-			dom: 'B<"d-flex justify-content-between align-items-center mt-4"lf>',
+			dom: '<"row mb-3"<"col-md-6"B><"col-md-6"f>>' +
+                '<"row"<"col-sm-12"tr>>' +
+                '<"row mt-3"<"col-md-6"i><"col-md-6"p>>',
+			// dom: 'B<"d-flex justify-content-between align-items-center mt-4"lf>',
 			buttons: [{
 					extend: 'pdfHtml5',
 					text: '<i class="bx bx-download"></i> Download PDF',

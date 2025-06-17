@@ -46,6 +46,10 @@ class PenugasanService implements PenugasanServiceInterface
         return $this->penugasanRepository->getByTeknisi(Auth::user()->id_pengguna);
     }
 
+    public function getById($id) {
+        return $this->penugasanRepository->getById($id);
+    }
+
     public function terimaPenugasan($id)
     {
         return $this->penugasanRepository->updateStatus($id, [

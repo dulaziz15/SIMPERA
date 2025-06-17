@@ -32,8 +32,6 @@
                                 icon: 'success',
                                 title: 'Berhasil',
                                 text: response.message,
-                                timer: 1000,
-                                showConfirmButton: false
                             }).then(function() {
                                 window.location.reload();
                             });

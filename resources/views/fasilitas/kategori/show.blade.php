@@ -7,7 +7,7 @@
         <div class="modal-body row g-3 p-4">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <table class="table table-sm table-striped table-bordered">
                         <tr>
                             <th>Nama Kategori</th>
                             <td>{{ $kategori->nama }}</td>

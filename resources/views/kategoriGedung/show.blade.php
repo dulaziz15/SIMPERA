@@ -5,7 +5,13 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body row g-3">
-            {{ $kategori->kategori_gedung }}
+            <table class="table table-sm table-bordered table-striped">
+                <tr>
+                    <td>Kode Kategori Gedung</td>
+                    <td>:</td>
+                    <td>{{ $kategori->kategori_gedung }}</td>
+                </tr>
+            </table>
         </div>
         <div class="modal-footer">
 

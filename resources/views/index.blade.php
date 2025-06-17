@@ -34,25 +34,19 @@
             <div class="swiper-container preview-thumb">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="slide-bg" style="background-image: url(template/assets/images/bg-1.jpg);"></div>
-                    </div>
-                    <div class="swiper-slide">
                         <div class="slide-bg" style="background-image: url(template/assets/images/bg-2.jpg);"></div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slide-bg" style="background-image: url(template/assets/images/bg-3.jpg);"></div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="slide-bg" style="background-image: url(template/assets/images/bg-1.jpg);"></div>
                     </div>
                 </div>
             </div>
             <!-- preview-thumb -->
             <div class="swiper-container preview-thumbsnav">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div>
-                            <img src="template/assets/images/bg-1.jpg" alt=""
-                                class="avatar-sm nav-img rounded-circle">
-                        </div>
-                    </div>
                     <div class="swiper-slide">
                         <div>
                             <img src="template/assets/images/bg-2.jpg" alt=""
@@ -62,6 +56,12 @@
                     <div class="swiper-slide">
                         <div>
                             <img src="template/assets/images/bg-3.jpg" alt=""
+                                class="avatar-sm nav-img rounded-circle">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div>
+                            <img src="template/assets/images/bg-1.jpg" alt=""
                                 class="avatar-sm nav-img rounded-circle">
                         </div>
                     </div>
@@ -80,7 +80,7 @@
 
                             <div class="mb-5">
                                 <a href="index.html">
-                                    <img src="template/assets/images/logo.png" alt="" height="30" class="me-1"><span class="logo-txt text-white font-size-22">SIMPERA</span>
+                                    <img src="template/assets/images/logo.png" alt="" height="50" class="me-1"><span class="logo-txt text-white " style="font-size: 30px">SIMPERA</span>
                                 </a>
                             </div>
                             <h1 class="text-white mt-5">Sistem Manajemen Pelaporan dan Perbaikan Fasilitas Kampus</h1>

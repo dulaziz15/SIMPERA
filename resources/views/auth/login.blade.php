@@ -52,7 +52,7 @@
                                         <p class="text-muted mt-2">Sign in to continue to SIMPERA.</p>
                                     </div>
 
-                                    @if($errors->has('surel'))
+                                    @if ($errors->has('surel'))
                                         <div class="alert alert-danger">
                                             {{ $errors->first('surel') }}
                                         </div>
@@ -155,8 +155,122 @@
                         </ul>
                         <!-- end bubble effect -->
                         <div class="row justify-content-center align-items-center">
-                            <div class="col-xl-7">
-                                <div class="p-0 p-sm-4 px-xl-0">
+                            <div class="col-xl-8">
+                                <!-- Timeline Section -->
+                                <div class="row text-center justify-content-center mb-5">
+                                    <div class="col-xl-8 col-lg-10">
+                                        <h2 class="fw-bold text-white">Proses Pengajuan Laporan</h2>
+                                        <p class="text-white mb-0">Berikut adalah alur proses pengajuan laporan
+                                            perbaikan fasilitas.</p>
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col">
+                                        <div class="timeline-container px-3">
+                                            <div class="timeline-steps">
+                                                <!-- Step 1 -->
+                                                <div class="timeline-step completed">
+                                                    <div class="timeline-content" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Laporan diajukan oleh pengguna">
+                                                        <div class="timeline-connector-left"></div>
+                                                        <div class="inner-circle bg-primary text-white">
+                                                            <i class="fas fa-file-alt"></i>
+                                                        </div>
+                                                        <div class="timeline-connector-right"></div>
+                                                        <p class="h6 mt-3 mb-1 fw-semibold text-white">Pelaporan
+                                                            Kerusakan</p>
+                                                        <p class="small mb-2 text-white">Mahasiswa, dosen, ataupun
+                                                            tendik bisa melakukan pelaporan kerusakan fasilitas yang
+                                                            ditemukan</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Step 2 -->
+                                                <div class="timeline-step completed">
+                                                    <div class="timeline-content" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top"
+                                                        title="Laporan ditinjau oleh petugas sarpras">
+                                                        <div class="timeline-connector-left"></div>
+                                                        <div class="inner-circle bg-primary text-white">
+                                                            <i class="fas fa-eye"></i>
+                                                        </div>
+                                                        <div class="timeline-connector-right"></div>
+                                                        <p class="h6 mt-3 mb-1 fw-semibold text-white">Peninjauan
+                                                            Sarpras</p>
+                                                        <p class="small mb-2 text-white">Laporan yang masuk akan
+                                                            ditinjau oleh sarana prasarana</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Step 3 -->
+                                                <div class="timeline-step completed">
+                                                    <div class="timeline-content" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top"
+                                                        title="Laporan diverifikasi oleh admin">
+                                                        <div class="timeline-connector-left"></div>
+                                                        <div class="inner-circle bg-primary text-white">
+                                                            <i class="fas fa-check-circle"></i>
+                                                        </div>
+                                                        <div class="timeline-connector-right"></div>
+                                                        <p class="h6 mt-3 mb-1 fw-semibold text-white">Verifikasi Admin
+                                                        </p>
+                                                        <p class="small mb-2 text-white">Laporan yang telah ditinjau
+                                                            akan diverifikasi admin untuk penanganan lebih lanjut</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Step 4 -->
+                                                <div class="timeline-step completed">
+                                                    <div class="timeline-content" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top"
+                                                        title="Proses Penugasan dan Perbaikan">
+                                                        <div class="timeline-connector-left"></div>
+                                                        <div class="inner-circle bg-primary text-white">
+                                                            <i class="fas fa-tools"></i>
+                                                        </div>
+                                                        <div class="timeline-connector-right"></div>
+                                                        <p class="h6 mt-3 mb-1 fw-semibold text-white">Proses Perbaikan
+                                                        </p>
+                                                        <p class="small mb-2 text-white">Laporan yang telah
+                                                            diverifikasi akan dilakukan proses perbaikan</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Step 5 -->
+                                                <div class="timeline-step completed">
+                                                    <div class="timeline-content" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Proses selesai">
+                                                        <div class="timeline-connector-left"></div>
+                                                        <div class="inner-circle bg-primary text-white">
+                                                            <i class="fas fa-check-double"></i>
+                                                        </div>
+                                                        <div class="timeline-connector-right"></div>
+                                                        <p class="h6 mt-3 mb-1 fw-semibold text-white">Selesai</p>
+                                                        <p class="small mb-2 text-white">Proses perbaikan telah
+                                                            diselesaikan oleh teknisi</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Step 6 -->
+                                                <div class="timeline-step completed">
+                                                    <div class="timeline-content" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Pemberian Feedback">
+                                                        <div class="timeline-connector-left"></div>
+                                                        <div class="inner-circle bg-primary text-white">
+                                                            <i class="fas fa-clipboard-check"></i>
+                                                        </div>
+                                                        <div class="timeline-connector-right"></div>
+                                                        <p class="h6 mt-3 mb-1 fw-semibold text-white">Pemberian
+                                                            Feedback</p>
+                                                        <p class="small mb-2 text-white">Bagi pelapor memberikan
+                                                            feedback dari hasil perbaikan yang dilakukan</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- <div class="p-0 p-sm-4 px-xl-0">
                                     <div id="reviewcarouselIndicators" class="carousel slide"
                                         data-bs-ride="carousel">
                                         <div
@@ -254,7 +368,7 @@
                                         <!-- end carousel-inner -->
                                     </div>
                                     <!-- end review carousel -->
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -280,7 +394,198 @@
     <script src="{{ asset('template/assets/js/pages/pass-addon.init.js') }}"></script>
 
 </body>
+<script>
+    // Initialize tooltips
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Bootstrap tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+</script>
+<style>
+    /* Custom Variables */
+    :root {
+        --primary: #ffffff;
+        --primary-soft: rgba(255, 255, 255, 0.1);
+        --success: #4cc9f0;
+        --success-soft: rgba(76, 201, 240, 0.1);
+        --info: #3a86ff;
+        --info-soft: rgba(58, 134, 255, 0.1);
+    }
 
+    /* Timeline Container */
+    .timeline-container {
+        position: relative;
+        padding: 2rem 0;
+        margin: 0 auto;
+        overflow-x: auto;
+    }
+
+    /* Timeline Steps */
+    .timeline-steps {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        min-width: 800px;
+    }
+
+    /* Timeline Step */
+    .timeline-step {
+        position: relative;
+        flex: 1;
+        text-align: center;
+        min-width: 120px;
+    }
+
+    /* Timeline Content */
+    .timeline-content {
+        width: 100%;
+        text-align: center;
+        padding: 0 0.5rem;
+        position: relative;
+    }
+
+    /* Inner Circle */
+    .inner-circle {
+        border-radius: 50%;
+        height: 60px;
+        width: 60px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border: 3px solid var(--primary);
+        color: var(--primary);
+        font-size: 1.25rem;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        margin: 0 auto;
+    }
+
+    /* Active Step */
+    .timeline-step.active .inner-circle {
+        background-color: var(--success);
+        border-color: var(--success);
+        transform: scale(1.1);
+    }
+
+    /* Timeline Connectors */
+    .timeline-connector-left,
+    .timeline-connector-right {
+        position: absolute;
+        top: 30px;
+        height: 3px;
+        background-color: var(--primary);
+        opacity: 0.2;
+        z-index: 1;
+    }
+
+    .timeline-connector-left {
+        left: 0;
+        right: 50%;
+    }
+
+    .timeline-connector-right {
+        left: 50%;
+        right: 0;
+    }
+
+    /* Completed Steps */
+    .timeline-step.completed .inner-circle {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: white;
+    }
+
+    .timeline-step.completed .timeline-connector-left,
+    .timeline-step.completed .timeline-connector-right {
+        opacity: 0.5;
+    }
+
+    /* Button Styles */
+    .btn-primary-soft {
+        background-color: var(--primary-soft);
+        color: var(--primary);
+    }
+
+    .btn-success-soft {
+        background-color: var(--success-soft);
+        color: var(--success);
+    }
+
+    .btn-rounded {
+        border-radius: 50px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 991.98px) {
+        .timeline-container {
+            padding: 1.5rem 0;
+        }
+
+        .inner-circle {
+            height: 50px;
+            width: 50px;
+            font-size: 1rem;
+        }
+
+        .timeline-connector-left,
+        .timeline-connector-right {
+            top: 25px;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .timeline-steps {
+            flex-direction: column;
+            align-items: center;
+            min-width: auto;
+        }
+
+        .timeline-step {
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 220px;
+        }
+
+        .timeline-connector-left,
+        .timeline-connector-right {
+            display: none;
+        }
+
+        .timeline-step:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            height: 2rem;
+            width: 3px;
+            background-color: var(--primary);
+            opacity: 0.2;
+            transform: translateX(-50%);
+        }
+
+        .timeline-step.completed:not(:last-child)::after {
+            opacity: 0.5;
+        }
+    }
+
+    .btn-pill {
+        border-radius: 50px;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-pill:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(67, 97, 238, 0.25);
+    }
+</style>
 
 <!-- Mirrored from themesbrand.com/minia/layouts-lts/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 May 2025 10:17:17 GMT -->
 

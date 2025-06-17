@@ -53,35 +53,13 @@
 <div class="card">
     <div class="card-header bg-primary text-white">
         <h4 class="card-title mb-0">
-            <i class="fas fa-tasks me-2"></i>Penugasan Teknisi
+            <i class="fas fa-tasks me-2"></i>laporan yang belum dilakukan penugasan
         </h4>
     </div>
     <div class="card-body">
-        <!-- Filter Section -->
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <label class="form-label">Filter Tanggal</label>
-                <input type="date" class="form-control" id="filter-date">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Filter Fasilitas</label>
-                <select class="form-select" id="filter-fasilitas">
-                    <option value="">Semua Fasilitas</option>
-                    <option value="1">Lab Komputer</option>
-                    <option value="2">AC Ruangan</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Urutkan</label>
-                <select class="form-select" id="filter-sort">
-                    <option value="terbaru">Terbaru</option>
-                    <option value="terlama">Terlama</option>
-                </select>
-            </div>
-        </div>
         <!-- Daftar Laporan -->
         <div class="table-responsive">
-            <table class="table table-hover table-striped" id="tabel-penugasan">
+            <table class="table table-hover table-striped" id="tabel-belum-penugasan">
                 <thead class="table-light">
                     <tr>
                         <th width="5%">No</th>
@@ -130,6 +108,11 @@
     <script>
         $(document).ready(function() {
             $('#tabel-penugasan').DataTable({
+                ordering: true,
+                searching: true
+            });
+
+            $('#tabel-belum-penugasan').DataTable({
                 ordering: true,
                 searching: true
             });

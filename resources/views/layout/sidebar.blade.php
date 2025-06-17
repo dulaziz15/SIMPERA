@@ -119,13 +119,6 @@
                             <span data-key="t-calendar">Perbaikan</span>
                         </a>
                     </li>
-
-                    <li class="{{ $activeMenu == 'riwayat' ? 'mm-active' : '' }}">
-                        <a href="{{ url('riwayat') }}">
-                            <i class="bx bx-wrench"></i>
-                            <span data-key="t-calendar">Riwayat Perbaikan</span>
-                        </a>
-                    </li>
                 @endif
 
                 @if (Auth::user()->isUser())
