@@ -1,115 +1,21 @@
 @extends('layout.app')
 
 @section('content')
-	<div class="row">
-		<div class="col-xl-3 col-md-6">
-			<!-- card -->
-			<div class="card card-h-100">
-				<!-- card body -->
-				<div class="card-body">
-					<div class="row align-items-center">
-						<div class="col-6">
-							<span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah User</span>
-							<h4 class="mb-3">
-								<span class="counter-value" data-target="{{ $user->count() }}">0</span>
-							</h4>
-						</div>
-
-                        
-                    </div>
-                    <div class="text-nowrap">
-                        <span class="badge bg-success-subtle text-success">+$20.9k</span>
-                        <span class="ms-1 text-muted font-size-13">Since last week</span>
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
-        <div class="col-xl-3 col-md-6">
-            <!-- card -->
-            <div class="card card-h-100">
-                <!-- card body -->
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah Admin</span>
-                            <h4 class="mb-3">
-                                <span class="counter-value" data-target="200">0</span>
-                            </h4>
-                        </div>
-
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
-                    </div>
-                    <div class="text-nowrap">
-                        <span class="badge bg-success-subtle text-success"></span>
-                        <span class="ms-1 text-muted font-size-13">Since last week</span>
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
-        <div class="col-xl-3 col-md-6">
-            <!-- card -->
-            <div class="card card-h-100">
-                <!-- card body -->
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah Sarpras</span>
-                            <h4 class="mb-3">
-                                $<span class="counter-value" data-target="865.2">0</span>k
-                            </h4>
-                        </div>
-
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
-                    </div>
-                    <div class="text-nowrap">
-                        <span class="badge bg-success-subtle text-success">+$20.9k</span>
-                        <span class="ms-1 text-muted font-size-13">Since last week</span>
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
-        <div class="col-xl-3 col-md-6">
-            <!-- card -->
-            <div class="card card-h-100">
-                <!-- card body -->
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah User</span>
-                            <h4 class="mb-3">
-                                $<span class="counter-value" data-target="865.2">0</span>k
-                            </h4>
-                        </div>
-
-                        {{-- <div class="col-6">
-                            <div id="mini-chart1" data-colors='["#5156be"]' class="apex-charts mb-2"></div>
-                        </div> --}}
-                    </div>
-                    <div class="text-nowrap">
-                        <span class="badge bg-success-subtle text-success">+$20.9k</span>
-                        <span class="ms-1 text-muted font-size-13">Since last week</span>
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
+    <div class="row">
         <div class="card card-outline card-primary">
             <div class="card-header">
-                {{-- <h3 class="card-title">{{ $page->title }}</h3> --}}
                 <div class="card-tools">
-                    <button onclick="modalAction('{{ url('user/create') }}')"
-                        class="btn btn-sm btn-success mt-1">Tambah</button>
-                </div>
-                <div class="card-tools">
-                    <button onclick="gridLayout()" class="btn btn-sm btn-success mt-1">
-                        Grid
-                    </button>
-                    <button onclick="listLayout()" class="btn btn-sm btn-success mt-1">
-                        List
-                    </button>
+                    <div class="btn-group">
+                        <button onclick="modalAction('{{ url('user/create') }}')" class="btn btn-sm btn-success">
+                            <i class="fas fa-plus"></i> Tambah
+                        </button>
+                        <button onclick="gridLayout()" class="btn btn-sm btn-primary">
+                            <i class="fas fa-th-large"></i> Grid
+                        </button>
+                        <button onclick="listLayout()" class="btn btn-sm btn-info">
+                            <i class="fas fa-list"></i> List
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="card-body" id="user-list">
@@ -152,21 +58,19 @@
         </div>
     @endsection
 
-	@push('css')
-	@endpush
-	@push('scripts')
-		<script>
-			// $(document).ready(function() {
-			function gridLayout() {
-				$('#user-list').css('display', 'none');
-				$('#user-grid').css('display', 'block');
-			}
+    @push('css')
+    @endpush
+    @push('scripts')
+        @include('user.ajaxHandler')
+        <script>
+            function gridLayout() {
+                $('#user-list').css('display', 'none');
+                $('#user-grid').css('display', 'block');
+            }
 
-			function listLayout() {
-				$('#user-grid').css('display', 'none');
-				$('#user-list').css('display', 'block');
-			}
-			// })
-		</script>
-		@include('user.ajaxHandler')
-	@endpush
+            function listLayout() {
+                $('#user-grid').css('display', 'none');
+                $('#user-list').css('display', 'block');
+            }
+        </script>
+    @endpush

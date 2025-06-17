@@ -126,60 +126,6 @@
                                 @endif
                             </div>
                         </div>
-
-                        <div class="card mb-4">
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0">Filter Laporan</h5>
-                    </div>
-                    <div class="card-body">
-                        <form id="filterForm" class="row g-3">
-                            <div class="col-md-4">
-                                <label for="searchInput" class="form-label">Cari</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    <input type="text" class="form-control" id="searchInput" name="search"
-                                        placeholder="Cari laporan atau rekomendasi..." value="{{ request('search') }}">
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label for="filterStatus" class="form-label">Status</label>
-                                <select class="form-select" id="filterStatus" name="status">
-                                    <option value="">Semua Status</option>
-                                    @foreach (\App\Enums\Status\StatusLaporanPerbaikan::cases() as $status)
-                                        <option value="{{ $status->value }}"
-                                            {{ request('status') == $status->value ? 'selected' : '' }}>
-                                            {{ $status->label() }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label for="filterType" class="form-label">Jenis</label>
-                                <select class="form-select" id="filterType" name="type">
-                                    <option value="">Semua Jenis</option>
-                                    <option value="rekomendasi" {{ request('type') == 'rekomendasi' ? 'selected' : '' }}>
-                                        Rekomendasi
-                                    </option>
-                                    <option value="laporan" {{ request('type') == 'laporan' ? 'selected' : '' }}>
-                                        Laporan
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-2 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary w-100">
-                                    <i class="fas fa-filter me-2"></i>Filter
-                                </button>
-                            </div>
-                        </form>
                     </div>
                 </div>
 

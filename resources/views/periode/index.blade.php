@@ -8,20 +8,6 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <div class="col-lg-4">
-                        <label class="control-label col-form-label">Filter :</label>
-                    </div>
-                    <div class="col-lg-4">
-                        <select class="form-control" id="id_gedung_filter" data-trigger name="id_gedung">
-                            <option value="">- Semua -</option>
-
-                        </select>
-                        <small class="form-text text-muted">Periode</small>
-                    </div>
-                </div>
-            </div>
             <table id="table_periode"
                 class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive">
                 <thead>

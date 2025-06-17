@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\LogActivity\JenisAktivitas;
+use App\Enums\Status\StatusLaporanPerbaikan;
 use App\Http\Requests\PelaporanRequest;
 use App\Services\Interfaces\FasilitasServiceInterface;
 use App\Services\Interfaces\GedungServiceInterface;
@@ -52,7 +53,9 @@ class PelaporanController extends Controller
 
         $activeMenu = 'pelaporan';
         $gedung = $this->gedungService->getAll();
-        return view('pelaporan.index', compact('breadcrumb', 'page', 'activeMenu', 'gedung'));
+        $laporan = $this->pelaporanService->all();
+        $laporanDiajukan = $laporan->where('status', StatusLaporanPerbaikan::DIAJUKAN)->count();
+        return view('pelaporan.index', compact('breadcrumb', 'page', 'activeMenu', 'gedung', 'laporan', 'laporanDiajukan'));
     }
 
     public function coba()

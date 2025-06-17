@@ -1,4 +1,3 @@
-
 @extends('layout.app')
 
 @section('content')
@@ -11,7 +10,7 @@
                     </div>
                     <div class="card-body">
                         <!-- Filter Section -->
-                        <div class="row mb-4">
+                        {{-- <div class="row mb-4">
                             <div class="col-md-4">
                                 <label class="form-label">Status</label>
                                 <select class="form-select" id="filter-status">
@@ -34,12 +33,13 @@
                                 <label class="form-label">Tanggal</label>
                                 <input type="date" class="form-control" id="filter-date">
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- Assignment List -->
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle" id="assignments-table">
-                                <thead class="table-light">
+                            <table class="table table-sm table-bordered table-responsive table-striped" id="table-penugasan-teknisi">
+                                <thead class=""
+                                    id="table-penugasan">
                                     <tr>
                                         <th width="5%">#</th>
                                         <th width="20%">Laporan</th>
@@ -140,6 +140,14 @@
 @endpush
 
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#table-penugasan-teknisi').DataTable({
+                ordering: true,
+                searching: true
+            });
+        });
+    </script>
     <script>
         function showTerimaPenugasan(idPenugasan) {
             currentLaporanId = idPenugasan;

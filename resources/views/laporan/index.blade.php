@@ -118,7 +118,7 @@
                                     class="btn btn-outline-primary" target="_blank">
                                     <i class="fas fa-print me-2"></i>Cetak Laporan
                                 </a>
-                            </div>
+                        </div>
                             <div class="col-md-3 d-flex align-items-end justify-content-end">
                                 <div class="badge bg-info text-white p-2">
                                     <i class="fas fa-calendar-alt me-1"></i>

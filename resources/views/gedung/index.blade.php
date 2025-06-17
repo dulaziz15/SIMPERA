@@ -52,14 +52,14 @@
                             <button class="nav-link" id="data-gedung-tab" data-bs-toggle="tab" data-bs-target="#data-gedung"
                                 type="button" role="tab" aria-controls="data-gedung" aria-selected="false"
                                 onclick="gedungData.ajax.reload()">
-                                <i class="fas fa-hands-helping me-2"></i>Gedung
+                                <i class="fas fa-building me-2"></i>Gedung
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="data-ruangan-tab" data-bs-toggle="tab"
                                 data-bs-target="#data-ruangan" type="button" role="tab" aria-controls="data-ruangan"
                                 aria-selected="true" onclick="ruanganData.ajax.reload()">
-                                <i class="fas fa-clipboard-check me-2"></i>Ruangan
+                                <i class="fas fa-door-open me-2"></i>Ruangan
                             </button>
                         </li>
                     </ul>

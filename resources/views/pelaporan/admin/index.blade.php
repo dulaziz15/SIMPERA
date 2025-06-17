@@ -4,17 +4,16 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah User</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah laporan</span>
                         <h4 class="mb-3">
-                            <span class="counter-value" data-target="100">0</span>
+                            <span class="counter-value" data-target="{{ $laporan->count() }}">0</span>
                         </h4>
                     </div>
 
 
                 </div>
                 <div class="text-nowrap">
-                    <span class="badge bg-success-subtle text-success">+$20.9k</span>
-                    <span class="ms-1 text-muted font-size-13">Since last week</span>
+                    <span class="ms-1 text-muted font-size-13">Jumlah Laporan dalam sistem</span>
                 </div>
             </div>
         </div>
@@ -24,17 +23,14 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah Admin</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah laporan Diajukan</span>
                         <h4 class="mb-3">
-                            <span class="counter-value" data-target="200">0</span>
+                            <span class="counter-value" data-target="{{ $laporanDiajukan }}">0</span>
                         </h4>
                     </div>
-
-
                 </div>
                 <div class="text-nowrap">
-                    <span class="badge bg-success-subtle text-success"></span>
-                    <span class="ms-1 text-muted font-size-13">Since last week</span>
+                    <span class="ms-1 text-muted font-size-13">Jumlah Laporan diajukan dalam sistem</span>
                 </div>
             </div>
         </div>
@@ -44,17 +40,14 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah Sarpras</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah laporan di verifikasi</span>
                         <h4 class="mb-3">
-                            $<span class="counter-value" data-target="865.2">0</span>k
+                            <span class="counter-value" data-target="{{ $laporan->where('status', App\Enums\Status\StatusLaporanPerbaikan::VERIFIKASI)->count() }}">0</span>
                         </h4>
                     </div>
-
-
                 </div>
                 <div class="text-nowrap">
-                    <span class="badge bg-success-subtle text-success">+$20.9k</span>
-                    <span class="ms-1 text-muted font-size-13">Since last week</span>
+                    <span class="ms-1 text-muted font-size-13">Jumlah Laporan diverifikasi dalam sistem<</span>
                 </div>
             </div>
         </div>
@@ -64,17 +57,14 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah User</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah laporan selesai</span>
                         <h4 class="mb-3">
-                            $<span class="counter-value" data-target="865.2">0</span>k
+                            <span class="counter-value" data-target="{{ $laporan->where('status', App\Enums\Status\StatusLaporanPerbaikan::SELESAI)->count() }}">0</span>
                         </h4>
                     </div>
-
-
                 </div>
                 <div class="text-nowrap">
-                    <span class="badge bg-success-subtle text-success">+$20.9k</span>
-                    <span class="ms-1 text-muted font-size-13">Since last week</span>
+                    <span class="ms-1 text-muted font-size-13">Jumlah Laporan selesai dalam sistem</span>
                 </div>
             </div>
         </div>

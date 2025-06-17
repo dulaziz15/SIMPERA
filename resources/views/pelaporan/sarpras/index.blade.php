@@ -4,17 +4,16 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah User</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah laporan</span>
                         <h4 class="mb-3">
-                            <span class="counter-value" data-target="100">0</span>
+                            <span class="counter-value" data-target="{{ $laporan->count() }}">0</span>
                         </h4>
                     </div>
 
 
                 </div>
                 <div class="text-nowrap">
-                    <span class="badge bg-success-subtle text-success">+$20.9k</span>
-                    <span class="ms-1 text-muted font-size-13">Since last week</span>
+                    <span class="ms-1 text-muted font-size-13">Jumlah Laporan dalam sistem</span>
                 </div>
             </div>
         </div>
@@ -24,17 +23,14 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah Admin</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah laporan Baru</span>
                         <h4 class="mb-3">
-                            <span class="counter-value" data-target="200">0</span>
+                            <span class="counter-value" data-target="{{ $laporan->where('status', App\Enums\Status\StatusLaporanPerbaikan::BARU)->count() }}">0</span>
                         </h4>
                     </div>
-
-
                 </div>
                 <div class="text-nowrap">
-                    <span class="badge bg-success-subtle text-success"></span>
-                    <span class="ms-1 text-muted font-size-13">Since last week</span>
+                    <span class="ms-1 text-muted font-size-13">Jumlah Laporan baru dalam sistem</span>
                 </div>
             </div>
         </div>
@@ -44,17 +40,15 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah Sarpras</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah laporan di verifikasi</span>
                         <h4 class="mb-3">
-                            $<span class="counter-value" data-target="865.2">0</span>k
+                            <span class="counter-value"
+                                data-target="{{ $laporan->where('status', App\Enums\Status\StatusLaporanPerbaikan::VERIFIKASI)->count() }}">0</span>
                         </h4>
                     </div>
-
-
                 </div>
                 <div class="text-nowrap">
-                    <span class="badge bg-success-subtle text-success">+$20.9k</span>
-                    <span class="ms-1 text-muted font-size-13">Since last week</span>
+                    <span class="ms-1 text-muted font-size-13">Jumlah Laporan diverifikasi dalam sistem</span>
                 </div>
             </div>
         </div>
@@ -64,44 +58,27 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah User</span>
+                        <span class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah laporan selesai</span>
                         <h4 class="mb-3">
-                            $<span class="counter-value" data-target="865.2">0</span>k
+                            <span class="counter-value"
+                                data-target="{{ $laporan->where('status', App\Enums\Status\StatusLaporanPerbaikan::SELESAI)->count() }}">0</span>
                         </h4>
                     </div>
-
-
                 </div>
                 <div class="text-nowrap">
-                    <span class="badge bg-success-subtle text-success">+$20.9k</span>
-                    <span class="ms-1 text-muted font-size-13">Since last week</span>
+                    <span class="ms-1 text-muted font-size-13">Jumlah Laporan selesai dalam sistem</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="card card-outline card-primary">
         <div class="card-header">
-
             <div class="card-tools">
                 <button onclick="modalAction('{{ url('pelaporan/create') }}')"
                     class="btn btn-sm btn-success mt-1">Tambah</button>
             </div>
         </div>
         <div class="card-body" id="user-list">
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <div class="col-lg-4">
-                        <label class="control-label col-form-label">Filter :</label>
-                    </div>
-                    <div class="col-lg-4">
-                        <select class="form-control" id="id_peran_filter" data-trigger name="id_peran">
-                            <option value="">- Semua -</option>
-
-                        </select>
-                        <small class="form-text text-muted">peran Pengguna</small>
-                    </div>
-                </div>
-            </div>
             <table class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive"
                 id="table_pelaporan">
                 <thead>
@@ -121,6 +98,9 @@
         </div>
     </div>
     <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h4 class="card-title mb-0">Laporan yang sudah dilakukan peninjauan</h4>
+        </div>
         <div class="card-body" id="user-list">
             <table class="table table-bordered table-striped table-hover table-sm nowrap w-100 dt-responsive"
                 id="table_pelaporan_peninjauan">

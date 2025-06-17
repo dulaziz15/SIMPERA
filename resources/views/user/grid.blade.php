@@ -1,185 +1,200 @@
+{{-- https://bootdey.com/img/Content/avatar/avatar1.png --}}
 <div class="container mt-4">
-    <div class="row">
+    <div class="row g-4">
         @foreach ($user as $usr)
-            <!-- Single Advisor-->
-        <div class="col-12 col-sm-6 col-lg-3">
-            <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s"
-                style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                <!-- Team Thumb-->
-                <div class="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                    <!-- Social Info-->
-                    <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
-                                class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
-                </div>
-                <!-- Team Details-->
-                <div class="single_advisor_details_info">
-                    <h6>{{ $usr->nama_pengguna }}</h6>
-                    <p class="designation">Founder &amp; CEO</p>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card user-card">
+                    <div class="card-body p-0">
+                        <!-- Profile Header -->
+                        <div class="profile-header"
+                            style="background: linear-gradient(135deg, #3f43fd 0%, #5d62f0 100%);">
+                            <div class="avatar-container">
+                                <img src="{{ $usr->profil?->foto_profil ? asset('storage/foto_profil/' . $usr->profil->foto_profil) : ('https://bootdey.com/img/Content/avatar/avatar1.png') }}"
+                                    alt="{{ $usr->nama_pengguna }}" class="profile-avatar">
+                            </div>
+                        </div>
+
+                        <!-- User Details -->
+                        <div class="user-details text-center p-4">
+                            <h5 class="mb-1">{{ $usr->nama_pengguna }}</h5>
+                            <p class="text-muted mb-3">{{ $usr->peran->nama ?? 'User' }}</p>
+                            <p class="text-muted mb-3">{{ $usr->surel }}</p>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-sm btn-outline-primary me-2"
+                                    onclick="modalAction('/user/{{ $usr->id_pengguna }}/show')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    onclick="modalAction('/user/{{ $usr->id_pengguna }}/confirm')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="social-links d-flex justify-content-center p-3 border-top">
+                            <a href="mailto:{{ $usr->surel }}" class="social-icon mx-2" data-bs-toggle="tooltip" title="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         @endforeach
     </div>
 </div>
 
 @push('css')
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <style>
-        body {
-            margin-top: 20px;
-            background: #eee;
-        }
-
-        .single_advisor_profile {
-            position: relative;
-            margin-bottom: 50px;
-            -webkit-transition-duration: 500ms;
-            transition-duration: 500ms;
-            z-index: 1;
-            border-radius: 15px;
-            -webkit-box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125);
-            box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125);
-        }
-
-        .single_advisor_profile .advisor_thumb {
-            position: relative;
-            z-index: 1;
-            border-radius: 15px 15px 0 0;
-            margin: 0 auto;
-            padding: 30px 30px 0 30px;
-            background-color: #3f43fd;
+        /* User Card Styles */
+        .user-card {
+            border: none;
+            border-radius: 10px;
             overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            height: 100%;
         }
 
-        .single_advisor_profile .advisor_thumb::after {
-            -webkit-transition-duration: 500ms;
-            transition-duration: 500ms;
-            position: absolute;
-            width: 150%;
-            height: 80px;
-            bottom: -45px;
-            left: -25%;
-            content: "";
-            background-color: #ffffff;
-            -webkit-transform: rotate(-15deg);
-            transform: rotate(-15deg);
+        .user-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
-        @media only screen and (max-width: 575px) {
-            .single_advisor_profile .advisor_thumb::after {
-                height: 160px;
-                bottom: -90px;
-            }
-        }
-
-        .single_advisor_profile .advisor_thumb .social-info {
-            position: absolute;
-            z-index: 1;
-            width: 100%;
-            bottom: 0;
-            right: 30px;
-            text-align: right;
-        }
-
-        .single_advisor_profile .advisor_thumb .social-info a {
-            font-size: 14px;
-            color: #020710;
-            padding: 0 5px;
-        }
-
-        .single_advisor_profile .advisor_thumb .social-info a:hover,
-        .single_advisor_profile .advisor_thumb .social-info a:focus {
-            color: #3f43fd;
-        }
-
-        .single_advisor_profile .advisor_thumb .social-info a:last-child {
-            padding-right: 0;
-        }
-
-        .single_advisor_profile .single_advisor_details_info {
+        .profile-header {
+            height: 120px;
             position: relative;
-            z-index: 1;
-            padding: 30px;
-            text-align: right;
-            -webkit-transition-duration: 500ms;
-            transition-duration: 500ms;
-            border-radius: 0 0 15px 15px;
-            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 60px;
         }
 
-        .single_advisor_profile .single_advisor_details_info::after {
-            -webkit-transition-duration: 500ms;
-            transition-duration: 500ms;
+        .avatar-container {
             position: absolute;
-            z-index: 1;
-            width: 50px;
-            height: 3px;
-            background-color: #3f43fd;
-            content: "";
-            top: 12px;
-            right: 30px;
+            bottom: -50px;
         }
 
-        .single_advisor_profile .single_advisor_details_info h6 {
-            margin-bottom: 0.25rem;
-            -webkit-transition-duration: 500ms;
-            transition-duration: 500ms;
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid white;
+            object-fit: cover;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        @media only screen and (min-width: 768px) and (max-width: 991px) {
-            .single_advisor_profile .single_advisor_details_info h6 {
-                font-size: 14px;
+        .user-details {
+            margin-top: 50px;
+        }
+
+        .social-links {
+            background-color: #f9f9f9;
+        }
+
+        .social-icon {
+            color: #6c757d;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: #3f43fd;
+            transform: scale(1.2);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .profile-header {
+                height: 100px;
+                padding-bottom: 50px;
+            }
+
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
+            }
+
+            .user-details {
+                margin-top: 40px;
+                padding: 1.5rem !important;
             }
         }
 
-        .single_advisor_profile .single_advisor_details_info p {
-            -webkit-transition-duration: 500ms;
-            transition-duration: 500ms;
-            margin-bottom: 0;
-            font-size: 14px;
-        }
-
-        @media only screen and (min-width: 768px) and (max-width: 991px) {
-            .single_advisor_profile .single_advisor_details_info p {
-                font-size: 12px;
+        @media (max-width: 576px) {
+            .profile-header {
+                height: 80px;
+                padding-bottom: 40px;
             }
-        }
 
-        .single_advisor_profile:hover .advisor_thumb::after,
-        .single_advisor_profile:focus .advisor_thumb::after {
-            background-color: #070a57;
-        }
+            .profile-avatar {
+                width: 70px;
+                height: 70px;
+                border-width: 3px;
+            }
 
-        .single_advisor_profile:hover .advisor_thumb .social-info a,
-        .single_advisor_profile:focus .advisor_thumb .social-info a {
-            color: #ffffff;
-        }
+            .user-details h5 {
+                font-size: 1rem;
+            }
 
-        .single_advisor_profile:hover .advisor_thumb .social-info a:hover,
-        .single_advisor_profile:hover .advisor_thumb .social-info a:focus,
-        .single_advisor_profile:focus .advisor_thumb .social-info a:hover,
-        .single_advisor_profile:focus .advisor_thumb .social-info a:focus {
-            color: #ffffff;
-        }
+            .user-details p {
+                font-size: 0.8rem;
+            }
 
-        .single_advisor_profile:hover .single_advisor_details_info,
-        .single_advisor_profile:focus .single_advisor_details_info {
-            background-color: #070a57;
-        }
-
-        .single_advisor_profile:hover .single_advisor_details_info::after,
-        .single_advisor_profile:focus .single_advisor_details_info::after {
-            background-color: #ffffff;
-        }
-
-        .single_advisor_profile:hover .single_advisor_details_info h6,
-        .single_advisor_profile:focus .single_advisor_details_info h6 {
-            color: #ffffff;
-        }
-
-        .single_advisor_profile:hover .single_advisor_details_info p,
-        .single_advisor_profile:focus .single_advisor_details_info p {
-            color: #ffffff;
+            .btn-sm {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
+            }
         }
     </style>
+@endpush
+
+@push('scripts')
+    <script>
+        // Initialize tooltips
+        $(function() {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+
+        // Function to handle delete confirmation
+        function confirmDelete(url) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            Swal.fire(
+                                'Deleted!',
+                                'User has been deleted.',
+                                'success'
+                            ).then(() => {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'There was a problem deleting the user.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
+    </script>
 @endpush

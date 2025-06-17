@@ -65,71 +65,74 @@
                     </div>
                 </div>
             </div>
-
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item noti-icon position-relative"
-                    id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <i data-feather="bell" class="icon-lg"></i>
-                    @if ($unreadCount = getUserNotifications(Auth::user()->id_pengguna))
-                        <span class="badge bg-danger rounded-pill">{{ $unreadCount->count() }}</span>
-                    @endif
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                    aria-labelledby="page-header-notifications-dropdown">
-                    <div class="p-3">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h6 class="m-0"> Notifications </h6>
-                            </div>
-                            <div class="col-auto">
-                                <a href="#!" class="small text-reset text-decoration-underline">
-                                    Unread ({{ $unreadCount->count() }})
-                                </a>
+            @if (!(Auth::user()->isAdmin() || Auth::user()->isTeknisi() || Auth::user()->isSarpras()))
+                <div class="dropdown d-inline-block">
+                    <button type="button" class="btn header-item noti-icon position-relative"
+                        id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i data-feather="bell" class="icon-lg"></i>
+                        @if ($unreadCount = getUserNotifications(Auth::user()->id_pengguna))
+                            <span class="badge bg-danger rounded-pill">{{ $unreadCount->count() }}</span>
+                        @endif
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                        aria-labelledby="page-header-notifications-dropdown">
+                        <div class="p-3">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="m-0"> Notifications </h6>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="#!" class="small text-reset text-decoration-underline">
+                                        Unread ({{ $unreadCount->count() }})
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div data-simplebar style="max-height: 230px;">
-                        @forelse(getUserNotifications(Auth::user()->id_pengguna, 5) as $notification)
-                            {{-- @dd($notification) --}}
-                            @php
-                                if(Auth::user()->isUser()) {
-                                    $path = url('pelaporan/fasilitas/' . $notification->laporan->id_fasilitas . '/show');
-                                } else {
-                                    $path = url('pelaporan/' . $notification->laporan->id_laporan . '/show');
-                                }
-                            @endphp
-                            <a href="{{ $path }}"
-                                class="text-reset notification-item {{ $notification->sudah_dibaca ? '' : 'unread' }}"
-                                data-notification-id="{{ $notification->id_notifikasi }}"
-                                onclick="markNotificationAsRead(event, {{ $notification->id_notifikasi }})">
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0 avatar-sm me-3">
-                                        <span
-                                            class="avatar-title bg-{{ notificationIconColor($notification->tipe) }} rounded-circle font-size-16">
-                                            <i class="{{ notificationIcon($notification->tipe) }}"></i>
-                                        </span>
+                        <div data-simplebar style="max-height: 230px;">
+                            @forelse(getUserNotifications(Auth::user()->id_pengguna, 5) as $notification)
+                                {{-- @dd($notification) --}}
+                                @php
+                                    if (Auth::user()->isUser()) {
+                                        $path = url(
+                                            'pelaporan/fasilitas/' . $notification->laporan->id_fasilitas . '/show',
+                                        );
+                                    } else {
+                                        $path = url('pelaporan/' . $notification->laporan->id_laporan . '/show');
+                                    }
+                                @endphp
+                                <a href="{{ $path }}"
+                                    class="text-reset notification-item {{ $notification->sudah_dibaca ? '' : 'unread' }}"
+                                    data-notification-id="{{ $notification->id_notifikasi }}"
+                                    onclick="markNotificationAsRead(event, {{ $notification->id_notifikasi }})">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0 avatar-sm me-3">
+                                            <span
+                                                class="avatar-title bg-{{ notificationIconColor($notification->tipe) }} rounded-circle font-size-16">
+                                                <i class="{{ notificationIcon($notification->tipe) }}"></i>
+                                            </span>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">{{ $notification->judul }}
+                                                <div class="font-size-13 text-muted">
+                                                    <p class="mb-1">{{ $notification->pesan }}</p>
+                                                    <p class="mb-0">
+                                                        <i class="mdi mdi-clock-outline"></i>
+                                                        <span>{{ \Carbon\Carbon::parse($notification->created_at)->locale('id')->diffForHumans() }}</span>
+                                                    </p>
+                                                </div>
+                                        </div>
                                     </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1">{{ $notification->judul }}
-                                            <div class="font-size-13 text-muted">
-                                                <p class="mb-1">{{ $notification->pesan }}</p>
-                                                <p class="mb-0">
-                                                    <i class="mdi mdi-clock-outline"></i>
-                                                    <span>{{ \Carbon\Carbon::parse($notification->created_at)->locale('id')->diffForHumans() }}</span>
-                                                </p>
-                                            </div>
-                                    </div>
+                                </a>
+                            @empty
+                                <div class="text-center py-3 text-muted">
+                                    No notifications found
                                 </div>
-                            </a>
-                        @empty
-                            <div class="text-center py-3 text-muted">
-                                No notifications found
-                            </div>
-                        @endforelse
+                            @endforelse
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item right-bar-toggle me-2">
@@ -162,57 +165,57 @@
     </div>
 </header>
 <script>
-function updateNotificationCount() {
-    // Update the badge count
-    const badge = document.querySelector('#page-header-notifications-dropdown .badge');
-    if (badge) {
-        const currentCount = parseInt(badge.textContent);
-        if (currentCount > 0) {
-            badge.textContent = currentCount - 1;
+    function updateNotificationCount() {
+        // Update the badge count
+        const badge = document.querySelector('#page-header-notifications-dropdown .badge');
+        if (badge) {
+            const currentCount = parseInt(badge.textContent);
+            if (currentCount > 0) {
+                badge.textContent = currentCount - 1;
+            }
         }
-    }
-    
-    // Update the "Unread (X)" text
-    const unreadText = document.querySelector('.dropdown-menu .text-reset.text-decoration-underline');
-    if (unreadText) {
-        const match = unreadText.textContent.match(/Unread \((\d+)\)/);
-        if (match && match[1]) {
-            const currentUnread = parseInt(match[1]);
-            unreadText.textContent = `Unread (${currentUnread - 1})`;
-        }
-    }
-}
 
-function markNotificationAsRead(event, notificationId) {
-    event.preventDefault();
-    const notificationElement = event.currentTarget;
-    
-    // Add loading state
-    notificationElement.classList.add('processing');
-    
-    fetch(`/notifikasi/${notificationId}/markRead`, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Accept': 'application/json'
+        // Update the "Unread (X)" text
+        const unreadText = document.querySelector('.dropdown-menu .text-reset.text-decoration-underline');
+        if (unreadText) {
+            const match = unreadText.textContent.match(/Unread \((\d+)\)/);
+            if (match && match[1]) {
+                const currentUnread = parseInt(match[1]);
+                unreadText.textContent = `Unread (${currentUnread - 1})`;
+            }
         }
-    })
-    .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.json();
-    })
-    .then(data => {
-        if (data.success) {
-            notificationElement.classList.remove('unread', 'processing');
-            updateNotificationCount();
-            window.location.href = notificationElement.getAttribute('href');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        notificationElement.classList.remove('processing');
-        // Fallback - navigate anyway
-        window.location.href = notificationElement.getAttribute('href');
-    });
-}
+    }
+
+    function markNotificationAsRead(event, notificationId) {
+        event.preventDefault();
+        const notificationElement = event.currentTarget;
+
+        // Add loading state
+        notificationElement.classList.add('processing');
+
+        fetch(`/notifikasi/${notificationId}/markRead`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    notificationElement.classList.remove('unread', 'processing');
+                    updateNotificationCount();
+                    window.location.href = notificationElement.getAttribute('href');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                notificationElement.classList.remove('processing');
+                // Fallback - navigate anyway
+                window.location.href = notificationElement.getAttribute('href');
+            });
+    }
 </script>

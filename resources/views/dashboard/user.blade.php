@@ -23,8 +23,8 @@
                                         <i class="fas fa-file-alt"></i>
                                     </div>
                                     <div class="timeline-connector-right"></div>
-                                    <p class="h6 mt-3 mb-1 fw-semibold">Pengajuan Awal</p>
-                                    <p class="small text-muted mb-2">15 Juni 2023</p>
+                                    <p class="h6 mt-3 mb-1 fw-semibold">Pelaporan Kerusakan</p>
+                                    <p class="small text-muted mb-2">Mahasiswa, dosen, ataupun tendik bisa melakukan pelaporan kerusakan fasilitas yang ditemukan</p>
                                 </div>
                             </div>
 
@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="timeline-connector-right"></div>
                                     <p class="h6 mt-3 mb-1 fw-semibold">Peninjauan Sarpras</p>
-                                    <p class="small text-muted mb-2">16 Juni 2023</p>
+                                    <p class="small text-muted mb-2">Laporan yang masuk akan ditinjau oleh sarana prasarana</p>
                                 </div>
                             </div>
 
@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="timeline-connector-right"></div>
                                     <p class="h6 mt-3 mb-1 fw-semibold">Verifikasi Admin</p>
-                                    <p class="small text-muted mb-2">16 Juni 2023</p>
+                                    <p class="small text-muted mb-2">Laporan yang telah ditinjau akan diverifikasi admin untuk penanganan lebih lanjut</p>
                                 </div>
                             </div>
 
@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="timeline-connector-right"></div>
                                     <p class="h6 mt-3 mb-1 fw-semibold">Proses Perbaikan</p>
-                                    <p class="small text-muted mb-2">17 Juni 2023</p>
+                                    <p class="small text-muted mb-2">Laporan yang telah diverifikasi akan dilakukan proses perbaikan</p>
                                 </div>
                             </div>
 
@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="timeline-connector-right"></div>
                                     <p class="h6 mt-3 mb-1 fw-semibold">Selesai</p>
-                                    <p class="small text-muted mb-2">19 Juni 2023</p>
+                                    <p class="small text-muted mb-2">Proses perbaikan telah diselesaikan oleh teknisi</p>
                                 </div>
                             </div>
 
@@ -94,7 +94,7 @@
                                     </div>
                                     <div class="timeline-connector-right"></div>
                                     <p class="h6 mt-3 mb-1 fw-semibold">Pemberian Feedback</p>
-                                    <p class="small text-muted mb-2">18 Juni 2023</p>
+                                    <p class="small text-muted mb-2">Bagi pelapor memberikan feedback dari hasil perbaikan yang dilakukan</p>
                                 </div>
                             </div>
                         </div>
