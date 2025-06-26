@@ -148,14 +148,14 @@
                                 @else
                                     <div class="text-center py-5 my-4">
                                         <div class="empty-state-illustration mb-4">
-                                            <img src="{{ asset('img/illustrations/no-reports.svg') }}" alt="No reports"
-                                                class="img-fluid" style="max-height: 180px;">
+                                            <img src="{{ asset('template/assets/images/error-icon-4.png') }}" alt="No reports"
+                                                class="img-fluid" style="max-height: 50px;">
                                         </div>
                                         <h4 class="text-muted mb-3">Anda belum membuat laporan</h4>
                                         <p class="text-muted mb-4">Mulai laporkan fasilitas yang perlu diperbaiki agar
                                             segera
                                             ditindaklanjuti.</p>
-                                        <a href="" class="btn btn-primary px-4 rounded-pill">
+                                        <a href="{{ url('pelaporan') }}" class="btn btn-primary px-4 rounded-pill">
                                             <i class="fas fa-plus me-2"></i>Buat Laporan Baru
                                         </a>
                                     </div>
@@ -237,7 +237,7 @@
                                     <div class="text-center py-5 my-4">
                                         <div class="empty-state-illustration mb-4">
                                             <img src="{{ asset('template/assets/images/error-icon-4.png') }}"
-                                                alt="No pendukung reports" class="img-fluid" style="max-height: 60px;">
+                                                alt="No pendukung reports" class="img-fluid" style="max-height: 50px;">
                                         </div>
                                         <h4 class="text-muted mb-3">Anda belum mendukung laporan apa pun</h4>
                                         <p class="text-muted mb-4">Dukung laporan lain untuk membantu mempercepat proses
@@ -360,8 +360,8 @@
                                 @else
                                     <div class="text-center py-5 my-4">
                                         <div class="empty-state-illustration mb-4">
-                                            <img src="{{ asset('img/illustrations/no-completed.svg') }}"
-                                                alt="No completed reports" class="img-fluid" style="max-height: 180px;">
+                                            <img src="{{ asset('template/assets/images/error-icon-4.png') }}"
+                                                alt="No completed reports" class="img-fluid" style="max-height: 50px;">
                                         </div>
                                         <h4 class="text-muted mb-3">Belum ada laporan selesai</h4>
                                         <p class="text-muted mb-4">Laporan yang sudah selesai akan muncul di sini.</p>

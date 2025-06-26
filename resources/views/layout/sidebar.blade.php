@@ -28,7 +28,7 @@
                         <ul class="sub-menu" aria-expanded="false">
                             <li>
                                 <a href="{{ url('peran') }}">
-                                    <span data-key="t-calendar">Role</span>
+                                    <span data-key="t-calendar">Peran</span>
                                 </a>
                             </li>
                             <li>
