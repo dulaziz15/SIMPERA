@@ -16,7 +16,7 @@ class LogActivityService implements LogActivityServiceInterface {
 
     public function getAll()
     {
-        if(Auth::user()->isUser() || Auth::user()->isTeknisi()) {
+        if(Auth::user()->isUser() || Auth::user()->isTeknisi() || Auth::user()->isSarpras()) {
             return $this->logActivityRepository->getAll(Auth::user()->id_pengguna);
         } else {
             return $this->logActivityRepository->getAllAdmin();

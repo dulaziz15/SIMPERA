@@ -14,9 +14,9 @@
 									<div class="avatar-xl me-3">
 										<img
 											src="{{ $user->profil && $user->profil->foto_profil
-											    ? asset('storage/' . $user->profil->foto_profil)
+											    ? asset('storage/foto_profil/' . $user->profil->foto_profil)
 											    : asset('storage/foto_profil/default.png') }}"
-											alt="Foto Profil" class="img-fluid rounded-circle d-block">
+											alt="Foto Profil" class="img-fluid rounded-circle d-block" width="60">
 									</div>
 								</div>
 								<div class="flex-grow-1">
@@ -74,7 +74,7 @@
 								<td>{{ $user->surel }}</td>
 							</tr>
 							<tr>
-								<th>Role User</th>
+								<th>Peran User</th>
 								<td>:</td>
 								<td>{{ $user->peran->nama }}</td>
 							</tr>
